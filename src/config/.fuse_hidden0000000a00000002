@@ -1,4 +1,4 @@
-import type { EventConfig } from "../types/event";
+import type { EventConfig } from "@types/event";
 
 export const EVENT_2026: EventConfig = {
   name: "GDG Windsor DevFest 2026",
@@ -31,7 +31,7 @@ export const EVENT_2026: EventConfig = {
   },
   seo: {
     metaDescription:
-      "GDG Windsor DevFest 2026 - Join the most exciting tech conference in Windsor on November 21, 2026.",
+      "GDG Windsor DevFest 2026 - Join the most exciting tech conference in Windsor on October 24, 2026.",
     ogImage: "/hero-image.jpg",
   },
 };

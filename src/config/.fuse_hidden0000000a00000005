@@ -1,4 +1,4 @@
-import type { EventConfig } from "../types/event";
+import type { EventConfig } from "@types/event";
 
 export const EVENT_2026: EventConfig = {
   name: "GDG Windsor DevFest 2026",
