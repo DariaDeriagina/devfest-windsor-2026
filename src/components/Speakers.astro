@@ -37,12 +37,14 @@ const accentStyles: Record<
 
 <section
   id="speakers"
-  class="relative py-20 sm:py-24 bg-white border-b-4 border-blue-600"
+  class="relative py-20 sm:py-24 bg-white border-b-4 border-blue-600 overflow-hidden"
   aria-label="Featured speakers"
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Section header -->
-    <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-6 mb-16">
+    <div
+      class="reveal-up flex flex-col md:flex-row md:items-start md:justify-between gap-6 mb-16"
+    >
       <div class="max-w-xl">
         <span class="text-sm font-bold tracking-widest text-red-500 uppercase">
           Lineup
@@ -58,38 +60,40 @@ const accentStyles: Record<
 
       <a
         href={viewAllHref}
-        class="inline-flex items-center gap-2 text-blue-600 font-semibold hover:text-blue-700 transition-colors whitespace-nowrap md:mt-3"
+        class="group/link inline-flex items-center gap-2 text-blue-600 font-semibold hover:text-blue-700 transition-colors whitespace-nowrap md:mt-3"
       >
         View all speakers
-        <span aria-hidden="true" class="transition-transform group-hover:translate-x-1">→</span>
+        <span aria-hidden="true" class="inline-block transition-transform duration-300 group-hover/link:translate-x-1.5">→</span>
       </a>
     </div>
 
     <!-- Speaker grid -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-14">
       {
-        speakers.map((speaker) => {
+        speakers.map((speaker, index) => {
           const accent = accentStyles[speaker.accentColor];
           return (
-            <div class="group flex flex-col items-center text-center">
+            <div
+              class="reveal-up group flex flex-col items-center text-center"
+              style={`transition-delay: ${index * 100}ms;`}
+            >
               <!-- Avatar with decorative color blob -->
               <div class="relative w-32 h-32 sm:w-40 sm:h-40 mb-5">
                 <div
                   class:list={[
-                    "absolute inset-0 scale-105 transition-transform duration-300 group-hover:scale-110",
+                    "blob-shape absolute inset-0 scale-105 transition-transform duration-300 group-hover:scale-110",
                     accent.blob,
                   ]}
-                  style="border-radius: 62% 38% 55% 45% / 55% 45% 55% 45%;"
+                  style={`animation-delay: ${index * 700}ms;`}
                   aria-hidden="true"
                 />
                 <img
                   src={speaker.imageUrl}
                   alt={speaker.imageAlt}
                   class:list={[
-                    "relative w-full h-full rounded-full object-cover ring-4 ring-white shadow-md transition-all duration-300 group-hover:grayscale",
+                    "relative w-full h-full rounded-full object-cover ring-4 ring-white shadow-md transition-all duration-300 group-hover:grayscale group-hover:scale-105",
                     accent.ring,
                   ]}
-                  style={`mix-blend-mode: normal;`}
                   loading="lazy"
                 />
                 <div
@@ -104,7 +108,7 @@ const accentStyles: Record<
               <!-- Keynote badge -->
               {
                 speaker.isKeynote && (
-                  <span class="mb-2 inline-flex items-center rounded-full bg-slate-900 px-3 py-1 text-xs font-bold uppercase tracking-wide text-white">
+                  <span class="mb-2 inline-flex items-center rounded-full bg-slate-900 px-3 py-1 text-xs font-bold uppercase tracking-wide text-white animate-fade-in">
                     Keynote
                   </span>
                 )
@@ -126,7 +130,7 @@ const accentStyles: Record<
                     rel="noopener noreferrer"
                     aria-label={`${speaker.name} on LinkedIn`}
                     class:list={[
-                      "mt-3 flex items-center justify-center w-8 h-8 rounded-full text-white hover:opacity-90 transition-opacity",
+                      "mt-3 flex items-center justify-center w-8 h-8 rounded-full text-white transition-transform duration-200 hover:scale-110 hover:opacity-90",
                       accent.badge,
                     ]}
                   >
@@ -148,3 +152,82 @@ const accentStyles: Record<
     </div>
   </div>
 </section>
+
+<style>
+  /* Scroll-reveal: elements start hidden/offset, then animate in once visible */
+  .reveal-up {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .reveal-up.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Gentle continuous morph on the color blobs behind each photo */
+  @keyframes blobMorph {
+    0%,
+    100% {
+      border-radius: 62% 38% 55% 45% / 55% 45% 55% 45%;
+      transform: scale(1.05) rotate(0deg);
+    }
+    33% {
+      border-radius: 45% 55% 40% 60% / 40% 62% 38% 60%;
+      transform: scale(1.08) rotate(4deg);
+    }
+    66% {
+      border-radius: 55% 45% 60% 40% / 60% 40% 55% 45%;
+      transform: scale(1.04) rotate(-3deg);
+    }
+  }
+
+  .blob-shape {
+    animation: blobMorph 9s ease-in-out infinite;
+  }
+
+  .group:hover .blob-shape {
+    animation-play-state: paused;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal-up {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+
+    .blob-shape {
+      animation: none !important;
+    }
+  }
+</style>
+
+<script>
+  const revealEls = document.querySelectorAll<HTMLElement>(
+    "#speakers .reveal-up"
+  );
+
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  if (prefersReducedMotion || !("IntersectionObserver" in window)) {
+    revealEls.forEach((el) => el.classList.add("is-visible"));
+  } else {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -40px 0px" }
+    );
+
+    revealEls.forEach((el) => observer.observe(el));
+  }
+</script>

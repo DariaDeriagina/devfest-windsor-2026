@@ -27,7 +27,10 @@ const formattedDate = date.toLocaleDateString("en-US", {
       <div class="space-y-8 animate-fade-in">
         <!-- Date Badge -->
         <div class="inline-flex items-center gap-2 px-4 py-2 bg-yellow-300 rounded-full">
-          <span class="w-2 h-2 bg-yellow-500 rounded-full"></span>
+          <span class="relative flex w-2 h-2">
+            <span class="absolute inline-flex w-full h-full rounded-full bg-yellow-500 opacity-75 animate-ping"></span>
+            <span class="relative inline-flex w-2 h-2 rounded-full bg-yellow-500"></span>
+          </span>
           <span class="text-sm font-semibold text-slate-800"
             >{formattedDate} • {location.city}, {location.province}</span
           >
@@ -35,9 +38,9 @@ const formattedDate = date.toLocaleDateString("en-US", {
 
         <!-- Title with gradient colors -->
         <h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight">
-          <span style="background: linear-gradient(90deg, #005AC1 0%, #005AC1 25%, #8B4789 35%, #EA4335 50%, #FBBC05 75%, #F59E0B 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">GDG Windsor</span>
+          <span class="gradient-shimmer" style="background: linear-gradient(90deg, #005AC1 0%, #005AC1 25%, #8B4789 35%, #EA4335 50%, #FBBC05 75%, #F59E0B 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">GDG Windsor</span>
           <br />
-          <span style="background: linear-gradient(90deg, #005AC1 0%, #EA4335 40%, #FBBC05 70%, #F59E0B 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">DevFest 2026</span>
+          <span class="gradient-shimmer" style="background: linear-gradient(90deg, #005AC1 0%, #EA4335 40%, #FBBC05 70%, #F59E0B 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">DevFest 2026</span>
         </h1>
 
         <!-- Decorative accent lines -->
@@ -60,9 +63,9 @@ const formattedDate = date.toLocaleDateString("en-US", {
             class="w-72 h-16 relative bg-blue-500 rounded-[32px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] overflow-hidden flex items-center justify-center hover:shadow-lg transition-all duration-300 group inline-flex"
           >
             <!-- Decorative circles -->
-            <div class="w-12 h-12 left-[-7.78px] top-[32px] absolute bg-green-600 rounded-full" />
-            <div class="w-14 h-14 left-[261.05px] top-[-18.50px] absolute opacity-80 bg-yellow-500 rounded-full" />
-            <div class="w-14 h-14 left-[250.61px] top-[36.50px] absolute bg-red-500 rounded-full" />
+            <div class="w-12 h-12 left-[-7.78px] top-[32px] absolute bg-green-600 rounded-full animate-bounce-slow" style="animation-delay: 0s;" />
+            <div class="w-14 h-14 left-[261.05px] top-[-18.50px] absolute opacity-80 bg-yellow-500 rounded-full animate-bounce-slow" style="animation-delay: 0.6s;" />
+            <div class="w-14 h-14 left-[250.61px] top-[36.50px] absolute bg-red-500 rounded-full animate-bounce-slow" style="animation-delay: 1.2s;" />
 
             <!-- Icon -->
             <img
@@ -82,14 +85,16 @@ const formattedDate = date.toLocaleDateString("en-US", {
 
       <!-- Right Column - Hero Image -->
       <div class="hidden md:block animate-slide-in-right">
-        <div
-          class="relative rounded-3xl overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-300"
-        >
-          <img
-            src={hero.imageUrl}
-            alt={hero.imageAlt}
-            class="w-full h-auto object-cover"
-          />
+        <div class="float-slow">
+          <div
+            class="relative rounded-3xl overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-300"
+          >
+            <img
+              src={hero.imageUrl}
+              alt={hero.imageAlt}
+              class="w-full h-auto object-cover"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -151,5 +156,48 @@ const formattedDate = date.toLocaleDateString("en-US", {
 
   :global(.animate-slide-in-right) {
     animation: slideInRight 0.8s ease-in-out 0.2s both;
+  }
+
+  @keyframes gradientShift {
+    0%,
+    100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  :global(.gradient-shimmer) {
+    background-size: 200% auto;
+    animation: gradientShift 6s ease-in-out infinite;
+  }
+
+  @keyframes floatSlow {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-14px);
+    }
+  }
+
+  :global(.float-slow) {
+    animation: floatSlow 5s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :global(.animate-fade-in),
+    :global(.animate-fade-in-up),
+    :global(.animate-slide-in-right),
+    :global(.gradient-shimmer),
+    :global(.float-slow),
+    :global(.animate-bounce-slow),
+    :global(.animate-ping) {
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
   }
 </style>
