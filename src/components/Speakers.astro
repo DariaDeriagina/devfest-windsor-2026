@@ -1,0 +1,150 @@
+---
+import type { Speaker } from "@types/speaker";
+
+interface Props {
+  speakers: Speaker[];
+  viewAllHref?: string;
+}
+
+const { speakers, viewAllHref = "#" } = Astro.props;
+
+const accentStyles: Record<
+  Speaker["accentColor"],
+  { blob: string; badge: string; ring: string }
+> = {
+  blue: {
+    blob: "bg-blue-600",
+    badge: "bg-blue-600",
+    ring: "group-hover:ring-blue-600/40",
+  },
+  green: {
+    blob: "bg-green-600",
+    badge: "bg-green-600",
+    ring: "group-hover:ring-green-600/40",
+  },
+  red: {
+    blob: "bg-red-600",
+    badge: "bg-red-600",
+    ring: "group-hover:ring-red-600/40",
+  },
+  gold: {
+    blob: "bg-amber-500",
+    badge: "bg-amber-500",
+    ring: "group-hover:ring-amber-500/40",
+  },
+};
+---
+
+<section
+  id="speakers"
+  class="relative py-20 sm:py-24 bg-white border-b-4 border-blue-600"
+  aria-label="Featured speakers"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Section header -->
+    <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-6 mb-16">
+      <div class="max-w-xl">
+        <span class="text-sm font-bold tracking-widest text-red-500 uppercase">
+          Lineup
+        </span>
+        <h2 class="mt-2 text-4xl sm:text-5xl font-bold text-slate-900">
+          Featured Speakers
+        </h2>
+        <p class="mt-4 text-slate-600 leading-relaxed">
+          Great selection of speakers and content for an unforgettable
+          experience.
+        </p>
+      </div>
+
+      <a
+        href={viewAllHref}
+        class="inline-flex items-center gap-2 text-blue-600 font-semibold hover:text-blue-700 transition-colors whitespace-nowrap md:mt-3"
+      >
+        View all speakers
+        <span aria-hidden="true" class="transition-transform group-hover:translate-x-1">→</span>
+      </a>
+    </div>
+
+    <!-- Speaker grid -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-14">
+      {
+        speakers.map((speaker) => {
+          const accent = accentStyles[speaker.accentColor];
+          return (
+            <div class="group flex flex-col items-center text-center">
+              <!-- Avatar with decorative color blob -->
+              <div class="relative w-32 h-32 sm:w-40 sm:h-40 mb-5">
+                <div
+                  class:list={[
+                    "absolute inset-0 scale-105 transition-transform duration-300 group-hover:scale-110",
+                    accent.blob,
+                  ]}
+                  style="border-radius: 62% 38% 55% 45% / 55% 45% 55% 45%;"
+                  aria-hidden="true"
+                />
+                <img
+                  src={speaker.imageUrl}
+                  alt={speaker.imageAlt}
+                  class:list={[
+                    "relative w-full h-full rounded-full object-cover ring-4 ring-white shadow-md transition-all duration-300 group-hover:grayscale",
+                    accent.ring,
+                  ]}
+                  style={`mix-blend-mode: normal;`}
+                  loading="lazy"
+                />
+                <div
+                  class:list={[
+                    "pointer-events-none absolute inset-0 rounded-full opacity-0 mix-blend-color transition-opacity duration-300 group-hover:opacity-90",
+                    accent.blob,
+                  ]}
+                  aria-hidden="true"
+                />
+              </div>
+
+              <!-- Keynote badge -->
+              {
+                speaker.isKeynote && (
+                  <span class="mb-2 inline-flex items-center rounded-full bg-slate-900 px-3 py-1 text-xs font-bold uppercase tracking-wide text-white">
+                    Keynote
+                  </span>
+                )
+              }
+
+              <!-- Name & role -->
+              <h3 class="font-bold text-slate-900 transition-all duration-300 group-hover:text-lg">
+                {speaker.name}
+              </h3>
+              <p class="mt-1 text-sm text-slate-600">{speaker.role}</p>
+              <p class="text-sm text-slate-500">{speaker.company}</p>
+
+              <!-- LinkedIn badge -->
+              {
+                speaker.linkedinUrl && (
+                  <a
+                    href={speaker.linkedinUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${speaker.name} on LinkedIn`}
+                    class:list={[
+                      "mt-3 flex items-center justify-center w-8 h-8 rounded-full text-white hover:opacity-90 transition-opacity",
+                      accent.badge,
+                    ]}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      class="w-4 h-4 fill-current"
+                      aria-hidden="true"
+                    >
+                      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.125 2.062 2.062 0 0 1 0 4.125zM7.114 20.452H3.558V9h3.556v11.452z" />
+                    </svg>
+                  </a>
+                )
+              }
+            </div>
+          );
+        })
+      }
+    </div>
+  </div>
+</section>

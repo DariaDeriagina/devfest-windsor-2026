@@ -2,7 +2,9 @@
 import BaseLayout from "@layouts/BaseLayout.astro";
 import Header from "@components/Header.astro";
 import Hero from "@components/Hero.astro";
+import Speakers from "@components/Speakers.astro";
 import { EVENT_2026 } from "@config/event.config";
+import { FEATURED_SPEAKERS } from "@config/speakers.config";
 
 const title = `${EVENT_2026.name} | ${EVENT_2026.location.city}, ${EVENT_2026.location.province}`;
 const description = EVENT_2026.seo.metaDescription;
@@ -12,5 +14,6 @@ const description = EVENT_2026.seo.metaDescription;
   <Header logoSrc="/logo.svg" />
   <main class="pt-20">
     <Hero event={EVENT_2026} />
+    <Speakers speakers={FEATURED_SPEAKERS} viewAllHref="#" />
   </main>
 </BaseLayout>
