@@ -1,0 +1,92 @@
+---
+import { EVENT_2026 } from "@config/event.config";
+
+const { name, location, date } = EVENT_2026;
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer
+  class="relative bg-white pt-20 pb-8"
+  style="background-image: url('/group_0f_lines_bg.svg'); background-size: cover; background-position: center;"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Main footer content -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+      <!-- Logo & Description -->
+      <div class="col-span-1 md:col-span-2">
+        <div class="flex items-start gap-6 mb-6">
+          <img src="/devFestLogoLine.png" alt="GDG Windsor Logo" class="h-32 w-32 flex-shrink-0" />
+          <div class="pt-2">
+            <h3 class="text-2xl font-bold text-gray-900">{name}</h3>
+            <p class="text-base text-gray-600 mt-2">{location.city}, {location.province}</p>
+          </div>
+        </div>
+        <p class="text-gray-700 mt-6 max-w-sm">
+          Join the most exciting tech conference in Windsor. Connect with developers, learn cutting-edge technologies, and build amazing things together.
+        </p>
+      </div>
+
+      <!-- Quick Links -->
+      <div>
+        <h4 class="text-lg font-bold text-gray-900 mb-6">Quick Links</h4>
+        <ul class="space-y-3">
+          <li>
+            <a href="/" class="text-gray-700 hover:text-blue-600 transition-colors">Home</a>
+          </li>
+          <li>
+            <a href="/about" class="text-gray-700 hover:text-blue-600 transition-colors">About</a>
+          </li>
+          <li>
+            <a href="/#schedule" class="text-gray-700 hover:text-blue-600 transition-colors">Schedule</a>
+          </li>
+          <li>
+            <a href="/venue" class="text-gray-700 hover:text-blue-600 transition-colors">Venue</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <h4 class="text-lg font-bold text-gray-900 mb-6">Connect</h4>
+        <ul class="space-y-3">
+          <li>
+            <a href="mailto:devfest@windsor.com" class="text-gray-700 hover:text-blue-600 transition-colors">Email</a>
+          </li>
+          <li>
+            <a href="#" class="text-gray-700 hover:text-blue-600 transition-colors">Twitter</a>
+          </li>
+          <li>
+            <a href="#" class="text-gray-700 hover:text-blue-600 transition-colors">LinkedIn</a>
+          </li>
+          <li>
+            <a href="#" class="text-gray-700 hover:text-blue-600 transition-colors">Instagram</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="border-t border-gray-300 my-8"></div>
+
+    <!-- Bottom footer -->
+    <div class="flex flex-col md:flex-row justify-between items-center">
+      <div class="text-center md:text-left mb-4 md:mb-0">
+        <p class="text-gray-600 text-sm">
+          &copy; {currentYear} Google Developer Group Windsor. All rights reserved.
+        </p>
+        <p class="text-gray-500 text-xs mt-2">
+          {name} • {date.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
+        </p>
+      </div>
+
+      <!-- Decorative accent lines -->
+      <div class="flex gap-2 h-1">
+        <div class="w-12 bg-blue-600"></div>
+        <div class="w-12 bg-red-600"></div>
+        <div class="w-12 bg-yellow-400"></div>
+        <div class="w-12 bg-green-600"></div>
+      </div>
+    </div>
+  </div>
+</footer>

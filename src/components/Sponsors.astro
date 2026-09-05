@@ -1,0 +1,205 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Thank you to our sponsors and partners",
+  description = "DevFest Windsor 2026 is made possible by the support of organizations and community partners who believe in empowering developers and building a stronger tech future.",
+} = Astro.props;
+
+const sponsors = {
+  platinum: [
+    { name: "Google Cloud", logo: "Google Cloud logo" }
+  ],
+  gold: [
+    { name: "Firebase", logo: "Firebase logo" },
+    { name: "JetBrains", logo: "JetBrains logo" }
+  ],
+  silver: [
+    { name: "MongoDB", logo: "MongoDB logo" },
+    { name: "Twilio", logo: "Twilio logo" }
+  ],
+  bronze: [
+    { name: "GitHub", logo: "GitHub logo" },
+    { name: "Domain", logo: "Domain logo" }
+  ]
+};
+
+const communityPartners = [
+  { name: "GDG Windsor", logo: "GDG Windsor logo" },
+  { name: "Women Techmakers", logo: "Women Techmakers logo" },
+  { name: "MLH", logo: "MLH logo" },
+  { name: "WindsorEssex", logo: "WindsorEssex Economic Development logo" },
+  { name: "St. Clair College", logo: "St. Clair College logo" },
+  { name: "WE.tech Alliance", logo: "WE.tech Alliance logo" }
+];
+---
+
+<section id="sponsors" class="py-20 bg-gradient-to-b from-slate-50 to-white">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Section Header -->
+    <div class="text-center mb-16">
+      <span class="inline-block text-blue-600 font-semibold text-sm uppercase tracking-wider mb-4">
+        👥 Sponsors & Partners
+      </span>
+      <h2 class="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
+        {title}
+      </h2>
+      <p class="text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
+        {description}
+      </p>
+      <button
+        class="mt-8 inline-block border-2 border-blue-600 text-blue-600 px-6 py-2 rounded-full font-semibold hover:bg-blue-50 transition-colors cursor-pointer"
+        onclick={`alert('Partnership Inquiry\\n\\nEmail: partnerships@devfest-windsor.com\\nPhone: (519) 555-0100')`}
+      >
+        Partner with us →
+      </button>
+    </div>
+
+    <!-- Powered by Google -->
+    <div class="mb-16 text-right pr-4">
+      <p class="text-sm text-slate-600 mb-2">Powered by</p>
+      <div class="flex justify-end items-center gap-2">
+        <svg class="w-32 h-auto" viewBox="0 0 272 92" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <text x="0" y="60" font-size="48" font-weight="bold" fill="#4285F4">G</text>
+          <text x="45" y="60" font-size="48" font-weight="bold" fill="#EA4335">o</text>
+          <text x="85" y="60" font-size="48" font-weight="bold" fill="#FBBC04">o</text>
+          <text x="125" y="60" font-size="48" font-weight="bold" fill="#4285F4">g</text>
+          <text x="165" y="60" font-size="48" font-weight="bold" fill="#34A853">l</text>
+          <text x="195" y="60" font-size="48" font-weight="bold" fill="#EA4335">e</text>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Gemini Gold Sponsor -->
+    <div class="mb-16 bg-white rounded-2xl p-8 border border-yellow-200 shadow-md">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm font-semibold text-yellow-600 uppercase tracking-wider mb-2">Gold Sponsor</p>
+          <h3 class="text-3xl font-bold text-slate-900">Gemini</h3>
+        </div>
+        <div class="w-20 h-20 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full flex items-center justify-center">
+          <svg class="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11z"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sponsor Tiers -->
+    <div class="mb-16">
+      <!-- Platinum -->
+      <div class="mb-12">
+        <h3 class="text-2xl font-bold text-slate-900 mb-6 pb-3 border-b-4 border-blue-600">
+          Platinum Sponsor
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="bg-white rounded-xl p-8 shadow-md border border-slate-200 hover:shadow-lg hover:border-blue-300 transition-all flex items-center justify-center h-32">
+            <div class="text-center">
+              <svg class="w-16 h-16 mx-auto mb-2 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+              </svg>
+              <p class="font-semibold text-slate-900">Google Cloud</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gold -->
+      <div class="mb-12">
+        <h3 class="text-2xl font-bold text-slate-900 mb-6 pb-3 border-b-4 border-yellow-500">
+          Gold Sponsors
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {[
+            { name: "Firebase", icon: "🔥" },
+            { name: "JetBrains", icon: "⚙️" }
+          ].map(sponsor => (
+            <div class="bg-white rounded-xl p-8 shadow-md border border-slate-200 hover:shadow-lg hover:border-yellow-300 transition-all flex items-center justify-center h-32">
+              <div class="text-center">
+                <div class="text-4xl mb-2">{sponsor.icon}</div>
+                <p class="font-semibold text-slate-900">{sponsor.name}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Silver -->
+      <div class="mb-12">
+        <h3 class="text-2xl font-bold text-slate-900 mb-6 pb-3 border-b-4 border-slate-400">
+          Silver Sponsors
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {[
+            { name: "MongoDB", icon: "📄" },
+            { name: "Twilio", icon: "📱" }
+          ].map(sponsor => (
+            <div class="bg-white rounded-xl p-8 shadow-md border border-slate-200 hover:shadow-lg hover:border-slate-300 transition-all flex items-center justify-center h-32">
+              <div class="text-center">
+                <div class="text-4xl mb-2">{sponsor.icon}</div>
+                <p class="font-semibold text-slate-900">{sponsor.name}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Bronze -->
+      <div class="mb-12">
+        <h3 class="text-2xl font-bold text-slate-900 mb-6 pb-3 border-b-4 border-orange-600">
+          Bronze Sponsors
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {[
+            { name: "GitHub", icon: "🐙" },
+            { name: "Domain", icon: "🌐" }
+          ].map(sponsor => (
+            <div class="bg-white rounded-xl p-8 shadow-md border border-slate-200 hover:shadow-lg hover:border-orange-300 transition-all flex items-center justify-center h-32">
+              <div class="text-center">
+                <div class="text-4xl mb-2">{sponsor.icon}</div>
+                <p class="font-semibold text-slate-900">{sponsor.name}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <!-- Community Partners -->
+    <div class="mb-12">
+      <h3 class="text-2xl font-bold text-slate-900 mb-8">Community Partners</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {[
+          { name: "GDG Windsor", icon: "🎯" },
+          { name: "Women Techmakers", icon: "👩‍💻" },
+          { name: "MLH", icon: "🏆" },
+          { name: "WindsorEssex", icon: "🏛️" },
+          { name: "St. Clair College", icon: "🎓" },
+          { name: "WE.tech Alliance", icon: "🤝" }
+        ].map(partner => (
+          <div class="bg-white rounded-xl p-6 shadow-md border border-slate-200 hover:shadow-lg transition-all flex items-center gap-4">
+            <div class="text-3xl">{partner.icon}</div>
+            <p class="font-semibold text-slate-900">{partner.name}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- CTA Card -->
+    <div class="bg-blue-50 rounded-2xl p-8 border border-blue-200 text-center">
+      <svg class="w-8 h-8 mx-auto mb-4 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+      </svg>
+      <h3 class="text-xl font-bold text-slate-900 mb-2">Interested in sponsoring or partnering with DevFest Windsor 2026?</h3>
+      <button
+        class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-full transition-colors mt-4 cursor-pointer"
+        onclick={`alert('Contact Information\\n\\nEmail: partnerships@devfest-windsor.com\\nPhone: (519) 555-0100')`}
+      >
+        Contact us →
+      </button>
+    </div>
+  </div>
+</section>

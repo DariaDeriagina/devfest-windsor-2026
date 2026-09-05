@@ -1,0 +1,60 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  buttonText?: string;
+}
+
+const {
+  title = "Ready to join the community?",
+  description = "Secure your spot at DevFest Windsor 2026. Tickets include full access to all talks, workshops, meals, and the legendary after-party.",
+  buttonText = "Get Your Ticket Now",
+} = Astro.props;
+---
+
+<section class="py-20 px-4 sm:px-6 lg:px-8 animate-fade-in">
+  <div class="max-w-4xl mx-auto">
+    <!-- Dark gradient background -->
+    <div class="relative rounded-3xl overflow-hidden bg-gradient-to-br from-slate-950 via-blue-950 to-rose-950 p-12 md:p-16 animate-scale-in">
+      <!-- Decorative gradient blobs with animation -->
+      <div class="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-blue-500/30 to-purple-600/30 rounded-full mix-blend-overlay blur-3xl -mr-48 -mt-48 animate-float" style="animation-delay: 0s;"></div>
+      <div class="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-tr from-red-600/30 to-orange-500/30 rounded-full mix-blend-overlay blur-3xl -ml-40 -mb-40 animate-float" style="animation-delay: 3s;"></div>
+
+      <!-- Content -->
+      <div class="relative z-10 text-center">
+        <h2 class="text-4xl md:text-5xl font-bold text-white mb-6 animate-fade-in-down">
+          {title}
+        </h2>
+        
+        <p class="text-lg md:text-xl text-gray-200 mb-10 max-w-2xl mx-auto animate-fade-in-up">
+          {description}
+        </p>
+
+        <!-- Extended button -->
+        <a
+          href="#"
+          class="w-96 h-16 relative bg-blue-500 rounded-[32px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] overflow-hidden flex items-center justify-center hover:shadow-lg hover:shadow-blue-500/50 transition-all duration-300 group inline-flex animate-slide-in-up hover:scale-105"
+          onclick="alert('Redirecting to ticket purchase...'); return false;"
+        >
+          <!-- Decorative circles -->
+          <div class="w-12 h-12 left-[-7.78px] top-[32px] absolute bg-green-600 rounded-full animate-bounce-slow" style="animation-delay: 0s;" />
+          <div class="w-14 h-14 left-[326.05px] top-[-18.50px] absolute opacity-80 bg-yellow-500 rounded-full animate-bounce-slow" style="animation-delay: 0.6s;" />
+          <div class="w-14 h-14 left-[315.61px] top-[36.50px] absolute bg-red-500 rounded-full animate-bounce-slow" style="animation-delay: 1.2s;" />
+
+          <!-- Icon -->
+          <img
+            src="/icon-ticket.svg"
+            alt="Ticket icon"
+            class="w-11 h-11 left-[55.44px] top-[26px] absolute animate-bounce"
+          />
+
+          <!-- Text -->
+          <span class="text-white text-base font-semibold font-inter ml-12">{buttonText}</span>
+
+          <!-- Arrow -->
+          <span class="text-white text-base font-semibold ml-2 group-hover:translate-x-1 transition-transform">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,198 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Header from "@components/Header.astro";
+import { EVENT_2026 } from "@config/event.config";
+
+const title = `About | ${EVENT_2026.name}`;
+const description = "Learn more about Google DevFest Windsor 2026 - a community-led technical conference.";
+---
+
+<BaseLayout title={title} description={description} ogImage={EVENT_2026.seo.ogImage}>
+  <Header logoSrc="/logo.svg" />
+  
+  <main class="pt-20">
+    <!-- Hero Section with Image -->
+    <section class="py-12 md:py-20 bg-white">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <!-- Left: Image -->
+          <div class="animate-fadeInLeft">
+            <div class="rounded-3xl overflow-hidden border-8 border-yellow-400 shadow-2xl">
+              <img 
+                src="/AboutSectionImage.png" 
+                alt="DevFest Windsor Conference"
+                class="w-full h-auto object-cover"
+              />
+            </div>
+          </div>
+
+          <!-- Right: Content -->
+          <div class="animate-fadeInRight">
+            <span class="inline-block text-red-600 font-semibold text-sm uppercase tracking-wider mb-4">
+              🔥 What is DevFest?
+            </span>
+            <h1 class="text-4xl md:text-5xl font-bold text-slate-900 mb-6 leading-tight">
+              Join the Community-Led Tech Conference
+            </h1>
+            <p class="text-lg text-slate-600 mb-6 leading-relaxed">
+              DevFest Windsor is a community-led technical conference hosted by the Google Developer Group (GDC) Windsor. It's a premier local event designed to bring developers together to learn, connect, and build the future.
+            </p>
+            <p class="text-base text-slate-600 leading-relaxed">
+              Whether you're a seasoned developer or just starting your tech journey, DevFest offers something for everyone. Experience inspiring talks, hands-on workshops, meaningful networking, and exclusive swag.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Grid -->
+    <section class="py-16 md:py-24 bg-gradient-to-b from-slate-50 to-white">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+            What You'll Experience
+          </h2>
+          <p class="text-lg text-slate-600">
+            Four amazing things await you at DevFest Windsor 2026
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- Card 1: Expert Talks -->
+          <div class="group p-8 bg-white rounded-xl border-2 border-blue-200 hover:shadow-lg transition-all duration-300">
+            <div class="w-14 h-14 bg-blue-100 rounded-lg flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+              <svg class="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C6.5 6.253 2 10.998 2 17.25c0 5.25 3.75 9.15 10 9.15s10-3.9 10-9.15c0-6.252-4.5-11-9-11z"></path>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-slate-900 mb-3">Expert Talks</h3>
+            <p class="text-slate-600 leading-relaxed">
+              Learn from industry leaders and Google Developer Experts about the latest technologies, best practices, and innovation in web, mobile, cloud, and AI.
+            </p>
+          </div>
+
+          <!-- Card 2: Workshops -->
+          <div class="group p-8 bg-white rounded-xl border-2 border-green-200 hover:shadow-lg transition-all duration-300">
+            <div class="w-14 h-14 bg-green-100 rounded-lg flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+              <svg class="w-7 h-7 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-slate-900 mb-3">Workshops</h3>
+            <p class="text-slate-600 leading-relaxed">
+              Hands-on sessions covering Web, Mobile, Cloud, and AI. Get hands-on experience and learn skills you can apply immediately.
+            </p>
+          </div>
+
+          <!-- Card 3: Networking -->
+          <div class="group p-8 bg-white rounded-xl border-2 border-yellow-200 hover:shadow-lg transition-all duration-300">
+            <div class="w-14 h-14 bg-yellow-100 rounded-lg flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+              <svg class="w-7 h-7 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 8.646 4 4 0 010-8.646M9 9H3v10a6 6 0 006 6h6v-6a6 6 0 00-6-6H9zm9-5a4 4 0 110 8.646 4 4 0 010-8.646m0 0h6v10a6 6 0 01-6 6h-6v-6a6 6 0 016-6h6z"></path>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-slate-900 mb-3">Networking</h3>
+            <p class="text-slate-600 leading-relaxed">
+              Connect with fellow developers, startup founders, tech enthusiasts, and industry professionals. Build meaningful relationships in the tech community.
+            </p>
+          </div>
+
+          <!-- Card 4: Swag & Fun -->
+          <div class="group p-8 bg-white rounded-xl border-2 border-red-200 hover:shadow-lg transition-all duration-300">
+            <div class="w-14 h-14 bg-red-100 rounded-lg flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+              <svg class="w-7 h-7 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-slate-900 mb-3">Swag & Fun</h3>
+            <p class="text-slate-600 leading-relaxed">
+              Get exclusive DevFest gear, enjoy great food and drinks, participate in activities, and celebrate with the community at our amazing after-party.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-16 md:py-24 bg-gradient-to-r from-blue-600 via-green-500 to-yellow-400">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-4 gap-8 text-center text-white">
+          <div>
+            <div class="text-5xl md:text-6xl font-bold mb-2">500+</div>
+            <p class="text-lg opacity-90">Expected Attendees</p>
+          </div>
+          <div>
+            <div class="text-5xl md:text-6xl font-bold mb-2">20+</div>
+            <p class="text-lg opacity-90">Amazing Speakers</p>
+          </div>
+          <div>
+            <div class="text-5xl md:text-6xl font-bold mb-2">8</div>
+            <p class="text-lg opacity-90">Hours of Content</p>
+          </div>
+          <div>
+            <div class="text-5xl md:text-6xl font-bold mb-2">∞</div>
+            <p class="text-lg opacity-90">Networking Value</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 md:py-24 bg-white">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
+          Ready to Join Us?
+        </h2>
+        <p class="text-lg text-slate-600 mb-8">
+          Secure your spot at DevFest Windsor 2026 and be part of the tech community's biggest event of the year.
+        </p>
+        <a 
+          href="/#tickets"
+          class="inline-block bg-gradient-to-r from-blue-600 to-green-500 text-white px-8 py-3 rounded-full font-semibold hover:shadow-lg transition-all duration-300 text-lg"
+        >
+          Get Your Ticket Now
+        </a>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  @keyframes fadeInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes fadeInRight {
+    from {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .animate-fadeInLeft {
+    animation: fadeInLeft 0.6s ease-out;
+  }
+
+  .animate-fadeInRight {
+    animation: fadeInRight 0.6s ease-out;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-fadeInLeft,
+    .animate-fadeInRight {
+      animation: none;
+    }
+  }
+</style>

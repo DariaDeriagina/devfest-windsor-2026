@@ -1,0 +1,16 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Header from "@components/Header.astro";
+import FAQ from "@components/FAQ.astro";
+import { EVENT_2026 } from "@config/event.config";
+
+const title = `FAQ | ${EVENT_2026.name}`;
+const description = "Frequently asked questions about DevFest Windsor 2026";
+---
+
+<BaseLayout title={title} description={description} ogImage={EVENT_2026.seo.ogImage}>
+  <Header logoSrc="/logo.svg" />
+  <main class="pt-20">
+    <FAQ />
+  </main>
+</BaseLayout>

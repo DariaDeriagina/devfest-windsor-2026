@@ -3,6 +3,8 @@ import BaseLayout from "@layouts/BaseLayout.astro";
 import Header from "@components/Header.astro";
 import Hero from "@components/Hero.astro";
 import Speakers from "@components/Speakers.astro";
+import Schedule from "@components/Schedule.astro";
+import CTA from "@components/CTA.astro";
 import { EVENT_2026 } from "@config/event.config";
 import { FEATURED_SPEAKERS } from "@config/speakers.config";
 
@@ -15,5 +17,14 @@ const description = EVENT_2026.seo.metaDescription;
   <main class="pt-20">
     <Hero event={EVENT_2026} />
     <Speakers speakers={FEATURED_SPEAKERS} viewAllHref="#" />
+    <Schedule 
+      title="Explore the Schedule by Track"
+      description="Browse sessions across five tracks designed for every developer and interest. Find talks, hands-on labs, and panels that match your goals."
+    />
+    <CTA 
+      title="Ready to join the community?"
+      description="Secure your spot at DevFest Windsor 2026. Tickets include full access to all talks, workshops, meals, and the legendary after-party."
+      buttonText="Get Your Ticket Now"
+    />
   </main>
 </BaseLayout>

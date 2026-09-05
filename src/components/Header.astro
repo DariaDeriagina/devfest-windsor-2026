@@ -6,11 +6,10 @@ interface Props {
 const { logoSrc = "/logo.svg" } = Astro.props;
 
 const navItems = [
-  { label: "Speakers", href: "#speakers" },
-  { label: "Schedule", href: "#schedule" },
-  { label: "Tickets", href: "#tickets" },
-  { label: "Venue", href: "#venue" },
-  { label: "FAQ", href: "#faq" },
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+  { label: "Venue", href: "/venue" },
+  { label: "FAQ", href: "/faq" },
 ];
 ---
 
@@ -49,7 +48,7 @@ const navItems = [
 
       <!-- CTA Button (Desktop only) -->
       <a
-        href="#tickets"
+        href="/#sponsors"
         class="hidden md:block bg-gradient-to-r from-blue-600 to-green-500 text-white px-6 py-2 rounded-full font-semibold hover:shadow-lg transition-all duration-300 text-sm whitespace-nowrap"
       >
         Get Tickets
@@ -72,14 +71,6 @@ const navItems = [
         ))
       }
     </nav>
-
-    <!-- Colorful top border -->
-    <div class="flex h-1 -mx-4 -mb-px sm:-mx-6 lg:-mx-8">
-      <div class="flex-1 bg-blue-600"></div>
-      <div class="flex-1 bg-red-600"></div>
-      <div class="flex-1 bg-yellow-400"></div>
-      <div class="flex-1 bg-green-600"></div>
-    </div>
   </div>
 </header>
 

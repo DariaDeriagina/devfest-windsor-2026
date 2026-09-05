@@ -1,0 +1,247 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Header from "@components/Header.astro";
+import { EVENT_2026 } from "@config/event.config";
+
+const title = `Schedule | ${EVENT_2026.name}`;
+const description = "DevFest Windsor 2026 Schedule - Browse sessions across five tracks.";
+
+const tracks = [
+  { name: "AI", color: "blue", icon: "✨" },
+  { name: "Web Development", color: "red", icon: "</>" },
+  { name: "Cloud", color: "yellow", icon: "☁️" },
+  { name: "Mobile", color: "green", icon: "📱" },
+  { name: "High School", color: "purple", icon: "🎓" },
+];
+
+const sessions = [
+  {
+    time: "9:00 AM",
+    duration: "45 min",
+    title: "AI Foundations: From Prompts to Impact",
+    speaker: "Lorem Ipsum",
+    speakerRole: "AI Engineer",
+    track: "AI",
+    type: "Keynote",
+    location: "Main Stage",
+    avatar: "👩‍💼",
+  },
+  {
+    time: "10:00 AM",
+    duration: "45 min",
+    title: "Building with Gemini: Practical AI in Production",
+    speaker: "Dolor Sit",
+    speakerRole: "Senior Developer",
+    track: "AI",
+    type: "Technical Session",
+    location: "Room A",
+    avatar: "👨‍💻",
+  },
+  {
+    time: "11:15 AM",
+    duration: "45 min",
+    title: "Responsible AI: Ethics, Safety, and Trust",
+    speaker: "Consectetur Amet",
+    speakerRole: "Tech Lead",
+    track: "AI",
+    type: "Panel",
+    location: "Main Stage",
+    avatar: "👩‍🔬",
+  },
+  {
+    time: "1:00 PM",
+    duration: "45 min",
+    title: "Modern Web Development with Latest Frameworks",
+    speaker: "Sed Do Eiusmod",
+    speakerRole: "Frontend Expert",
+    track: "Web Development",
+    type: "Technical Session",
+    location: "Room B",
+    avatar: "👨‍💼",
+  },
+  {
+    time: "2:15 PM",
+    duration: "45 min",
+    title: "Cloud Architecture Best Practices",
+    speaker: "Tempor Incididunt",
+    speakerRole: "Cloud Architect",
+    track: "Cloud",
+    type: "Case Study",
+    location: "Room A",
+    avatar: "👩‍💻",
+  },
+  {
+    time: "3:30 PM",
+    duration: "45 min",
+    title: "The Future of Mobile Development",
+    speaker: "Ut Labore Et",
+    speakerRole: "Mobile Lead",
+    track: "Mobile",
+    type: "Closing Session",
+    location: "Main Stage",
+    avatar: "👨‍🔬",
+  },
+];
+
+const typeColors: Record<string, string> = {
+  "Keynote": "blue",
+  "Technical Session": "slate",
+  "Panel": "purple",
+  "Case Study": "emerald",
+  "Closing Session": "red",
+};
+---
+
+<BaseLayout title={title} description={description} ogImage={EVENT_2026.seo.ogImage}>
+  <Header logoSrc="/logo.svg" />
+  
+  <main class="pt-20">
+    <!-- Schedule Section -->
+    <section id="schedule" class="py-20 bg-white">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Section Header -->
+        <div class="mb-16">
+          <span class="inline-block text-blue-600 font-semibold text-sm uppercase tracking-wider mb-4">
+            ✨ Schedule Preview
+          </span>
+          <h2 class="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
+            Explore the Schedule by Track
+          </h2>
+          <p class="text-lg text-slate-600 max-w-3xl leading-relaxed">
+            Browse sessions across five tracks designed for every developer and interest. Find talks, hands-on labs, and panels that match your goals.
+          </p>
+        </div>
+
+        <!-- Track Filter Buttons -->
+        <div class="flex flex-wrap gap-3 mb-12">
+          {tracks.map((track) => (
+            <button 
+              class={`px-6 py-3 rounded-full font-semibold text-white transition-all duration-300 hover:shadow-lg ${
+                track.color === "blue" ? "bg-blue-600" :
+                track.color === "red" ? "bg-red-600" :
+                track.color === "yellow" ? "bg-yellow-400 text-slate-900" :
+                track.color === "green" ? "bg-green-600 border-2 border-green-600 text-green-600 bg-white" :
+                "bg-purple-600"
+              }`}
+            >
+              {track.icon} {track.name}
+            </button>
+          ))}
+        </div>
+
+        <!-- Schedule Table -->
+        <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-lg">
+          <div class="overflow-x-auto">
+            <table class="w-full">
+              <!-- Table Header -->
+              <thead>
+                <tr class="bg-slate-50 border-b border-slate-200">
+                  <th class="px-6 py-4 text-left text-sm font-semibold text-slate-900 w-24">TIME</th>
+                  <th class="px-6 py-4 text-left text-sm font-semibold text-slate-900">SESSION</th>
+                  <th class="px-6 py-4 text-left text-sm font-semibold text-slate-900 hidden md:table-cell w-32">LOCATION</th>
+                  <th class="px-6 py-4 text-left text-sm font-semibold text-slate-900 hidden lg:table-cell w-28">ADD</th>
+                </tr>
+              </thead>
+
+              <!-- Table Body -->
+              <tbody>
+                {sessions.map((session, index) => (
+                  <tr class={`border-b border-slate-200 hover:bg-slate-50 transition-colors ${index === 0 ? "border-l-4 border-l-blue-600" : ""}`}>
+                    <!-- Time Column -->
+                    <td class="px-6 py-4">
+                      <div class="text-sm font-semibold text-slate-900">{session.time}</div>
+                      <div class="text-xs text-slate-500">{session.duration}</div>
+                    </td>
+
+                    <!-- Session Column -->
+                    <td class="px-6 py-4">
+                      <div class="flex items-start gap-4">
+                        <!-- Avatar -->
+                        <div class="text-3xl flex-shrink-0">{session.avatar}</div>
+                        
+                        <!-- Session Details -->
+                        <div class="min-w-0 flex-1">
+                          <h3 class="font-bold text-slate-900 mb-1 text-sm md:text-base">{session.title}</h3>
+                          <p class="text-sm text-slate-600 mb-2">{session.speaker}</p>
+                          <div class="flex flex-wrap gap-2">
+                            <span class={`inline-block px-2 py-1 rounded text-xs font-semibold ${
+                              session.track === "AI" ? "bg-blue-100 text-blue-700" :
+                              session.track === "Web Development" ? "bg-red-100 text-red-700" :
+                              session.track === "Cloud" ? "bg-yellow-100 text-yellow-700" :
+                              session.track === "Mobile" ? "bg-green-100 text-green-700" :
+                              "bg-purple-100 text-purple-700"
+                            }`}>
+                              {session.track}
+                            </span>
+                            <span class={`inline-block px-2 py-1 rounded text-xs font-semibold ${
+                              typeColors[session.type] === "blue" ? "bg-blue-100 text-blue-700" :
+                              typeColors[session.type] === "slate" ? "bg-slate-100 text-slate-700" :
+                              typeColors[session.type] === "purple" ? "bg-purple-100 text-purple-700" :
+                              typeColors[session.type] === "emerald" ? "bg-emerald-100 text-emerald-700" :
+                              "bg-red-100 text-red-700"
+                            }`}>
+                              {session.type}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+
+                    <!-- Location Column -->
+                    <td class="px-6 py-4 hidden md:table-cell">
+                      <div class="text-sm text-slate-600 flex items-center gap-2">
+                        <span>📍</span>
+                        {session.location}
+                      </div>
+                    </td>
+
+                    <!-- Add to Calendar Column -->
+                    <td class="px-6 py-4 hidden lg:table-cell">
+                      <button class="text-blue-600 hover:text-blue-700 font-semibold text-sm transition-colors flex items-center gap-1">
+                        📅 Add
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- CTA Section -->
+        <div class="mt-12 text-center">
+          <p class="text-slate-600 mb-6">Want to see the complete schedule?</p>
+          <a 
+            href="#tickets"
+            class="inline-block bg-gradient-to-r from-blue-600 to-green-500 text-white px-8 py-3 rounded-full font-semibold hover:shadow-lg transition-all duration-300 text-lg"
+          >
+            Get Your Ticket Now
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  section {
+    animation: fadeInUp 0.6s ease-out;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    section {
+      animation: none;
+    }
+  }
+</style>

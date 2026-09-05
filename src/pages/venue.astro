@@ -1,0 +1,20 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Header from "@components/Header.astro";
+import Venue from "@components/Venue.astro";
+import { EVENT_2026 } from "@config/event.config";
+
+const title = `Venue | ${EVENT_2026.name}`;
+const description = "Find information about the DevFest Windsor 2026 venue at University of Windsor.";
+---
+
+<BaseLayout title={title} description={description} ogImage={EVENT_2026.seo.ogImage}>
+  <Header logoSrc="/logo.svg" />
+  
+  <main class="pt-20">
+    <Venue 
+      title="Event Venue"
+      description="Join us at the beautiful University of Windsor campus, conveniently located in the heart of Windsor, Ontario."
+    />
+  </main>
+</BaseLayout>
