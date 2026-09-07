@@ -1,5 +1,6 @@
 ---
 import { t } from "@lib/i18n";
+import SessionModal from "./SessionModal.astro";
 
 interface Props {
   title?: string;
@@ -37,6 +38,7 @@ const sessions = [
     location: "Main Stage",
     avatar: "/google-person.png",
     bgColor: "bg-red-600",
+    description: "Learn how to build meaningful relationships with clients and prospects. This keynote explores the art of genuine connection before the sales pitch, creating a foundation of trust that leads to long-term success.",
   },
   {
     time: "10:00 AM",
@@ -48,6 +50,7 @@ const sessions = [
     location: "Room A",
     avatar: "/google-person.png",
     bgColor: "bg-blue-600",
+    description: "An intensive look at turning your development skills into a successful startup. From ideation to launch, discover how developers can become entrepreneurs and navigate the startup ecosystem.",
   },
   {
     time: "11:15 AM",
@@ -59,6 +62,7 @@ const sessions = [
     location: "Room B",
     avatar: "/google-person.png",
     bgColor: "bg-yellow-600",
+    description: "A real-world case study on building production-ready data pipelines in the banking sector. Discover the challenges, solutions, and best practices for managing financial data at scale.",
   },
   {
     time: "1:00 PM",
@@ -70,6 +74,7 @@ const sessions = [
     location: "Main Stage",
     avatar: "/google-person.png",
     bgColor: "bg-blue-600",
+    description: "Move beyond casual AI integration and learn how to engineer production-ready software with AI. This session covers architecture, testing, deployment, and real-world considerations for AI-powered applications.",
   },
   {
     time: "2:15 PM",
@@ -81,6 +86,7 @@ const sessions = [
     location: "Room A",
     avatar: "/google-person.png",
     bgColor: "bg-green-600",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Learn about the latest trends and best practices in mobile development with our expert panel.",
   },
   {
     time: "3:30 PM",
@@ -92,6 +98,7 @@ const sessions = [
     location: "Room C",
     avatar: "/google-person.png",
     bgColor: "bg-purple-600",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Inspiring the next generation with innovative approaches to technology and problem-solving.",
   },
 ];
 
@@ -147,7 +154,9 @@ const iconSvgs: Record<string, string> = {
         </thead>
         <tbody>
           {sessions.map((session, idx) => (
-            <tr class="session-row border-b border-gray-100 hover:bg-gray-50 transition-colors cursor-pointer" data-track={session.track}>
+            <tr class="session-row border-b border-gray-100 hover:bg-gray-50 transition-colors cursor-pointer"
+                data-track={session.track}
+                onclick={`window.openSessionModal({title: '${session.title}', speaker: '${session.speaker}', description: '${session.description.replace(/'/g, "\\'")}', duration: '${session.duration}', track: '${session.track}', type: '${session.type}'})`}>
               <!-- Time -->
               <td class="py-6 px-4 font-semibold text-gray-900 whitespace-nowrap">{session.time}</td>
 
@@ -210,6 +219,10 @@ const iconSvgs: Record<string, string> = {
       </table>
     </div>
   </div>
+
+  <!-- Session Modal -->
+  <SessionModal sessions={sessions} />
+</section>
 
 <script>
   // Track filtering functionality
