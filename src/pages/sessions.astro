@@ -74,10 +74,8 @@ const sessionsWithSpeakers = SUBMITTED_SESSIONS.map(session => {
                 
                 <!-- Session Title (Clickable) -->
                 <h4 
-                  class="text-xl font-bold text-slate-900 mb-4 cursor-pointer hover:text-blue-600 transition-colors line-clamp-2"
-                  onclick={`window.openSessionModal(${JSON.stringify(session).replace(/"/g, '&quot;')})`}
-                  role="button"
-                  tabindex="0"
+                  class="text-xl font-bold text-slate-900 mb-4 cursor-pointer hover:text-blue-600 transition-colors line-clamp-2 session-title"
+                  data-session-id={session.id}
                 >
                   {session.title}
                 </h4>
@@ -108,8 +106,8 @@ const sessionsWithSpeakers = SUBMITTED_SESSIONS.map(session => {
 
                 <!-- View Button -->
                 <button 
-                  onclick={`window.openSessionModal(${JSON.stringify(session).replace(/"/g, '&quot;')})`}
-                  class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-300"
+                  class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-300 view-session-btn"
+                  data-session-id={session.id}
                 >
                   View Full Description
                 </button>
@@ -124,7 +122,22 @@ const sessionsWithSpeakers = SUBMITTED_SESSIONS.map(session => {
   <!-- Session Modal -->
   <SessionModal />
 
-  <script>
+  <script define:vars={{ sessions: sessionsWithSpeakers }}>
+    // Store sessions data
+    window.sessionsData = sessions;
+
+    // Add click handlers to session titles and buttons
+    document.querySelectorAll('.session-title, .view-session-btn').forEach(el => {
+      el.addEventListener('click', (e) => {
+        const sessionId = el.dataset.sessionId;
+        const session = window.sessionsData.find(s => s.id === sessionId);
+        
+        if (session && window.openSessionModal) {
+          window.openSessionModal(session);
+        }
+      });
+    });
+
     // Add click handlers to speaker photos
     document.querySelectorAll('img[data-speaker]').forEach(img => {
       img.addEventListener('click', (e) => {
