@@ -54,11 +54,11 @@ const accentStyles: Record<
         <span class="text-sm font-bold tracking-widest text-red-500 uppercase">
           Lineup
         </span>
-        <div class="flex items-center gap-6">
-          <h2 class="mt-2 text-4xl sm:text-5xl font-bold text-slate-900" data-i18n="speakers.title">
+        <div class="flex items-center gap-6 flex-wrap sm:flex-nowrap">
+          <h2 class="mt-2 text-4xl sm:text-5xl font-bold text-slate-900 whitespace-nowrap" data-i18n="speakers.title">
             {t('en', 'speakers.title')}
           </h2>
-          <div id="speakersAnimation" class="w-28 h-28 sm:w-40 sm:h-40 flex-shrink-0"></div>
+          <div id="speakersAnimation" class="w-24 h-24 sm:w-40 sm:h-40 flex-shrink-0"></div>
         </div>
         <p class="mt-4 text-slate-600 leading-relaxed" data-i18n="speakers.subtitle">
           {t('en', 'speakers.subtitle')}
