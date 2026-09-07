@@ -1,13 +1,21 @@
 ---
+import { t } from "@lib/i18n";
+
 interface Props {
   title?: string;
   description?: string;
 }
 
 const {
-  title = "Explore the Schedule by Track",
-  description = "Browse sessions across five tracks designed for every developer and interest. Find talks, hands-on labs, and panels that match your goals.",
+  title,
+  description,
 } = Astro.props;
+
+const defaultTitle = t('en', 'schedule.title');
+const defaultDescription = t('en', 'schedule.description');
+
+const finalTitle = title || defaultTitle;
+const finalDescription = description || defaultDescription;
 
 const tracks = [
   { name: "AI", color: "blue", icon: "sparkles", bgGradient: "from-blue-500 to-blue-600", textColor: "text-blue-600" },
@@ -107,8 +115,8 @@ const iconSvgs: Record<string, string> = {
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Section Header -->
     <div class="text-center mb-16 animate-fade-in-up">
-      <h2 class="text-4xl font-bold text-gray-900 mb-4">{title}</h2>
-      <p class="text-xl text-gray-600 max-w-3xl mx-auto">{description}</p>
+      <h2 class="text-4xl font-bold text-gray-900 mb-4" data-i18n="schedule.title">{finalTitle}</h2>
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto" data-i18n="schedule.description">{finalDescription}</p>
     </div>
 
     <!-- Track Filter Buttons -->

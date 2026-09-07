@@ -1,0 +1,48 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "about": "À propos",
+    "venue": "Lieu",
+    "faq": "FAQ",
+    "getTickets": "Obtenir des billets"
+  },
+  "hero": {
+    "title": "GDG Windsor",
+    "subtitle": "Rejoignez des centaines de développeurs, de concepteurs et de passionnés de technologie pour une journée d'apprentissage, de réseautage et d'innovation. Du développement web à l'informatique en nuage, découvrez les dernières tendances et connectez-vous avec la communauté GDG dynamique.",
+    "description": "Connectez. Apprenez. Construisez. Ensemble.",
+    "cta": "Obtenez votre billet maintenant",
+    "arrow": "→"
+  },
+  "speakers": {
+    "title": "Conférenciers en vedette",
+    "subtitle": "Une excellente sélection de conférenciers et de contenu pour une expérience inoubliable.",
+    "viewAll": "Voir tous les conférenciers"
+  },
+  "schedule": {
+    "title": "Explorez l'horaire par piste",
+    "description": "Parcourez les sessions sur cinq pistes conçues pour tous les développeurs et intérêts. Trouvez des présentations, des ateliers pratiques et des panels qui correspondent à vos objectifs.",
+    "filterBy": "Filtrer par"
+  },
+  "cta": {
+    "title": "Prêt à rejoindre la communauté?",
+    "description": "Sécurisez votre place à DevFest Windsor 2026. Les billets incluent l'accès complet à toutes les présentations, ateliers, repas et la légendaire après-partie.",
+    "button": "Obtenez votre billet maintenant"
+  },
+  "tickets": {
+    "title": "Obtenez vos billets",
+    "description": "Rejoignez-nous à Google DevFest Windsor 2026! Choisissez le niveau de billet parfait pour votre expérience.",
+    "questions": "Des questions sur les billets?",
+    "groupDiscount": "Nous offrons des rabais de groupe pour les équipes de 5 personnes ou plus. Contactez-nous pour plus d'informations.",
+    "contactSupport": "Contacter le support"
+  },
+  "faq": {
+    "title": "Questions fréquemment posées",
+    "cantFind": "Vous ne trouvez pas votre réponse?",
+    "contactUs": "Contactez-nous"
+  },
+  "footer": {
+    "quickLinks": "Liens rapides",
+    "connect": "Connecter",
+    "copyright": "© 2026 GDG Windsor. Tous les droits sont réservés."
+  }
+}

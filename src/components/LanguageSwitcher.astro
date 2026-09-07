@@ -1,0 +1,86 @@
+---
+---
+
+<div class="language-switcher" id="language-switcher">
+  <button class="lang-btn lang-btn-en active" data-lang="en">EN</button>
+  <button class="lang-btn lang-btn-fr" data-lang="fr">FR</button>
+</div>
+
+<style>
+  .language-switcher {
+    display: flex;
+    gap: 0;
+    border-radius: 9999px;
+    background-color: #f3f4f6;
+    padding: 2px;
+  }
+
+  .lang-btn {
+    padding: 6px 12px;
+    border: none;
+    background-color: transparent;
+    font-weight: 600;
+    font-size: 0.875rem;
+    cursor: pointer;
+    border-radius: 9999px;
+    transition: all 0.3s ease;
+    color: #6b7280;
+  }
+
+  .lang-btn.active {
+    background-color: white;
+    color: #0066ff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  .lang-btn:hover:not(.active) {
+    color: #1f2937;
+  }
+</style>
+
+<script>
+  function initLanguageSwitcher() {
+    const buttons = document.querySelectorAll('.lang-btn') as NodeListOf<HTMLButtonElement>;
+    
+    // Get saved language from localStorage or default to 'en'
+    const savedLang = localStorage.getItem('language') || 'en';
+    
+    // Set initial active button
+    buttons.forEach(btn => {
+      btn.classList.remove('active');
+      if (btn.dataset.lang === savedLang) {
+        btn.classList.add('active');
+      }
+    });
+
+    // Add click handlers
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const lang = btn.dataset.lang;
+        
+        // Save to localStorage for client-side persistence
+        localStorage.setItem('language', lang);
+        
+        // Set cookie for server-side detection
+        document.cookie = `language=${lang}; path=/; max-age=31536000`;
+        
+        // Update active state
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
+        // Dispatch custom event for other components to listen
+        window.dispatchEvent(new CustomEvent('languageChanged', { detail: { lang } }));
+        
+        // Reload page to apply new language
+        window.location.reload();
+      });
+    });
+  }
+
+  // Initialize on page load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initLanguageSwitcher);
+  } else {
+    initLanguageSwitcher();
+  }
+</script>

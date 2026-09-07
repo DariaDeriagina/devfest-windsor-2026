@@ -1,4 +1,6 @@
 ---
+import { t } from "@lib/i18n";
+
 interface FAQItem {
   question: string;
   answer: string;
@@ -58,8 +60,8 @@ const faqs: FAQItem[] = [
       <div class="animate-slide-in-left sticky top-32">
         <div class="mb-8">
           <span class="text-blue-600 font-semibold text-sm uppercase tracking-wider">FAQ</span>
-          <h2 class="text-5xl font-bold text-slate-900 leading-tight mb-4">
-            Frequently<br />Asked<br />Questions
+          <h2 class="text-5xl font-bold text-slate-900 leading-tight mb-4" data-i18n="faq.title">
+            {t('en', 'faq.title')}
           </h2>
           <p class="text-slate-600 text-lg leading-relaxed mb-8">
             Find answers to common questions about DevFest Windsor 2026.
@@ -80,13 +82,14 @@ const faqs: FAQItem[] = [
               <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
             </svg>
             <div>
-              <h4 class="font-bold text-lg mb-1">Can't find your answer?</h4>
+              <h4 class="font-bold text-lg mb-1" data-i18n="faq.cantFind">{t('en', 'faq.cantFind')}</h4>
               <p class="text-blue-100 text-sm mb-4">Contact our support team for help</p>
               <button
                 class="bg-white text-blue-600 px-4 py-2 rounded-lg font-semibold hover:bg-blue-50 transition-colors cursor-pointer"
                 onclick={`alert('Contact us at:\\n\\nEmail: devfest@windsor.com\\nPhone: (519) 555-0100')`}
+                data-i18n="faq.contactUs"
               >
-                Contact us
+                {t('en', 'faq.contactUs')}
               </button>
             </div>
           </div>

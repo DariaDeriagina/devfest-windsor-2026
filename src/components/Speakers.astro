@@ -1,5 +1,6 @@
 ---
 import type { Speaker } from "@types/speaker";
+import { t } from "@lib/i18n";
 
 interface Props {
   speakers: Speaker[];
@@ -49,20 +50,20 @@ const accentStyles: Record<
         <span class="text-sm font-bold tracking-widest text-red-500 uppercase">
           Lineup
         </span>
-        <h2 class="mt-2 text-4xl sm:text-5xl font-bold text-slate-900">
-          Featured Speakers
+        <h2 class="mt-2 text-4xl sm:text-5xl font-bold text-slate-900" data-i18n="speakers.title">
+          {t('en', 'speakers.title')}
         </h2>
-        <p class="mt-4 text-slate-600 leading-relaxed">
-          Great selection of speakers and content for an unforgettable
-          experience.
+        <p class="mt-4 text-slate-600 leading-relaxed" data-i18n="speakers.subtitle">
+          {t('en', 'speakers.subtitle')}
         </p>
       </div>
 
       <a
         href={viewAllHref}
         class="group/link inline-flex items-center gap-2 text-blue-600 font-semibold hover:text-blue-700 transition-colors whitespace-nowrap md:mt-3"
+        data-i18n="speakers.viewAll"
       >
-        View all speakers
+        {t('en', 'speakers.viewAll')}
         <span aria-hidden="true" class="inline-block transition-transform duration-300 group-hover/link:translate-x-1.5">→</span>
       </a>
     </div>

@@ -1,5 +1,6 @@
 ---
 import { EVENT_2026 } from "@config/event.config";
+import { t } from "@lib/i18n";
 
 const { name, location, date } = EVENT_2026;
 
@@ -29,26 +30,26 @@ const currentYear = new Date().getFullYear();
 
       <!-- Quick Links -->
       <div>
-        <h4 class="text-lg font-bold text-gray-900 mb-6">Quick Links</h4>
+        <h4 class="text-lg font-bold text-gray-900 mb-6" data-i18n="footer.quickLinks">{t('en', 'footer.quickLinks')}</h4>
         <ul class="space-y-3">
           <li>
-            <a href="/" class="text-gray-700 hover:text-blue-600 transition-colors">Home</a>
+            <a href="/" class="text-gray-700 hover:text-blue-600 transition-colors" data-i18n="nav.home">{t('en', 'nav.home')}</a>
           </li>
           <li>
-            <a href="/about" class="text-gray-700 hover:text-blue-600 transition-colors">About</a>
+            <a href="/about" class="text-gray-700 hover:text-blue-600 transition-colors" data-i18n="nav.about">{t('en', 'nav.about')}</a>
           </li>
           <li>
             <a href="/#schedule" class="text-gray-700 hover:text-blue-600 transition-colors">Schedule</a>
           </li>
           <li>
-            <a href="/venue" class="text-gray-700 hover:text-blue-600 transition-colors">Venue</a>
+            <a href="/venue" class="text-gray-700 hover:text-blue-600 transition-colors" data-i18n="nav.venue">{t('en', 'nav.venue')}</a>
           </li>
         </ul>
       </div>
 
       <!-- Contact -->
       <div>
-        <h4 class="text-lg font-bold text-gray-900 mb-6">Connect</h4>
+        <h4 class="text-lg font-bold text-gray-900 mb-6" data-i18n="footer.connect">{t('en', 'footer.connect')}</h4>
         <ul class="space-y-3">
           <li>
             <a href="mailto:devfest@windsor.com" class="text-gray-700 hover:text-blue-600 transition-colors">Email</a>
@@ -72,8 +73,8 @@ const currentYear = new Date().getFullYear();
     <!-- Bottom footer -->
     <div class="flex flex-col md:flex-row justify-between items-center">
       <div class="text-center md:text-left mb-4 md:mb-0">
-        <p class="text-gray-600 text-sm">
-          &copy; {currentYear} Google Developer Group Windsor. All rights reserved.
+        <p class="text-gray-600 text-sm" data-i18n="footer.copyright">
+          {t('en', 'footer.copyright')}
         </p>
         <p class="text-gray-500 text-xs mt-2">
           {name} • {date.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}

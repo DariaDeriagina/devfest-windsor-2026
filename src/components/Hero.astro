@@ -1,5 +1,6 @@
 ---
 import type { EventConfig } from "@types/event";
+import { t } from "@lib/i18n";
 import Button from "@components/Button.astro";
 
 interface Props {
@@ -52,8 +53,13 @@ const formattedDate = date.toLocaleDateString("en-US", {
         </div>
 
         <!-- Description -->
-        <p class="text-lg text-slate-700 leading-relaxed max-w-md animate-fade-in-up">
-          {hero.description}
+        <p class="text-lg text-slate-700 leading-relaxed max-w-md animate-fade-in-up" data-i18n="hero.description">
+          {t('en', 'hero.description')}
+        </p>
+
+        <!-- Subtitle/Details -->
+        <p class="text-base text-slate-600 leading-relaxed max-w-lg animate-fade-in-up" data-i18n="hero.subtitle">
+          {t('en', 'hero.subtitle')}
         </p>
 
         <!-- CTA Button -->
@@ -75,7 +81,7 @@ const formattedDate = date.toLocaleDateString("en-US", {
             />
 
             <!-- Text -->
-            <span class="text-white text-base font-semibold font-inter ml-12">{hero.cta.text}</span>
+            <span class="text-white text-base font-semibold font-inter ml-12" data-i18n="hero.cta">{t('en', 'hero.cta')}</span>
 
             <!-- Arrow -->
             <span class="text-white text-base font-semibold ml-2 group-hover:translate-x-1 transition-transform">→</span>

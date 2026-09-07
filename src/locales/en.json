@@ -1,0 +1,48 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "venue": "Venue",
+    "faq": "FAQ",
+    "getTickets": "Get Tickets"
+  },
+  "hero": {
+    "title": "GDG Windsor",
+    "subtitle": "Join hundreds of developers, designers, and tech enthusiasts for a day of learning, networking, and innovation. From web development to cloud computing, discover the latest trends and connect with the vibrant GDG community.",
+    "description": "Connect. Learn. Build. Together.",
+    "cta": "Get Your Ticket Now",
+    "arrow": "→"
+  },
+  "speakers": {
+    "title": "Featured Speakers",
+    "subtitle": "Great selection of speakers and content for an unforgettable experience.",
+    "viewAll": "View all speakers"
+  },
+  "schedule": {
+    "title": "Explore the Schedule by Track",
+    "description": "Browse sessions across five tracks designed for every developer and interest. Find talks, hands-on labs, and panels that match your goals.",
+    "filterBy": "Filter by"
+  },
+  "cta": {
+    "title": "Ready to join the community?",
+    "description": "Secure your spot at DevFest Windsor 2026. Tickets include full access to all talks, workshops, meals, and the legendary after-party.",
+    "button": "Get Your Ticket Now"
+  },
+  "tickets": {
+    "title": "Get Your Tickets",
+    "description": "Join us at Google DevFest Windsor 2026! Choose the perfect ticket tier for your experience.",
+    "questions": "Questions about tickets?",
+    "groupDiscount": "We offer group discounts for teams of 5 or more. Contact us for more information.",
+    "contactSupport": "Contact Support"
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "cantFind": "Can't find your answer?",
+    "contactUs": "Contact us"
+  },
+  "footer": {
+    "quickLinks": "Quick Links",
+    "connect": "Connect",
+    "copyright": "© 2026 GDG Windsor. All rights reserved."
+  }
+}

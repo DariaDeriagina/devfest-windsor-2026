@@ -1,4 +1,6 @@
 ---
+import { t } from "@lib/i18n";
+
 interface Props {
   title?: string;
   description?: string;
@@ -6,10 +8,18 @@ interface Props {
 }
 
 const {
-  title = "Ready to join the community?",
-  description = "Secure your spot at DevFest Windsor 2026. Tickets include full access to all talks, workshops, meals, and the legendary after-party.",
-  buttonText = "Get Your Ticket Now",
+  title,
+  description,
+  buttonText,
 } = Astro.props;
+
+const defaultTitle = t('en', 'cta.title');
+const defaultDescription = t('en', 'cta.description');
+const defaultButtonText = t('en', 'cta.button');
+
+const finalTitle = title || defaultTitle;
+const finalDescription = description || defaultDescription;
+const finalButtonText = buttonText || defaultButtonText;
 ---
 
 <section class="py-20 px-4 sm:px-6 lg:px-8 animate-fade-in">
@@ -22,18 +32,18 @@ const {
 
       <!-- Content -->
       <div class="relative z-10 text-center">
-        <h2 class="text-4xl md:text-5xl font-bold text-white mb-6 animate-fade-in-down">
-          {title}
+        <h2 class="text-4xl md:text-5xl font-bold text-white mb-6 animate-fade-in-down" data-i18n="cta.title">
+          {finalTitle}
         </h2>
         
-        <p class="text-lg md:text-xl text-gray-200 mb-10 max-w-2xl mx-auto animate-fade-in-up">
-          {description}
+        <p class="text-lg md:text-xl text-gray-200 mb-10 max-w-2xl mx-auto animate-fade-in-up" data-i18n="cta.description">
+          {finalDescription}
         </p>
 
         <!-- Extended button -->
         <a
           href="#"
-          class="w-96 h-16 relative bg-blue-500 rounded-[32px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] overflow-hidden flex items-center justify-center hover:shadow-lg hover:shadow-blue-500/50 transition-all duration-300 group inline-flex animate-slide-in-up hover:scale-105"
+          class="w-96 h-16 relative bg-blue-500 rounded-[32px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] overflow-hidden flex items-center justify-center hover:shadow-lg hover:shadow-blue-500/50 transition-all duration-300 group inline-flex "
           onclick="alert('Redirecting to ticket purchase...'); return false;"
         >
           <!-- Decorative circles -->
@@ -49,7 +59,7 @@ const {
           />
 
           <!-- Text -->
-          <span class="text-white text-base font-semibold font-inter ml-12">{buttonText}</span>
+          <span class="text-white text-base font-semibold font-inter ml-12" data-i18n="cta.button">{finalButtonText}</span>
 
           <!-- Arrow -->
           <span class="text-white text-base font-semibold ml-2 group-hover:translate-x-1 transition-transform">→</span>

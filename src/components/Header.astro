@@ -1,4 +1,7 @@
 ---
+import LanguageSwitcher from "@components/LanguageSwitcher.astro";
+import { t } from "@lib/i18n";
+
 interface Props {
   logoSrc?: string;
 }
@@ -6,10 +9,10 @@ interface Props {
 const { logoSrc = "/logo.svg" } = Astro.props;
 
 const navItems = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
-  { label: "Venue", href: "/venue" },
-  { label: "FAQ", href: "/faq" },
+  { label: t('en', 'nav.home'), key: 'nav.home', href: "/" },
+  { label: t('en', 'nav.about'), key: 'nav.about', href: "/about" },
+  { label: t('en', 'nav.venue'), key: 'nav.venue', href: "/venue" },
+  { label: t('en', 'nav.faq'), key: 'nav.faq', href: "/faq" },
 ];
 ---
 
@@ -28,6 +31,7 @@ const navItems = [
             <a
               href={item.href}
               class="text-slate-700 font-medium hover:text-blue-600 transition-colors text-sm"
+              data-i18n={item.key}
             >
               {item.label}
             </a>
@@ -35,24 +39,31 @@ const navItems = [
         }
       </nav>
 
-      <!-- Mobile Menu Button -->
-      <button
-        id="mobile-menu-btn"
-        class="md:hidden flex flex-col gap-1.5"
-        aria-label="Toggle mobile menu"
-      >
-        <span class="w-6 h-0.5 bg-slate-700 transition-all"></span>
-        <span class="w-6 h-0.5 bg-slate-700 transition-all"></span>
-        <span class="w-6 h-0.5 bg-slate-700 transition-all"></span>
-      </button>
+      <!-- Right side: Language Switcher + Mobile Menu Button -->
+      <div class="flex items-center gap-4">
+        <!-- Language Switcher (visible on all devices) -->
+        <LanguageSwitcher />
 
-      <!-- CTA Button (Desktop only) -->
-      <a
-        href="/#sponsors"
-        class="hidden md:block bg-gradient-to-r from-blue-600 to-green-500 text-white px-6 py-2 rounded-full font-semibold hover:shadow-lg transition-all duration-300 text-sm whitespace-nowrap"
-      >
-        Get Tickets
-      </a>
+        <!-- Mobile Menu Button -->
+        <button
+          id="mobile-menu-btn"
+          class="md:hidden flex flex-col gap-1.5"
+          aria-label="Toggle mobile menu"
+        >
+          <span class="w-6 h-0.5 bg-slate-700 transition-all"></span>
+          <span class="w-6 h-0.5 bg-slate-700 transition-all"></span>
+          <span class="w-6 h-0.5 bg-slate-700 transition-all"></span>
+        </button>
+
+        <!-- CTA Button (Desktop only) -->
+        <a
+          href="/#sponsors"
+          class="hidden md:block bg-gradient-to-r from-blue-600 to-green-500 text-white px-6 py-2 rounded-full font-semibold hover:shadow-lg transition-all duration-300 text-sm whitespace-nowrap"
+          data-i18n="nav.getTickets"
+        >
+          {t('en', 'nav.getTickets')}
+        </a>
+      </div>
     </div>
 
     <!-- Mobile Navigation Menu -->
@@ -65,6 +76,7 @@ const navItems = [
           <a
             href={item.href}
             class="block px-4 py-2 text-slate-700 font-medium hover:bg-slate-100 hover:text-blue-600 transition-colors rounded text-sm"
+            data-i18n={item.key}
           >
             {item.label}
           </a>
