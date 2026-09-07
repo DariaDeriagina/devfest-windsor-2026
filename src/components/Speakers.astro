@@ -79,7 +79,7 @@ const accentStyles: Record<
           const accent = accentStyles[speaker.accentColor];
           return (
             <div
-              class="group flex flex-col items-center text-center animate-fade-in-up cursor-pointer speaker-card"
+              class="group flex flex-col items-center text-center animate-fade-in-up"
               style={`animation-delay: ${index * 0.1}s;`}
               data-speaker-name={speaker.name}
               data-speaker-role={speaker.role}
@@ -121,18 +121,32 @@ const accentStyles: Record<
                 {speaker.role}
               </p>
               
-              <!-- LinkedIn Button -->
-              {speaker.linkedinUrl && (
-                <a
-                  href={speaker.linkedinUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="mt-3 inline-flex items-center gap-1 px-3 py-1 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-full transition-colors"
-                  onClick="event.stopPropagation()"
+              <!-- BIO and LinkedIn Buttons -->
+              <div class="flex gap-2 mt-3">
+                <button
+                  class="speaker-bio-btn inline-flex items-center gap-1 px-3 py-1 text-xs font-semibold text-white bg-purple-600 hover:bg-purple-700 rounded-full transition-colors"
+                  data-speaker-name={speaker.name}
+                  data-speaker-role={speaker.role}
+                  data-speaker-company={speaker.company}
+                  data-speaker-bio={speaker.bio || ''}
+                  data-speaker-linkedin={speaker.linkedinUrl || ''}
+                  data-speaker-image={speaker.imageUrl}
+                  data-speaker-alt={speaker.imageAlt}
                 >
-                  LinkedIn →
-                </a>
-              )}
+                  BIO
+                </button>
+                {speaker.linkedinUrl && (
+                  <a
+                    href={speaker.linkedinUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center gap-1 px-3 py-1 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-full transition-colors"
+                    onClick="event.stopPropagation()"
+                  >
+                    LinkedIn →
+                  </a>
+                )}
+              </div>
             </div>
           );
         })
@@ -146,7 +160,7 @@ const accentStyles: Record<
           const accent = accentStyles[speaker.accentColor];
           return (
             <div
-              class="group flex flex-col items-center text-center animate-fade-in-up cursor-pointer speaker-card"
+              class="group flex flex-col items-center text-center animate-fade-in-up"
               style={`animation-delay: ${index * 0.1}s;`}
               data-speaker-name={speaker.name}
               data-speaker-role={speaker.role}
@@ -188,18 +202,32 @@ const accentStyles: Record<
                 {speaker.role}
               </p>
               
-              <!-- LinkedIn Button -->
-              {speaker.linkedinUrl && (
-                <a
-                  href={speaker.linkedinUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="mt-3 inline-flex items-center gap-1 px-3 py-1 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-full transition-colors"
-                  onClick="event.stopPropagation()"
+              <!-- BIO and LinkedIn Buttons -->
+              <div class="flex gap-2 mt-3">
+                <button
+                  class="speaker-bio-btn inline-flex items-center gap-1 px-3 py-1 text-xs font-semibold text-white bg-purple-600 hover:bg-purple-700 rounded-full transition-colors"
+                  data-speaker-name={speaker.name}
+                  data-speaker-role={speaker.role}
+                  data-speaker-company={speaker.company}
+                  data-speaker-bio={speaker.bio || ''}
+                  data-speaker-linkedin={speaker.linkedinUrl || ''}
+                  data-speaker-image={speaker.imageUrl}
+                  data-speaker-alt={speaker.imageAlt}
                 >
-                  LinkedIn →
-                </a>
-              )}
+                  BIO
+                </button>
+                {speaker.linkedinUrl && (
+                  <a
+                    href={speaker.linkedinUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center gap-1 px-3 py-1 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-full transition-colors"
+                    onClick="event.stopPropagation()"
+                  >
+                    LinkedIn →
+                  </a>
+                )}
+              </div>
             </div>
           );
         })
@@ -269,7 +297,7 @@ const accentStyles: Record<
   // Speaker modal functionality
   const modal = document.getElementById('speakerModal');
   const closeBtn = document.getElementById('closeModal');
-  const speakerCards = document.querySelectorAll('.speaker-card');
+  const bioButtons = document.querySelectorAll('.speaker-bio-btn');
   
   const viewAllBtn = document.getElementById('viewAllSpeakersBtn');
   const hiddenSpeakers = document.getElementById('hiddenSpeakers');
@@ -290,16 +318,18 @@ const accentStyles: Record<
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
   
-  // Speaker card click to open modal
-  speakerCards.forEach(card => {
-    card.addEventListener('click', () => {
-      const name = card.getAttribute('data-speaker-name');
-      const role = card.getAttribute('data-speaker-role');
-      const company = card.getAttribute('data-speaker-company');
-      const bio = card.getAttribute('data-speaker-bio');
-      const linkedin = card.getAttribute('data-speaker-linkedin');
-      const image = card.getAttribute('data-speaker-image');
-      const alt = card.getAttribute('data-speaker-alt');
+  // Bio button click to open modal
+  bioButtons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      
+      const name = btn.getAttribute('data-speaker-name');
+      const role = btn.getAttribute('data-speaker-role');
+      const company = btn.getAttribute('data-speaker-company');
+      const bio = btn.getAttribute('data-speaker-bio');
+      const linkedin = btn.getAttribute('data-speaker-linkedin');
+      const image = btn.getAttribute('data-speaker-image');
+      const alt = btn.getAttribute('data-speaker-alt');
       
       // Populate modal
       document.getElementById('modalName')!.textContent = name || '';
