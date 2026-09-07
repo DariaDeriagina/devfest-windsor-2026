@@ -19,8 +19,8 @@ export const EVENT_2026: EventConfig = {
     description:
       "Join the most exciting tech conference in Windsor. Meet developers, learn cutting-edge technologies, and build amazing things together.",
     cta: {
-      text: "Register Now",
-      href: "https://gdg.community.dev/events/details/google-developer-groups-windsor-presents-devfest-windsor-2026/",
+      text: "Get Your Ticket Now",
+      href: "https://gdg.community.dev/events/details/google-gdg-windsor-presents-gdg-windsor-essex-devfest-2026/cohost-gdg-windsor/",
     },
     secondaryCta: {
       text: "View Schedule",
