@@ -391,13 +391,4 @@ const accentStyles: Record<
     animationContainer.appendChild(lottiePlayer);
   }
 
-  // Load custom circles divider animation
-  const dividerContainer = document.getElementById('speakersDivider');
-  if (dividerContainer) {
-    fetch('/speakers-animation-custom.svg')
-      .then(response => response.text())
-      .then(svgContent => {
-        dividerContainer.innerHTML = svgContent;
-      });
-  }
 </script>
