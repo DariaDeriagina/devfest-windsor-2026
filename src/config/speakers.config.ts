@@ -14,13 +14,13 @@ export const FEATURED_SPEAKERS: Speaker[] = [
   },
   {
     name: "Keval Patel",
-    role: "Lead Information Technology Infrastructure Manager",
+    role: "Founder & AI Educator",
     company: "Architecttura Inc., Architects",
-    imageUrl: "https://randomuser.me/api/portraits/men/11.jpg",
+    imageUrl: "/keval-patel.webp",
     imageAlt: "Keval Patel",
-    linkedinUrl: "https://www.linkedin.com/",
+    linkedinUrl: "https://www.linkedin.com/in/kmpatel100/",
     accentColor: "green",
-    bio: "Keval Patel is a Lead Information Technology Infrastructure Manager at Architecttura Inc., designing enterprise IT solutions.",
+    bio: "Keval Patel is an educator, AI enthusiast, and founder of REALIQ, helping businesses and learners harness AI, automation, and cloud solutions through practical, hands-on training. He specializes in multi-agent AI workflows, low-code automation tools, and self-hosted systems, with a focus on turning complex technology into real-world results.",
   },
   {
     name: "Elvis Akhalu",
