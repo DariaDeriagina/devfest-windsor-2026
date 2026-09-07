@@ -113,16 +113,17 @@ const typeColors: Record<string, string> = {
         </div>
 
         <!-- Track Filter Buttons -->
-        <div class="flex flex-wrap gap-3 mb-12">
+        <div class="flex flex-wrap gap-3 mb-12" id="trackFilters">
           {tracks.map((track) => (
             <button 
-              class={`px-6 py-3 rounded-full font-semibold text-white transition-all duration-300 hover:shadow-lg ${
-                track.color === "blue" ? "bg-blue-600" :
-                track.color === "red" ? "bg-red-600" :
-                track.color === "yellow" ? "bg-yellow-400 text-slate-900" :
-                track.color === "green" ? "bg-green-600 border-2 border-green-600 text-green-600 bg-white" :
-                "bg-purple-600"
+              class={`track-filter-btn px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:shadow-lg ${
+                track.color === "blue" ? "bg-blue-600 text-white" :
+                track.color === "red" ? "bg-red-600 text-white" :
+                track.color === "yellow" ? "bg-yellow-400 text-slate-900 hover:bg-yellow-500" :
+                track.color === "green" ? "bg-green-600 text-white" :
+                "bg-purple-600 text-white"
               }`}
+              data-track={track.name}
             >
               {track.icon} {track.name}
             </button>
@@ -144,9 +145,12 @@ const typeColors: Record<string, string> = {
               </thead>
 
               <!-- Table Body -->
-              <tbody>
+              <tbody id="sessionTableBody">
                 {sessions.map((session, index) => (
-                  <tr class={`border-b border-slate-200 hover:bg-slate-50 transition-colors ${index === 0 ? "border-l-4 border-l-blue-600" : ""}`}>
+                  <tr 
+                    class={`session-row border-b border-slate-200 hover:bg-slate-50 transition-all duration-300 ${index === 0 ? "border-l-4 border-l-blue-600" : ""}`}
+                    data-track={session.track}
+                  >
                     <!-- Time Column -->
                     <td class="px-6 py-4">
                       <div class="text-sm font-semibold text-slate-900">{session.time}</div>
@@ -244,4 +248,74 @@ const typeColors: Record<string, string> = {
       animation: none;
     }
   }
+
+  /* Fade animation for filtered rows */
+  .session-row.hidden {
+    display: none;
+  }
+
+  .session-row.fade-in {
+    animation: fadeInUp 0.3s ease-out;
+  }
+
+  /* Active filter button styles */
+  .track-filter-btn.active {
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
+    transform: scale(1.05);
+  }
 </style>
+
+<script>
+  const trackFilterBtns = document.querySelectorAll('.track-filter-btn');
+  const sessionRows = document.querySelectorAll('.session-row');
+  let selectedTrack: string | null = null;
+
+  trackFilterBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const track = (e.target as HTMLElement).closest('.track-filter-btn')?.getAttribute('data-track');
+      
+      if (!track) return;
+
+      // Toggle filter - if clicking same track, show all
+      if (selectedTrack === track) {
+        selectedTrack = null;
+        // Remove active state from all buttons
+        trackFilterBtns.forEach(b => b.classList.remove('active'));
+        // Show all rows
+        sessionRows.forEach(row => {
+          row.classList.remove('hidden');
+          row.classList.add('fade-in');
+        });
+      } else {
+        selectedTrack = track;
+        // Update button states
+        trackFilterBtns.forEach(b => {
+          if (b.getAttribute('data-track') === track) {
+            b.classList.add('active');
+          } else {
+            b.classList.remove('active');
+          }
+        });
+
+        // Filter rows
+        sessionRows.forEach(row => {
+          const rowTrack = row.getAttribute('data-track');
+          if (rowTrack === track) {
+            row.classList.remove('hidden');
+            row.classList.add('fade-in');
+          } else {
+            row.classList.add('hidden');
+          }
+        });
+      }
+
+      // Smooth scroll to table
+      const table = document.querySelector('.overflow-x-auto');
+      if (table) {
+        setTimeout(() => {
+          table.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 100);
+      }
+    });
+  });
+</script>
