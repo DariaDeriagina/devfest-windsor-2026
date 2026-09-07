@@ -1,204 +1,80 @@
 ---
 import type { EventConfig } from "@types/event";
-import { t } from "@lib/i18n";
-import Button from "@components/Button.astro";
 
 interface Props {
   event: EventConfig;
 }
 
 const { event } = Astro.props;
-const { hero, date, location } = event;
-
-const formattedDate = date.toLocaleDateString("en-US", {
-  year: "numeric",
-  month: "long",
-  day: "numeric",
-});
 ---
 
-<section
-  class="relative min-h-screen flex items-center justify-center overflow-hidden bg-white pt-20 pb-20"
-  style="background-image: url('/group_0f_lines_bg.svg'); background-size: cover; background-position: center; background-attachment: fixed;"
-  aria-label="Hero section"
->
-  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-      <!-- Left Column -->
-      <div class="space-y-8 animate-fade-in">
-        <!-- Date Badge -->
-        <div class="inline-flex items-center gap-2 px-4 py-2 bg-yellow-300 rounded-full">
-          <span class="relative flex w-2 h-2">
-            <span class="absolute inline-flex w-full h-full rounded-full bg-yellow-500 opacity-75 animate-ping"></span>
-            <span class="relative inline-flex w-2 h-2 rounded-full bg-yellow-500"></span>
-          </span>
-          <span class="text-sm font-semibold text-slate-800"
-            >{formattedDate} • {location.city}, {location.province}</span
-          >
-        </div>
+<section class="relative min-h-screen flex items-center justify-center pt-20 bg-gradient-to-br from-blue-50 via-white to-purple-50 overflow-hidden">
+  <!-- Background decoration -->
+  <div class="absolute inset-0 overflow-hidden">
+    <div class="absolute top-0 right-0 w-96 h-96 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
+    <div class="absolute bottom-0 left-0 w-96 h-96 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse" style="animation-delay: 2s;"></div>
+  </div>
 
-        <!-- Title with gradient colors -->
-        <h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight">
-          <span class="gradient-shimmer" style="background: linear-gradient(90deg, #005AC1 0%, #005AC1 25%, #8B4789 35%, #EA4335 50%, #FBBC05 75%, #F59E0B 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">GDG Windsor</span>
-          <br />
-          <span class="gradient-shimmer" style="background: linear-gradient(90deg, #005AC1 0%, #EA4335 40%, #FBBC05 70%, #F59E0B 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">DevFest 2026</span>
-        </h1>
-
-        <!-- Decorative accent lines -->
-        <div class="flex gap-2 h-1">
-          <div class="w-12 bg-blue-600"></div>
-          <div class="w-12 bg-red-600"></div>
-          <div class="w-12 bg-yellow-400"></div>
-          <div class="w-12 bg-green-600"></div>
-        </div>
-
-        <!-- Description -->
-        <p class="text-lg text-slate-700 leading-relaxed max-w-md animate-fade-in-up" data-i18n="hero.subtitle">
-          {t('en', 'hero.subtitle')}
-        </p>
-
-        <!-- CTA Button -->
-        <div class="animate-fade-in-up">
-          <a
-            href={hero.cta.href}
-            class="w-96 h-16 relative bg-blue-500 rounded-[32px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] overflow-hidden flex items-center justify-center hover:shadow-lg transition-all duration-300 group inline-flex"
-          >
-            <!-- Decorative circles -->
-            <div class="w-12 h-12 left-[-7.78px] top-[32px] absolute bg-green-600 rounded-full"></div>
-            <div class="w-14 h-14 right-[-10px] top-[-18.50px] absolute opacity-80 bg-yellow-500 rounded-full"></div>
-            <div class="w-14 h-14 right-[-20px] top-[36.50px] absolute bg-red-500 rounded-full"></div>
-
-            <!-- Icon -->
-            <img
-              src="/icon-ticket.svg"
-              alt="Ticket icon"
-              class="w-11 h-11 flex-shrink-0"
-            />
-
-            <!-- Text -->
-            <span class="text-white text-base font-semibold font-inter ml-4" data-i18n="hero.cta">{t('en', 'hero.cta')}</span>
-
-            <!-- Arrow -->
-            <span class="text-white text-base font-semibold ml-3 group-hover:translate-x-1 transition-transform">→</span>
-          </a>
-        </div>
+  <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <!-- Main content -->
+    <div class="animate-fade-in-up">
+      <!-- Date and location badge -->
+      <div class="mb-6 inline-block">
+        <span class="inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm border border-blue-200 rounded-full text-sm font-semibold text-blue-600">
+          📍 {event.location.city}, {event.location.province}
+          <span class="mx-1">•</span>
+          📅 November 21, 2026
+        </span>
       </div>
 
-      <!-- Right Column - Hero Image -->
-      <div class="hidden md:block animate-slide-in-right">
-        <div class="float-slow">
-          <div
-            class="relative rounded-3xl overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-300"
-          >
-            <img
-              src={hero.imageUrl}
-              alt={hero.imageAlt}
-              class="w-full h-auto object-cover"
-            />
-          </div>
+      <!-- Main title -->
+      <h1 class="mt-6 text-5xl sm:text-6xl lg:text-7xl font-bold text-slate-900 tracking-tight">
+        {event.hero.title}
+      </h1>
+
+      <!-- Subtitle -->
+      <p class="mt-6 text-xl sm:text-2xl text-slate-600 max-w-3xl mx-auto font-semibold">
+        {event.hero.subtitle}
+      </p>
+
+      <!-- Description -->
+      <p class="mt-6 text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+        {event.hero.description}
+      </p>
+
+      <!-- CTA Buttons -->
+      <div class="mt-10 flex flex-col sm:flex-row justify-center items-center gap-4">
+        <a
+          href={event.hero.cta.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-lg hover:shadow-lg hover:shadow-blue-500/50 transition-all duration-300 transform hover:scale-105"
+        >
+          {event.hero.cta.text}
+        </a>
+        <a
+          href={event.hero.secondaryCta.href}
+          class="px-8 py-4 bg-white text-blue-600 font-semibold rounded-lg border-2 border-blue-600 hover:bg-blue-50 transition-all duration-300"
+        >
+          {event.hero.secondaryCta.text}
+        </a>
+      </div>
+
+      <!-- Stats -->
+      <div class="mt-16 grid grid-cols-3 gap-6 max-w-2xl mx-auto">
+        <div class="animate-fade-in-up" style="animation-delay: 0.1s;">
+          <p class="text-3xl sm:text-4xl font-bold text-blue-600">100+</p>
+          <p class="text-sm text-slate-600 mt-2">Speakers</p>
+        </div>
+        <div class="animate-fade-in-up" style="animation-delay: 0.2s;">
+          <p class="text-3xl sm:text-4xl font-bold text-purple-600">500+</p>
+          <p class="text-sm text-slate-600 mt-2">Attendees</p>
+        </div>
+        <div class="animate-fade-in-up" style="animation-delay: 0.3s;">
+          <p class="text-3xl sm:text-4xl font-bold text-emerald-600">5</p>
+          <p class="text-sm text-slate-600 mt-2">Tracks</p>
         </div>
       </div>
     </div>
   </div>
 </section>
-
-<style>
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes slideInRight {
-    from {
-      opacity: 0;
-      transform: translateX(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
-  :global(.animate-fade-in) {
-    animation: fadeIn 0.8s ease-in-out forwards;
-  }
-
-  :global(.animate-fade-in-up) {
-    opacity: 0;
-    animation: fadeInUp 0.8s ease-in-out forwards;
-  }
-
-  :global(.animate-fade-in-up:nth-child(1)) {
-    animation-delay: 0.2s;
-  }
-
-  :global(.animate-fade-in-up:nth-child(2)) {
-    animation-delay: 0.4s;
-  }
-
-  :global(.animate-fade-in-up:nth-child(3)) {
-    animation-delay: 0.6s;
-  }
-
-  :global(.animate-slide-in-right) {
-    animation: slideInRight 0.8s ease-in-out 0.2s both;
-  }
-
-  @keyframes gradientShift {
-    0%,
-    100% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-  }
-
-  :global(.gradient-shimmer) {
-    background-size: 200% auto;
-    animation: gradientShift 6s ease-in-out infinite;
-  }
-
-  @keyframes floatSlow {
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-14px);
-    }
-  }
-
-  :global(.float-slow) {
-    animation: floatSlow 5s ease-in-out infinite;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    :global(.animate-fade-in),
-    :global(.animate-fade-in-up),
-    :global(.animate-slide-in-right),
-    :global(.gradient-shimmer),
-    :global(.float-slow),
-    :global(.animate-bounce-slow),
-    :global(.animate-ping) {
-      animation: none !important;
-      opacity: 1 !important;
-      transform: none !important;
-    }
-  }
-</style>
