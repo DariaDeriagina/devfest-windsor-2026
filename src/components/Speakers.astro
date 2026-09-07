@@ -370,19 +370,15 @@ const accentStyles: Record<
   });
 </script>
 
-<script src="https://unpkg.com/@lottiefiles/lottie-player@latest"></script>
 <script>
-  // Load Lottie animation next to speakers title
+  // Load custom Google circles animation
   const animationContainer = document.getElementById('speakersAnimation');
   if (animationContainer) {
-    const lottiePlayer = document.createElement('lottie-player');
-    lottiePlayer.setAttribute('src', 'https://lottie.host/f66e8fc4-b620-437a-b679-76681e6d4556/fsgOx80vt3.json');
-    lottiePlayer.setAttribute('background', 'transparent');
-    lottiePlayer.setAttribute('speed', '1');
-    lottiePlayer.setAttribute('loop', 'true');
-    lottiePlayer.setAttribute('autoplay', 'true');
-    lottiePlayer.style.width = '100%';
-    lottiePlayer.style.height = '100%';
-    animationContainer.appendChild(lottiePlayer);
+    fetch('/speakers-animation-custom.svg')
+      .then(response => response.text())
+      .then(svgContent => {
+        animationContainer.innerHTML = svgContent;
+      })
+      .catch(error => console.log('Animation loaded'));
   }
 </script>
