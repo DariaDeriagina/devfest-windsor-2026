@@ -29,70 +29,71 @@ const sessions = [
   {
     time: "9:00 AM",
     duration: "45 min",
-    title: "AI Foundations: From Prompts to Impact",
-    speaker: "Lorem Ipsum",
-    track: "AI",
+    title: "Build relationships first. Sell later.",
+    speaker: "Frank Abbruzzese",
+    track: "Web Development",
     type: "Keynote",
     location: "Main Stage",
-    avatar: "https://randomuser.me/api/portraits/women/32.jpg",
-    bgColor: "bg-blue-600",
+    avatar: "https://randomuser.me/api/portraits/men/32.jpg",
+    bgColor: "bg-red-600",
   },
   {
     time: "10:00 AM",
     duration: "45 min",
-    title: "Building with Gemini: Practical AI in Production",
-    speaker: "Dolor Sit",
+    title: "Hack It, Build It, Launch It: Entrepreneurship for Developers",
+    speaker: "Wen Teoh",
     track: "AI",
     type: "Technical Session",
     location: "Room A",
-    avatar: "https://randomuser.me/api/portraits/men/44.jpg",
-    bgColor: "bg-green-600",
+    avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+    bgColor: "bg-blue-600",
   },
   {
     time: "11:15 AM",
-    duration: "45 min",
-    title: "Responsible AI: Ethics, Safety, and Trust",
-    speaker: "Consectetur Amet",
-    track: "AI",
-    type: "Panel",
-    location: "Main Stage",
-    avatar: "https://randomuser.me/api/portraits/women/68.jpg",
-    bgColor: "bg-red-600",
+    duration: "30 min",
+    title: "Expectation vs. Reality: Building Data Pipelines in Banking",
+    speaker: "Elvis Akhalu",
+    track: "Cloud",
+    type: "Case Study",
+    location: "Room B",
+    avatar: "https://randomuser.me/api/portraits/men/68.jpg",
+    bgColor: "bg-yellow-600",
   },
   {
     time: "1:00 PM",
     duration: "45 min",
-    title: "Modern Web Development with Latest Frameworks",
-    speaker: "Sed Do Eiusmod",
-    track: "Web Development",
+    title: "Beyond Vibe Coding: Engineering Production-Ready Software with AI",
+    speaker: "Keval Patel",
+    track: "AI",
     type: "Technical Session",
-    location: "Room B",
+    location: "Main Stage",
     avatar: "https://randomuser.me/api/portraits/men/76.jpg",
-    bgColor: "bg-yellow-400",
+    bgColor: "bg-blue-600",
   },
   {
     time: "2:15 PM",
     duration: "45 min",
-    title: "Cloud Architecture Best Practices",
-    speaker: "Tempor Incididunt",
-    track: "Cloud",
-    type: "Case Study",
+    title: "Lorem Title: Mobile Development",
+    speaker: "Lorem Ipsum",
+    track: "Mobile",
+    type: "Panel",
     location: "Room A",
     avatar: "https://randomuser.me/api/portraits/women/12.jpg",
-    bgColor: "bg-purple-600",
+    bgColor: "bg-green-600",
   },
   {
     time: "3:30 PM",
     duration: "45 min",
-    title: "The Future of Mobile Development",
-    speaker: "Ut Labore Et",
-    track: "Mobile",
+    title: "Lorem Title: High School Innovation",
+    speaker: "Lorem Ipsum",
+    track: "High School",
     type: "Closing Session",
-    location: "Main Stage",
+    location: "Room C",
     avatar: "https://randomuser.me/api/portraits/men/55.jpg",
-    bgColor: "bg-orange-600",
+    bgColor: "bg-purple-600",
   },
 ];
+
 
 const typeColors: Record<string, string> = {
   "Keynote": "blue",
@@ -124,7 +125,7 @@ const iconSvgs: Record<string, string> = {
       {tracks.map((track) => (
         <button
           class={`px-6 py-3 rounded-full font-semibold text-white bg-gradient-to-r ${track.bgGradient} hover:shadow-lg hover:shadow-blue-500/40 transition-all duration-300 cursor-pointer transform hover:scale-105 flex items-center gap-2`}
-          onclick={`alert('Filter by ${track.name} track')`}
+          class="track-filter-btn" data-track={track.name}
         >
           <span set:html={iconSvgs[track.icon]} />
           {track.name}
@@ -145,7 +146,7 @@ const iconSvgs: Record<string, string> = {
         </thead>
         <tbody>
           {sessions.map((session, idx) => (
-            <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors cursor-pointer" onclick={`alert('Session: ${session.title}')`}>
+            <tr class="session-row border-b border-gray-100 hover:bg-gray-50 transition-colors cursor-pointer" data-track={session.track}>
               <!-- Time -->
               <td class="py-6 px-4 font-semibold text-gray-900 whitespace-nowrap">{session.time}</td>
 
@@ -159,7 +160,7 @@ const iconSvgs: Record<string, string> = {
                       src={session.avatar}
                       alt={session.speaker}
                       class="w-12 h-12 rounded-full relative cursor-pointer hover:opacity-80 transition-opacity"
-                      onclick={`event.stopPropagation(); alert('Speaker: ${session.speaker}')`}
+                      onclick="event.stopPropagation();"
                     />
                   </div>
 
@@ -171,14 +172,14 @@ const iconSvgs: Record<string, string> = {
                       <!-- Track badge -->
                       <span
                         class={`px-3 py-1.5 rounded-full text-xs font-semibold text-white bg-gradient-to-r ${tracks.find(t => t.name === session.track)?.bgGradient} cursor-pointer hover:shadow-md transition-all flex items-center gap-1.5`}
-                        onclick={`event.stopPropagation(); alert('Filter by ${session.track} track')`}
+                        onclick="event.stopPropagation();"
                       >
                         <span set:html={iconSvgs[tracks.find(t => t.name === session.track)?.icon || "sparkles"]} />
                         {session.track}
                       </span>
 
                       <!-- Type badge -->
-                      <span class="px-3 py-1.5 rounded-full text-xs font-semibold text-gray-700 bg-gray-200 cursor-pointer hover:bg-gray-300 transition-colors" onclick={`event.stopPropagation(); alert('Session type: ${session.type}')`}>
+                      <span class="px-3 py-1.5 rounded-full text-xs font-semibold text-gray-700 bg-gray-200 cursor-pointer hover:bg-gray-300 transition-colors" onclick="event.stopPropagation();">
                         {session.type}
                       </span>
                     </div>
@@ -188,7 +189,7 @@ const iconSvgs: Record<string, string> = {
 
               <!-- Location -->
               <td class="py-6 px-4 text-gray-600 hidden md:table-cell">
-                <button class="text-blue-600 hover:text-blue-800 font-semibold cursor-pointer transition-colors" onclick={`event.stopPropagation(); alert('Location: ${session.location}')`}>
+                <button class="text-blue-600 hover:text-blue-800 font-semibold cursor-pointer transition-colors" onclick="event.stopPropagation();">
                   {session.location}
                 </button>
               </td>
@@ -197,7 +198,7 @@ const iconSvgs: Record<string, string> = {
               <td class="py-6 px-4 text-center">
                 <button
                   class="inline-block px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors cursor-pointer"
-                  onclick={`event.stopPropagation(); alert('Added to calendar: ${session.title}')`}
+                  onclick="event.stopPropagation();"
                 >
                   Add
                 </button>
@@ -208,12 +209,85 @@ const iconSvgs: Record<string, string> = {
       </table>
     </div>
   </div>
-</section>
+
+<script>
+  // Track filtering functionality
+  const trackFilterBtns = document.querySelectorAll('.track-filter-btn');
+  const sessionRows = document.querySelectorAll('.session-row');
+  let selectedTrack = null;
+
+  trackFilterBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const track = e.target.closest('.track-filter-btn')?.getAttribute('data-track');
+      if (!track) return;
+      
+      if (selectedTrack === track) {
+        // Toggle off: show all sessions
+        selectedTrack = null;
+        trackFilterBtns.forEach(b => b.classList.remove('active'));
+        sessionRows.forEach(row => {
+          row.classList.remove('hidden');
+          row.classList.add('fade-in');
+        });
+      } else {
+        // Show only this track
+        selectedTrack = track;
+        trackFilterBtns.forEach(b => {
+          if (b.getAttribute('data-track') === track) {
+            b.classList.add('active');
+          } else {
+            b.classList.remove('active');
+          }
+        });
+        sessionRows.forEach(row => {
+          const rowTrack = row.getAttribute('data-track');
+          if (rowTrack === track) {
+            row.classList.remove('hidden');
+            row.classList.add('fade-in');
+          } else {
+            row.classList.add('hidden');
+          }
+        });
+      }
+      
+      // Smooth scroll to table
+      document.querySelector('table')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+</script>
 
 <style>
+  .track-filter-btn.active {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+    transform: scale(1.05);
+  }
+
+  .session-row.hidden {
+    display: none;
+  }
+
+  .session-row.fade-in {
+    animation: fadeIn 0.3s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     button {
       animation: none !important;
     }
   }
 </style>
+
+</section>
+
+
