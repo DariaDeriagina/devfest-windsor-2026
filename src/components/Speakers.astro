@@ -237,6 +237,11 @@ const accentStyles: Record<
       }
     </div>
 
+    <!-- Custom circles divider animation -->
+    <div class="flex justify-center my-12">
+      <div id="speakersDivider" class="w-full max-w-sm h-20"></div>
+    </div>
+
     <!-- Show more button (appears after View All is clicked) -->
     <div id="showMoreContainer" class="hidden text-center mt-12">
       <button
@@ -370,15 +375,29 @@ const accentStyles: Record<
   });
 </script>
 
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest"></script>
 <script>
-  // Load custom Google circles animation
+  // Load Lottie animation next to speakers title
   const animationContainer = document.getElementById('speakersAnimation');
   if (animationContainer) {
+    const lottiePlayer = document.createElement('lottie-player');
+    lottiePlayer.setAttribute('src', 'https://lottie.host/f66e8fc4-b620-437a-b679-76681e6d4556/fsgOx80vt3.json');
+    lottiePlayer.setAttribute('background', 'transparent');
+    lottiePlayer.setAttribute('speed', '1');
+    lottiePlayer.setAttribute('loop', 'true');
+    lottiePlayer.setAttribute('autoplay', 'true');
+    lottiePlayer.style.width = '100%';
+    lottiePlayer.style.height = '100%';
+    animationContainer.appendChild(lottiePlayer);
+  }
+
+  // Load custom circles divider animation
+  const dividerContainer = document.getElementById('speakersDivider');
+  if (dividerContainer) {
     fetch('/speakers-animation-custom.svg')
       .then(response => response.text())
       .then(svgContent => {
-        animationContainer.innerHTML = svgContent;
-      })
-      .catch(error => console.log('Animation loaded'));
+        dividerContainer.innerHTML = svgContent;
+      });
   }
 </script>
