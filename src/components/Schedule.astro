@@ -18,6 +18,7 @@ const finalTitle = title || defaultTitle;
 const finalDescription = description || defaultDescription;
 
 const tracks = [
+  { name: "ALL", color: "gray", icon: "sparkles", bgGradient: "from-gray-500 to-gray-600", textColor: "text-gray-600" },
   { name: "AI", color: "blue", icon: "sparkles", bgGradient: "from-blue-500 to-blue-600", textColor: "text-blue-600" },
   { name: "Web Development", color: "red", icon: "code", bgGradient: "from-red-500 to-red-600", textColor: "text-red-600" },
   { name: "Cloud", color: "yellow", icon: "cloud", bgGradient: "from-yellow-500 to-yellow-600", textColor: "text-yellow-600" },
@@ -34,7 +35,7 @@ const sessions = [
     track: "Web Development",
     type: "Keynote",
     location: "Main Stage",
-    avatar: "https://randomuser.me/api/portraits/men/32.jpg",
+    avatar: "/google-person.png",
     bgColor: "bg-red-600",
   },
   {
@@ -45,7 +46,7 @@ const sessions = [
     track: "AI",
     type: "Technical Session",
     location: "Room A",
-    avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+    avatar: "/google-person.png",
     bgColor: "bg-blue-600",
   },
   {
@@ -56,7 +57,7 @@ const sessions = [
     track: "Cloud",
     type: "Case Study",
     location: "Room B",
-    avatar: "https://randomuser.me/api/portraits/men/68.jpg",
+    avatar: "/google-person.png",
     bgColor: "bg-yellow-600",
   },
   {
@@ -67,7 +68,7 @@ const sessions = [
     track: "AI",
     type: "Technical Session",
     location: "Main Stage",
-    avatar: "https://randomuser.me/api/portraits/men/76.jpg",
+    avatar: "/google-person.png",
     bgColor: "bg-blue-600",
   },
   {
@@ -78,7 +79,7 @@ const sessions = [
     track: "Mobile",
     type: "Panel",
     location: "Room A",
-    avatar: "https://randomuser.me/api/portraits/women/12.jpg",
+    avatar: "/google-person.png",
     bgColor: "bg-green-600",
   },
   {
@@ -89,7 +90,7 @@ const sessions = [
     track: "High School",
     type: "Closing Session",
     location: "Room C",
-    avatar: "https://randomuser.me/api/portraits/men/55.jpg",
+    avatar: "/google-person.png",
     bgColor: "bg-purple-600",
   },
 ];
@@ -220,8 +221,16 @@ const iconSvgs: Record<string, string> = {
     btn.addEventListener('click', (e) => {
       const track = e.target.closest('.track-filter-btn')?.getAttribute('data-track');
       if (!track) return;
-      
-      if (selectedTrack === track) {
+
+      // Handle "ALL" button
+      if (track === "ALL") {
+        selectedTrack = null;
+        trackFilterBtns.forEach(b => b.classList.remove('active'));
+        sessionRows.forEach(row => {
+          row.classList.remove('hidden');
+          row.classList.add('fade-in');
+        });
+      } else if (selectedTrack === track) {
         // Toggle off: show all sessions
         selectedTrack = null;
         trackFilterBtns.forEach(b => b.classList.remove('active'));
@@ -249,7 +258,7 @@ const iconSvgs: Record<string, string> = {
           }
         });
       }
-      
+
       // Smooth scroll to table
       document.querySelector('table')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
