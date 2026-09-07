@@ -124,8 +124,8 @@ const iconSvgs: Record<string, string> = {
     <div class="flex flex-wrap justify-center gap-3 mb-12">
       {tracks.map((track) => (
         <button
-          class={`px-6 py-3 rounded-full font-semibold text-white bg-gradient-to-r ${track.bgGradient} hover:shadow-lg hover:shadow-blue-500/40 transition-all duration-300 cursor-pointer transform hover:scale-105 flex items-center gap-2`}
-          class="track-filter-btn" data-track={track.name}
+          class={`track-filter-btn px-6 py-3 rounded-full font-semibold text-white bg-gradient-to-r ${track.bgGradient} hover:shadow-lg hover:shadow-blue-500/40 transition-all duration-300 cursor-pointer transform hover:scale-105 flex items-center gap-2`}
+          data-track={track.name}
         >
           <span set:html={iconSvgs[track.icon]} />
           {track.name}
