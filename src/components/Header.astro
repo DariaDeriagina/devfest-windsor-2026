@@ -63,7 +63,9 @@ const navItems = [
 
         <!-- CTA Button (Desktop only) -->
         <a
-          href="/#sponsors"
+          href="https://gdg.community.dev/events/details/google-gdg-windsor-presents-gdg-windsor-essex-devfest-2026/cohost-gdg-windsor/"
+          target="_blank"
+          rel="noopener noreferrer"
           class="hidden md:block bg-gradient-to-r from-blue-600 to-green-500 text-white px-6 py-2 rounded-full font-semibold hover:shadow-lg transition-all duration-300 text-sm whitespace-nowrap"
           data-i18n="nav.getTickets"
         >
@@ -88,6 +90,16 @@ const navItems = [
           </a>
         ))
       }
+      <!-- Get Tickets link for mobile -->
+      <a
+        href="https://gdg.community.dev/events/details/google-gdg-windsor-presents-gdg-windsor-essex-devfest-2026/cohost-gdg-windsor/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="block px-4 py-2 text-white bg-blue-600 font-medium hover:bg-blue-700 transition-colors rounded text-sm text-center"
+        data-i18n="nav.getTickets"
+      >
+        {t('en', 'nav.getTickets')}
+      </a>
     </nav>
   </div>
 </header>
