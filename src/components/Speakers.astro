@@ -9,6 +9,10 @@ interface Props {
 
 const { speakers, viewAllHref = "#" } = Astro.props;
 
+// Show first 4 speakers by default
+const featuredSpeakers = speakers.slice(0, 4);
+const allSpeakers = speakers;
+
 const accentStyles: Record<
   Speaker["accentColor"],
   { blob: string; badge: string; ring: string }
@@ -58,25 +62,32 @@ const accentStyles: Record<
         </p>
       </div>
 
-      <a
-        href={viewAllHref}
+      <button
+        id="viewAllSpeakersBtn"
         class="group/link inline-flex items-center gap-2 text-blue-600 font-semibold hover:text-blue-700 transition-colors whitespace-nowrap md:mt-3"
         data-i18n="speakers.viewAll"
       >
         {t('en', 'speakers.viewAll')}
         <span aria-hidden="true" class="inline-block transition-transform duration-300 group-hover/link:translate-x-1.5">→</span>
-      </a>
+      </button>
     </div>
 
-    <!-- Speaker grid with stagger animation -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-14 animate-stagger">
+    <!-- Speaker grid -->
+    <div id="speakersGrid" class="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-14 animate-stagger">
       {
-        speakers.map((speaker, index) => {
+        featuredSpeakers.map((speaker, index) => {
           const accent = accentStyles[speaker.accentColor];
           return (
             <div
-              class="group flex flex-col items-center text-center animate-fade-in-up"
+              class="group flex flex-col items-center text-center animate-fade-in-up cursor-pointer speaker-card"
               style={`animation-delay: ${index * 0.1}s;`}
+              data-speaker-name={speaker.name}
+              data-speaker-role={speaker.role}
+              data-speaker-company={speaker.company}
+              data-speaker-bio={speaker.bio || ''}
+              data-speaker-linkedin={speaker.linkedinUrl || ''}
+              data-speaker-image={speaker.imageUrl}
+              data-speaker-alt={speaker.imageAlt}
             >
               <!-- Avatar with decorative color blob -->
               <div class="relative w-32 h-32 sm:w-40 sm:h-40 mb-5">
@@ -103,7 +114,7 @@ const accentStyles: Record<
                     accent.badge,
                   ]}
                 >
-                  {speaker.title}
+                  {speaker.role.split(' ')[0]}
                 </div>
               </div>
 
@@ -111,16 +122,156 @@ const accentStyles: Record<
               <h3 class="text-lg font-bold text-slate-900 line-clamp-2">
                 {speaker.name}
               </h3>
-              <p class="text-sm text-slate-600 mt-1 line-clamp-2">
-                {speaker.bio}
+              <p class="text-sm text-slate-600 mt-1">
+                {speaker.company}
               </p>
+              <p class="text-xs text-slate-500 mt-1 line-clamp-1">
+                {speaker.role}
+              </p>
+              
+              <!-- LinkedIn Button -->
+              {speaker.linkedinUrl && (
+                <a
+                  href={speaker.linkedinUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="mt-3 inline-flex items-center gap-1 px-3 py-1 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-full transition-colors"
+                  onClick="event.stopPropagation()"
+                >
+                  LinkedIn →
+                </a>
+              )}
             </div>
           );
         })
       }
     </div>
+
+    <!-- Hidden speakers (shown when "View All" is clicked) -->
+    <div id="hiddenSpeakers" class="hidden grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-14 mt-14 animate-stagger">
+      {
+        allSpeakers.slice(4).map((speaker, index) => {
+          const accent = accentStyles[speaker.accentColor];
+          return (
+            <div
+              class="group flex flex-col items-center text-center animate-fade-in-up cursor-pointer speaker-card"
+              style={`animation-delay: ${index * 0.1}s;`}
+              data-speaker-name={speaker.name}
+              data-speaker-role={speaker.role}
+              data-speaker-company={speaker.company}
+              data-speaker-bio={speaker.bio || ''}
+              data-speaker-linkedin={speaker.linkedinUrl || ''}
+              data-speaker-image={speaker.imageUrl}
+              data-speaker-alt={speaker.imageAlt}
+            >
+              <!-- Avatar with decorative color blob -->
+              <div class="relative w-32 h-32 sm:w-40 sm:h-40 mb-5">
+                <div
+                  class:list={[
+                    "blob-shape absolute inset-0 scale-105 transition-transform duration-300 group-hover:scale-110",
+                    accent.blob,
+                  ]}
+                  style={`animation-delay: ${index * 700}ms;`}
+                  aria-hidden="true"
+                />
+                <img
+                  src={speaker.imageUrl}
+                  alt={speaker.imageAlt}
+                  class:list={[
+                    "relative w-full h-full rounded-full object-cover ring-4 ring-white shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-110",
+                    accent.ring,
+                  ]}
+                  loading="lazy"
+                />
+                <div
+                  class:list={[
+                    "absolute bottom-0 right-0 px-2 py-1 text-xs font-bold text-white rounded-full transition-transform duration-300 group-hover:scale-110",
+                    accent.badge,
+                  ]}
+                >
+                  {speaker.role.split(' ')[0]}
+                </div>
+              </div>
+
+              <!-- Name & Info -->
+              <h3 class="text-lg font-bold text-slate-900 line-clamp-2">
+                {speaker.name}
+              </h3>
+              <p class="text-sm text-slate-600 mt-1">
+                {speaker.company}
+              </p>
+              <p class="text-xs text-slate-500 mt-1 line-clamp-1">
+                {speaker.role}
+              </p>
+              
+              <!-- LinkedIn Button -->
+              {speaker.linkedinUrl && (
+                <a
+                  href={speaker.linkedinUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="mt-3 inline-flex items-center gap-1 px-3 py-1 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-full transition-colors"
+                  onClick="event.stopPropagation()"
+                >
+                  LinkedIn →
+                </a>
+              )}
+            </div>
+          );
+        })
+      }
+    </div>
+
+    <!-- Show more button (appears after View All is clicked) -->
+    <div id="showMoreContainer" class="hidden text-center mt-12">
+      <button
+        id="collapseBtn"
+        class="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
+      >
+        Show Less ↑
+      </button>
+    </div>
   </div>
 </section>
+
+<!-- Speaker Bio Modal -->
+<div id="speakerModal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+  <div class="bg-white rounded-lg max-w-2xl w-full max-h-96 overflow-y-auto">
+    <div class="p-6">
+      <button
+        id="closeModal"
+        class="float-right text-gray-500 hover:text-gray-700 text-2xl"
+      >
+        ✕
+      </button>
+      
+      <div class="flex gap-6 pb-6">
+        <img
+          id="modalImage"
+          src=""
+          alt=""
+          class="w-32 h-32 rounded-full object-cover"
+        />
+        <div>
+          <h2 id="modalName" class="text-2xl font-bold text-slate-900"></h2>
+          <p id="modalRole" class="text-slate-600 font-semibold"></p>
+          <p id="modalCompany" class="text-slate-500"></p>
+          <a
+            id="modalLinkedIn"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-1 mt-3 px-3 py-1 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-full transition-colors"
+          >
+            LinkedIn →
+          </a>
+        </div>
+      </div>
+      
+      <p id="modalBio" class="text-slate-700 leading-relaxed"></p>
+    </div>
+  </div>
+</div>
 
 <style>
   .blob-shape {
@@ -129,3 +280,75 @@ const accentStyles: Record<
     opacity: 0.6;
   }
 </style>
+
+<script>
+  // Speaker modal functionality
+  const modal = document.getElementById('speakerModal');
+  const closeBtn = document.getElementById('closeModal');
+  const speakerCards = document.querySelectorAll('.speaker-card');
+  
+  const viewAllBtn = document.getElementById('viewAllSpeakersBtn');
+  const hiddenSpeakers = document.getElementById('hiddenSpeakers');
+  const showMoreContainer = document.getElementById('showMoreContainer');
+  const collapseBtn = document.getElementById('collapseBtn');
+  
+  // View All Speakers functionality
+  viewAllBtn?.addEventListener('click', () => {
+    hiddenSpeakers?.classList.remove('hidden');
+    showMoreContainer?.classList.remove('hidden');
+    viewAllBtn.style.display = 'none';
+  });
+  
+  collapseBtn?.addEventListener('click', () => {
+    hiddenSpeakers?.classList.add('hidden');
+    showMoreContainer?.classList.add('hidden');
+    viewAllBtn!.style.display = 'inline-flex';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+  
+  // Speaker card click to open modal
+  speakerCards.forEach(card => {
+    card.addEventListener('click', () => {
+      const name = card.getAttribute('data-speaker-name');
+      const role = card.getAttribute('data-speaker-role');
+      const company = card.getAttribute('data-speaker-company');
+      const bio = card.getAttribute('data-speaker-bio');
+      const linkedin = card.getAttribute('data-speaker-linkedin');
+      const image = card.getAttribute('data-speaker-image');
+      const alt = card.getAttribute('data-speaker-alt');
+      
+      // Populate modal
+      document.getElementById('modalName')!.textContent = name || '';
+      document.getElementById('modalRole')!.textContent = role || '';
+      document.getElementById('modalCompany')!.textContent = company || '';
+      document.getElementById('modalBio')!.textContent = bio || 'No bio available';
+      document.getElementById('modalImage')!.src = image || '';
+      document.getElementById('modalImage')!.alt = alt || '';
+      
+      const linkedInLink = document.getElementById('modalLinkedIn') as HTMLAnchorElement;
+      if (linkedin) {
+        linkedInLink.href = linkedin;
+        linkedInLink.style.display = 'inline-flex';
+      } else {
+        linkedInLink.style.display = 'none';
+      }
+      
+      modal?.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+  
+  // Close modal
+  closeBtn?.addEventListener('click', () => {
+    modal?.classList.add('hidden');
+    document.body.style.overflow = 'auto';
+  });
+  
+  // Close modal on background click
+  modal?.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.classList.add('hidden');
+      document.body.style.overflow = 'auto';
+    }
+  });
+</script>
