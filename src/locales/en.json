@@ -9,9 +9,8 @@
   "hero": {
     "title": "GDG Windsor",
     "subtitle": "Join hundreds of developers, designers, and tech enthusiasts for a day of learning, networking, and innovation. From web development to cloud computing, discover the latest trends and connect with the vibrant GDG community.",
-    "description": "Connect. Learn. Build. Together.",
     "cta": "Get Your Ticket Now",
-    "arrow": "→"
+    "arrow": "\u2192"
   },
   "speakers": {
     "title": "Featured Speakers",
@@ -43,6 +42,6 @@
   "footer": {
     "quickLinks": "Quick Links",
     "connect": "Connect",
-    "copyright": "© 2026 GDG Windsor. All rights reserved."
+    "copyright": "\u00a9 2026 GDG Windsor. All rights reserved."
   }
 }

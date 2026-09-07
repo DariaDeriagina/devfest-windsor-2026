@@ -1,48 +1,47 @@
 {
   "nav": {
     "home": "Accueil",
-    "about": "À propos",
+    "about": "\u00c0 propos",
     "venue": "Lieu",
     "faq": "FAQ",
     "getTickets": "Obtenir des billets"
   },
   "hero": {
     "title": "GDG Windsor",
-    "subtitle": "Rejoignez des centaines de développeurs, de concepteurs et de passionnés de technologie pour une journée d'apprentissage, de réseautage et d'innovation. Du développement web à l'informatique en nuage, découvrez les dernières tendances et connectez-vous avec la communauté GDG dynamique.",
-    "description": "Connectez. Apprenez. Construisez. Ensemble.",
+    "subtitle": "Rejoignez des centaines de d\u00e9veloppeurs, de concepteurs et de passionn\u00e9s de technologie pour une journ\u00e9e d'apprentissage, de r\u00e9seautage et d'innovation. Du d\u00e9veloppement web \u00e0 l'informatique en nuage, d\u00e9couvrez les derni\u00e8res tendances et connectez-vous avec la communaut\u00e9 GDG dynamique.",
     "cta": "Obtenez votre billet maintenant",
-    "arrow": "→"
+    "arrow": "\u2192"
   },
   "speakers": {
-    "title": "Conférenciers en vedette",
-    "subtitle": "Une excellente sélection de conférenciers et de contenu pour une expérience inoubliable.",
-    "viewAll": "Voir tous les conférenciers"
+    "title": "Conf\u00e9renciers en vedette",
+    "subtitle": "Une excellente s\u00e9lection de conf\u00e9renciers et de contenu pour une exp\u00e9rience inoubliable.",
+    "viewAll": "Voir tous les conf\u00e9renciers"
   },
   "schedule": {
     "title": "Explorez l'horaire par piste",
-    "description": "Parcourez les sessions sur cinq pistes conçues pour tous les développeurs et intérêts. Trouvez des présentations, des ateliers pratiques et des panels qui correspondent à vos objectifs.",
+    "description": "Parcourez les sessions sur cinq pistes con\u00e7ues pour tous les d\u00e9veloppeurs et int\u00e9r\u00eats. Trouvez des pr\u00e9sentations, des ateliers pratiques et des panels qui correspondent \u00e0 vos objectifs.",
     "filterBy": "Filtrer par"
   },
   "cta": {
-    "title": "Prêt à rejoindre la communauté?",
-    "description": "Sécurisez votre place à DevFest Windsor 2026. Les billets incluent l'accès complet à toutes les présentations, ateliers, repas et la légendaire après-partie.",
+    "title": "Pr\u00eat \u00e0 rejoindre la communaut\u00e9?",
+    "description": "S\u00e9curisez votre place \u00e0 DevFest Windsor 2026. Les billets incluent l'acc\u00e8s complet \u00e0 toutes les pr\u00e9sentations, ateliers, repas et la l\u00e9gendaire apr\u00e8s-partie.",
     "button": "Obtenez votre billet maintenant"
   },
   "tickets": {
     "title": "Obtenez vos billets",
-    "description": "Rejoignez-nous à Google DevFest Windsor 2026! Choisissez le niveau de billet parfait pour votre expérience.",
+    "description": "Rejoignez-nous \u00e0 Google DevFest Windsor 2026! Choisissez le niveau de billet parfait pour votre exp\u00e9rience.",
     "questions": "Des questions sur les billets?",
-    "groupDiscount": "Nous offrons des rabais de groupe pour les équipes de 5 personnes ou plus. Contactez-nous pour plus d'informations.",
+    "groupDiscount": "Nous offrons des rabais de groupe pour les \u00e9quipes de 5 personnes ou plus. Contactez-nous pour plus d'informations.",
     "contactSupport": "Contacter le support"
   },
   "faq": {
-    "title": "Questions fréquemment posées",
-    "cantFind": "Vous ne trouvez pas votre réponse?",
+    "title": "Questions fr\u00e9quemment pos\u00e9es",
+    "cantFind": "Vous ne trouvez pas votre r\u00e9ponse?",
     "contactUs": "Contactez-nous"
   },
   "footer": {
     "quickLinks": "Liens rapides",
     "connect": "Connecter",
-    "copyright": "© 2026 GDG Windsor. Tous les droits sont réservés."
+    "copyright": "\u00a9 2026 GDG Windsor. Tous les droits sont r\u00e9serv\u00e9s."
   }
 }

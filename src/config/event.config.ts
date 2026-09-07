@@ -2,7 +2,7 @@ import type { EventConfig } from "../types/event";
 
 export const EVENT_2026: EventConfig = {
   name: "GDG Windsor DevFest 2026",
-  date: new Date("2026-11-21"),
+  date: new Date("2026-11-21T12:00:00Z"),
   location: {
     city: "Windsor",
     province: "ON",
@@ -15,7 +15,6 @@ export const EVENT_2026: EventConfig = {
   },
   hero: {
     title: "GDG Windsor DevFest 2026",
-    subtitle: "Connect. Learn. Build. Together.",
     description:
       "Join the most exciting tech conference in Windsor. Meet developers, learn cutting-edge technologies, and build amazing things together.",
     cta: {

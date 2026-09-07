@@ -53,12 +53,7 @@ const formattedDate = date.toLocaleDateString("en-US", {
         </div>
 
         <!-- Description -->
-        <p class="text-lg text-slate-700 leading-relaxed max-w-md animate-fade-in-up" data-i18n="hero.description">
-          {t('en', 'hero.description')}
-        </p>
-
-        <!-- Subtitle/Details -->
-        <p class="text-base text-slate-600 leading-relaxed max-w-lg animate-fade-in-up" data-i18n="hero.subtitle">
+        <p class="text-lg text-slate-700 leading-relaxed max-w-md animate-fade-in-up" data-i18n="hero.subtitle">
           {t('en', 'hero.subtitle')}
         </p>
 
@@ -66,25 +61,25 @@ const formattedDate = date.toLocaleDateString("en-US", {
         <div class="animate-fade-in-up">
           <a
             href={hero.cta.href}
-            class="w-72 h-16 relative bg-blue-500 rounded-[32px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] overflow-hidden flex items-center justify-center hover:shadow-lg transition-all duration-300 group inline-flex"
+            class="w-96 h-16 relative bg-blue-500 rounded-[32px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] overflow-hidden flex items-center justify-center hover:shadow-lg transition-all duration-300 group inline-flex"
           >
             <!-- Decorative circles -->
-            <div class="w-12 h-12 left-[-7.78px] top-[32px] absolute bg-green-600 rounded-full animate-bounce-slow" style="animation-delay: 0s;" />
-            <div class="w-14 h-14 left-[261.05px] top-[-18.50px] absolute opacity-80 bg-yellow-500 rounded-full animate-bounce-slow" style="animation-delay: 0.6s;" />
-            <div class="w-14 h-14 left-[250.61px] top-[36.50px] absolute bg-red-500 rounded-full animate-bounce-slow" style="animation-delay: 1.2s;" />
+            <div class="w-12 h-12 left-[-7.78px] top-[32px] absolute bg-green-600 rounded-full"></div>
+            <div class="w-14 h-14 right-[-10px] top-[-18.50px] absolute opacity-80 bg-yellow-500 rounded-full"></div>
+            <div class="w-14 h-14 right-[-20px] top-[36.50px] absolute bg-red-500 rounded-full"></div>
 
             <!-- Icon -->
             <img
               src="/icon-ticket.svg"
               alt="Ticket icon"
-              class="w-11 h-11 left-[55.44px] top-[10.18px] absolute"
+              class="w-11 h-11 flex-shrink-0"
             />
 
             <!-- Text -->
-            <span class="text-white text-base font-semibold font-inter ml-12" data-i18n="hero.cta">{t('en', 'hero.cta')}</span>
+            <span class="text-white text-base font-semibold font-inter ml-4" data-i18n="hero.cta">{t('en', 'hero.cta')}</span>
 
             <!-- Arrow -->
-            <span class="text-white text-base font-semibold ml-2 group-hover:translate-x-1 transition-transform">→</span>
+            <span class="text-white text-base font-semibold ml-3 group-hover:translate-x-1 transition-transform">→</span>
           </a>
         </div>
       </div>
