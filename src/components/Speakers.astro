@@ -1,22 +1,15 @@
 ---
-import type { Speaker } from "@types/speaker";
 import { t } from "@lib/i18n";
+import { FEATURED_SPEAKERS } from "@config/speakers.config";
 
 interface Props {
-  speakers: Speaker[];
+  speakers: typeof FEATURED_SPEAKERS;
   viewAllHref?: string;
 }
 
-const { speakers, viewAllHref = "#" } = Astro.props;
+const { speakers: featuredSpeakers, viewAllHref = "#" } = Astro.props;
 
-// Show first 4 speakers by default
-const featuredSpeakers = speakers.slice(0, 4);
-const allSpeakers = speakers;
-
-const accentStyles: Record<
-  Speaker["accentColor"],
-  { blob: string; badge: string; ring: string }
-> = {
+const accentStyles: Record<string, { blob: string; badge: string; ring: string }> = {
   blue: {
     blob: "bg-blue-600",
     badge: "bg-blue-600",
@@ -48,7 +41,7 @@ const accentStyles: Record<
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Section header -->
     <div
-      class="animate-fade-in-up flex flex-col md:flex-row md:items-start md:justify-between gap-6 mb-16"
+      class="animate-fade-in-up flex flex-col gap-6 mb-16"
     >
       <div class="max-w-xl">
         <span class="text-sm font-bold tracking-widest text-blue-600 uppercase">
@@ -64,15 +57,6 @@ const accentStyles: Record<
           {t('en', 'speakers.subtitle')}
         </p>
       </div>
-
-      <button
-        id="viewAllSpeakersBtn"
-        class="group/link inline-flex items-center gap-2 text-blue-600 font-semibold hover:text-blue-700 transition-colors whitespace-nowrap md:mt-12 mb-12 md:mb-20"
-        data-i18n="speakers.viewAll"
-      >
-        {t('en', 'speakers.viewAll')}
-        <span aria-hidden="true" class="inline-block transition-transform duration-300 group-hover/link:translate-x-1.5">→</span>
-      </button>
     </div>
 
     <!-- Speaker grid -->
@@ -113,8 +97,11 @@ const accentStyles: Record<
                 />
               </div>
 
-              <!-- Name & Info -->
-              <h3 class="text-lg font-bold text-slate-900 line-clamp-2">
+              <!-- Speaker Info -->
+              <h3
+                class="text-base sm:text-lg font-semibold text-slate-900"
+                data-i18n="speakers.speakerName"
+              >
                 {speaker.name}
               </h3>
               <p class="text-sm text-slate-600 mt-1">
@@ -144,7 +131,6 @@ const accentStyles: Record<
                     target="_blank"
                     rel="noopener noreferrer"
                     class="inline-flex items-center gap-1 px-3 py-1 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-full transition-colors"
-                    onClick="event.stopPropagation()"
                   >
                     LinkedIn →
                   </a>
@@ -156,85 +142,16 @@ const accentStyles: Record<
       }
     </div>
 
-    <!-- Hidden speakers (shown when "View All" is clicked) -->
-    <div id="hiddenSpeakers" class="hidden grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-14 mt-14 animate-stagger">
-      {
-        allSpeakers.slice(4).map((speaker, index) => {
-          const accent = accentStyles[speaker.accentColor];
-          return (
-            <div
-              class="group flex flex-col items-center text-center animate-fade-in-up"
-              style={`animation-delay: ${index * 0.1}s;`}
-              data-speaker-name={speaker.name}
-              data-speaker-role={speaker.role}
-              data-speaker-company={speaker.company}
-              data-speaker-bio={speaker.bio || ''}
-              data-speaker-linkedin={speaker.linkedinUrl || ''}
-              data-speaker-image={speaker.imageUrl}
-              data-speaker-alt={speaker.imageAlt}
-            >
-              <!-- Avatar with decorative color blob -->
-              <div class="relative w-32 h-32 sm:w-40 sm:h-40 mb-5">
-                <div
-                  class:list={[
-                    "blob-shape absolute inset-0 scale-105 transition-transform duration-300 group-hover:scale-110",
-                    accent.blob,
-                  ]}
-                  style={`animation-delay: ${index * 700}ms;`}
-                  aria-hidden="true"
-                />
-                <img
-                  src={speaker.imageUrl}
-                  alt={speaker.imageAlt}
-                  class:list={[
-                    "relative w-full h-full rounded-full object-cover ring-4 ring-white shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-110",
-                    accent.ring,
-                  ]}
-                  loading="lazy"
-                />
-              </div>
-
-              <!-- Name & Info -->
-              <h3 class="text-lg font-bold text-slate-900 line-clamp-2">
-                {speaker.name}
-              </h3>
-              <p class="text-sm text-slate-600 mt-1">
-                {speaker.company}
-              </p>
-              <p class="text-xs text-slate-500 mt-1 line-clamp-1">
-                {speaker.role}
-              </p>
-              
-              <!-- BIO and LinkedIn Buttons -->
-              <div class="flex gap-2 mt-3">
-                <button
-                  class="speaker-bio-btn inline-flex items-center gap-1 px-3 py-1 text-xs font-semibold text-white bg-purple-600 hover:bg-purple-700 rounded-full transition-colors"
-                  data-speaker-name={speaker.name}
-                  data-speaker-role={speaker.role}
-                  data-speaker-company={speaker.company}
-                  data-speaker-bio={speaker.bio || ''}
-                  data-speaker-linkedin={speaker.linkedinUrl || ''}
-                  data-speaker-image={speaker.imageUrl}
-                  data-speaker-alt={speaker.imageAlt}
-                >
-                  BIO
-                </button>
-                {speaker.linkedinUrl && (
-                  <a
-                    href={speaker.linkedinUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="inline-flex items-center gap-1 px-3 py-1 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-full transition-colors"
-                    onClick="event.stopPropagation()"
-                  >
-                    LinkedIn →
-                  </a>
-                )}
-              </div>
-            </div>
-          );
-        })
-      }
+    <!-- View All Speakers Button - Below Grid -->
+    <div class="flex justify-center mt-12 mb-12">
+      <button
+        id="viewAllSpeakersBtn"
+        class="group/link inline-flex items-center gap-2 text-blue-600 font-semibold hover:text-blue-700 transition-colors whitespace-nowrap"
+        data-i18n="speakers.viewAll"
+      >
+        {t('en', 'speakers.viewAll')}
+        <span aria-hidden="true" class="inline-block transition-transform duration-300 group-hover/link:translate-x-1.5">→</span>
+      </button>
     </div>
 
     <!-- Custom circles divider animation -->
@@ -258,137 +175,166 @@ const accentStyles: Record<
 <div id="speakerModal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
   <div class="bg-white rounded-lg max-w-2xl w-full max-h-96 overflow-y-auto">
     <div class="p-6">
-      <button
-        id="closeModal"
-        class="float-right text-gray-500 hover:text-gray-700 text-2xl"
-      >
-        ✕
-      </button>
-      
-      <div class="flex gap-6 pb-6">
-        <img
-          id="modalImage"
-          src=""
-          alt=""
-          class="w-32 h-32 rounded-full object-cover"
-        />
+      <div class="flex justify-between items-start mb-4">
         <div>
-          <h2 id="modalName" class="text-2xl font-bold text-slate-900"></h2>
-          <p id="modalRole" class="text-slate-600 font-semibold"></p>
-          <p id="modalCompany" class="text-slate-500"></p>
-          <a
-            id="modalLinkedIn"
-            href="#"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center gap-1 mt-3 px-3 py-1 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-full transition-colors"
-          >
-            LinkedIn →
-          </a>
+          <h2 id="modalSpeakerName" class="text-2xl font-bold text-slate-900"></h2>
+          <p id="modalSpeakerRole" class="text-sm text-slate-600"></p>
+          <p id="modalSpeakerCompany" class="text-sm text-slate-600"></p>
         </div>
+        <button
+          id="closeModalBtn"
+          class="text-slate-500 hover:text-slate-700 text-2xl leading-none"
+        >
+          ×
+        </button>
       </div>
-      
-      <p id="modalBio" class="text-slate-700 leading-relaxed"></p>
+      <img id="modalSpeakerImage" src="" alt="" class="w-24 h-24 rounded-full mb-4 object-cover" />
+      <p id="modalSpeakerBio" class="text-slate-600 mb-4"></p>
+      <a id="modalLinkedinLink" href="" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-blue-600 hover:text-blue-700 font-semibold">
+        LinkedIn →
+      </a>
     </div>
   </div>
 </div>
 
 <style>
   .blob-shape {
-    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-    filter: blur(40px);
-    opacity: 0.6;
+    border-radius: 30% 70% 70% 30%;
+  }
+
+  @keyframes blob {
+    0%, 100% {
+      border-radius: 30% 70% 70% 30%;
+    }
+    25% {
+      border-radius: 40% 60% 60% 40%;
+    }
+    50% {
+      border-radius: 50% 50% 50% 50%;
+    }
+    75% {
+      border-radius: 60% 40% 40% 60%;
+    }
+  }
+
+  .blob-shape {
+    animation: blob 8s ease-in-out infinite;
+  }
+
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes stagger {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: fade-in-up 0.6s ease-out forwards;
+  }
+
+  .animate-stagger > * {
+    animation: stagger 0.6s ease-out forwards;
   }
 </style>
 
 <script>
-  // Speaker modal functionality
-  const modal = document.getElementById('speakerModal');
-  const closeBtn = document.getElementById('closeModal');
-  const bioButtons = document.querySelectorAll('.speaker-bio-btn');
-  
-  const viewAllBtn = document.getElementById('viewAllSpeakersBtn');
-  const hiddenSpeakers = document.getElementById('hiddenSpeakers');
-  const showMoreContainer = document.getElementById('showMoreContainer');
-  const collapseBtn = document.getElementById('collapseBtn');
-  
-  // View All Speakers functionality
-  viewAllBtn?.addEventListener('click', () => {
-    hiddenSpeakers?.classList.remove('hidden');
-    showMoreContainer?.classList.remove('hidden');
-    viewAllBtn.style.display = 'none';
-  });
-  
-  collapseBtn?.addEventListener('click', () => {
-    hiddenSpeakers?.classList.add('hidden');
-    showMoreContainer?.classList.add('hidden');
-    viewAllBtn!.style.display = 'inline-flex';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-  
-  // Bio button click to open modal
-  bioButtons.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      
-      const name = btn.getAttribute('data-speaker-name');
-      const role = btn.getAttribute('data-speaker-role');
-      const company = btn.getAttribute('data-speaker-company');
-      const bio = btn.getAttribute('data-speaker-bio');
-      const linkedin = btn.getAttribute('data-speaker-linkedin');
-      const image = btn.getAttribute('data-speaker-image');
-      const alt = btn.getAttribute('data-speaker-alt');
-      
-      // Populate modal
-      document.getElementById('modalName')!.textContent = name || '';
-      document.getElementById('modalRole')!.textContent = role || '';
-      document.getElementById('modalCompany')!.textContent = company || '';
-      document.getElementById('modalBio')!.textContent = bio || 'No bio available';
-      document.getElementById('modalImage')!.src = image || '';
-      document.getElementById('modalImage')!.alt = alt || '';
-      
-      const linkedInLink = document.getElementById('modalLinkedIn') as HTMLAnchorElement;
-      if (linkedin) {
-        linkedInLink.href = linkedin;
-        linkedInLink.style.display = 'inline-flex';
+  const modal = document.getElementById("speakerModal");
+  const closeModalBtn = document.getElementById("closeModalBtn");
+  const bioBtns = document.querySelectorAll(".speaker-bio-btn");
+  const viewAllBtn = document.getElementById("viewAllSpeakersBtn");
+  const collapseBtn = document.getElementById("collapseBtn");
+  const speakersGrid = document.getElementById("speakersGrid");
+  const showMoreContainer = document.getElementById("showMoreContainer");
+
+  bioBtns.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      const speakerName = btn.getAttribute("data-speaker-name");
+      const speakerRole = btn.getAttribute("data-speaker-role");
+      const speakerCompany = btn.getAttribute("data-speaker-company");
+      const speakerBio = btn.getAttribute("data-speaker-bio");
+      const speakerLinkedin = btn.getAttribute("data-speaker-linkedin");
+      const speakerImage = btn.getAttribute("data-speaker-image");
+
+      document.getElementById("modalSpeakerName")!.textContent = speakerName;
+      document.getElementById("modalSpeakerRole")!.textContent = speakerRole;
+      document.getElementById("modalSpeakerCompany")!.textContent = speakerCompany;
+      document.getElementById("modalSpeakerBio")!.textContent = speakerBio;
+      document.getElementById("modalSpeakerImage")!.src = speakerImage;
+
+      const linkedinLink = document.getElementById("modalLinkedinLink");
+      if (speakerLinkedin) {
+        linkedinLink!.href = speakerLinkedin;
+        linkedinLink!.style.display = "inline-flex";
       } else {
-        linkedInLink.style.display = 'none';
+        linkedinLink!.style.display = "none";
       }
-      
-      modal?.classList.remove('hidden');
-      document.body.style.overflow = 'hidden';
+
+      modal!.classList.remove("hidden");
     });
   });
-  
-  // Close modal
-  closeBtn?.addEventListener('click', () => {
-    modal?.classList.add('hidden');
-    document.body.style.overflow = 'auto';
+
+  closeModalBtn?.addEventListener("click", () => {
+    modal!.classList.add("hidden");
   });
-  
-  // Close modal on background click
-  modal?.addEventListener('click', (e) => {
+
+  modal?.addEventListener("click", (e) => {
     if (e.target === modal) {
-      modal.classList.add('hidden');
-      document.body.style.overflow = 'auto';
+      modal.classList.add("hidden");
     }
   });
-</script>
 
-<script src="https://unpkg.com/@lottiefiles/lottie-player@latest"></script>
-<script>
-  // Load Lottie animation next to speakers title
-  const animationContainer = document.getElementById('speakersAnimation');
-  if (animationContainer) {
-    const lottiePlayer = document.createElement('lottie-player');
-    lottiePlayer.setAttribute('src', 'https://lottie.host/f66e8fc4-b620-437a-b679-76681e6d4556/fsgOx80vt3.json');
-    lottiePlayer.setAttribute('background', 'transparent');
-    lottiePlayer.setAttribute('speed', '1');
-    lottiePlayer.setAttribute('loop', 'true');
-    lottiePlayer.setAttribute('autoplay', 'true');
-    lottiePlayer.style.width = '100%';
-    lottiePlayer.style.height = '100%';
-    animationContainer.appendChild(lottiePlayer);
-  }
+  viewAllBtn?.addEventListener("click", () => {
+    // Load more speakers (if implemented)
+    showMoreContainer?.classList.remove("hidden");
+  });
 
+  collapseBtn?.addEventListener("click", () => {
+    showMoreContainer?.classList.add("hidden");
+  });
+
+  // Draw circles animation
+  const drawCircles = () => {
+    const canvas = document.getElementById("speakersDivider") as HTMLCanvasElement | null;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const width = canvas.clientWidth;
+    const height = canvas.clientHeight;
+    canvas.width = width;
+    canvas.height = height;
+
+    const colors = ["#3b82f6", "#ef4444", "#f59e0b", "#10b981"];
+    let circleIndex = 0;
+
+    setInterval(() => {
+      ctx.clearRect(0, 0, width, height);
+      const x = width / 2;
+      const y = height / 2;
+      const radius = 15 + (circleIndex % 3) * 5;
+      ctx.fillStyle = colors[circleIndex % colors.length];
+      ctx.beginPath();
+      ctx.arc(x, y, radius, 0, Math.PI * 2);
+      ctx.fill();
+      circleIndex++;
+    }, 300);
+  };
+
+  drawCircles();
 </script>
