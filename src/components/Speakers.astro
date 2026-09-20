@@ -453,3 +453,20 @@ const accentStyles: Record<string, { blob: string; badge: string; ring: string }
 
   drawCircles();
 </script>
+
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest"></script>
+<script>
+  // Load Lottie animation next to speakers title
+  const animationContainer = document.getElementById('speakersAnimation');
+  if (animationContainer) {
+    const lottiePlayer = document.createElement('lottie-player');
+    lottiePlayer.setAttribute('src', 'https://lottie.host/f66e8fc4-b620-437a-b679-76681e6d4556/fsgOx80vt3.json');
+    lottiePlayer.setAttribute('background', 'transparent');
+    lottiePlayer.setAttribute('speed', '1');
+    lottiePlayer.setAttribute('loop', 'true');
+    lottiePlayer.setAttribute('autoplay', 'true');
+    lottiePlayer.style.width = '100%';
+    lottiePlayer.style.height = '100%';
+    animationContainer.appendChild(lottiePlayer);
+  }
+</script>
