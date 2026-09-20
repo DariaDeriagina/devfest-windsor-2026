@@ -45,7 +45,7 @@ const finalButtonText = buttonText || defaultButtonText;
           href="https://gdg.community.dev/events/details/google-gdg-windsor-presents-gdg-windsor-essex-devfest-2026/cohost-gdg-windsor/"
           target="_blank"
           rel="noopener noreferrer"
-          class="min-w-80 max-w-96 h-16 relative bg-blue-500 rounded-[32px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] overflow-hidden flex items-center justify-center px-6 hover:shadow-lg hover:shadow-blue-500/50 transition-all duration-300 group inline-flex"
+          class="w-full sm:w-auto sm:min-w-80 sm:max-w-96 h-14 sm:h-16 relative bg-blue-500 rounded-[24px] sm:rounded-[32px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] overflow-hidden flex items-center justify-center px-4 sm:px-6 hover:shadow-lg hover:shadow-blue-500/50 transition-all duration-300 group inline-flex"
         >
           <!-- Decorative circles -->
           <div class="w-12 h-12 left-[-7.78px] top-[32px] absolute bg-green-600 rounded-full animate-bounce-slow" style="animation-delay: 0s;" />
@@ -56,14 +56,14 @@ const finalButtonText = buttonText || defaultButtonText;
           <img
             src="/icon-ticket.svg"
             alt="Ticket icon"
-            class="w-11 h-11 flex-shrink-0 animate-bounce"
+            class="w-9 h-9 sm:w-11 sm:h-11 flex-shrink-0 animate-bounce"
           />
 
           <!-- Text -->
-          <span class="text-white text-base font-semibold font-inter ml-2 md:ml-3 leading-tight break-words" data-i18n="cta.button">{finalButtonText}</span>
+          <span class="text-white text-sm sm:text-base font-semibold font-inter ml-2 sm:ml-3 leading-tight break-words" data-i18n="cta.button">{finalButtonText}</span>
 
           <!-- Arrow -->
-          <span class="text-white text-base font-semibold ml-3 group-hover:translate-x-1 transition-transform">→</span>
+          <span class="text-white text-sm sm:text-base font-semibold ml-2 sm:ml-3 group-hover:translate-x-1 transition-transform">→</span>
         </a>
       </div>
     </div>
