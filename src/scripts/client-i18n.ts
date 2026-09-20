@@ -49,6 +49,7 @@ function swapPageLanguage(lang: Language) {
     '[data-i18n="speakers.viewAll"]': 'speakers.viewAll',
     '[data-i18n="schedule.title"]': 'schedule.title',
     '[data-i18n="schedule.description"]': 'schedule.description',
+    '[data-i18n="sponsors.label"]': 'sponsors.label',
     '[data-i18n="sponsors.title"]': 'sponsors.title',
     '[data-i18n="sponsors.description"]': 'sponsors.description',
     '[data-i18n="application.label"]': 'application.label',
