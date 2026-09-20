@@ -27,7 +27,7 @@ const sponsors = [
   { 
     name: "School of Business", 
     logo: "/schoolOfBusiness.png",
-    url: "https://example.com", // REPLACE WITH ACTUAL URL
+    url: "https://www.uwindsor.ca/business/", // REPLACE WITH ACTUAL URL
     color: "amber"
   },
 ];
@@ -83,7 +83,8 @@ const colorStyles: Record<string, { ring: string; blob: string }> = {
             href={sponsor.url}
             target="_blank"
             rel="noopener noreferrer"
-            class="group relative p-8 rounded-lg bg-gray-50 border border-gray-200 transition-all duration-300 hover:shadow-lg hover:border-gray-300"
+            class="group relative p-8 rounded-lg bg-gray-50 border border-gray-200 transition-all duration-300 hover:shadow-lg hover:border-gray-300 cursor-pointer"
+            title={sponsor.name}
           >
             <!-- Decorative blob background -->
             <div
@@ -95,26 +96,18 @@ const colorStyles: Record<string, { ring: string; blob: string }> = {
               aria-hidden="true"
             />
             
-            <!-- Content -->
-            <div class="relative z-10 flex flex-col items-center text-center">
-              <div
-                class:list={[
-                  "w-full mb-4 ring-4 ring-transparent transition-all duration-300 rounded-lg overflow-hidden",
-                  style.ring,
-                ]}
-              >
-                <img
-                  src={sponsor.logo}
-                  alt={sponsor.name}
-                  class="h-24 w-full object-contain group-hover:scale-110 transition-transform duration-300"
-                />
-              </div>
-              <p class="text-gray-900 font-semibold text-lg group-hover:text-blue-600 transition-colors">
-                {sponsor.name}
-              </p>
-              <p class="text-sm text-gray-500 mt-2 group-hover:text-gray-700 transition-colors">
-                Click to visit →
-              </p>
+            <!-- Logo Only -->
+            <div
+              class:list={[
+                "relative z-10 ring-4 ring-transparent transition-all duration-300 rounded-lg overflow-hidden",
+                style.ring,
+              ]}
+            >
+              <img
+                src={sponsor.logo}
+                alt={sponsor.name}
+                class="h-24 w-full object-contain group-hover:scale-110 transition-transform duration-300"
+              />
             </div>
           </a>
         );
