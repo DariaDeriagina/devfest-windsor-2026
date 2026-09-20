@@ -61,7 +61,7 @@ const formattedDate = date.toLocaleDateString("en-US", {
         <div class="animate-fade-in-up">
           <a
             href={hero.cta.href}
-            class="w-96 h-16 relative bg-blue-500 rounded-[32px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] overflow-hidden flex items-center justify-center hover:shadow-lg transition-all duration-300 group inline-flex"
+            class="min-w-80 max-w-96 h-16 relative bg-blue-500 rounded-[32px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] overflow-hidden flex items-center justify-center px-6 hover:shadow-lg transition-all duration-300 group inline-flex"
           >
             <!-- Decorative circles -->
             <div class="w-12 h-12 left-[-7.78px] top-[32px] absolute bg-green-600 rounded-full"></div>
@@ -76,7 +76,7 @@ const formattedDate = date.toLocaleDateString("en-US", {
             />
 
             <!-- Text -->
-            <span class="text-white text-base font-semibold font-inter ml-2 md:ml-4 whitespace-nowrap md:whitespace-normal" data-i18n="hero.cta">{t('en', 'hero.cta')}</span>
+            <span class="text-white text-base font-semibold font-inter ml-2 md:ml-3 leading-tight break-words" data-i18n="hero.cta">{t('en', 'hero.cta')}</span>
 
             <!-- Arrow -->
             <span class="text-white text-base font-semibold ml-3 group-hover:translate-x-1 transition-transform">→</span>
