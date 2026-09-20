@@ -1,86 +1,125 @@
 ---
+// Language Switcher Component
 ---
 
-<div class="language-switcher" id="language-switcher">
-  <button class="lang-btn lang-btn-en active" data-lang="en">EN</button>
-  <button class="lang-btn lang-btn-fr" data-lang="fr">FR</button>
+<div class="flex items-center gap-2">
+  <button
+    id="lang-en"
+    class="lang-switcher-btn px-3 py-1.5 rounded text-sm font-medium transition-all duration-200 bg-blue-600 text-white"
+    data-lang="en"
+  >
+    EN
+  </button>
+  <button
+    id="lang-fr"
+    class="lang-switcher-btn px-3 py-1.5 rounded text-sm font-medium transition-all duration-200 text-slate-700 hover:bg-slate-100"
+    data-lang="fr"
+  >
+    FR
+  </button>
 </div>
 
-<style>
-  .language-switcher {
-    display: flex;
-    gap: 0;
-    border-radius: 9999px;
-    background-color: #f3f4f6;
-    padding: 2px;
-  }
-
-  .lang-btn {
-    padding: 6px 12px;
-    border: none;
-    background-color: transparent;
-    font-weight: 600;
-    font-size: 0.875rem;
-    cursor: pointer;
-    border-radius: 9999px;
-    transition: all 0.3s ease;
-    color: #6b7280;
-  }
-
-  .lang-btn.active {
-    background-color: white;
-    color: #0066ff;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  }
-
-  .lang-btn:hover:not(.active) {
-    color: #1f2937;
-  }
-</style>
-
 <script>
-  function initLanguageSwitcher() {
-    const buttons = document.querySelectorAll('.lang-btn') as NodeListOf<HTMLButtonElement>;
+  const translations = {
+    en: {
+      'nav.home': 'Home',
+      'nav.about': 'About',
+      'nav.venue': 'Venue',
+      'nav.faq': 'FAQ',
+      'nav.getTickets': 'Get Tickets',
+      'schedule.title': 'Schedule',
+      'schedule.description': 'Browse the full event schedule',
+      'schedule.time': 'TIME',
+      'schedule.session': 'SESSION',
+      'schedule.location': 'LOCATION',
+      'schedule.add': 'ADD',
+      'track.all': 'ALL',
+      'track.googleCloud': 'Google Cloud',
+      'track.buildWithAI': 'Build with AI',
+      'track.fullStack': 'Full Stack',
+      'track.entrepreneurship': 'Entrepreneurship',
+      'track.cybersecurity': 'Cybersecurity',
+      'track.highSchool': 'High School Track',
+    },
+    fr: {
+      'nav.home': 'Accueil',
+      'nav.about': 'À propos',
+      'nav.venue': 'Lieu',
+      'nav.faq': 'FAQ',
+      'nav.getTickets': 'Obtenir des billets',
+      'schedule.title': 'Horaire',
+      'schedule.description': 'Parcourez l\'horaire complet de l\'événement',
+      'schedule.time': 'HEURE',
+      'schedule.session': 'SESSION',
+      'schedule.location': 'LIEU',
+      'schedule.add': 'AJOUTER',
+      'track.all': 'TOUS',
+      'track.googleCloud': 'Google Cloud',
+      'track.buildWithAI': 'Build with AI',
+      'track.fullStack': 'Full Stack',
+      'track.entrepreneurship': 'Entrepreneurship',
+      'track.cybersecurity': 'Cybersecurity',
+      'track.highSchool': 'High School Track',
+    },
+  };
+
+  function setLanguage(lang) {
+    localStorage.setItem('language', lang);
+    document.documentElement.lang = lang;
     
-    // Get saved language from localStorage or default to 'en'
-    const savedLang = localStorage.getItem('language') || 'en';
-    
-    // Set initial active button
-    buttons.forEach(btn => {
-      btn.classList.remove('active');
-      if (btn.dataset.lang === savedLang) {
-        btn.classList.add('active');
+    // Update all elements with data-i18n attribute
+    const elements = document.querySelectorAll('[data-i18n]');
+    elements.forEach((el) => {
+      const key = el.getAttribute('data-i18n');
+      if (translations[lang] && translations[lang][key]) {
+        el.textContent = translations[lang][key];
       }
     });
 
-    // Add click handlers
-    buttons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const lang = btn.dataset.lang;
-        
-        // Save to localStorage for client-side persistence
-        localStorage.setItem('language', lang);
-        
-        // Set cookie for server-side detection
-        document.cookie = `language=${lang}; path=/; max-age=31536000`;
-        
-        // Update active state
-        buttons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        
-        // Dispatch custom event for other components to listen
-        window.dispatchEvent(new CustomEvent('languageChanged', { detail: { lang } }));
-        
-        // Reload page to apply new language
-        window.location.reload();
-      });
+    // Update track names in schedule
+    const trackNameElements = document.querySelectorAll('[data-track-name]');
+    trackNameElements.forEach((el) => {
+      const key = el.getAttribute('data-track-name');
+      if (translations[lang] && translations[lang][key]) {
+        el.textContent = translations[lang][key];
+      }
     });
+
+    // Update table headers
+    const timeHeader = document.querySelector('[data-schedule-header="time"]');
+    const sessionHeader = document.querySelector('[data-schedule-header="session"]');
+    const locationHeader = document.querySelector('[data-schedule-header="location"]');
+    
+    if (timeHeader) timeHeader.textContent = translations[lang]['schedule.time'];
+    if (sessionHeader) sessionHeader.textContent = translations[lang]['schedule.session'];
+    if (locationHeader) locationHeader.textContent = translations[lang]['schedule.location'];
+
+    // Update ADD buttons
+    const addButtons = document.querySelectorAll('[data-schedule-add]');
+    addButtons.forEach((btn) => {
+      btn.textContent = translations[lang]['schedule.add'];
+    });
+
+    // Update language switcher buttons
+    const langButtons = document.querySelectorAll('.lang-switcher-btn');
+    langButtons.forEach((btn) => {
+      btn.classList.remove('bg-blue-600', 'text-white');
+      btn.classList.add('text-slate-700', 'hover:bg-slate-100');
+    });
+    document.getElementById(`lang-${lang}`).classList.remove('text-slate-700', 'hover:bg-slate-100');
+    document.getElementById(`lang-${lang}`).classList.add('bg-blue-600', 'text-white');
   }
 
-  // Initialize on page load
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initLanguageSwitcher);
-  } else {
-    initLanguageSwitcher();
-  }
+  // Initialize language from localStorage or default to English
+  const savedLanguage = localStorage.getItem('language') || 'en';
+  setLanguage(savedLanguage);
+
+  // Add click handlers to language switcher buttons
+  const langButtons = document.querySelectorAll('.lang-switcher-btn');
+  langButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const lang = btn.getAttribute('data-lang');
+      setLanguage(lang);
+    });
+  });
 </script>

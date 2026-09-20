@@ -1,55 +1,54 @@
-import en from '../locales/en.json';
-import fr from '../locales/fr.json';
-
-export type Language = 'en' | 'fr';
-
-const translations: Record<Language, typeof en> = {
-  en,
-  fr,
+// i18n translations
+export const translations = {
+  en: {
+    'nav.home': 'Home',
+    'nav.about': 'About',
+    'nav.venue': 'Venue',
+    'nav.faq': 'FAQ',
+    'nav.getTickets': 'Get Tickets',
+    'schedule.title': 'Schedule',
+    'schedule.description': 'Browse the full event schedule',
+    'schedule.time': 'TIME',
+    'schedule.session': 'SESSION',
+    'schedule.location': 'LOCATION',
+    'schedule.add': 'ADD',
+    'track.all': 'ALL',
+    'track.googleCloud': 'Google Cloud',
+    'track.buildWithAI': 'Build with AI',
+    'track.fullStack': 'Full Stack',
+    'track.entrepreneurship': 'Entrepreneurship',
+    'track.cybersecurity': 'Cybersecurity',
+    'track.highSchool': 'High School Track',
+  },
+  fr: {
+    'nav.home': 'Accueil',
+    'nav.about': 'À propos',
+    'nav.venue': 'Lieu',
+    'nav.faq': 'FAQ',
+    'nav.getTickets': 'Obtenir des billets',
+    'schedule.title': 'Horaire',
+    'schedule.description': 'Parcourez l\'horaire complet de l\'événement',
+    'schedule.time': 'HEURE',
+    'schedule.session': 'SESSION',
+    'schedule.location': 'LIEU',
+    'schedule.add': 'AJOUTER',
+    'track.all': 'TOUS',
+    'track.googleCloud': 'Google Cloud',
+    'track.buildWithAI': 'Build with AI',
+    'track.fullStack': 'Full Stack',
+    'track.entrepreneurship': 'Entrepreneurship',
+    'track.cybersecurity': 'Cybersecurity',
+    'track.highSchool': 'High School Track',
+  },
 };
 
-export function getTranslations(lang: Language) {
-  return translations[lang] || translations['en'];
+export function t(lang: string, key: string): string {
+  const langTranslations = translations[lang as keyof typeof translations];
+  if (!langTranslations) return key;
+  return langTranslations[key as keyof typeof langTranslations] || key;
 }
 
-export function getLanguage(): Language {
-  if (typeof window !== 'undefined') {
-    const stored = localStorage.getItem('language');
-    if (stored === 'en' || stored === 'fr') {
-      return stored as Language;
-    }
-  }
-  return 'en';
-}
-
-export function setLanguage(lang: Language) {
-  if (typeof window !== 'undefined') {
-    localStorage.setItem('language', lang);
-  }
-}
-
-export function t(lang: Language, path: string): string {
-  const keys = path.split('.');
-  let value: any = translations[lang];
-  
-  for (const key of keys) {
-    if (value && typeof value === 'object' && key in value) {
-      value = value[key];
-    } else {
-      return path;
-    }
-  }
-  
-  return typeof value === 'string' ? value : path;
-}
-
-export function getLanguageFromRequest(request: Request): Language {
-  const cookie = request.headers.get('cookie');
-  if (cookie) {
-    const match = cookie.match(/language=([a-z]{2})/);
-    if (match && (match[1] === 'en' || match[1] === 'fr')) {
-      return match[1] as Language;
-    }
-  }
-  return 'en';
+export function getTranslation(key: string, lang?: string): string {
+  const currentLang = lang || (typeof localStorage !== 'undefined' ? localStorage.getItem('language') : 'en') || 'en';
+  return t(currentLang, key);
 }
