@@ -27,7 +27,7 @@ const sponsors = [
   { 
     name: "School of Business", 
     logo: "/schoolOfBusiness.png",
-    url: "https://www.uwindsor.ca/business/", // REPLACE WITH ACTUAL URL
+    url: "https://www.uwindsor.ca/business/",
     color: "amber"
   },
 ];
@@ -44,71 +44,44 @@ const colorStyles: Record<string, { ring: string; blob: string }> = {
 };
 ---
 
-<section id="sponsors" class="py-20 bg-white">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<section id="sponsors" class="py-20 sm:py-24 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Section Header -->
-    <div class="flex items-center gap-2 mb-8">
-      <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.856-1.487M15 10a3 3 0 11-6 0 3 3 0 016 0zM18 20a6 6 0 00-12 0v2h12v-2z"></path>
-      </svg>
-      <span class="text-blue-600 font-semibold text-sm uppercase tracking-wide">Sponsors & Partners</span>
-    </div>
-
-    <!-- Title and Description -->
-    <div class="mb-16">
-      <h2 class="text-5xl font-bold mb-6" data-i18n="sponsors.title">
-        <span class="text-gray-900">Thank you to our</span><br />
-        <span class="bg-gradient-to-r from-blue-600 via-red-600 to-yellow-500 bg-clip-text text-transparent">sponsors and partners</span>
+    <div class="mb-16 animate-fade-in-up">
+      <span class="text-sm font-bold tracking-widest text-blue-600 uppercase">
+        Sponsors & Partners
+      </span>
+      <h2 class="text-4xl sm:text-5xl font-bold text-slate-900 mb-4 mt-6" data-i18n="sponsors.title">
+        {finalTitle}
       </h2>
-
-      <!-- Colored underline -->
-      <div class="flex gap-1 mb-8 h-1 w-48">
-        <div class="flex-1 bg-blue-600 rounded"></div>
-        <div class="flex-1 bg-red-600 rounded"></div>
-        <div class="flex-1 bg-yellow-500 rounded"></div>
-        <div class="flex-1 bg-green-600 rounded"></div>
-      </div>
-
-      <p class="text-gray-700 text-lg leading-relaxed max-w-3xl" data-i18n="sponsors.description">
+      <p class="text-lg text-slate-600 leading-relaxed max-w-3xl mt-1" data-i18n="sponsors.description">
         {finalDescription}
       </p>
     </div>
 
     <!-- Sponsors Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-2xl">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
       {sponsors.map((sponsor) => {
-        const style = colorStyles[sponsor.color];
+        const styles = colorStyles[sponsor.color];
         return (
           <a
             href={sponsor.url}
             target="_blank"
             rel="noopener noreferrer"
-            class="group relative p-8 rounded-lg bg-gray-50 border border-gray-200 transition-all duration-300 hover:shadow-lg hover:border-gray-300 cursor-pointer"
-            title={sponsor.name}
+            class={`group relative flex items-center justify-center aspect-square bg-white rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-lg ${styles.ring}`}
           >
-            <!-- Decorative blob background -->
+            <!-- Blob animation background -->
             <div
-              class:list={[
-                "blob-shape absolute inset-0 scale-0 transition-transform duration-300 group-hover:scale-100 rounded-lg",
-                style.blob,
-              ]}
-              style="opacity: 0.08;"
-              aria-hidden="true"
+              class={`absolute inset-0 ${styles.blob} opacity-0 group-hover:opacity-10 blur-3xl transition-opacity duration-300 rounded-full`}
+              style="border-radius: 30% 70% 70% 30%; animation: blob 8s ease-in-out infinite;"
             />
             
-            <!-- Logo Only -->
-            <div
-              class:list={[
-                "relative z-10 ring-4 ring-transparent transition-all duration-300 rounded-lg overflow-hidden",
-                style.ring,
-              ]}
-            >
-              <img
-                src={sponsor.logo}
-                alt={sponsor.name}
-                class="h-24 w-full object-contain group-hover:scale-110 transition-transform duration-300"
-              />
-            </div>
+            <!-- Logo -->
+            <img
+              src={sponsor.logo}
+              alt={sponsor.name}
+              class="relative z-10 h-16 w-auto group-hover:scale-110 transition-transform duration-300"
+            />
           </a>
         );
       })}
@@ -117,8 +90,18 @@ const colorStyles: Record<string, { ring: string; blob: string }> = {
 </section>
 
 <style>
-  .blob-shape {
-    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-    filter: blur(40px);
+  @keyframes blob {
+    0%, 100% {
+      border-radius: 30% 70% 70% 30%;
+    }
+    25% {
+      border-radius: 40% 60% 60% 40%;
+    }
+    50% {
+      border-radius: 50% 50% 50% 50%;
+    }
+    75% {
+      border-radius: 60% 40% 40% 60%;
+    }
   }
 </style>
