@@ -6,232 +6,65 @@ interface Props {
 
 const {
   title = "Thank you to our sponsors and partners",
-  description = "DevFest Windsor 2026 is made possible by the support of organizations and community partners who believe in empowering developers and building a stronger tech future.",
+  description = "DevFest Windsor 2026 is made possible by the support of organizations and community partners who believe in empowering developers and building a stronger tech future."
 } = Astro.props;
+
+const sponsors = [
+  { name: "Sponsor 1", logo: "/google-logo.svg" },
+  { name: "Sponsor 2", logo: "/google-logo.svg" },
+  { name: "Sponsor 3", logo: "/google-logo.svg" },
+  { name: "Sponsor 4", logo: "/google-logo.svg" },
+  { name: "Sponsor 5", logo: "/google-logo.svg" },
+  { name: "Sponsor 6", logo: "/google-logo.svg" },
+  { name: "Sponsor 7", logo: "/google-logo.svg" },
+  { name: "Sponsor 8", logo: "/google-logo.svg" },
+  { name: "Sponsor 9", logo: "/google-logo.svg" },
+  { name: "Sponsor 10", logo: "/google-logo.svg" },
+  { name: "Sponsor 11", logo: "/google-logo.svg" },
+  { name: "Sponsor 12", logo: "/google-logo.svg" },
+];
 ---
 
-<section id="sponsors" class="py-20 bg-white animate-fade-in-up">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <!-- Header with Google branding on right -->
-    <div class="grid md:grid-cols-2 gap-12 mb-20 items-start">
-      <!-- Left: Title and Description -->
-      <div>
-        <span class="inline-block text-blue-600 font-semibold text-sm uppercase tracking-wider mb-4">
-          👥 Sponsors & Partners
-        </span>
-        <h2 class="text-5xl md:text-6xl font-bold text-slate-900 mb-6 leading-tight">
-          <span class="text-slate-900">Thank you to our</span><br />
-          <span class="text-blue-600">sponsors</span>
-          <span class="text-red-600"> and</span>
-          <span class="text-yellow-500">partners</span>
-        </h2>
-        <p class="text-lg text-slate-600 leading-relaxed mb-8">
-          {description}
-        </p>
-
-        <!-- Decorative lines -->
-        <div class="flex gap-2 mb-8">
-          <div class="w-16 h-1 bg-blue-600 rounded-full"></div>
-          <div class="w-16 h-1 bg-red-600 rounded-full"></div>
-          <div class="w-16 h-1 bg-yellow-400 rounded-full"></div>
-          <div class="w-16 h-1 bg-green-600 rounded-full"></div>
-        </div>
-
-        <!-- Partner Button -->
-        <button
-          class="border-2 border-blue-600 text-blue-600 px-6 py-2 rounded-full font-semibold hover:bg-blue-50 transition-colors cursor-pointer"
-          onclick={`alert('Partnership Inquiry\\n\\nEmail: partnerships@devfest-windsor.com')`}
-        >
-          Partner with us →
-        </button>
-      </div>
-
-      <!-- Right: Google Logo and Gemini -->
-      <div class="space-y-8">
-        <!-- Powered by Google -->
-        <div class="text-right">
-          <p class="text-sm text-slate-600 mb-2">Powered by</p>
-          <svg class="w-40 h-auto ml-auto" viewBox="0 0 272 92" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <text x="0" y="70" font-size="60" font-weight="bold" fill="#4285F4">G</text>
-            <text x="50" y="70" font-size="60" font-weight="bold" fill="#EA4335">o</text>
-            <text x="100" y="70" font-size="60" font-weight="bold" fill="#FBBC04">o</text>
-            <text x="150" y="70" font-size="60" font-weight="bold" fill="#4285F4">g</text>
-            <text x="200" y="70" font-size="60" font-weight="bold" fill="#34A853">l</text>
-            <text x="240" y="70" font-size="60" font-weight="bold" fill="#EA4335">e</text>
-          </svg>
-        </div>
-
-        <!-- Gemini Gold Sponsor -->
-        <div class="bg-white border-2 border-yellow-200 rounded-2xl p-6 flex items-center justify-between hover:shadow-lg transition-shadow">
-          <div>
-            <p class="text-sm font-semibold text-yellow-600 uppercase tracking-wider mb-1">Gold Sponsor</p>
-            <h3 class="text-3xl font-bold text-slate-900">Gemini</h3>
-          </div>
-          <div class="w-20 h-20 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full flex items-center justify-center ">
-            <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11z"/>
-            </svg>
-          </div>
-        </div>
-      </div>
+<section id="sponsors" class="py-20 bg-white">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Eyebrow Label -->
+    <div class="flex items-center gap-2 mb-8">
+      <svg class="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+        <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v2h8v-2zM2 8a2 2 0 11-4 0 2 2 0 014 0zM10 15a4 4 0 00-8 0v2h8v-2z"></path>
+      </svg>
+      <span class="text-blue-600 font-semibold text-sm uppercase tracking-wide">Sponsors & Partners</span>
     </div>
 
-    <!-- Sponsor Tiers -->
-    <div class="space-y-16">
-      <!-- Platinum -->
-      <div>
-        <h3 class="text-2xl font-bold text-slate-900 mb-8 pb-3 border-b-4 border-blue-600 inline-block">
-          Platinum Sponsor
-        </h3>
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-          <div class="bg-white rounded-xl p-8 border-2 border-slate-200 hover:border-blue-400 hover:shadow-lg transition-all flex items-center justify-center min-h-[180px]">
-            <div class="text-center">
-              <div class="w-20 h-20 mx-auto mb-3 bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg flex items-center justify-center">
-                <svg class="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
-                </svg>
-              </div>
-              <p class="font-bold text-slate-900 text-lg">Google Cloud</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Gold Sponsors -->
-      <div>
-        <h3 class="text-2xl font-bold text-slate-900 mb-8 pb-3 border-b-4 border-yellow-500 inline-block">
-          Gold Sponsors
-        </h3>
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-          <!-- Firebase -->
-          <div class="bg-white rounded-xl p-8 border-2 border-slate-200 hover:border-yellow-400 hover:shadow-lg transition-all flex items-center justify-center min-h-[180px]">
-            <div class="text-center">
-              <div class="w-20 h-20 mx-auto mb-3 bg-gradient-to-br from-orange-400 to-red-600 rounded-lg flex items-center justify-center">
-                <svg class="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
-                </svg>
-              </div>
-              <p class="font-bold text-slate-900 text-lg">Firebase</p>
-            </div>
-          </div>
-
-          <!-- JetBrains -->
-          <div class="bg-white rounded-xl p-8 border-2 border-slate-200 hover:border-yellow-400 hover:shadow-lg transition-all flex items-center justify-center min-h-[180px]">
-            <div class="text-center">
-              <div class="w-20 h-20 mx-auto mb-3 bg-gradient-to-br from-purple-500 to-pink-600 rounded-lg flex items-center justify-center">
-                <svg class="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-13c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5z"/>
-                </svg>
-              </div>
-              <p class="font-bold text-slate-900 text-lg">JetBrains</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Silver Sponsors -->
-      <div>
-        <h3 class="text-2xl font-bold text-slate-900 mb-8 pb-3 border-b-4 border-slate-400 inline-block">
-          Silver Sponsors
-        </h3>
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-          <!-- MongoDB -->
-          <div class="bg-white rounded-xl p-8 border-2 border-slate-200 hover:border-slate-400 hover:shadow-lg transition-all flex items-center justify-center min-h-[180px]">
-            <div class="text-center">
-              <div class="w-20 h-20 mx-auto mb-3 bg-gradient-to-br from-green-500 to-green-700 rounded-lg flex items-center justify-center">
-                <svg class="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-13c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5z"/>
-                </svg>
-              </div>
-              <p class="font-bold text-slate-900 text-lg">MongoDB</p>
-            </div>
-          </div>
-
-          <!-- Twilio -->
-          <div class="bg-white rounded-xl p-8 border-2 border-slate-200 hover:border-slate-400 hover:shadow-lg transition-all flex items-center justify-center min-h-[180px]">
-            <div class="text-center">
-              <div class="w-20 h-20 mx-auto mb-3 bg-gradient-to-br from-red-500 to-red-700 rounded-lg flex items-center justify-center">
-                <svg class="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-13c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5z"/>
-                </svg>
-              </div>
-              <p class="font-bold text-slate-900 text-lg">Twilio</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Bronze Sponsors -->
-      <div>
-        <h3 class="text-2xl font-bold text-slate-900 mb-8 pb-3 border-b-4 border-orange-600 inline-block">
-          Bronze Sponsors
-        </h3>
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-          <!-- GitHub -->
-          <div class="bg-white rounded-xl p-8 border-2 border-slate-200 hover:border-orange-400 hover:shadow-lg transition-all flex items-center justify-center min-h-[180px]">
-            <div class="text-center">
-              <div class="w-20 h-20 mx-auto mb-3 bg-gradient-to-br from-slate-700 to-black rounded-lg flex items-center justify-center">
-                <svg class="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-13c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5z"/>
-                </svg>
-              </div>
-              <p class="font-bold text-slate-900 text-lg">GitHub</p>
-            </div>
-          </div>
-
-          <!-- Domain -->
-          <div class="bg-white rounded-xl p-8 border-2 border-slate-200 hover:border-orange-400 hover:shadow-lg transition-all flex items-center justify-center min-h-[180px]">
-            <div class="text-center">
-              <div class="w-20 h-20 mx-auto mb-3 bg-gradient-to-br from-green-400 to-blue-500 rounded-lg flex items-center justify-center">
-                <svg class="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-13c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5z"/>
-                </svg>
-              </div>
-              <p class="font-bold text-slate-900 text-lg">Domain</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Community Partners -->
-      <div>
-        <h3 class="text-2xl font-bold text-slate-900 mb-8">Community Partners</h3>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {[
-            { name: "GDG Windsor", color: "from-blue-400 to-red-500" },
-            { name: "Women Techmakers", color: "from-pink-400 to-purple-500" },
-            { name: "MLH", color: "from-indigo-500 to-blue-600" },
-            { name: "WindsorEssex", color: "from-cyan-400 to-blue-500" },
-            { name: "St. Clair College", color: "from-yellow-400 to-yellow-600" },
-            { name: "WE.tech Alliance", color: "from-green-400 to-emerald-600" }
-          ].map(partner => (
-            <div class="bg-white rounded-xl p-6 border-2 border-slate-200 hover:border-blue-400 hover:shadow-lg transition-all flex items-center gap-4">
-              <div class={`w-16 h-16 bg-gradient-to-br ${partner.color} rounded-lg flex items-center justify-center `}>
-                <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
-                </svg>
-              </div>
-              <p class="font-bold text-slate-900">{partner.name}</p>
-            </div>
-          ))}
-        </div>
-      </div>
+    <!-- Title with Colored Words -->
+    <h2 class="text-5xl font-bold mb-6">
+      <span class="text-gray-900">Thank you to our </span>
+      <span class="bg-gradient-to-r from-blue-600 via-red-600 to-orange-500 bg-clip-text text-transparent">sponsors and partners</span>
+    </h2>
+    
+    <!-- Colored Stripes -->
+    <div class="flex gap-1 h-1 w-48 mb-8">
+      <div class="flex-1 bg-blue-600 rounded"></div>
+      <div class="flex-1 bg-red-600 rounded"></div>
+      <div class="flex-1 bg-yellow-500 rounded"></div>
+      <div class="flex-1 bg-green-600 rounded"></div>
     </div>
 
-    <!-- CTA Card -->
-    <div class="mt-20 bg-slate-100 rounded-2xl p-8 flex items-center justify-between">
-      <div class="flex items-center gap-4">
-        <svg class="w-8 h-8 text-blue-600 " fill="currentColor" viewBox="0 0 24 24">
-          <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-        </svg>
-        <p class="text-lg font-semibold text-slate-900">Interested in sponsoring or partnering with DevFest Windsor 2026?</p>
-      </div>
-      <button
-        class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-full transition-all hover:shadow-lg cursor-pointer "
-        onclick={`alert('Contact us\\n\\nEmail: partnerships@devfest-windsor.com\\nPhone: (519) 555-0100')`}
-      >
-        Contact us →
-      </button>
+    <!-- Description -->
+    <p class="text-lg text-gray-700 mb-16 max-w-3xl leading-relaxed">
+      {description}
+    </p>
+
+    <!-- Sponsors Grid -->
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+      {sponsors.map((sponsor) => (
+        <div class="flex items-center justify-center p-6 bg-gray-50 rounded-lg border border-gray-200 hover:border-gray-300 hover:shadow-md transition-all duration-300">
+          <img 
+            src={sponsor.logo} 
+            alt={sponsor.name}
+            class="h-12 w-auto max-w-full"
+          />
+        </div>
+      ))}
     </div>
   </div>
 </section>

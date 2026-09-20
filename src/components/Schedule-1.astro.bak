@@ -1,6 +1,7 @@
 ---
 import { t } from "@lib/i18n";
 import SessionModal from "./SessionModal.astro";
+import SectionDivider from "./SectionDivider.astro";
 
 interface Props {
   title?: string;
@@ -123,12 +124,9 @@ const iconSvgs: Record<string, string> = {
 <section id="schedule" class="animate-fade-in-up" class="py-20 bg-white">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Section Header -->
-    <div class="mb-16 animate-fade-in-up">
-      <span class="text-sm font-bold tracking-widest text-blue-600 uppercase">
-        Schedule
-      </span>
-      <h2 class="text-4xl font-bold text-gray-900 mb-4 mt-6" data-i18n="schedule.title">{finalTitle}</h2>
-      <p class="text-xl text-gray-600 max-w-3xl mt-1" data-i18n="schedule.description">{finalDescription}</p>
+    <div class="text-center mb-16 animate-fade-in-up">
+      <h2 class="text-4xl font-bold text-gray-900 mb-4" data-i18n="schedule.title">{finalTitle}</h2>
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto" data-i18n="schedule.description">{finalDescription}</p>
     </div>
 
     <!-- Track Filter Buttons -->
@@ -225,6 +223,9 @@ const iconSvgs: Record<string, string> = {
 
   <!-- Session Modal -->
   <SessionModal sessions={sessions} />
+
+  <!-- Section divider -->
+  <SectionDivider />
 </section>
 
 <script>
@@ -312,4 +313,7 @@ const iconSvgs: Record<string, string> = {
     }
   }
 </style>
+
+</section>
+
 

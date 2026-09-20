@@ -1,0 +1,113 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "What to Expect",
+  description = "Discover everything that makes DevFest Windsor an unforgettable experience for developers."
+} = Astro.props;
+
+const highlights = [
+  {
+    icon: "🎤",
+    title: "Expert Speakers",
+    description: "Learn from industry leaders and seasoned developers sharing cutting-edge insights on AI, web, cloud, and mobile development."
+  },
+  {
+    icon: "🛠️",
+    title: "Hands-On Workshops",
+    description: "Get your hands dirty with interactive labs where you can build, experiment, and level up your technical skills."
+  },
+  {
+    icon: "🌐",
+    title: "Networking Opportunities",
+    description: "Connect with fellow developers, engineers, and tech enthusiasts from across the region in a vibrant community atmosphere."
+  },
+  {
+    icon: "🏆",
+    title: "Latest Technologies",
+    description: "Explore the newest tools, frameworks, and platforms shaping the future of software development today."
+  },
+  {
+    icon: "🎉",
+    title: "Legendary After-Party",
+    description: "Celebrate the day with food, drinks, and great conversations at our exclusive networking event."
+  },
+  {
+    icon: "📚",
+    title: "Knowledge & Resources",
+    description: "Access slides, recordings, and materials from all sessions to continue learning long after the event."
+  },
+];
+---
+
+<section id="highlights" class="py-20 bg-gradient-to-b from-white to-gray-50">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Section Header -->
+    <div class="text-center mb-16 animate-fade-in-up">
+      <div class="flex items-center justify-center gap-2 mb-6">
+        <span class="text-green-600 font-semibold text-sm uppercase tracking-wide">Experience</span>
+        <div class="w-12 h-0.5 bg-gradient-to-r from-green-500 to-emerald-500"></div>
+      </div>
+      
+      <h2 class="text-4xl md:text-5xl font-bold mb-6">
+        <span class="text-gray-900">{title}</span>
+      </h2>
+      
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto">{description}</p>
+    </div>
+
+    <!-- Highlights Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {highlights.map((highlight, index) => (
+        <div 
+          class="group relative p-8 rounded-xl bg-white border border-gray-200 hover:border-green-300 transition-all duration-300 hover:shadow-lg hover:shadow-green-100/50 transform hover:scale-105"
+          style={{
+            animation: `fadeInUp 0.6s ease-out ${index * 0.1}s both`
+          }}
+        >
+          <!-- Gradient background on hover -->
+          <div class="absolute inset-0 bg-gradient-to-br from-green-50 to-emerald-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl -z-10"></div>
+          
+          <!-- Icon -->
+          <div class="text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">
+            {highlight.icon}
+          </div>
+          
+          <!-- Content -->
+          <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-green-600 transition-colors">
+            {highlight.title}
+          </h3>
+          
+          <p class="text-gray-600 leading-relaxed group-hover:text-gray-700">
+            {highlight.description}
+          </p>
+          
+          <!-- Accent line on hover -->
+          <div class="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-green-500 via-emerald-500 to-transparent rounded-b-xl transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    div {
+      animation: none !important;
+    }
+  }
+</style>

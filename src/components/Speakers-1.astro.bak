@@ -1,6 +1,7 @@
 ---
 import type { Speaker } from "@types/speaker";
 import { t } from "@lib/i18n";
+import SectionDivider from "./SectionDivider.astro";
 
 interface Props {
   speakers: Speaker[];
@@ -52,7 +53,7 @@ const accentStyles: Record<
     >
       <div class="max-w-xl">
         <span class="text-sm font-bold tracking-widest text-red-500 uppercase">
-          SPEAKERS
+          Lineup
         </span>
         <div class="flex items-center gap-6 flex-wrap sm:flex-nowrap">
           <h2 class="mt-2 text-4xl sm:text-5xl font-bold text-slate-900 whitespace-nowrap" data-i18n="speakers.title">
@@ -60,14 +61,14 @@ const accentStyles: Record<
           </h2>
           <div id="speakersAnimation" class="w-24 h-24 sm:w-40 sm:h-40 flex-shrink-0"></div>
         </div>
-        <p class="mt-1 text-slate-600 leading-relaxed" data-i18n="speakers.subtitle">
+        <p class="mt-4 text-slate-600 leading-relaxed" data-i18n="speakers.subtitle">
           {t('en', 'speakers.subtitle')}
         </p>
       </div>
 
       <button
         id="viewAllSpeakersBtn"
-        class="group/link inline-flex items-center gap-2 text-blue-600 font-semibold hover:text-blue-700 transition-colors whitespace-nowrap md:mt-12 mb-12 md:mb-20"
+        class="group/link inline-flex items-center gap-2 text-blue-600 font-semibold hover:text-blue-700 transition-colors whitespace-nowrap md:mt-3"
         data-i18n="speakers.viewAll"
       >
         {t('en', 'speakers.viewAll')}
@@ -237,10 +238,8 @@ const accentStyles: Record<
       }
     </div>
 
-    <!-- Custom circles divider animation -->
-    <div class="flex justify-center my-12">
-      <div id="speakersDivider" class="w-full max-w-sm h-20"></div>
-    </div>
+    <!-- Section divider -->
+    <SectionDivider />
 
     <!-- Show more button (appears after View All is clicked) -->
     <div id="showMoreContainer" class="hidden text-center mt-12">
@@ -391,4 +390,13 @@ const accentStyles: Record<
     animationContainer.appendChild(lottiePlayer);
   }
 
+  // Load custom circles divider animation
+  const dividerContainer = document.getElementById('speakersDivider');
+  if (dividerContainer) {
+    fetch('/speakers-animation-custom.svg')
+      .then(response => response.text())
+      .then(svgContent => {
+        dividerContainer.innerHTML = svgContent;
+      });
+  }
 </script>
