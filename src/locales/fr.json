@@ -10,7 +10,8 @@
     "title": "GDG Windsor",
     "subtitle": "Rejoignez des centaines de développeurs, de concepteurs et de passionnés de technologie pour une journée d'apprentissage, de réseautage et d'innovation. Du développement web à l'informatique en nuage, découvrez les dernières tendances et connectez-vous avec la communauté GDG dynamique.",
     "cta": "Obtenez votre billet maintenant",
-    "arrow": "→"
+    "arrow": "→",
+    "dateFormat": "d MMMM yyyy"
   },
   "speakers": {
     "title": "Conférenciers Principaux",
@@ -31,6 +32,20 @@
     "partnersComing": "Les partenaires communautaires arrivent bientôt",
     "ctaText": "Intéressé par le parrainage ou le partenariat avec DevFest Windsor 2026?",
     "contactBtn": "Contactez-nous"
+  },
+  "application": {
+    "label": "Notre application",
+    "title": "Téléchargez notre application DevFest",
+    "description": "Obtenez l'application mobile officielle DevFest Windsor 2026 pour la meilleure expérience de conférence. Accédez aux horaires, biographies des conférenciers, fonctionnalités de réseautage et mises à jour en temps réel le tout en un seul endroit.",
+    "comingSoon": "À venir",
+    "excitingThings": "Quelque chose d'excitant arrive",
+    "buildingApp": "Nous construisons une expérience mobile incroyable pour DevFest Windsor 2026. L'application officielle vous donnera un accès instantané à l'horaire, aux informations sur les conférenciers, aux fonctionnalités de réseautage interactif et aux mises à jour en direct tout au long de l'événement.",
+    "features": {
+      "schedule": "Horaire complet de l'événement avec filtrage par piste",
+      "speakers": "Profils et résumés des conférenciers",
+      "networking": "Réseautage et annuaire des participants"
+    },
+    "checkBack": "Revenez bientôt pour le lien de l'application et le code QR. Nous annoncerons le lancement sur nos canaux de réseaux sociaux!"
   },
   "cta": {
     "title": "Prêt à rejoindre la communauté?",

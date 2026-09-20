@@ -20,6 +20,19 @@ function t(lang: Language, path: string): string {
   return typeof value === 'string' ? value : path;
 }
 
+function formatDate(lang: Language): string {
+  const locale = lang === 'fr' ? 'fr-CA' : 'en-US';
+  const date = new Date('2026-11-21T12:00:00Z');
+  const city = 'Windsor';
+  const province = 'ON';
+  
+  return date.toLocaleDateString(locale, {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  }) + ' • ' + city + ', ' + province;
+}
+
 function swapPageLanguage(lang: Language) {
   // Map of selector to translation key
   const translations_map: Record<string, string> = {
@@ -36,6 +49,18 @@ function swapPageLanguage(lang: Language) {
     '[data-i18n="speakers.viewAll"]': 'speakers.viewAll',
     '[data-i18n="schedule.title"]': 'schedule.title',
     '[data-i18n="schedule.description"]': 'schedule.description',
+    '[data-i18n="sponsors.title"]': 'sponsors.title',
+    '[data-i18n="sponsors.description"]': 'sponsors.description',
+    '[data-i18n="application.label"]': 'application.label',
+    '[data-i18n="application.title"]': 'application.title',
+    '[data-i18n="application.description"]': 'application.description',
+    '[data-i18n="application.comingSoon"]': 'application.comingSoon',
+    '[data-i18n="application.excitingThings"]': 'application.excitingThings',
+    '[data-i18n="application.buildingApp"]': 'application.buildingApp',
+    '[data-i18n="application.features.schedule"]': 'application.features.schedule',
+    '[data-i18n="application.features.speakers"]': 'application.features.speakers',
+    '[data-i18n="application.features.networking"]': 'application.features.networking',
+    '[data-i18n="application.checkBack"]': 'application.checkBack',
     '[data-i18n="cta.title"]': 'cta.title',
     '[data-i18n="cta.description"]': 'cta.description',
     '[data-i18n="cta.button"]': 'cta.button',
@@ -60,6 +85,12 @@ function swapPageLanguage(lang: Language) {
       el.textContent = translated;
     });
   });
+
+  // Update date
+  const dateElement = document.querySelector('[data-i18n="hero.date"]');
+  if (dateElement) {
+    dateElement.textContent = formatDate(lang);
+  }
 }
 
 export function initClientI18n() {
