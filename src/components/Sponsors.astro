@@ -1,70 +1,181 @@
 ---
+import { t } from "@lib/i18n";
+
 interface Props {
   title?: string;
   description?: string;
 }
 
 const {
-  title = "Thank you to our sponsors and partners",
-  description = "DevFest Windsor 2026 is made possible by the support of organizations and community partners who believe in empowering developers and building a stronger tech future."
+  title,
+  description,
 } = Astro.props;
 
-const sponsors = [
-  { name: "Sponsor 1", logo: "/google-logo.svg" },
-  { name: "Sponsor 2", logo: "/google-logo.svg" },
-  { name: "Sponsor 3", logo: "/google-logo.svg" },
-  { name: "Sponsor 4", logo: "/google-logo.svg" },
-  { name: "Sponsor 5", logo: "/google-logo.svg" },
-  { name: "Sponsor 6", logo: "/google-logo.svg" },
-  { name: "Sponsor 7", logo: "/google-logo.svg" },
-  { name: "Sponsor 8", logo: "/google-logo.svg" },
-  { name: "Sponsor 9", logo: "/google-logo.svg" },
-  { name: "Sponsor 10", logo: "/google-logo.svg" },
-  { name: "Sponsor 11", logo: "/google-logo.svg" },
-  { name: "Sponsor 12", logo: "/google-logo.svg" },
+const defaultTitle = t('en', 'sponsors.title');
+const defaultDescription = t('en', 'sponsors.description');
+
+const finalTitle = title || defaultTitle;
+const finalDescription = description || defaultDescription;
+
+// Sponsor data structure - easily updateable
+const sponsorTiers = [
+  {
+    name: "Platinum",
+    color: "blue",
+    sponsors: [
+      // { name: "Company Name", logo: "/logo.png" }
+    ],
+  },
+  {
+    name: "Gold",
+    color: "yellow",
+    sponsors: [
+      // { name: "Company Name", logo: "/logo.png" }
+    ],
+  },
+  {
+    name: "Silver",
+    color: "gray",
+    sponsors: [
+      // { name: "Company Name", logo: "/logo.png" }
+    ],
+  },
+  {
+    name: "Bronze",
+    color: "orange",
+    sponsors: [
+      // { name: "Company Name", logo: "/logo.png" }
+    ],
+  },
 ];
+
+const communityPartners = [
+  // { name: "Partner Name", logo: "/logo.png" }
+];
+
+const featuredSponsor = {
+  label: "Gold Sponsor",
+  name: "Gemini",
+  logo: "/google-gemini.png",
+};
 ---
 
-<section id="sponsors" class="py-20 bg-white">
+<section id="sponsors" class="py-20 bg-gray-50">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-    <!-- Eyebrow Label -->
+    <!-- Section Header -->
     <div class="flex items-center gap-2 mb-8">
-      <svg class="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-        <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v2h8v-2zM2 8a2 2 0 11-4 0 2 2 0 014 0zM10 15a4 4 0 00-8 0v2h8v-2z"></path>
+      <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.856-1.487M15 10a3 3 0 11-6 0 3 3 0 016 0zM18 20a6 6 0 00-12 0v2h12v-2z"></path>
       </svg>
-      <span class="text-blue-600 font-semibold text-sm uppercase tracking-wide">Sponsors & Partners</span>
+      <span class="text-blue-600 font-semibold text-sm">Sponsors & Partners</span>
     </div>
 
-    <!-- Title with Colored Words -->
-    <h2 class="text-5xl font-bold mb-6">
-      <span class="text-gray-900">Thank you to our </span>
-      <span class="bg-gradient-to-r from-blue-600 via-red-600 to-orange-500 bg-clip-text text-transparent">sponsors and partners</span>
-    </h2>
-    
-    <!-- Colored Stripes -->
-    <div class="flex gap-1 h-1 w-48 mb-8">
-      <div class="flex-1 bg-blue-600 rounded"></div>
-      <div class="flex-1 bg-red-600 rounded"></div>
-      <div class="flex-1 bg-yellow-500 rounded"></div>
-      <div class="flex-1 bg-green-600 rounded"></div>
-    </div>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-16">
+      <!-- Left Side: Title and Description -->
+      <div class="lg:col-span-2">
+        <h2 class="text-5xl font-bold mb-6" data-i18n="sponsors.title">
+          <span class="text-gray-900">Thank you to our</span><br />
+          <span class="bg-gradient-to-r from-blue-600 via-red-600 to-yellow-500 bg-clip-text text-transparent">sponsors and partners</span>
+        </h2>
 
-    <!-- Description -->
-    <p class="text-lg text-gray-700 mb-16 max-w-3xl leading-relaxed">
-      {description}
-    </p>
-
-    <!-- Sponsors Grid -->
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-      {sponsors.map((sponsor) => (
-        <div class="flex items-center justify-center p-6 bg-gray-50 rounded-lg border border-gray-200 hover:border-gray-300 hover:shadow-md transition-all duration-300">
-          <img 
-            src={sponsor.logo} 
-            alt={sponsor.name}
-            class="h-12 w-auto max-w-full"
-          />
+        <!-- Colored underline -->
+        <div class="flex gap-1 mb-8 h-1 w-48">
+          <div class="flex-1 bg-blue-600 rounded"></div>
+          <div class="flex-1 bg-red-600 rounded"></div>
+          <div class="flex-1 bg-yellow-500 rounded"></div>
+          <div class="flex-1 bg-green-600 rounded"></div>
         </div>
-      ))}
+
+        <p class="text-gray-700 text-lg mb-8 leading-relaxed max-w-xl" data-i18n="sponsors.description">
+          {finalDescription}
+        </p>
+
+        <button class="px-8 py-3 border-2 border-blue-600 text-blue-600 font-semibold rounded-full hover:bg-blue-50 transition-colors flex items-center gap-2">
+          Partner with us
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Right Side: Featured Sponsor -->
+      <div class="flex flex-col justify-center items-end text-right">
+        <p class="text-yellow-600 font-semibold mb-4">Powered by</p>
+        <div class="mb-12">
+          <svg class="w-40 h-12" viewBox="0 0 272 92" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Google logo placeholder -->
+            <text x="20" y="60" font-size="48" font-weight="bold" fill="currentColor">Google</text>
+          </svg>
+        </div>
+
+        <div class="bg-white rounded-lg p-6 border border-gray-200">
+          <p class="text-yellow-600 font-semibold text-sm mb-3">{featuredSponsor.label}</p>
+          <p class="text-2xl font-bold text-gray-900">{featuredSponsor.name}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Our Sponsors Section -->
+    <div class="mb-20">
+      <h3 class="text-2xl font-bold text-gray-900 mb-8" data-i18n="sponsors.ourSponsors">Our Sponsors</h3>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {sponsorTiers.map((tier) => (
+          <div class="border-t-4" style={`border-color: ${tier.color === 'blue' ? '#3b82f6' : tier.color === 'yellow' ? '#eab308' : tier.color === 'gray' ? '#6b7280' : '#ea580c'}`}>
+            <h4 class="text-sm font-semibold mb-6 mt-4" style={`color: ${tier.color === 'blue' ? '#3b82f6' : tier.color === 'yellow' ? '#ca8a04' : tier.color === 'gray' ? '#4b5563' : '#c2410c'}`}>
+              {tier.name} Sponsor{tier.sponsors.length !== 1 ? 's' : ''}
+            </h4>
+
+            <div class="space-y-4">
+              {tier.sponsors.length > 0 ? (
+                tier.sponsors.map((sponsor) => (
+                  <div class="flex items-center gap-3">
+                    <img src={sponsor.logo} alt={sponsor.name} class="h-8 w-auto" />
+                    <span class="text-gray-900 font-medium">{sponsor.name}</span>
+                  </div>
+                ))
+              ) : (
+                <p class="text-gray-500 text-sm italic" data-i18n="sponsors.comingSoon">Coming soon</p>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Community Partners Section -->
+    <div class="mb-16">
+      <h3 class="text-2xl font-bold text-gray-900 mb-8" data-i18n="sponsors.communityPartners">Community Partners</h3>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+        {communityPartners.length > 0 ? (
+          communityPartners.map((partner) => (
+            <div class="flex items-center justify-center p-4 bg-white rounded-lg border border-gray-200">
+              <img src={partner.logo} alt={partner.name} class="h-12 w-auto" />
+            </div>
+          ))
+        ) : (
+          <div class="col-span-full text-center py-8">
+            <p class="text-gray-500" data-i18n="sponsors.partnersComing">Community partners coming soon</p>
+          </div>
+        )}
+      </div>
+    </div>
+
+    <!-- CTA Footer -->
+    <div class="bg-blue-50 rounded-lg p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-4">
+        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+        </svg>
+        <span class="text-gray-700 font-medium" data-i18n="sponsors.ctaText">Interested in sponsoring or partnering with DevFest Windsor 2026?</span>
+      </div>
+      <button class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-full transition-colors whitespace-nowrap flex items-center gap-2" data-i18n="sponsors.contactBtn">
+        Contact us
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+        </svg>
+      </button>
     </div>
   </div>
 </section>

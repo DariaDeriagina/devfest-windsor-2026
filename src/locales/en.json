@@ -10,7 +10,7 @@
     "title": "GDG Windsor",
     "subtitle": "Join hundreds of developers, designers, and tech enthusiasts for a day of learning, networking, and innovation. From web development to cloud computing, discover the latest trends and connect with the vibrant GDG community.",
     "cta": "Get Your Ticket Now",
-    "arrow": "\u2192"
+    "arrow": "→"
   },
   "speakers": {
     "title": "Keynote Speakers",
@@ -21,6 +21,16 @@
     "title": "Explore the Schedule by Track",
     "description": "Browse sessions across five tracks designed for every developer and interest. Find talks, hands-on labs, and panels that match your goals.",
     "filterBy": "Filter by"
+  },
+  "sponsors": {
+    "title": "Thank you to our sponsors and partners",
+    "description": "DevFest Windsor 2026 is made possible by the support of organizations and community partners who believe in empowering developers and building a stronger tech future.",
+    "ourSponsors": "Our Sponsors",
+    "communityPartners": "Community Partners",
+    "comingSoon": "Coming soon",
+    "partnersComing": "Community partners coming soon",
+    "ctaText": "Interested in sponsoring or partnering with DevFest Windsor 2026?",
+    "contactBtn": "Contact us"
   },
   "cta": {
     "title": "Ready to join the community?",
@@ -42,6 +52,6 @@
   "footer": {
     "quickLinks": "Quick Links",
     "connect": "Connect",
-    "copyright": "\u00a9 2026 GDG Windsor. All rights reserved."
+    "copyright": "© 2026 GDG Windsor. All rights reserved."
   }
 }
