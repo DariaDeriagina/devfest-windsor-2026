@@ -19,389 +19,89 @@ const finalTitle = title || defaultTitle;
 const finalDescription = description || defaultDescription;
 
 const tracks = [
-  { name: "ALL", color: "gray", icon: "sparkles", bgGradient: "from-gray-500 to-gray-700", textColor: "text-gray-600" },
-  { name: "Google Cloud", color: "blue", icon: "cloud", bgGradient: "from-blue-600 to-blue-800", textColor: "text-blue-600" },
-  { name: "Build with AI", color: "red", icon: "sparkles", bgGradient: "from-red-500 to-red-700", textColor: "text-red-600" },
-  { name: "Full Stack", color: "yellow", icon: "code", bgGradient: "from-yellow-500 to-yellow-600", textColor: "text-yellow-600" },
-  { name: "Entrepreneurship", color: "green", icon: "rocket", bgGradient: "from-green-500 to-green-700", textColor: "text-green-600" },
-  { name: "Cybersecurity", color: "orange", icon: "lock", bgGradient: "from-orange-500 to-orange-700", textColor: "text-orange-600" },
-  { name: "High School Track", color: "purple", icon: "book", bgGradient: "from-purple-500 to-purple-700", textColor: "text-purple-600" },
+  { name: "ALL", color: "gray", icon: "sparkles", bgGradient: "from-gray-500 to-gray-600", textColor: "text-gray-600" },
+  { name: "AI", color: "blue", icon: "sparkles", bgGradient: "from-blue-500 to-blue-600", textColor: "text-blue-600" },
+  { name: "Web Development", color: "red", icon: "code", bgGradient: "from-red-500 to-red-600", textColor: "text-red-600" },
+  { name: "Cloud", color: "yellow", icon: "cloud", bgGradient: "from-yellow-500 to-yellow-600", textColor: "text-yellow-600" },
+  { name: "Mobile", color: "green", icon: "smartphone", bgGradient: "from-green-500 to-green-600", textColor: "text-green-600" },
+  { name: "High School", color: "purple", icon: "book", bgGradient: "from-purple-500 to-purple-600", textColor: "text-purple-600" },
 ];
 
 const sessions = [
   {
-    time: "8:45 AM",
-    duration: "60 min",
-    title: "Welcoming and Keynote - TBD",
-    speaker: "Google DevFest Team",
-    track: "ALL",
-    type: "Keynote",
-    location: "Main Hall",
-    avatar: "/google-person.png",
-    bgColor: "bg-gray-600",
-    description: "Welcome to Google DevFest Windsor 2026! Join us for opening remarks and an inspiring keynote address setting the tone for the day.",
-  },
-  {
-    time: "10:00 AM",
+    time: "9:00 AM",
     duration: "45 min",
-    title: "TBD",
-    speaker: "TBD",
-    track: "Google Cloud",
-    type: "Technical Session",
-    location: "104",
-    avatar: "/google-person.png",
-    bgColor: "bg-cyan-600",
-    description: "Google Cloud track session in Room 104.",
-  },
-  {
-    time: "10:00 AM",
-    duration: "45 min",
-    title: "TBD",
-    speaker: "TBD",
-    track: "Build with AI",
-    type: "Technical Session",
-    location: "112",
-    avatar: "/google-person.png",
-    bgColor: "bg-blue-600",
-    description: "Build with AI track session in Room 112.",
-  },
-  {
-    time: "10:00 AM",
-    duration: "45 min",
-    title: "TBD",
-    speaker: "TBD",
-    track: "Full Stack",
-    type: "Technical Session",
-    location: "B14",
-    avatar: "/google-person.png",
-    bgColor: "bg-sky-600",
-    description: "Full Stack track session in Room B14.",
-  },
-  {
-    time: "10:00 AM",
-    duration: "45 min",
-    title: "Session with Amrit Mehta",
-    speaker: "Amrit Mehta",
-    track: "Entrepreneurship",
-    type: "Technical Session",
-    location: "B02",
-    avatar: "/google-person.png",
-    bgColor: "bg-indigo-600",
-    description: "Entrepreneurship track session in Room B02.",
-  },
-  {
-    time: "10:00 AM",
-    duration: "45 min",
-    title: "Cybersecurity Track",
-    speaker: "TBD",
-    track: "Cybersecurity",
-    type: "Workshop",
-    location: "110",
-    avatar: "/google-person.png",
-    bgColor: "bg-amber-600",
-    description: "Cybersecurity track session in Room 110.",
-  },
-  {
-    time: "10:00 AM",
-    duration: "45 min",
-    title: "High School Track",
-    speaker: "TBD",
-    track: "High School Track",
-    type: "Workshop",
-    location: "108",
-    avatar: "/google-person.png",
-    bgColor: "bg-emerald-600",
-    description: "High School track session in Room 108.",
-  },
-  {
-    time: "11:00 AM",
-    duration: "45 min",
-    title: "TBD",
-    speaker: "TBD",
-    track: "Google Cloud",
-    type: "Technical Session",
-    location: "104",
-    avatar: "/google-person.png",
-    bgColor: "bg-cyan-600",
-    description: "Google Cloud track session in Room 104.",
-  },
-  {
-    time: "11:00 AM",
-    duration: "45 min",
-    title: "Session with Andrea Yzeiri",
-    speaker: "Andrea Yzeiri",
-    track: "Build with AI",
-    type: "Technical Session",
-    location: "112",
-    avatar: "/google-person.png",
-    bgColor: "bg-blue-600",
-    description: "Build with AI track session in Room 112.",
-  },
-  {
-    time: "11:00 AM",
-    duration: "45 min",
-    title: "Session with Keval Patel",
-    speaker: "Keval Patel",
-    track: "Full Stack",
-    type: "Technical Session",
-    location: "B14",
-    avatar: "/google-person.png",
-    bgColor: "bg-sky-600",
-    description: "Full Stack track session in Room B14.",
-  },
-  {
-    time: "11:00 AM",
-    duration: "45 min",
-    title: "Session with Frank Abbruzzese",
+    title: "Build relationships first. Sell later.",
     speaker: "Frank Abbruzzese",
-    track: "Entrepreneurship",
-    type: "Technical Session",
-    location: "B02",
+    track: "Web Development",
+    type: "Keynote",
+    location: "Main Stage",
     avatar: "/google-person.png",
-    bgColor: "bg-indigo-600",
-    description: "Entrepreneurship track session in Room B02.",
+    bgColor: "bg-red-600",
+    description: "Learn how to build meaningful relationships with clients and prospects. This keynote explores the art of genuine connection before the sales pitch, creating a foundation of trust that leads to long-term success.",
   },
   {
-    time: "12:00 PM",
-    duration: "60 min",
-    title: "Lunch Break - Fireside Chat",
-    speaker: "Community",
-    track: "ALL",
-    type: "Break",
-    location: "Main Hall",
-    avatar: "/google-person.png",
-    bgColor: "bg-gray-600",
-    description: "Enjoy lunch and network with fellow developers and industry professionals.",
-  },
-  {
-    time: "1:00 PM",
+    time: "10:00 AM",
     duration: "45 min",
-    title: "Session with Don Ward",
-    speaker: "Don Ward",
-    track: "Google Cloud",
-    type: "Technical Session",
-    location: "104",
-    avatar: "/google-person.png",
-    bgColor: "bg-cyan-600",
-    description: "Google Cloud track session in Room 104.",
-  },
-  {
-    time: "1:00 PM",
-    duration: "45 min",
-    title: "Session with Joseph Youssouf",
-    speaker: "Joseph Youssouf",
-    track: "Build with AI",
-    type: "Technical Session",
-    location: "112",
-    avatar: "/google-person.png",
-    bgColor: "bg-blue-600",
-    description: "Build with AI track session in Room 112.",
-  },
-  {
-    time: "1:00 PM",
-    duration: "45 min",
-    title: "Session with Elvis Akhalu",
-    speaker: "Elvis Akhalu",
-    track: "Full Stack",
-    type: "Technical Session",
-    location: "B14",
-    avatar: "/google-person.png",
-    bgColor: "bg-sky-600",
-    description: "Full Stack track session in Room B14.",
-  },
-  {
-    time: "1:00 PM",
-    duration: "45 min",
-    title: "Session with Sean Bridgeman",
-    speaker: "Sean Bridgeman",
-    track: "Entrepreneurship",
-    type: "Technical Session",
-    location: "B02",
-    avatar: "/google-person.png",
-    bgColor: "bg-indigo-600",
-    description: "Entrepreneurship track session in Room B02.",
-  },
-  {
-    time: "2:00 PM",
-    duration: "45 min",
-    title: "Session with Vimal K",
-    speaker: "Vimal K",
-    track: "Google Cloud",
-    type: "Technical Session",
-    location: "104",
-    avatar: "/google-person.png",
-    bgColor: "bg-cyan-600",
-    description: "Google Cloud track session in Room 104.",
-  },
-  {
-    time: "2:00 PM",
-    duration: "45 min",
-    title: "Session with Atif Khan",
-    speaker: "Atif Khan",
-    track: "Build with AI",
-    type: "Technical Session",
-    location: "112",
-    avatar: "/google-person.png",
-    bgColor: "bg-blue-600",
-    description: "Build with AI track session in Room 112.",
-  },
-  {
-    time: "2:00 PM",
-    duration: "45 min",
-    title: "Session with Troy Hector",
-    speaker: "Troy Hector",
-    track: "Full Stack",
-    type: "Technical Session",
-    location: "B14",
-    avatar: "/google-person.png",
-    bgColor: "bg-sky-600",
-    description: "Full Stack track session in Room B14.",
-  },
-  {
-    time: "2:00 PM",
-    duration: "45 min",
-    title: "Session with Mina Girges",
-    speaker: "Mina Girges",
-    track: "Entrepreneurship",
-    type: "Technical Session",
-    location: "B02",
-    avatar: "/google-person.png",
-    bgColor: "bg-indigo-600",
-    description: "Entrepreneurship track session in Room B02.",
-  },
-  {
-    time: "3:00 PM",
-    duration: "45 min",
-    title: "Session with Arunesh Choudhary",
-    speaker: "Arunesh Choudhary",
-    track: "Google Cloud",
-    type: "Technical Session",
-    location: "104",
-    avatar: "/google-person.png",
-    bgColor: "bg-cyan-600",
-    description: "Google Cloud track session in Room 104.",
-  },
-  {
-    time: "3:00 PM",
-    duration: "45 min",
-    title: "Session with Veronica Reingold",
-    speaker: "Veronica Reingold",
-    track: "Build with AI",
-    type: "Technical Session",
-    location: "112",
-    avatar: "/google-person.png",
-    bgColor: "bg-blue-600",
-    description: "Build with AI track session in Room 112.",
-  },
-  {
-    time: "3:00 PM",
-    duration: "45 min",
-    title: "Session with Kylie Kiser",
-    speaker: "Kylie Kiser",
-    track: "Full Stack",
-    type: "Technical Session",
-    location: "B14",
-    avatar: "/google-person.png",
-    bgColor: "bg-sky-600",
-    description: "Full Stack track session in Room B14.",
-  },
-  {
-    time: "3:00 PM",
-    duration: "45 min",
-    title: "Session with Diaa Elkott",
-    speaker: "Diaa Elkott",
-    track: "Entrepreneurship",
-    type: "Technical Session",
-    location: "B02",
-    avatar: "/google-person.png",
-    bgColor: "bg-indigo-600",
-    description: "Entrepreneurship track session in Room B02.",
-  },
-  {
-    time: "3:00 PM",
-    duration: "45 min",
-    title: "Cybersecurity Track",
-    speaker: "TBD",
-    track: "Cybersecurity",
-    type: "Workshop",
-    location: "110",
-    avatar: "/google-person.png",
-    bgColor: "bg-amber-600",
-    description: "Cybersecurity track session in Room 110.",
-  },
-  {
-    time: "3:00 PM",
-    duration: "45 min",
-    title: "High School Track",
-    speaker: "TBD",
-    track: "High School Track",
-    type: "Workshop",
-    location: "108",
-    avatar: "/google-person.png",
-    bgColor: "bg-emerald-600",
-    description: "High School track session in Room 108.",
-  },
-  {
-    time: "4:00 PM",
-    duration: "45 min",
-    title: "Session with Florid Maclean",
-    speaker: "Florid Maclean",
-    track: "Google Cloud",
-    type: "Technical Session",
-    location: "104",
-    avatar: "/google-person.png",
-    bgColor: "bg-cyan-600",
-    description: "Google Cloud track session in Room 104.",
-  },
-  {
-    time: "4:00 PM",
-    duration: "45 min",
-    title: "Session with Steven Rice",
-    speaker: "Steven Rice",
-    track: "Build with AI",
-    type: "Technical Session",
-    location: "112",
-    avatar: "/google-person.png",
-    bgColor: "bg-blue-600",
-    description: "Build with AI track session in Room 112.",
-  },
-  {
-    time: "4:00 PM",
-    duration: "45 min",
-    title: "Session with Camila Gaitan & Kevin Serrano",
-    speaker: "Camila Gaitan / Kevin Serrano",
-    track: "Full Stack",
-    type: "Technical Session",
-    location: "B14",
-    avatar: "/google-person.png",
-    bgColor: "bg-sky-600",
-    description: "Full Stack track session in Room B14.",
-  },
-  {
-    time: "4:00 PM",
-    duration: "45 min",
-    title: "Session with Wen Teoh",
+    title: "Hack It, Build It, Launch It: Entrepreneurship for Developers",
     speaker: "Wen Teoh",
-    track: "Entrepreneurship",
+    track: "AI",
     type: "Technical Session",
-    location: "B02",
+    location: "Room A",
     avatar: "/google-person.png",
-    bgColor: "bg-indigo-600",
-    description: "Entrepreneurship track session in Room B02.",
+    bgColor: "bg-blue-600",
+    description: "An intensive look at turning your development skills into a successful startup. From ideation to launch, discover how developers can become entrepreneurs and navigate the startup ecosystem.",
   },
   {
-    time: "5:00 PM",
+    time: "11:15 AM",
     duration: "30 min",
-    title: "Closing Remarks and Event Wrap Up",
-    speaker: "Google DevFest Team",
-    track: "ALL",
-    type: "Closing Session",
-    location: "Main Hall",
+    title: "Expectation vs. Reality: Building Data Pipelines in Banking",
+    speaker: "Elvis Akhalu",
+    track: "Cloud",
+    type: "Case Study",
+    location: "Room B",
     avatar: "/google-person.png",
-    bgColor: "bg-gray-600",
-    description: "Join us for closing remarks, raffle drawings, and final networking opportunities.",
+    bgColor: "bg-yellow-600",
+    description: "A real-world case study on building production-ready data pipelines in the banking sector. Discover the challenges, solutions, and best practices for managing financial data at scale.",
+  },
+  {
+    time: "1:00 PM",
+    duration: "45 min",
+    title: "Beyond Vibe Coding: Engineering Production-Ready Software with AI",
+    speaker: "Keval Patel",
+    track: "AI",
+    type: "Technical Session",
+    location: "Main Stage",
+    avatar: "/google-person.png",
+    bgColor: "bg-blue-600",
+    description: "Move beyond casual AI integration and learn how to engineer production-ready software with AI. This session covers architecture, testing, deployment, and real-world considerations for AI-powered applications.",
+  },
+  {
+    time: "2:15 PM",
+    duration: "45 min",
+    title: "Lorem Title: Mobile Development",
+    speaker: "Lorem Ipsum",
+    track: "Mobile",
+    type: "Panel",
+    location: "Room A",
+    avatar: "/google-person.png",
+    bgColor: "bg-green-600",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Learn about the latest trends and best practices in mobile development with our expert panel.",
+  },
+  {
+    time: "3:30 PM",
+    duration: "45 min",
+    title: "Lorem Title: High School Innovation",
+    speaker: "Lorem Ipsum",
+    track: "High School",
+    type: "Closing Session",
+    location: "Room C",
+    avatar: "/google-person.png",
+    bgColor: "bg-purple-600",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Inspiring the next generation with innovative approaches to technology and problem-solving.",
   },
 ];
+
 
 const typeColors: Record<string, string> = {
   "Keynote": "blue",
@@ -421,33 +121,37 @@ const iconSvgs: Record<string, string> = {
 ---
 
 <section id="schedule" class="animate-fade-in-up" class="py-20 bg-white">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Section Header -->
-    <div class="text-center mb-16 animate-fade-in-up">
-      <h2 class="text-4xl font-bold text-gray-900 mb-4" data-i18n="schedule.title">{finalTitle}</h2>
-      <p class="text-xl text-gray-600 max-w-3xl mx-auto" data-i18n="schedule.description">{finalDescription}</p>
+    <div class="mb-16 animate-fade-in-up">
+      <span class="text-sm font-bold tracking-widest text-blue-600 uppercase">
+        SCHEDULE
+      </span>
+      <h2 class="text-4xl sm:text-5xl font-bold text-slate-900 mb-4 mt-6" data-i18n="schedule.title">{finalTitle}</h2>
+      <p class="text-lg text-slate-600 max-w-3xl mt-1" data-i18n="schedule.description">{finalDescription}</p>
     </div>
-<!-- Track Filter Buttons -->
-<div class="flex flex-wrap justify-center gap-2 mb-12">
-  {tracks.map((track) => (
-    <button
-      class={`track-filter-btn px-4 py-2 rounded-full font-semibold text-white bg-gradient-to-r ${track.bgGradient} hover:shadow-lg hover:shadow-blue-500/40 transition-all duration-300 cursor-pointer transform hover:scale-105 flex items-center gap-1`}
-      data-track={track.name}
-    >
-      <span set:html={iconSvgs[track.icon]} />
-      <span data-track-name={`track.${track.name.toLowerCase().replace(/ /g, "")}`}>{track.name}</span>
-    </button>
-  ))}
-</div>
+
+    <!-- Track Filter Buttons -->
+    <div class="flex flex-wrap justify-center gap-3 mb-12">
+      {tracks.map((track) => (
+        <button
+          class={`track-filter-btn px-6 py-3 rounded-full font-semibold text-white bg-gradient-to-r ${track.bgGradient} hover:shadow-lg hover:shadow-blue-500/40 transition-all duration-300 cursor-pointer transform hover:scale-105 flex items-center gap-2`}
+          data-track={track.name}
+        >
+          <span set:html={iconSvgs[track.icon]} />
+          {track.name}
+        </button>
+      ))}
+    </div>
 
     <!-- Sessions Table -->
     <div class="overflow-x-auto">
       <table class="w-full">
         <thead>
           <tr class="border-b-2 border-gray-200">
-            <th class="text-left py-4 px-4 font-semibold text-gray-900" data-schedule-header="time">TIME</th>
-            <th class="text-left py-4 px-4 font-semibold text-gray-900" data-schedule-header="session">SESSION</th>
-            <th class="text-left py-4 px-4 font-semibold text-gray-900 hidden md:table-cell" data-schedule-header="location">LOCATION</th>
+            <th class="text-left py-4 px-4 font-semibold text-gray-900">TIME</th>
+            <th class="text-left py-4 px-4 font-semibold text-gray-900">SESSION</th>
+            <th class="text-left py-4 px-4 font-semibold text-gray-900 hidden md:table-cell">LOCATION</th>
             <th class="text-center py-4 px-4 font-semibold text-gray-900">ADD</th>
           </tr>
         </thead>
@@ -507,13 +211,13 @@ const iconSvgs: Record<string, string> = {
               <td class="py-6 px-4 text-center">
                 <button
                   class="inline-block px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors cursor-pointer"
-                  onclick="event.stopPropagation(); window.addToCalendar(event, this, {title: '${session.title}', speaker: '${session.speaker}', time: '${session.time}', location: '${session.location}', description: '${session.description.replace(/'/g, "\\'")}'});"
-                  data-session-title={session.title}
-                  data-session-speaker={session.speaker}
-                  data-session-time={session.time}
-                  data-session-location={session.location}
+                  onclick="addToCalendar(event, this)"
+                  data-session-title="${session.title}"
+                  data-session-time="${session.time}"
+                  data-session-speaker="${session.speaker}"
+                  data-session-location="${session.location}"
                 >
-                  <span data-schedule-add>Add</span>
+                  Add
                 </button>
               </td>
             </tr>
@@ -528,181 +232,6 @@ const iconSvgs: Record<string, string> = {
 </section>
 
 <script>
-  // Parse time string to 24-hour format
-  function parseTime(timeStr) {
-    const match = timeStr.match(/(\d+):(\d+)\s(AM|PM)/);
-    if (!match) return null;
-
-    let hours = parseInt(match[1]);
-    const minutes = parseInt(match[2]);
-    const meridiem = match[3];
-
-    if (meridiem === 'PM' && hours !== 12) hours += 12;
-    if (meridiem === 'AM' && hours === 12) hours = 0;
-
-    return { hours, minutes };
-  }
-
-  // Add to Calendar function with Google Calendar and Apple Calendar support
-  window.addToCalendar = function(event, button, sessionData) {
-    event.preventDefault();
-    event.stopPropagation();
-
-    const { title, speaker, time, location, description } = sessionData;
-    const parsedTime = parseTime(time);
-
-    if (!parsedTime) {
-      alert('Unable to parse session time');
-      return;
-    }
-
-    // Create menu for calendar selection
-    const menuId = 'calendar-menu-' + Date.now();
-    const menu = document.createElement('div');
-    menu.id = menuId;
-    menu.style.cssText = `
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.5);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-    `;
-
-    const menuContent = document.createElement('div');
-    menuContent.style.cssText = `
-      background: white;
-      border-radius: 12px;
-      padding: 24px;
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-      max-width: 400px;
-      width: 90%;
-    `;
-
-    menuContent.innerHTML = `
-      <h3 style="margin: 0 0 16px 0; font-size: 18px; font-weight: 600; color: #111;">Add to Calendar</h3>
-      <p style="margin: 0 0 20px 0; color: #666; font-size: 14px;">${title}</p>
-      <button id="google-calendar-btn" style="
-        width: 100%;
-        padding: 12px 16px;
-        margin-bottom: 8px;
-        background: #4285F4;
-        color: white;
-        border: none;
-        border-radius: 6px;
-        font-weight: 500;
-        cursor: pointer;
-        font-size: 14px;
-        transition: background 0.2s;
-      " onmouseover="this.style.background='#3367D6'" onmouseout="this.style.background='#4285F4'">
-        📅 Add to Google Calendar
-      </button>
-      <button id="apple-calendar-btn" style="
-        width: 100%;
-        padding: 12px 16px;
-        margin-bottom: 8px;
-        background: #555;
-        color: white;
-        border: none;
-        border-radius: 6px;
-        font-weight: 500;
-        cursor: pointer;
-        font-size: 14px;
-        transition: background 0.2s;
-      " onmouseover="this.style.background='#333'" onmouseout="this.style.background='#555'">
-        🍎 Add to Apple Calendar
-      </button>
-      <button id="close-menu-btn" style="
-        width: 100%;
-        padding: 12px 16px;
-        background: #e5e7eb;
-        color: #333;
-        border: none;
-        border-radius: 6px;
-        font-weight: 500;
-        cursor: pointer;
-        font-size: 14px;
-        transition: background 0.2s;
-      " onmouseover="this.style.background='#d1d5db'" onmouseout="this.style.background='#e5e7eb'">
-        Cancel
-      </button>
-    `;
-
-    menu.appendChild(menuContent);
-    document.body.appendChild(menu);
-
-    // Event date: November 21, 2026
-    const eventDate = new Date(2026, 10, 21); // Month is 0-indexed
-    eventDate.setHours(parsedTime.hours, parsedTime.minutes, 0);
-
-    const endDate = new Date(eventDate);
-    endDate.setHours(endDate.getHours() + 1); // Default 1 hour duration
-
-    // Google Calendar handler
-    document.getElementById('google-calendar-btn').addEventListener('click', function() {
-      const startTime = eventDate.toISOString();
-      const endTime = endDate.toISOString();
-
-      const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${startTime.replace(/[-:]/g, '').split('.')[0]}Z/${endTime.replace(/[-:]/g, '').split('.')[0]}Z&location=${encodeURIComponent(location)}&details=${encodeURIComponent(`Speaker: ${speaker}\n\n${description}`)}`;
-
-      window.open(googleCalendarUrl, '_blank', 'width=800,height=600');
-      document.body.removeChild(menu);
-    });
-
-    // Apple Calendar handler
-    document.getElementById('apple-calendar-btn').addEventListener('click', function() {
-      // Create ICS file content for Apple Calendar
-      const startTime = eventDate.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
-      const endTime = endDate.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
-
-      const icsContent = `BEGIN:VCALENDAR
-VERSION:2.0
-PRODID:-//Google DevFest Windsor//NONSGML v1.0//EN
-CALSCALE:GREGORIAN
-METHOD:PUBLISH
-BEGIN:VEVENT
-UID:devfest-${Date.now()}@googledevfest.local
-DTSTAMP:${new Date().toISOString().replace(/[-:]/g, '').split('.')[0]}Z
-DTSTART:${startTime}
-DTEND:${endTime}
-SUMMARY:${title}
-DESCRIPTION:Speaker: ${speaker}\\n\\n${description}
-LOCATION:${location}
-STATUS:CONFIRMED
-END:VEVENT
-END:VCALENDAR`;
-
-      // Create blob and download ICS file
-      const blob = new Blob([icsContent], { type: 'text/calendar' });
-      const url = window.URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = `${title.replace(/\s+/g, '-')}.ics`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      window.URL.revokeObjectURL(url);
-
-      document.body.removeChild(menu);
-    });
-
-    // Close menu handler
-    document.getElementById('close-menu-btn').addEventListener('click', function() {
-      document.body.removeChild(menu);
-    });
-
-    // Close on background click
-    menu.addEventListener('click', function(e) {
-      if (e.target === menu) {
-        document.body.removeChild(menu);
-      }
-    });
-  };
-
   // Track filtering functionality
   const trackFilterBtns = document.querySelectorAll('.track-filter-btn');
   const sessionRows = document.querySelectorAll('.session-row');
@@ -754,6 +283,46 @@ END:VCALENDAR`;
       document.querySelector('table')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   });
+
+  // Add to Calendar functionality
+  window.addToCalendar = function(event, button) {
+    event.stopPropagation();
+    
+    const title = button.getAttribute('data-session-title');
+    const time = button.getAttribute('data-session-time');
+    const speaker = button.getAttribute('data-session-speaker');
+    const location = button.getAttribute('data-session-location');
+    
+    // Create Google Calendar URL
+    // Event: November 21, 2026
+    const eventDate = new Date(2026, 10, 21); // Month is 0-indexed
+    const startTime = new Date(eventDate);
+    
+    // Parse time (e.g., "9:00 AM")
+    const timeParts = time.match(/(\d+):(\d+)\s(AM|PM)/);
+    if (timeParts) {
+      let hours = parseInt(timeParts[1]);
+      const minutes = timeParts[2];
+      const meridiem = timeParts[3];
+      
+      if (meridiem === 'PM' && hours !== 12) hours += 12;
+      if (meridiem === 'AM' && hours === 12) hours = 0;
+      
+      startTime.setHours(hours, parseInt(minutes), 0);
+    }
+    
+    const description = `Speaker: ${speaker}\nLocation: ${location}\nDevFest Windsor 2026`;
+    
+    const googleCalendarUrl = 'https://calendar.google.com/calendar/render?action=TEMPLATE' +
+      '&text=' + encodeURIComponent(title) +
+      '&dates=' + startTime.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z/' + 
+                new Date(startTime.getTime() + 45 * 60000).toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z' +
+      '&details=' + encodeURIComponent(description) +
+      '&location=' + encodeURIComponent(location);
+    
+    // Open in new window
+    window.open(googleCalendarUrl, '_blank', 'width=800,height=600');
+  };
 </script>
 
 <style>
@@ -787,3 +356,4 @@ END:VCALENDAR`;
     }
   }
 </style>
+
