@@ -211,7 +211,11 @@ const iconSvgs: Record<string, string> = {
               <td class="py-6 px-4 text-center">
                 <button
                   class="inline-block px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors cursor-pointer"
-                  onclick="event.stopPropagation();"
+                  onclick="addToCalendar(event, this)"
+                  data-session-title="${session.title}"
+                  data-session-time="${session.time}"
+                  data-session-speaker="${session.speaker}"
+                  data-session-location="${session.location}"
                 >
                   Add
                 </button>
@@ -279,6 +283,46 @@ const iconSvgs: Record<string, string> = {
       document.querySelector('table')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   });
+
+  // Add to Calendar functionality
+  window.addToCalendar = function(event, button) {
+    event.stopPropagation();
+    
+    const title = button.getAttribute('data-session-title');
+    const time = button.getAttribute('data-session-time');
+    const speaker = button.getAttribute('data-session-speaker');
+    const location = button.getAttribute('data-session-location');
+    
+    // Create Google Calendar URL
+    // Event: November 21, 2026
+    const eventDate = new Date(2026, 10, 21); // Month is 0-indexed
+    const startTime = new Date(eventDate);
+    
+    // Parse time (e.g., "9:00 AM")
+    const timeParts = time.match(/(\d+):(\d+)\s(AM|PM)/);
+    if (timeParts) {
+      let hours = parseInt(timeParts[1]);
+      const minutes = timeParts[2];
+      const meridiem = timeParts[3];
+      
+      if (meridiem === 'PM' && hours !== 12) hours += 12;
+      if (meridiem === 'AM' && hours === 12) hours = 0;
+      
+      startTime.setHours(hours, parseInt(minutes), 0);
+    }
+    
+    const description = `Speaker: ${speaker}\nLocation: ${location}\nDevFest Windsor 2026`;
+    
+    const googleCalendarUrl = 'https://calendar.google.com/calendar/render?action=TEMPLATE' +
+      '&text=' + encodeURIComponent(title) +
+      '&dates=' + startTime.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z/' + 
+                new Date(startTime.getTime() + 45 * 60000).toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z' +
+      '&details=' + encodeURIComponent(description) +
+      '&location=' + encodeURIComponent(location);
+    
+    // Open in new window
+    window.open(googleCalendarUrl, '_blank', 'width=800,height=600');
+  };
 </script>
 
 <style>
