@@ -18,19 +18,30 @@ const finalTitle = title || defaultTitle;
 const finalDescription = description || defaultDescription;
 
 const sponsors = [
-  { name: "Google", logo: "/googleLogo.png" },
-  { name: "School of Business", logo: "/schoolOfBusiness.png" },
-  { name: "Sponsor 3", logo: "/googleSponsor.png" },
-  { name: "Sponsor 4", logo: "/googleSponsor.png" },
-  { name: "Sponsor 5", logo: "/googleSponsor.png" },
-  { name: "Sponsor 6", logo: "/googleSponsor.png" },
-  { name: "Sponsor 7", logo: "/googleSponsor.png" },
-  { name: "Sponsor 8", logo: "/googleSponsor.png" },
-  { name: "Sponsor 9", logo: "/googleSponsor.png" },
-  { name: "Sponsor 10", logo: "/googleSponsor.png" },
-  { name: "Sponsor 11", logo: "/googleSponsor.png" },
-  { name: "Sponsor 12", logo: "/googleSponsor.png" },
+  { 
+    name: "Google", 
+    logo: "/googleLogo.png",
+    url: "https://google.com",
+    color: "blue"
+  },
+  { 
+    name: "School of Business", 
+    logo: "/schoolOfBusiness.png",
+    url: "https://example.com", // REPLACE WITH ACTUAL URL
+    color: "amber"
+  },
 ];
+
+const colorStyles: Record<string, { ring: string; blob: string }> = {
+  blue: {
+    ring: "group-hover:ring-blue-600/40",
+    blob: "bg-blue-600",
+  },
+  amber: {
+    ring: "group-hover:ring-amber-500/40",
+    blob: "bg-amber-500",
+  },
+};
 ---
 
 <section id="sponsors" class="py-20 bg-white">
@@ -64,17 +75,57 @@ const sponsors = [
     </div>
 
     <!-- Sponsors Grid -->
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-      {sponsors.map((sponsor) => (
-        <div class="group relative p-6 rounded-lg bg-gray-50 border border-gray-200 hover:border-gray-300 transition-all duration-300 hover:shadow-md">
-          <img
-            src={sponsor.logo}
-            alt={sponsor.name}
-            class="h-16 w-auto mb-4 group-hover:scale-110 transition-transform duration-300"
-          />
-          <p class="text-gray-900 font-semibold text-sm">{sponsor.name}</p>
-        </div>
-      ))}
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-2xl">
+      {sponsors.map((sponsor) => {
+        const style = colorStyles[sponsor.color];
+        return (
+          <a
+            href={sponsor.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group relative p-8 rounded-lg bg-gray-50 border border-gray-200 transition-all duration-300 hover:shadow-lg hover:border-gray-300"
+          >
+            <!-- Decorative blob background -->
+            <div
+              class:list={[
+                "blob-shape absolute inset-0 scale-0 transition-transform duration-300 group-hover:scale-100 rounded-lg",
+                style.blob,
+              ]}
+              style="opacity: 0.08;"
+              aria-hidden="true"
+            />
+            
+            <!-- Content -->
+            <div class="relative z-10 flex flex-col items-center text-center">
+              <div
+                class:list={[
+                  "w-full mb-4 ring-4 ring-transparent transition-all duration-300 rounded-lg overflow-hidden",
+                  style.ring,
+                ]}
+              >
+                <img
+                  src={sponsor.logo}
+                  alt={sponsor.name}
+                  class="h-24 w-full object-contain group-hover:scale-110 transition-transform duration-300"
+                />
+              </div>
+              <p class="text-gray-900 font-semibold text-lg group-hover:text-blue-600 transition-colors">
+                {sponsor.name}
+              </p>
+              <p class="text-sm text-gray-500 mt-2 group-hover:text-gray-700 transition-colors">
+                Click to visit →
+              </p>
+            </div>
+          </a>
+        );
+      })}
     </div>
   </div>
 </section>
+
+<style>
+  .blob-shape {
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    filter: blur(40px);
+  }
+</style>
