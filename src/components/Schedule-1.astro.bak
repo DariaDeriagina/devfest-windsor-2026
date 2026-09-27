@@ -1,0 +1,319 @@
+---
+import { t } from "@lib/i18n";
+import SessionModal from "./SessionModal.astro";
+import SectionDivider from "./SectionDivider.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title,
+  description,
+} = Astro.props;
+
+const defaultTitle = t('en', 'schedule.title');
+const defaultDescription = t('en', 'schedule.description');
+
+const finalTitle = title || defaultTitle;
+const finalDescription = description || defaultDescription;
+
+const tracks = [
+  { name: "ALL", color: "gray", icon: "sparkles", bgGradient: "from-gray-500 to-gray-600", textColor: "text-gray-600" },
+  { name: "AI", color: "blue", icon: "sparkles", bgGradient: "from-blue-500 to-blue-600", textColor: "text-blue-600" },
+  { name: "Web Development", color: "red", icon: "code", bgGradient: "from-red-500 to-red-600", textColor: "text-red-600" },
+  { name: "Cloud", color: "yellow", icon: "cloud", bgGradient: "from-yellow-500 to-yellow-600", textColor: "text-yellow-600" },
+  { name: "Mobile", color: "green", icon: "smartphone", bgGradient: "from-green-500 to-green-600", textColor: "text-green-600" },
+  { name: "High School", color: "purple", icon: "book", bgGradient: "from-purple-500 to-purple-600", textColor: "text-purple-600" },
+];
+
+const sessions = [
+  {
+    time: "9:00 AM",
+    duration: "45 min",
+    title: "Build relationships first. Sell later.",
+    speaker: "Frank Abbruzzese",
+    track: "Web Development",
+    type: "Keynote",
+    location: "Main Stage",
+    avatar: "/google-person.png",
+    bgColor: "bg-red-600",
+    description: "Learn how to build meaningful relationships with clients and prospects. This keynote explores the art of genuine connection before the sales pitch, creating a foundation of trust that leads to long-term success.",
+  },
+  {
+    time: "10:00 AM",
+    duration: "45 min",
+    title: "Hack It, Build It, Launch It: Entrepreneurship for Developers",
+    speaker: "Wen Teoh",
+    track: "AI",
+    type: "Technical Session",
+    location: "Room A",
+    avatar: "/google-person.png",
+    bgColor: "bg-blue-600",
+    description: "An intensive look at turning your development skills into a successful startup. From ideation to launch, discover how developers can become entrepreneurs and navigate the startup ecosystem.",
+  },
+  {
+    time: "11:15 AM",
+    duration: "30 min",
+    title: "Expectation vs. Reality: Building Data Pipelines in Banking",
+    speaker: "Elvis Akhalu",
+    track: "Cloud",
+    type: "Case Study",
+    location: "Room B",
+    avatar: "/google-person.png",
+    bgColor: "bg-yellow-600",
+    description: "A real-world case study on building production-ready data pipelines in the banking sector. Discover the challenges, solutions, and best practices for managing financial data at scale.",
+  },
+  {
+    time: "1:00 PM",
+    duration: "45 min",
+    title: "Beyond Vibe Coding: Engineering Production-Ready Software with AI",
+    speaker: "Keval Patel",
+    track: "AI",
+    type: "Technical Session",
+    location: "Main Stage",
+    avatar: "/google-person.png",
+    bgColor: "bg-blue-600",
+    description: "Move beyond casual AI integration and learn how to engineer production-ready software with AI. This session covers architecture, testing, deployment, and real-world considerations for AI-powered applications.",
+  },
+  {
+    time: "2:15 PM",
+    duration: "45 min",
+    title: "Lorem Title: Mobile Development",
+    speaker: "Lorem Ipsum",
+    track: "Mobile",
+    type: "Panel",
+    location: "Room A",
+    avatar: "/google-person.png",
+    bgColor: "bg-green-600",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Learn about the latest trends and best practices in mobile development with our expert panel.",
+  },
+  {
+    time: "3:30 PM",
+    duration: "45 min",
+    title: "Lorem Title: High School Innovation",
+    speaker: "Lorem Ipsum",
+    track: "High School",
+    type: "Closing Session",
+    location: "Room C",
+    avatar: "/google-person.png",
+    bgColor: "bg-purple-600",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Inspiring the next generation with innovative approaches to technology and problem-solving.",
+  },
+];
+
+
+const typeColors: Record<string, string> = {
+  "Keynote": "blue",
+  "Technical Session": "slate",
+  "Panel": "purple",
+  "Case Study": "emerald",
+  "Closing Session": "red",
+};
+
+const iconSvgs: Record<string, string> = {
+  sparkles: `<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>`,
+  code: `<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>`,
+  cloud: `<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M5.5 13a3.5 3.5 0 01-.369-6.98 4 4 0 117.753-1.3A4.5 4.5 0 1113.5 13H11V9.413l1.293 1.293a1 1 0 001.414-1.414l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13H5.5z"></path></svg>`,
+  smartphone: `<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"></path></svg>`,
+  book: `<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.669 0-3.218.51-4.5 1.385A7.962 7.962 0 009 4.804z"></path></svg>`,
+};
+---
+
+<section id="schedule" class="animate-fade-in-up" class="py-20 bg-white">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Section Header -->
+    <div class="text-center mb-16 animate-fade-in-up">
+      <h2 class="text-4xl font-bold text-gray-900 mb-4" data-i18n="schedule.title">{finalTitle}</h2>
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto" data-i18n="schedule.description">{finalDescription}</p>
+    </div>
+
+    <!-- Track Filter Buttons -->
+    <div class="flex flex-wrap justify-center gap-3 mb-12">
+      {tracks.map((track) => (
+        <button
+          class={`track-filter-btn px-6 py-3 rounded-full font-semibold text-white bg-gradient-to-r ${track.bgGradient} hover:shadow-lg hover:shadow-blue-500/40 transition-all duration-300 cursor-pointer transform hover:scale-105 flex items-center gap-2`}
+          data-track={track.name}
+        >
+          <span set:html={iconSvgs[track.icon]} />
+          {track.name}
+        </button>
+      ))}
+    </div>
+
+    <!-- Sessions Table -->
+    <div class="overflow-x-auto">
+      <table class="w-full">
+        <thead>
+          <tr class="border-b-2 border-gray-200">
+            <th class="text-left py-4 px-4 font-semibold text-gray-900">TIME</th>
+            <th class="text-left py-4 px-4 font-semibold text-gray-900">SESSION</th>
+            <th class="text-left py-4 px-4 font-semibold text-gray-900 hidden md:table-cell">LOCATION</th>
+            <th class="text-center py-4 px-4 font-semibold text-gray-900">ADD</th>
+          </tr>
+        </thead>
+        <tbody>
+          {sessions.map((session, idx) => (
+            <tr class="session-row border-b border-gray-100 hover:bg-gray-50 transition-colors cursor-pointer"
+                data-track={session.track}
+                onclick={`window.openSessionModal({title: '${session.title}', speaker: '${session.speaker}', description: '${session.description.replace(/'/g, "\\'")}', duration: '${session.duration}', track: '${session.track}', type: '${session.type}'})`}>
+              <!-- Time -->
+              <td class="py-6 px-4 font-semibold text-gray-900 whitespace-nowrap">{session.time}</td>
+
+              <!-- Session Details -->
+              <td class="py-6 px-4">
+                <div class="flex items-start gap-4">
+                  <!-- Avatar with blob background -->
+                  <div class="relative flex-shrink-0">
+                    <div class={`w-12 h-12 ${session.bgColor} rounded-full absolute opacity-20 blur-sm`}></div>
+                    <img
+                      src={session.avatar}
+                      alt={session.speaker}
+                      class="w-12 h-12 rounded-full relative cursor-pointer hover:opacity-80 transition-opacity"
+                      onclick="event.stopPropagation();"
+                    />
+                  </div>
+
+                  <!-- Session info -->
+                  <div class="flex-grow">
+                    <h4 class="font-semibold text-gray-900 mb-2 cursor-pointer hover:text-blue-600 transition-colors">{session.title}</h4>
+                    <p class="text-sm text-gray-600 mb-2">{session.speaker}</p>
+                    <div class="flex flex-wrap gap-2">
+                      <!-- Track badge -->
+                      <span
+                        class={`px-3 py-1.5 rounded-full text-xs font-semibold text-white bg-gradient-to-r ${tracks.find(t => t.name === session.track)?.bgGradient} cursor-pointer hover:shadow-md transition-all flex items-center gap-1.5`}
+                        onclick="event.stopPropagation();"
+                      >
+                        <span set:html={iconSvgs[tracks.find(t => t.name === session.track)?.icon || "sparkles"]} />
+                        {session.track}
+                      </span>
+
+                      <!-- Type badge -->
+                      <span class="px-3 py-1.5 rounded-full text-xs font-semibold text-gray-700 bg-gray-200 cursor-pointer hover:bg-gray-300 transition-colors" onclick="event.stopPropagation();">
+                        {session.type}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </td>
+
+              <!-- Location -->
+              <td class="py-6 px-4 text-gray-600 hidden md:table-cell">
+                <button class="text-blue-600 hover:text-blue-800 font-semibold cursor-pointer transition-colors" onclick="event.stopPropagation();">
+                  {session.location}
+                </button>
+              </td>
+
+              <!-- Add to Calendar -->
+              <td class="py-6 px-4 text-center">
+                <button
+                  class="inline-block px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors cursor-pointer"
+                  onclick="event.stopPropagation();"
+                >
+                  Add
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Session Modal -->
+  <SessionModal sessions={sessions} />
+
+  <!-- Section divider -->
+  <SectionDivider />
+</section>
+
+<script>
+  // Track filtering functionality
+  const trackFilterBtns = document.querySelectorAll('.track-filter-btn');
+  const sessionRows = document.querySelectorAll('.session-row');
+  let selectedTrack = null;
+
+  trackFilterBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const track = e.target.closest('.track-filter-btn')?.getAttribute('data-track');
+      if (!track) return;
+
+      // Handle "ALL" button
+      if (track === "ALL") {
+        selectedTrack = null;
+        trackFilterBtns.forEach(b => b.classList.remove('active'));
+        sessionRows.forEach(row => {
+          row.classList.remove('hidden');
+          row.classList.add('fade-in');
+        });
+      } else if (selectedTrack === track) {
+        // Toggle off: show all sessions
+        selectedTrack = null;
+        trackFilterBtns.forEach(b => b.classList.remove('active'));
+        sessionRows.forEach(row => {
+          row.classList.remove('hidden');
+          row.classList.add('fade-in');
+        });
+      } else {
+        // Show only this track
+        selectedTrack = track;
+        trackFilterBtns.forEach(b => {
+          if (b.getAttribute('data-track') === track) {
+            b.classList.add('active');
+          } else {
+            b.classList.remove('active');
+          }
+        });
+        sessionRows.forEach(row => {
+          const rowTrack = row.getAttribute('data-track');
+          if (rowTrack === track) {
+            row.classList.remove('hidden');
+            row.classList.add('fade-in');
+          } else {
+            row.classList.add('hidden');
+          }
+        });
+      }
+
+      // Smooth scroll to table
+      document.querySelector('table')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+</script>
+
+<style>
+  .track-filter-btn.active {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+    transform: scale(1.05);
+  }
+
+  .session-row.hidden {
+    display: none;
+  }
+
+  .session-row.fade-in {
+    animation: fadeIn 0.3s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    button {
+      animation: none !important;
+    }
+  }
+</style>
+
+</section>
+
+

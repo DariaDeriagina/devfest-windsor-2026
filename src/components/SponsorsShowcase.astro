@@ -1,0 +1,150 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Powered By Our Partners",
+  description = "We're grateful to the organizations making DevFest Windsor 2026 possible. Join them in supporting developer communities!"
+} = Astro.props;
+
+const sponsorTiers = [
+  {
+    tierName: "Platinum Sponsors",
+    color: "blue",
+    bgGradient: "from-blue-500 to-blue-600",
+    sponsors: [
+      // { name: "Company Name", logo: "/logo.png" }
+    ]
+  },
+  {
+    tierName: "Gold Sponsors",
+    color: "yellow",
+    bgGradient: "from-yellow-500 to-yellow-600",
+    sponsors: [
+      // { name: "Company Name", logo: "/logo.png" }
+    ]
+  },
+  {
+    tierName: "Silver Sponsors",
+    color: "gray",
+    bgGradient: "from-gray-500 to-gray-600",
+    sponsors: [
+      // { name: "Company Name", logo: "/logo.png" }
+    ]
+  },
+];
+
+const featuredPartner = {
+  name: "Google",
+  description: "Empowering developers with tools and technologies for the modern web",
+  logo: "/google-logo.svg",
+};
+---
+
+<section id="sponsors" class="py-20 bg-white">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Section Header -->
+    <div class="text-center mb-16 animate-fade-in-up">
+      <div class="flex items-center justify-center gap-2 mb-6">
+        <span class="text-yellow-600 font-semibold text-sm uppercase tracking-wide">Partners</span>
+        <div class="w-12 h-0.5 bg-gradient-to-r from-yellow-500 to-orange-500"></div>
+      </div>
+      
+      <h2 class="text-4xl md:text-5xl font-bold mb-6">
+        <span class="text-gray-900">{title}</span>
+      </h2>
+      
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto">{description}</p>
+    </div>
+
+    <!-- Featured Partner -->
+    <div class="mb-16 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-xl p-8 md:p-12 border border-yellow-200 hover:border-yellow-300 transition-all duration-300">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+        <div>
+          <span class="text-yellow-600 font-semibold text-sm uppercase tracking-wide">Powered By</span>
+          <h3 class="text-3xl md:text-4xl font-bold text-gray-900 mt-2 mb-4">{featuredPartner.name}</h3>
+          <p class="text-lg text-gray-700 leading-relaxed mb-6">{featuredPartner.description}</p>
+          <button class="px-6 py-3 bg-gradient-to-r from-yellow-500 to-orange-500 text-white font-semibold rounded-full hover:shadow-lg hover:shadow-yellow-500/40 transition-all duration-300 transform hover:scale-105">
+            Learn More
+          </button>
+        </div>
+        <div class="flex items-center justify-center">
+          <div class="text-6xl">🌐</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sponsor Tiers -->
+    <div class="space-y-12">
+      {sponsorTiers.map((tier) => (
+        <div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-8 flex items-center gap-3">
+            <span class={`inline-block w-4 h-4 rounded-full bg-gradient-to-r ${tier.bgGradient}`}></span>
+            {tier.tierName}
+          </h3>
+          
+          {tier.sponsors.length > 0 ? (
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {tier.sponsors.map((sponsor) => (
+                <div class="group relative p-6 rounded-lg bg-gray-50 border border-gray-200 hover:border-gray-300 transition-all duration-300 hover:shadow-md">
+                  <img 
+                    src={sponsor.logo} 
+                    alt={sponsor.name}
+                    class="h-16 w-auto mb-4 group-hover:scale-110 transition-transform duration-300"
+                  />
+                  <p class="text-gray-900 font-semibold">{sponsor.name}</p>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div class="p-12 text-center bg-gray-50 rounded-lg border border-dashed border-gray-300">
+              <p class="text-gray-500 text-lg">Sponsorship opportunities available</p>
+              <button class="mt-4 px-6 py-2 text-gray-700 border border-gray-300 rounded-full hover:bg-gray-100 transition-colors font-semibold">
+                Become a Sponsor
+              </button>
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+
+    <!-- Partnership CTA -->
+    <div class="mt-16 bg-gradient-to-r from-yellow-50 via-orange-50 to-red-50 rounded-xl p-8 md:p-12 border border-orange-200 text-center">
+      <h3 class="text-2xl font-bold text-gray-900 mb-3">Interested in partnering with us?</h3>
+      <p class="text-gray-600 mb-6 max-w-2xl mx-auto">
+        Reach thousands of developers and showcase your brand as an innovation leader. Let's build something amazing together!
+      </p>
+      <button class="px-8 py-3 bg-gradient-to-r from-yellow-500 to-orange-500 text-white font-semibold rounded-full hover:shadow-lg hover:shadow-orange-500/40 transition-all duration-300 transform hover:scale-105 flex items-center gap-2 mx-auto">
+        Contact Us
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation: none !important;
+    }
+  }
+</style>

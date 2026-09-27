@@ -1,0 +1,97 @@
+---
+import type { Session } from "@types/session";
+
+interface Props {
+  sessions?: Session[];
+}
+
+const { sessions = [] } = Astro.props;
+---
+
+<div id="sessionModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+  <div class="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+    <div class="sticky top-0 bg-white border-b border-slate-200 p-6 flex items-center justify-between">
+      <h2 id="sessionTitle" class="text-2xl font-bold text-slate-900"></h2>
+      <button 
+        id="closeSessionModal"
+        class="text-slate-500 hover:text-slate-700 text-2xl font-light"
+        aria-label="Close"
+      >
+        ×
+      </button>
+    </div>
+    
+    <div class="p-6 space-y-4">
+      <div>
+        <h3 class="text-sm font-semibold text-slate-500 uppercase tracking-wide mb-2">Speaker</h3>
+        <p id="sessionSpeaker" class="text-lg font-semibold text-slate-900"></p>
+        <p id="sessionSpeakerRole" class="text-sm text-slate-600"></p>
+      </div>
+      
+      <div>
+        <h3 class="text-sm font-semibold text-slate-500 uppercase tracking-wide mb-2">Description</h3>
+        <p id="sessionDescription" class="text-slate-700 leading-relaxed whitespace-pre-wrap"></p>
+      </div>
+      
+      <div id="sessionMetaContainer" class="pt-4 border-t border-slate-200 flex flex-wrap gap-3">
+        <!-- Duration, Track, Type will be added here if available -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const modal = document.getElementById("sessionModal");
+  const closeBtn = document.getElementById("closeSessionModal");
+  
+  // Close modal on button click
+  if (closeBtn) {
+    closeBtn.addEventListener("click", () => {
+      modal?.classList.add("hidden");
+    });
+  }
+  
+  // Close modal on background click
+  modal?.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      modal.classList.add("hidden");
+    }
+  });
+  
+  // Close on Escape key
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && modal && !modal.classList.contains("hidden")) {
+      modal.classList.add("hidden");
+    }
+  });
+  
+  // Open session modal
+  window.openSessionModal = (session: any) => {
+    const titleEl = document.getElementById("sessionTitle");
+    const speakerEl = document.getElementById("sessionSpeaker");
+    const roleEl = document.getElementById("sessionSpeakerRole");
+    const descEl = document.getElementById("sessionDescription");
+    const metaEl = document.getElementById("sessionMetaContainer");
+    
+    if (titleEl) titleEl.textContent = session.title;
+    if (speakerEl) speakerEl.textContent = session.speaker;
+    if (roleEl) roleEl.textContent = session.speakerRole || "";
+    if (descEl) descEl.textContent = session.description;
+    
+    // Add metadata
+    if (metaEl) {
+      metaEl.innerHTML = "";
+      if (session.duration) {
+        metaEl.innerHTML += `<span class="inline-block px-3 py-1 bg-slate-100 text-slate-700 rounded text-sm font-semibold">⏱️ ${session.duration}</span>`;
+      }
+      if (session.track) {
+        metaEl.innerHTML += `<span class="inline-block px-3 py-1 bg-blue-100 text-blue-700 rounded text-sm font-semibold">${session.track}</span>`;
+      }
+      if (session.type) {
+        metaEl.innerHTML += `<span class="inline-block px-3 py-1 bg-green-100 text-green-700 rounded text-sm font-semibold">${session.type}</span>`;
+      }
+    }
+    
+    modal?.classList.remove("hidden");
+  };
+</script>

@@ -1,33 +1,72 @@
 ---
+import LanguageSwitcher from "@components/LanguageSwitcher.astro";
+import { t } from "@lib/i18n";
+
 interface Props {
   logoSrc?: string;
 }
 
-const { logoSrc = "/logo.svg" } = Astro.props;
+const { logoSrc = "/web-app-manifest-512x512.png" } = Astro.props;
+
+const currentPath = Astro.url.pathname.replace(/\/+$/, "") || "/";
+
+const isActivePage = (href: string) => currentPath === href;
+
+const ticketsUrl =
+  "https://gdg.community.dev/events/details/google-gdg-windsor-presents-gdg-windsor-essex-devfest-2026/cohost-gdg-windsor/";
 
 const navItems = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
-  { label: "Venue", href: "/venue" },
-  { label: "FAQ", href: "/faq" },
+  { label: t("en", "nav.home"), key: "nav.home", href: "/" },
+  { label: t("en", "nav.about"), key: "nav.about", href: "/about" },
+  { label: t("en", "nav.venue"), key: "nav.venue", href: "/venue" },
+  { label: t("en", "nav.faq"), key: "nav.faq", href: "/faq" },
 ];
 ---
 
-<header class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-slate-200">
+<header
+  class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-slate-200"
+>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-20">
       <!-- Logo -->
-      <a href="/" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
-        <img src={logoSrc} alt="DevFest Windsor 2026" class="h-12 w-auto" />
+      <a
+        href="/"
+        class="flex items-center gap-2 hover:opacity-80 transition-opacity"
+      >
+        <div class="flex items-center gap-3">
+          <img
+            src={logoSrc}
+            alt="DevFest Windsor 2026"
+            class="h-12 w-auto"
+          />
+
+          <div class="flex flex-col -space-y-2">
+            <span class="text-lg font-bold" style="color: #000000;">
+              DevFest
+            </span>
+            <span class="text-lg font-bold" style="color: #4285F4;">
+              2026
+            </span>
+          </div>
+        </div>
       </a>
 
       <!-- Desktop Navigation -->
-      <nav class="hidden md:flex items-center gap-8">
+      <nav
+        class="hidden md:flex items-center gap-8"
+        aria-label="Main navigation"
+      >
         {
           navItems.map((item) => (
             <a
               href={item.href}
-              class="text-slate-700 font-medium hover:text-blue-600 transition-colors text-sm"
+              class={`text-sm transition-colors ${
+                isActivePage(item.href)
+                  ? "nav-active-gradient"
+                  : "text-slate-700 font-medium hover:text-blue-600"
+              }`}
+              aria-current={isActivePage(item.href) ? "page" : undefined}
+              data-i18n={item.key}
             >
               {item.label}
             </a>
@@ -35,63 +74,146 @@ const navItems = [
         }
       </nav>
 
-      <!-- Mobile Menu Button -->
-      <button
-        id="mobile-menu-btn"
-        class="md:hidden flex flex-col gap-1.5"
-        aria-label="Toggle mobile menu"
-      >
-        <span class="w-6 h-0.5 bg-slate-700 transition-all"></span>
-        <span class="w-6 h-0.5 bg-slate-700 transition-all"></span>
-        <span class="w-6 h-0.5 bg-slate-700 transition-all"></span>
-      </button>
+      <!-- Language Switcher, Mobile Menu Button, and Tickets -->
+      <div class="flex items-center gap-4">
+        <LanguageSwitcher />
 
-      <!-- CTA Button (Desktop only) -->
-      <a
-        href="/#sponsors"
-        class="hidden md:block bg-gradient-to-r from-blue-600 to-green-500 text-white px-6 py-2 rounded-full font-semibold hover:shadow-lg transition-all duration-300 text-sm whitespace-nowrap"
-      >
-        Get Tickets
-      </a>
+        <!-- Mobile Menu Button -->
+        <button
+          type="button"
+          id="mobile-menu-btn"
+          class="md:hidden flex flex-col gap-1.5"
+          aria-label="Toggle mobile menu"
+          aria-controls="mobile-nav"
+          aria-expanded="false"
+        >
+          <span class="w-6 h-0.5 bg-slate-700 transition-all"></span>
+          <span class="w-6 h-0.5 bg-slate-700 transition-all"></span>
+          <span class="w-6 h-0.5 bg-slate-700 transition-all"></span>
+        </button>
+
+        <!-- Desktop Tickets Button -->
+        <a
+          href={ticketsUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hidden md:block bg-gradient-to-r from-blue-600 to-green-500 text-white px-6 py-2 rounded-full font-semibold hover:shadow-lg transition-all duration-300 text-sm whitespace-nowrap"
+          data-i18n="nav.getTickets"
+        >
+          {t("en", "nav.getTickets")}
+        </a>
+      </div>
     </div>
 
     <!-- Mobile Navigation Menu -->
     <nav
       id="mobile-nav"
-      class="hidden md:hidden flex-col gap-2 pb-4 border-t border-slate-200"
+      class="hidden md:hidden flex-col gap-2 pt-4 pb-4 border-t border-slate-200"
+      aria-label="Mobile navigation"
     >
       {
         navItems.map((item) => (
           <a
             href={item.href}
-            class="block px-4 py-2 text-slate-700 font-medium hover:bg-slate-100 hover:text-blue-600 transition-colors rounded text-sm"
+            class={`block px-4 py-2 rounded text-sm transition-colors ${
+              isActivePage(item.href)
+                ? "nav-active-gradient"
+                : "text-slate-700 font-medium hover:bg-slate-100 hover:text-blue-600"
+            }`}
+            aria-current={isActivePage(item.href) ? "page" : undefined}
+            data-i18n={item.key}
           >
             {item.label}
           </a>
         ))
       }
+
+      <!-- Mobile Tickets Button -->
+      <a
+        href={ticketsUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="block px-4 py-2 text-white bg-blue-600 font-medium hover:bg-blue-700 transition-colors rounded text-sm text-center"
+        data-i18n="nav.getTickets"
+      >
+        {t("en", "nav.getTickets")}
+      </a>
     </nav>
   </div>
 </header>
 
 <script>
-  // Mobile menu toggle
-  const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+  const mobileMenuBtn =
+    document.querySelector<HTMLButtonElement>("#mobile-menu-btn");
+
   const mobileNav = document.getElementById("mobile-nav");
 
   if (mobileMenuBtn && mobileNav) {
+    const setMenuOpen = (isOpen: boolean) => {
+      mobileNav.classList.toggle("hidden", !isOpen);
+      mobileNav.classList.toggle("flex", isOpen);
+      mobileMenuBtn.setAttribute("aria-expanded", String(isOpen));
+    };
+
     mobileMenuBtn.addEventListener("click", () => {
-      mobileNav.classList.toggle("hidden");
-      mobileNav.classList.toggle("flex");
+      const isOpen =
+        mobileMenuBtn.getAttribute("aria-expanded") === "true";
+
+      setMenuOpen(!isOpen);
     });
 
-    // Close menu when a nav link is clicked
-    const navLinks = mobileNav.querySelectorAll("a");
-    navLinks.forEach((link) => {
+    mobileNav.querySelectorAll("a").forEach((link) => {
       link.addEventListener("click", () => {
-        mobileNav.classList.add("hidden");
-        mobileNav.classList.remove("flex");
+        setMenuOpen(false);
       });
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (
+        event.key === "Escape" &&
+        mobileMenuBtn.getAttribute("aria-expanded") === "true"
+      ) {
+        setMenuOpen(false);
+        mobileMenuBtn.focus();
+      }
     });
   }
 </script>
+
+<style>
+  .nav-active-gradient {
+    font-weight: 800;
+    background-image: linear-gradient(
+      90deg,
+      #005ac1 0%,
+      #005ac1 25%,
+      #8b4789 35%,
+      #ea4335 50%,
+      #fbbc05 75%,
+      #f59e0b 100%
+    );
+    background-size: 200% auto;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    animation: navGradientShift 6s ease-in-out infinite;
+  }
+
+  @keyframes navGradientShift {
+    0%,
+    100% {
+      background-position: 0% 50%;
+    }
+
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nav-active-gradient {
+      animation: none;
+    }
+  }
+</style>

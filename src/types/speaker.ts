@@ -5,6 +5,7 @@ export interface Speaker {
   imageUrl: string;
   imageAlt: string;
   linkedinUrl?: string;
+  bio?: string;
   accentColor: "blue" | "green" | "red" | "gold";
   isKeynote?: boolean;
 }

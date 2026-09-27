@@ -1,0 +1,132 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "venue": "Venue",
+    "faq": "FAQ",
+    "getTickets": "Get Tickets"
+  },
+  "hero": {
+    "title": "GDG Windsor",
+    "subtitle": "Join hundreds of developers, designers, and tech enthusiasts for a day of learning, networking, and innovation. From web development to cloud computing, discover the latest trends and connect with the vibrant GDG community.",
+    "cta": "Get Your Ticket Now",
+    "arrow": "→",
+    "dateFormat": "MMMM d, yyyy"
+  },
+  "speakers": {
+    "title": "Keynote Speakers",
+    "subtitle": "Great selection of speakers and content for an unforgettable experience.",
+    "viewAll": "View all speakers"
+  },
+  "schedule": {
+    "title": "Explore the Schedule by Track",
+    "description": "Browse sessions across five tracks designed for every developer and interest. Find talks, hands-on labs, and panels that match your goals.",
+    "filterBy": "Filter by"
+  },
+  "sponsors": {
+    "title": "Thank you to our sponsors and partners",
+    "description": "DevFest Windsor 2026 is made possible by the support of organizations and community partners who believe in empowering developers and building a stronger tech future.",
+    "ourSponsors": "Our Sponsors",
+    "communityPartners": "Community Partners",
+    "comingSoon": "Coming soon",
+    "partnersComing": "Community partners coming soon",
+    "ctaText": "Interested in sponsoring or partnering with DevFest Windsor 2026?",
+    "contactBtn": "Contact us",
+    "label": "Sponsors & Partners"
+  },
+  "application": {
+    "label": "Our Application",
+    "title": "Download Our DevFest App",
+    "description": "Get the official DevFest Windsor 2026 mobile application for the best conference experience. Access schedules, speaker bios, networking features, and real-time updates all in one place.",
+    "comingSoon": "Coming Soon",
+    "excitingThings": "Something Exciting is Coming",
+    "buildingApp": "We're building an amazing mobile experience for DevFest Windsor 2026. The official app will give you instant access to the schedule, speaker information, interactive networking features, and live updates throughout the event.",
+    "features": {
+      "schedule": "Full event schedule with track filtering",
+      "speakers": "Speaker profiles and abstracts",
+      "networking": "Networking and attendee directory"
+    },
+    "checkBack": "Check back soon for the app link and QR code. We'll announce the launch on our social channels!"
+  },
+  "cta": {
+    "title": "Ready to join the community?",
+    "description": "Secure your spot at DevFest Windsor 2026. Tickets include full access to all talks, workshops, meals, and the legendary after-party.",
+    "button": "Get Your Ticket Now"
+  },
+  "tickets": {
+    "title": "Get Your Tickets",
+    "description": "Join us at Google DevFest Windsor 2026! Choose the perfect ticket tier for your experience.",
+    "questions": "Questions about tickets?",
+    "groupDiscount": "We offer group discounts for teams of 5 or more. Contact us for more information.",
+    "contactSupport": "Contact Support"
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "description": "Find answers to common questions about DevFest Windsor 2026.",
+    "cantFind": "Can't find your answer?",
+    "contactUs": "Contact Us",
+    "items": [
+      {
+        "question": "What is DevFest Windsor?",
+        "answer": "DevFest Windsor is a community-led developer conference hosted by GDG Windsor. It brings together developers, designers, students, and tech enthusiasts to learn, share, and build the future together."
+      },
+      {
+        "question": "Who can attend DevFest Windsor?",
+        "answer": "Everyone is welcome! Whether you're a beginner or experienced developer, student, designer, or tech enthusiast, DevFest Windsor is for you. No prior experience is required."
+      },
+      {
+        "question": "Is DevFest Windsor free to attend?",
+        "answer": "We offer affordable tickets: General Admission without lunch is $15 CAD, or $25 CAD with lunch included. High school students also get lunch for $25 CAD. No fees added!"
+      },
+      {
+        "question": "Where and when is it happening?",
+        "answer": "DevFest Windsor 2026 is happening on November 21, 2026 at the University of Windsor, Ontario. Visit our Venue page for more details on location, parking, and public transit options."
+      },
+      {
+        "question": "What should I bring?",
+        "answer": "Bring a valid ID for registration, comfortable clothing, a notebook, and an open mind! We'll provide lunch, snacks, and refreshments throughout the day."
+      },
+      {
+        "question": "How can I get involved as a sponsor or partner?",
+        "answer": "We'd love to have your organization as a sponsor! Please reach out to our team with your sponsorship inquiry."
+      }
+    ]
+  },
+  "footer": {
+    "quickLinks": "Quick Links",
+    "connect": "Connect",
+    "copyright": "© 2026 GDG Windsor. All rights reserved."
+  },
+  "about": {
+    "title": "Join the Community-Led Tech Conference",
+    "subtitle": "DevFest Windsor is a community-led technical conference hosted by the Google Developer Group (GDC) Windsor. It's a premier local event designed to bring developers together to learn, connect, and build the future.",
+    "description": "Whether you're a seasoned developer or just starting your tech journey, DevFest offers something for everyone. Experience inspiring talks, hands-on workshops, meaningful networking, and exclusive swag.",
+    "experienceTitle": "What You'll Experience",
+    "experienceSubtitle": "Four amazing things await you at DevFest Windsor 2026",
+    "talks": "Expert Talks",
+    "talksDesc": "Learn from industry leaders and Google Developer Experts about the latest technologies, best practices, and innovation in web, mobile, cloud, and AI.",
+    "workshops": "Workshops",
+    "workshopsDesc": "Hands-on sessions covering Web, Mobile, Cloud, and AI. Get hands-on experience and learn skills you can apply immediately.",
+    "networking": "Networking",
+    "networkingDesc": "Connect with fellow developers, startup founders, tech enthusiasts, and industry professionals. Build meaningful relationships in the tech community.",
+    "swag": "Swag & Fun",
+    "swagDesc": "Get exclusive DevFest gear, enjoy great food and drinks, participate in activities, and celebrate with the community at our amazing after-party.",
+    "readyTitle": "Ready to Join Us?",
+    "readyText": "Secure your spot at DevFest Windsor 2026 and be part of the tech community's biggest event of the year."
+  },
+  "venue": {
+    "location": "📍 Location",
+    "title": "Event Venue",
+    "description": "Join us at the beautiful University of Windsor campus, conveniently located in the heart of Windsor, Ontario.",
+    "mainEventHub": "Main Event Hub",
+    "universityOfWindsor": "University of Windsor",
+    "address": "401 Sunset Avenue, Windsor, ON N9B 3P4",
+    "gettingHere": "Getting Here",
+    "gettingHereDesc": "The University of Windsor is easily accessible by car and public transit. Located on Sunset Avenue, just minutes from downtown Windsor and the Detroit River.",
+    "parkingInfo": "Parking Info",
+    "parkingInfoDesc": "Visitor parking is available in Lot H and the Assumption Parking Garage. Rates are $10/day. Campus maps available at information booths.",
+    "publicTransit": "Public Transit",
+    "publicTransitDesc": "Transit Windsor routes 1C, 2, and 11 stop directly at the campus. Check transit.windsor.ca for schedules and real-time updates.",
+    "openInMaps": "Open in Maps"
+  }
+}

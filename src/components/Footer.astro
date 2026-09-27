@@ -1,9 +1,32 @@
 ---
 import { EVENT_2026 } from "@config/event.config";
+import { t } from "@lib/i18n";
 
-const { name, location, date } = EVENT_2026;
+const { name, date } = EVENT_2026;
 
-const currentYear = new Date().getFullYear();
+const formattedDate = date.toLocaleDateString("en-US", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+
+const developers = [
+  {
+    name: "Daria",
+    icon: "/icons/dashaIcon.png",
+    linkedin: "https://www.linkedin.com/in/daria-web-design/",
+  },
+  {
+    name: "Arunesh",
+    icon: "/icons/aruneshIcon.png",
+    linkedin: "https://www.linkedin.com/in/aruneshchoudhary",
+  },
+  {
+    name: "Camila",
+    icon: "/icons/camilaIcon.png",
+    linkedin: "https://www.linkedin.com/in/lizeth-camila-gaitan-baron",
+  },
+];
 ---
 
 <footer
@@ -12,76 +35,181 @@ const currentYear = new Date().getFullYear();
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Main footer content -->
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+    <div
+      class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12 text-center md:text-left"
+    >
       <!-- Logo & Description -->
       <div class="col-span-1 md:col-span-2">
-        <div class="flex items-start gap-6 mb-6">
-          <img src="/devFestLogoLine.png" alt="GDG Windsor Logo" class="h-32 w-32 flex-shrink-0" />
-          <div class="pt-2">
-            <h3 class="text-2xl font-bold text-gray-900">{name}</h3>
-            <p class="text-base text-gray-600 mt-2">{location.city}, {location.province}</p>
+        <div
+          class="flex items-start justify-center md:justify-start gap-6 mb-6"
+        >
+          <img
+            src="/web-app-manifest-512x512.png"
+            alt="GDG Windsor Logo"
+            class="h-32 w-32 flex-shrink-0"
+          />
+
+          <div class="flex flex-col -space-y-2 pt-8">
+            <span
+              class="text-2xl font-bold"
+              style="color: #000000;"
+            >
+              DevFest
+            </span>
+
+            <span
+              class="text-2xl font-bold"
+              style="color: #4285F4;"
+            >
+              2026
+            </span>
           </div>
         </div>
-        <p class="text-gray-700 mt-6 max-w-sm">
-          Join the most exciting tech conference in Windsor. Connect with developers, learn cutting-edge technologies, and build amazing things together.
+
+        <p class="text-gray-700 mt-6 max-w-sm mx-auto md:mx-0">
+          Join the most exciting tech conference in Windsor. Connect with
+          developers, learn cutting-edge technologies, and build amazing
+          things together.
         </p>
       </div>
 
       <!-- Quick Links -->
       <div>
-        <h4 class="text-lg font-bold text-gray-900 mb-6">Quick Links</h4>
+        <h4
+          class="text-lg font-bold text-gray-900 mb-6"
+          data-i18n="footer.quickLinks"
+        >
+          {t("en", "footer.quickLinks")}
+        </h4>
+
         <ul class="space-y-3">
           <li>
-            <a href="/" class="text-gray-700 hover:text-blue-600 transition-colors">Home</a>
+            <a
+              href="/"
+              class="text-gray-700 hover:text-blue-600 transition-colors"
+              data-i18n="nav.home"
+            >
+              {t("en", "nav.home")}
+            </a>
           </li>
+
           <li>
-            <a href="/about" class="text-gray-700 hover:text-blue-600 transition-colors">About</a>
+            <a
+              href="/about"
+              class="text-gray-700 hover:text-blue-600 transition-colors"
+              data-i18n="nav.about"
+            >
+              {t("en", "nav.about")}
+            </a>
           </li>
+
           <li>
-            <a href="/#schedule" class="text-gray-700 hover:text-blue-600 transition-colors">Schedule</a>
+            <a
+              href="/#schedule"
+              class="text-gray-700 hover:text-blue-600 transition-colors"
+            >
+              Schedule
+            </a>
           </li>
+
           <li>
-            <a href="/venue" class="text-gray-700 hover:text-blue-600 transition-colors">Venue</a>
+            <a
+              href="/venue"
+              class="text-gray-700 hover:text-blue-600 transition-colors"
+              data-i18n="nav.venue"
+            >
+              {t("en", "nav.venue")}
+            </a>
           </li>
         </ul>
       </div>
 
       <!-- Contact -->
       <div>
-        <h4 class="text-lg font-bold text-gray-900 mb-6">Connect</h4>
+        <h4
+          class="text-lg font-bold text-gray-900 mb-6"
+          data-i18n="footer.connect"
+        >
+          {t("en", "footer.connect")}
+        </h4>
+
         <ul class="space-y-3">
           <li>
-            <a href="mailto:devfest@windsor.com" class="text-gray-700 hover:text-blue-600 transition-colors">Email</a>
-          </li>
-          <li>
-            <a href="#" class="text-gray-700 hover:text-blue-600 transition-colors">Twitter</a>
-          </li>
-          <li>
-            <a href="#" class="text-gray-700 hover:text-blue-600 transition-colors">LinkedIn</a>
-          </li>
-          <li>
-            <a href="#" class="text-gray-700 hover:text-blue-600 transition-colors">Instagram</a>
+            <a
+              href="https://gdg.community.dev/gdg-windsor/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-gray-700 hover:text-blue-600 transition-colors"
+            >
+              Email
+            </a>
           </li>
         </ul>
+
+        <!-- Developer Credits -->
+        <div class="mt-8 pt-6 border-t border-gray-300 md:border-t-0 md:pt-0 md:mt-6">
+          <p class="text-sm text-gray-600 font-semibold mb-3">
+            Developed by amazing GDG Windsor team
+          </p>
+          
+          <div class="flex gap-3 justify-center md:justify-start">
+            {developers.map((dev) => (
+              <a
+                href={dev.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                title={dev.name}
+                class="transform transition-transform hover:scale-110 duration-200"
+              >
+                <img
+                  src={dev.icon}
+                  alt={dev.name}
+                  class="h-12 w-12 rounded-full object-cover shadow-md hover:shadow-lg"
+                />
+              </a>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
 
     <!-- Divider -->
     <div class="border-t border-gray-300 my-8"></div>
 
+    <!-- Code of Conduct -->
+    <p
+      class="text-sm text-gray-600 leading-relaxed mb-6 text-center md:text-left"
+    >
+      DevFest attendees agree to follow the
+      <a
+        href="https://www.google.com/events/policy/anti-harassmentpolicy.html"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="font-semibold text-blue-600 underline underline-offset-4 hover:text-blue-800"
+      >
+        Code of Conduct
+      </a>.
+    </p>
+
     <!-- Bottom footer -->
-    <div class="flex flex-col md:flex-row justify-between items-center">
-      <div class="text-center md:text-left mb-4 md:mb-0">
-        <p class="text-gray-600 text-sm">
-          &copy; {currentYear} Google Developer Group Windsor. All rights reserved.
+    <div
+      class="flex flex-col md:flex-row justify-between items-center gap-6"
+    >
+      <div class="text-center md:text-left">
+        <p
+          class="text-gray-600 text-sm"
+          data-i18n="footer.copyright"
+        >
+          {t("en", "footer.copyright")}
         </p>
+
         <p class="text-gray-500 text-xs mt-2">
-          {name} • {date.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
+          {name} • {formattedDate}
         </p>
       </div>
 
       <!-- Decorative accent lines -->
-      <div class="flex gap-2 h-1">
+      <div class="flex gap-2 h-1 flex-shrink-0" aria-hidden="true">
         <div class="w-12 bg-blue-600"></div>
         <div class="w-12 bg-red-600"></div>
         <div class="w-12 bg-yellow-400"></div>

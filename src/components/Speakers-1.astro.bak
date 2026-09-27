@@ -1,0 +1,402 @@
+---
+import type { Speaker } from "@types/speaker";
+import { t } from "@lib/i18n";
+import SectionDivider from "./SectionDivider.astro";
+
+interface Props {
+  speakers: Speaker[];
+  viewAllHref?: string;
+}
+
+const { speakers, viewAllHref = "#" } = Astro.props;
+
+// Show first 4 speakers by default
+const featuredSpeakers = speakers.slice(0, 4);
+const allSpeakers = speakers;
+
+const accentStyles: Record<
+  Speaker["accentColor"],
+  { blob: string; badge: string; ring: string }
+> = {
+  blue: {
+    blob: "bg-blue-600",
+    badge: "bg-blue-600",
+    ring: "group-hover:ring-blue-600/40",
+  },
+  green: {
+    blob: "bg-green-600",
+    badge: "bg-green-600",
+    ring: "group-hover:ring-green-600/40",
+  },
+  red: {
+    blob: "bg-red-600",
+    badge: "bg-red-600",
+    ring: "group-hover:ring-red-600/40",
+  },
+  gold: {
+    blob: "bg-amber-500",
+    badge: "bg-amber-500",
+    ring: "group-hover:ring-amber-500/40",
+  },
+};
+---
+
+<section
+  id="speakers"
+  class="relative py-20 sm:py-24 bg-white overflow-hidden"
+  aria-label="Featured speakers"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Section header -->
+    <div
+      class="animate-fade-in-up flex flex-col md:flex-row md:items-start md:justify-between gap-6 mb-16"
+    >
+      <div class="max-w-xl">
+        <span class="text-sm font-bold tracking-widest text-red-500 uppercase">
+          Lineup
+        </span>
+        <div class="flex items-center gap-6 flex-wrap sm:flex-nowrap">
+          <h2 class="mt-2 text-4xl sm:text-5xl font-bold text-slate-900 whitespace-nowrap" data-i18n="speakers.title">
+            {t('en', 'speakers.title')}
+          </h2>
+          <div id="speakersAnimation" class="w-24 h-24 sm:w-40 sm:h-40 flex-shrink-0"></div>
+        </div>
+        <p class="mt-4 text-slate-600 leading-relaxed" data-i18n="speakers.subtitle">
+          {t('en', 'speakers.subtitle')}
+        </p>
+      </div>
+
+      <button
+        id="viewAllSpeakersBtn"
+        class="group/link inline-flex items-center gap-2 text-blue-600 font-semibold hover:text-blue-700 transition-colors whitespace-nowrap md:mt-3"
+        data-i18n="speakers.viewAll"
+      >
+        {t('en', 'speakers.viewAll')}
+        <span aria-hidden="true" class="inline-block transition-transform duration-300 group-hover/link:translate-x-1.5">→</span>
+      </button>
+    </div>
+
+    <!-- Speaker grid -->
+    <div id="speakersGrid" class="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-14 animate-stagger">
+      {
+        featuredSpeakers.map((speaker, index) => {
+          const accent = accentStyles[speaker.accentColor];
+          return (
+            <div
+              class="group flex flex-col items-center text-center animate-fade-in-up"
+              style={`animation-delay: ${index * 0.1}s;`}
+              data-speaker-name={speaker.name}
+              data-speaker-role={speaker.role}
+              data-speaker-company={speaker.company}
+              data-speaker-bio={speaker.bio || ''}
+              data-speaker-linkedin={speaker.linkedinUrl || ''}
+              data-speaker-image={speaker.imageUrl}
+              data-speaker-alt={speaker.imageAlt}
+            >
+              <!-- Avatar with decorative color blob -->
+              <div class="relative w-32 h-32 sm:w-40 sm:h-40 mb-5">
+                <div
+                  class:list={[
+                    "blob-shape absolute inset-0 scale-105 transition-transform duration-300 group-hover:scale-110",
+                    accent.blob,
+                  ]}
+                  style={`animation-delay: ${index * 700}ms;`}
+                  aria-hidden="true"
+                />
+                <img
+                  src={speaker.imageUrl}
+                  alt={speaker.imageAlt}
+                  class:list={[
+                    "relative w-full h-full rounded-full object-cover ring-4 ring-white shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-110",
+                    accent.ring,
+                  ]}
+                  loading="lazy"
+                />
+              </div>
+
+              <!-- Name & Info -->
+              <h3 class="text-lg font-bold text-slate-900 line-clamp-2">
+                {speaker.name}
+              </h3>
+              <p class="text-sm text-slate-600 mt-1">
+                {speaker.company}
+              </p>
+              <p class="text-xs text-slate-500 mt-1 line-clamp-1">
+                {speaker.role}
+              </p>
+              
+              <!-- BIO and LinkedIn Buttons -->
+              <div class="flex gap-2 mt-3">
+                <button
+                  class="speaker-bio-btn inline-flex items-center gap-1 px-3 py-1 text-xs font-semibold text-white bg-purple-600 hover:bg-purple-700 rounded-full transition-colors"
+                  data-speaker-name={speaker.name}
+                  data-speaker-role={speaker.role}
+                  data-speaker-company={speaker.company}
+                  data-speaker-bio={speaker.bio || ''}
+                  data-speaker-linkedin={speaker.linkedinUrl || ''}
+                  data-speaker-image={speaker.imageUrl}
+                  data-speaker-alt={speaker.imageAlt}
+                >
+                  BIO
+                </button>
+                {speaker.linkedinUrl && (
+                  <a
+                    href={speaker.linkedinUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center gap-1 px-3 py-1 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-full transition-colors"
+                    onClick="event.stopPropagation()"
+                  >
+                    LinkedIn →
+                  </a>
+                )}
+              </div>
+            </div>
+          );
+        })
+      }
+    </div>
+
+    <!-- Hidden speakers (shown when "View All" is clicked) -->
+    <div id="hiddenSpeakers" class="hidden grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-14 mt-14 animate-stagger">
+      {
+        allSpeakers.slice(4).map((speaker, index) => {
+          const accent = accentStyles[speaker.accentColor];
+          return (
+            <div
+              class="group flex flex-col items-center text-center animate-fade-in-up"
+              style={`animation-delay: ${index * 0.1}s;`}
+              data-speaker-name={speaker.name}
+              data-speaker-role={speaker.role}
+              data-speaker-company={speaker.company}
+              data-speaker-bio={speaker.bio || ''}
+              data-speaker-linkedin={speaker.linkedinUrl || ''}
+              data-speaker-image={speaker.imageUrl}
+              data-speaker-alt={speaker.imageAlt}
+            >
+              <!-- Avatar with decorative color blob -->
+              <div class="relative w-32 h-32 sm:w-40 sm:h-40 mb-5">
+                <div
+                  class:list={[
+                    "blob-shape absolute inset-0 scale-105 transition-transform duration-300 group-hover:scale-110",
+                    accent.blob,
+                  ]}
+                  style={`animation-delay: ${index * 700}ms;`}
+                  aria-hidden="true"
+                />
+                <img
+                  src={speaker.imageUrl}
+                  alt={speaker.imageAlt}
+                  class:list={[
+                    "relative w-full h-full rounded-full object-cover ring-4 ring-white shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-110",
+                    accent.ring,
+                  ]}
+                  loading="lazy"
+                />
+              </div>
+
+              <!-- Name & Info -->
+              <h3 class="text-lg font-bold text-slate-900 line-clamp-2">
+                {speaker.name}
+              </h3>
+              <p class="text-sm text-slate-600 mt-1">
+                {speaker.company}
+              </p>
+              <p class="text-xs text-slate-500 mt-1 line-clamp-1">
+                {speaker.role}
+              </p>
+              
+              <!-- BIO and LinkedIn Buttons -->
+              <div class="flex gap-2 mt-3">
+                <button
+                  class="speaker-bio-btn inline-flex items-center gap-1 px-3 py-1 text-xs font-semibold text-white bg-purple-600 hover:bg-purple-700 rounded-full transition-colors"
+                  data-speaker-name={speaker.name}
+                  data-speaker-role={speaker.role}
+                  data-speaker-company={speaker.company}
+                  data-speaker-bio={speaker.bio || ''}
+                  data-speaker-linkedin={speaker.linkedinUrl || ''}
+                  data-speaker-image={speaker.imageUrl}
+                  data-speaker-alt={speaker.imageAlt}
+                >
+                  BIO
+                </button>
+                {speaker.linkedinUrl && (
+                  <a
+                    href={speaker.linkedinUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center gap-1 px-3 py-1 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-full transition-colors"
+                    onClick="event.stopPropagation()"
+                  >
+                    LinkedIn →
+                  </a>
+                )}
+              </div>
+            </div>
+          );
+        })
+      }
+    </div>
+
+    <!-- Section divider -->
+    <SectionDivider />
+
+    <!-- Show more button (appears after View All is clicked) -->
+    <div id="showMoreContainer" class="hidden text-center mt-12">
+      <button
+        id="collapseBtn"
+        class="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
+      >
+        Show Less ↑
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- Speaker Bio Modal -->
+<div id="speakerModal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+  <div class="bg-white rounded-lg max-w-2xl w-full max-h-96 overflow-y-auto">
+    <div class="p-6">
+      <button
+        id="closeModal"
+        class="float-right text-gray-500 hover:text-gray-700 text-2xl"
+      >
+        ✕
+      </button>
+      
+      <div class="flex gap-6 pb-6">
+        <img
+          id="modalImage"
+          src=""
+          alt=""
+          class="w-32 h-32 rounded-full object-cover"
+        />
+        <div>
+          <h2 id="modalName" class="text-2xl font-bold text-slate-900"></h2>
+          <p id="modalRole" class="text-slate-600 font-semibold"></p>
+          <p id="modalCompany" class="text-slate-500"></p>
+          <a
+            id="modalLinkedIn"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-1 mt-3 px-3 py-1 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-full transition-colors"
+          >
+            LinkedIn →
+          </a>
+        </div>
+      </div>
+      
+      <p id="modalBio" class="text-slate-700 leading-relaxed"></p>
+    </div>
+  </div>
+</div>
+
+<style>
+  .blob-shape {
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    filter: blur(40px);
+    opacity: 0.6;
+  }
+</style>
+
+<script>
+  // Speaker modal functionality
+  const modal = document.getElementById('speakerModal');
+  const closeBtn = document.getElementById('closeModal');
+  const bioButtons = document.querySelectorAll('.speaker-bio-btn');
+  
+  const viewAllBtn = document.getElementById('viewAllSpeakersBtn');
+  const hiddenSpeakers = document.getElementById('hiddenSpeakers');
+  const showMoreContainer = document.getElementById('showMoreContainer');
+  const collapseBtn = document.getElementById('collapseBtn');
+  
+  // View All Speakers functionality
+  viewAllBtn?.addEventListener('click', () => {
+    hiddenSpeakers?.classList.remove('hidden');
+    showMoreContainer?.classList.remove('hidden');
+    viewAllBtn.style.display = 'none';
+  });
+  
+  collapseBtn?.addEventListener('click', () => {
+    hiddenSpeakers?.classList.add('hidden');
+    showMoreContainer?.classList.add('hidden');
+    viewAllBtn!.style.display = 'inline-flex';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+  
+  // Bio button click to open modal
+  bioButtons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      
+      const name = btn.getAttribute('data-speaker-name');
+      const role = btn.getAttribute('data-speaker-role');
+      const company = btn.getAttribute('data-speaker-company');
+      const bio = btn.getAttribute('data-speaker-bio');
+      const linkedin = btn.getAttribute('data-speaker-linkedin');
+      const image = btn.getAttribute('data-speaker-image');
+      const alt = btn.getAttribute('data-speaker-alt');
+      
+      // Populate modal
+      document.getElementById('modalName')!.textContent = name || '';
+      document.getElementById('modalRole')!.textContent = role || '';
+      document.getElementById('modalCompany')!.textContent = company || '';
+      document.getElementById('modalBio')!.textContent = bio || 'No bio available';
+      document.getElementById('modalImage')!.src = image || '';
+      document.getElementById('modalImage')!.alt = alt || '';
+      
+      const linkedInLink = document.getElementById('modalLinkedIn') as HTMLAnchorElement;
+      if (linkedin) {
+        linkedInLink.href = linkedin;
+        linkedInLink.style.display = 'inline-flex';
+      } else {
+        linkedInLink.style.display = 'none';
+      }
+      
+      modal?.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+  
+  // Close modal
+  closeBtn?.addEventListener('click', () => {
+    modal?.classList.add('hidden');
+    document.body.style.overflow = 'auto';
+  });
+  
+  // Close modal on background click
+  modal?.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.classList.add('hidden');
+      document.body.style.overflow = 'auto';
+    }
+  });
+</script>
+
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest"></script>
+<script>
+  // Load Lottie animation next to speakers title
+  const animationContainer = document.getElementById('speakersAnimation');
+  if (animationContainer) {
+    const lottiePlayer = document.createElement('lottie-player');
+    lottiePlayer.setAttribute('src', 'https://lottie.host/f66e8fc4-b620-437a-b679-76681e6d4556/fsgOx80vt3.json');
+    lottiePlayer.setAttribute('background', 'transparent');
+    lottiePlayer.setAttribute('speed', '1');
+    lottiePlayer.setAttribute('loop', 'true');
+    lottiePlayer.setAttribute('autoplay', 'true');
+    lottiePlayer.style.width = '100%';
+    lottiePlayer.style.height = '100%';
+    animationContainer.appendChild(lottiePlayer);
+  }
+
+  // Load custom circles divider animation
+  const dividerContainer = document.getElementById('speakersDivider');
+  if (dividerContainer) {
+    fetch('/speakers-animation-custom.svg')
+      .then(response => response.text())
+      .then(svgContent => {
+        dividerContainer.innerHTML = svgContent;
+      });
+  }
+</script>

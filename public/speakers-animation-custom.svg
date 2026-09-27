@@ -1,0 +1,49 @@
+<svg viewBox="0 0 400 120" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      @keyframes slideBlue {
+        0% { transform: translateX(0); }
+        25% { transform: translateX(120px); }
+        50% { transform: translateX(120px); }
+        75% { transform: translateX(0); }
+        100% { transform: translateX(0); }
+      }
+
+      @keyframes jumpOthers {
+        0% { transform: translateY(0); }
+        20% { transform: translateY(0); }
+        30% { transform: translateY(-40px); }
+        40% { transform: translateY(0); }
+        100% { transform: translateY(0); }
+      }
+
+      .blue-circle {
+        animation: slideBlue 3s ease-in-out infinite;
+      }
+
+      .red-circle {
+        animation: jumpOthers 3s ease-in-out infinite;
+      }
+
+      .yellow-circle {
+        animation: jumpOthers 3s ease-in-out infinite;
+      }
+
+      .green-circle {
+        animation: jumpOthers 3s ease-in-out infinite;
+      }
+    </style>
+  </defs>
+
+  <!-- Red Circle (Google Red) -->
+  <circle class="red-circle" cx="60" cy="60" r="30" fill="#EA4335" opacity="0.9"/>
+
+  <!-- Yellow Circle (Google Yellow) -->
+  <circle class="yellow-circle" cx="140" cy="60" r="30" fill="#FBBC04" opacity="0.9"/>
+
+  <!-- Blue Circle (Google Blue) - slides first -->
+  <circle class="blue-circle" cx="220" cy="60" r="30" fill="#4285F4" opacity="0.9"/>
+
+  <!-- Green Circle (Google Green) -->
+  <circle class="green-circle" cx="300" cy="60" r="30" fill="#34A853" opacity="0.9"/>
+</svg>
