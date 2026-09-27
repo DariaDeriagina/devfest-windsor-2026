@@ -1,5 +1,6 @@
 ---
 import { t } from "@lib/i18n";
+import en from "@/src/locales/en.json";
 
 interface FAQItem {
   question: string;
@@ -9,8 +10,8 @@ interface FAQItem {
 // Server-side rendering uses 'en' by default
 const lang = "en";
 
-// Import translations
-const faqItems = t(lang, "faq.items") as FAQItem[];
+// Get FAQ items from translations
+const faqItems = en.faq.items as FAQItem[];
 ---
 
 <section class="relative min-h-screen bg-white pt-32 pb-20 overflow-hidden animate-fade-in">
