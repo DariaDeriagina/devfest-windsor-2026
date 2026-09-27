@@ -59,14 +59,16 @@ const faqItems = en.faq.items as FAQItem[];
             </svg>
             <div>
               <h4 class="font-bold text-lg mb-1" data-i18n="faq.cantFind">{t(lang, 'faq.cantFind')}</h4>
-              <p class="text-blue-100 text-sm mb-4">Contact our support team for help</p>
-              <button
-                class="bg-white text-blue-600 px-4 py-2 rounded-lg font-semibold hover:bg-blue-50 transition-colors cursor-pointer"
-                onclick={`alert('Contact us at:\\n\\nEmail: devfest@windsor.com\\nPhone: (519) 555-0100')`}
+              <p class="text-blue-100 text-sm mb-4">Join our GDG Windsor community</p>
+              <a
+                href="https://gdg.community.dev/gdg-windsor/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="bg-white text-blue-600 px-4 py-2 rounded-lg font-semibold hover:bg-blue-50 transition-colors cursor-pointer inline-block"
                 data-i18n="faq.contactUs"
               >
                 {t(lang, 'faq.contactUs')}
-              </button>
+              </a>
             </div>
           </div>
         </div>
