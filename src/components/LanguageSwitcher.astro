@@ -1,0 +1,77 @@
+---
+// Language Switcher Component
+---
+
+<div class="flex items-center gap-2">
+  <button
+    id="lang-en"
+    class="lang-switcher-btn px-3 py-1.5 rounded text-sm font-medium transition-all duration-200 bg-blue-600 text-white"
+    data-lang="en"
+    aria-label="Switch to English"
+  >
+    EN
+  </button>
+  <button
+    id="lang-fr"
+    class="lang-switcher-btn px-3 py-1.5 rounded text-sm font-medium transition-all duration-200 text-slate-700 hover:bg-slate-100"
+    data-lang="fr"
+    aria-label="Switch to French"
+  >
+    FR
+  </button>
+</div>
+
+<script>
+  // Get translation function from i18n
+  import { t, getLanguage, setLanguage, getTranslations } from '@lib/i18n';
+
+  function updatePageLanguage(lang) {
+    // Store language preference
+    setLanguage(lang);
+    document.documentElement.lang = lang;
+
+    // Get all translations
+    const translations = getTranslations(lang);
+
+    // Update all elements with data-i18n attribute
+    const elements = document.querySelectorAll('[data-i18n]');
+    elements.forEach((el) => {
+      const key = el.getAttribute('data-i18n');
+      // Navigate through nested object using dot notation
+      const keys = key.split('.');
+      let value = translations;
+      for (const k of keys) {
+        value = value?.[k];
+      }
+      if (typeof value === 'string') {
+        el.textContent = value;
+      }
+    });
+
+    // Update language switcher buttons styling
+    const langButtons = document.querySelectorAll('.lang-switcher-btn');
+    langButtons.forEach((btn) => {
+      const btnLang = btn.getAttribute('data-lang');
+      if (btnLang === lang) {
+        btn.classList.remove('text-slate-700', 'hover:bg-slate-100');
+        btn.classList.add('bg-blue-600', 'text-white');
+      } else {
+        btn.classList.remove('bg-blue-600', 'text-white');
+        btn.classList.add('text-slate-700', 'hover:bg-slate-100');
+      }
+    });
+  }
+
+  // Initialize with stored language or default to English
+  const currentLang = getLanguage();
+  updatePageLanguage(currentLang);
+
+  // Add click handlers to language switcher buttons
+  const langButtons = document.querySelectorAll('.lang-switcher-btn');
+  langButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const lang = btn.getAttribute('data-lang');
+      updatePageLanguage(lang);
+    });
+  });
+</script>

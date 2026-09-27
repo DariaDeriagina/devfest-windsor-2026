@@ -8,7 +8,7 @@ const description = "Learn more about Google DevFest Windsor 2026 - a community-
 ---
 
 <BaseLayout title={title} description={description} ogImage={EVENT_2026.seo.ogImage}>
-  <Header logoSrc="/logo.svg" />
+  <Header logoSrc="/web-app-manifest-512x512.png" />
   
   <main class="pt-20">
     <!-- Hero Section with Image -->
@@ -31,13 +31,13 @@ const description = "Learn more about Google DevFest Windsor 2026 - a community-
             <span class="inline-block text-red-600 font-semibold text-sm uppercase tracking-wider mb-4">
               🔥 What is DevFest?
             </span>
-            <h1 class="text-4xl md:text-5xl font-bold text-slate-900 mb-6 leading-tight">
+            <h1 class="text-4xl md:text-5xl font-bold text-slate-900 mb-6 leading-tight" data-i18n="about.title">
               Join the Community-Led Tech Conference
             </h1>
-            <p class="text-lg text-slate-600 mb-6 leading-relaxed">
+            <p class="text-lg text-slate-600 mb-6 leading-relaxed" data-i18n="about.subtitle">
               DevFest Windsor is a community-led technical conference hosted by the Google Developer Group (GDC) Windsor. It's a premier local event designed to bring developers together to learn, connect, and build the future.
             </p>
-            <p class="text-base text-slate-600 leading-relaxed">
+            <p class="text-lg text-slate-600 leading-relaxed" data-i18n="about.description">
               Whether you're a seasoned developer or just starting your tech journey, DevFest offers something for everyone. Experience inspiring talks, hands-on workshops, meaningful networking, and exclusive swag.
             </p>
           </div>
@@ -49,10 +49,10 @@ const description = "Learn more about Google DevFest Windsor 2026 - a community-
     <section class="py-16 md:py-24 bg-gradient-to-b from-slate-50 to-white">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
-          <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+          <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4" data-i18n="about.experienceTitle">
             What You'll Experience
           </h2>
-          <p class="text-lg text-slate-600">
+          <p class="text-lg text-slate-600" data-i18n="about.experienceSubtitle">
             Four amazing things await you at DevFest Windsor 2026
           </p>
         </div>
@@ -65,8 +65,8 @@ const description = "Learn more about Google DevFest Windsor 2026 - a community-
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C6.5 6.253 2 10.998 2 17.25c0 5.25 3.75 9.15 10 9.15s10-3.9 10-9.15c0-6.252-4.5-11-9-11z"></path>
               </svg>
             </div>
-            <h3 class="text-2xl font-bold text-slate-900 mb-3">Expert Talks</h3>
-            <p class="text-slate-600 leading-relaxed">
+            <h3 class="text-2xl font-bold text-slate-900 mb-3" data-i18n="about.talks">Expert Talks</h3>
+            <p class="text-slate-600 leading-relaxed" data-i18n="about.talksDesc">
               Learn from industry leaders and Google Developer Experts about the latest technologies, best practices, and innovation in web, mobile, cloud, and AI.
             </p>
           </div>
@@ -79,21 +79,21 @@ const description = "Learn more about Google DevFest Windsor 2026 - a community-
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
               </svg>
             </div>
-            <h3 class="text-2xl font-bold text-slate-900 mb-3">Workshops</h3>
-            <p class="text-slate-600 leading-relaxed">
+            <h3 class="text-2xl font-bold text-slate-900 mb-3" data-i18n="about.workshops">Workshops</h3>
+            <p class="text-slate-600 leading-relaxed" data-i18n="about.workshopsDesc">
               Hands-on sessions covering Web, Mobile, Cloud, and AI. Get hands-on experience and learn skills you can apply immediately.
             </p>
           </div>
 
-          <!-- Card 3: Networking -->
+                                                         <!-- Card 3: Networking -->
           <div class="group p-8 bg-white rounded-xl border-2 border-yellow-200 hover:shadow-lg transition-all duration-300">
             <div class="w-14 h-14 bg-yellow-100 rounded-lg flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
               <svg class="w-7 h-7 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 8.646 4 4 0 010-8.646M9 9H3v10a6 6 0 006 6h6v-6a6 6 0 00-6-6H9zm9-5a4 4 0 110 8.646 4 4 0 010-8.646m0 0h6v10a6 6 0 01-6 6h-6v-6a6 6 0 016-6h6z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
               </svg>
             </div>
-            <h3 class="text-2xl font-bold text-slate-900 mb-3">Networking</h3>
-            <p class="text-slate-600 leading-relaxed">
+            <h3 class="text-2xl font-bold text-slate-900 mb-3" data-i18n="about.networking">Networking</h3>
+            <p class="text-slate-600 leading-relaxed" data-i18n="about.networkingDesc">
               Connect with fellow developers, startup founders, tech enthusiasts, and industry professionals. Build meaningful relationships in the tech community.
             </p>
           </div>
@@ -105,8 +105,8 @@ const description = "Learn more about Google DevFest Windsor 2026 - a community-
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
               </svg>
             </div>
-            <h3 class="text-2xl font-bold text-slate-900 mb-3">Swag & Fun</h3>
-            <p class="text-slate-600 leading-relaxed">
+            <h3 class="text-2xl font-bold text-slate-900 mb-3" data-i18n="about.swag">Swag & Fun</h3>
+            <p class="text-slate-600 leading-relaxed" data-i18n="about.swagDesc">
               Get exclusive DevFest gear, enjoy great food and drinks, participate in activities, and celebrate with the community at our amazing after-party.
             </p>
           </div>
@@ -120,19 +120,19 @@ const description = "Learn more about Google DevFest Windsor 2026 - a community-
         <div class="grid md:grid-cols-4 gap-8 text-center text-white">
           <div>
             <div class="text-5xl md:text-6xl font-bold mb-2">500+</div>
-            <p class="text-lg opacity-90">Expected Attendees</p>
+            <p class="text-lg opacity-90" data-i18n="about.expectedAttendees">Expected Attendees</p>
           </div>
           <div>
             <div class="text-5xl md:text-6xl font-bold mb-2">20+</div>
-            <p class="text-lg opacity-90">Amazing Speakers</p>
+            <p class="text-lg opacity-90" data-i18n="about.amazingSpeakers">Amazing Speakers</p>
           </div>
           <div>
             <div class="text-5xl md:text-6xl font-bold mb-2">8</div>
-            <p class="text-lg opacity-90">Hours of Content</p>
+            <p class="text-lg opacity-90" data-i18n="about.hoursOfContent">Hours of Content</p>
           </div>
           <div>
             <div class="text-5xl md:text-6xl font-bold mb-2">∞</div>
-            <p class="text-lg opacity-90">Networking Value</p>
+            <p class="text-lg opacity-90" data-i18n="about.networkingValue">Networking Value</p>
           </div>
         </div>
       </div>
@@ -141,17 +141,18 @@ const description = "Learn more about Google DevFest Windsor 2026 - a community-
     <!-- CTA Section -->
     <section class="py-16 md:py-24 bg-white">
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
+        <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-6" data-i18n="about.readyTitle">
           Ready to Join Us?
         </h2>
-        <p class="text-lg text-slate-600 mb-8">
+        <p class="text-lg text-slate-600 mb-8" data-i18n="about.readyText">
           Secure your spot at DevFest Windsor 2026 and be part of the tech community's biggest event of the year.
         </p>
         <a 
-          href="/#tickets"
+          href="https://gdg.community.dev/events/details/google-gdg-windsor-presents-gdg-windsor-essex-devfest-2026/cohost-gdg-windsor/" target="_blank" rel="noopener noreferrer"
           class="inline-block bg-gradient-to-r from-blue-600 to-green-500 text-white px-8 py-3 rounded-full font-semibold hover:shadow-lg transition-all duration-300 text-lg"
+          data-i18n="nav.getTickets"
         >
-          Get Your Ticket Now
+          Get Tickets
         </a>
       </div>
     </section>
@@ -196,3 +197,85 @@ const description = "Learn more about Google DevFest Windsor 2026 - a community-
     }
   }
 </style>
+
+<script>
+  // Translation handler for About page
+  const translations = {
+    en: {
+      'about.title': 'Join the Community-Led Tech Conference',
+      'about.subtitle': 'DevFest Windsor is a community-led technical conference hosted by the Google Developer Group (GDC) Windsor. It\'s a premier local event designed to bring developers together to learn, connect, and build the future.',
+      'about.description': 'Whether you\'re a seasoned developer or just starting your tech journey, DevFest offers something for everyone. Experience inspiring talks, hands-on workshops, meaningful networking, and exclusive swag.',
+      'about.experienceTitle': 'What You\'ll Experience',
+      'about.experienceSubtitle': 'Four amazing things await you at DevFest Windsor 2026',
+      'about.talks': 'Expert Talks',
+      'about.talksDesc': 'Learn from industry leaders and Google Developer Experts about the latest technologies, best practices, and innovation in web, mobile, cloud, and AI.',
+      'about.workshops': 'Workshops',
+      'about.workshopsDesc': 'Hands-on sessions covering Web, Mobile, Cloud, and AI. Get hands-on experience and learn skills you can apply immediately.',
+      'about.networking': 'Networking',
+      'about.networkingDesc': 'Connect with fellow developers, startup founders, tech enthusiasts, and industry professionals. Build meaningful relationships in the tech community.',
+      'about.swag': 'Swag & Fun',
+      'about.swagDesc': 'Get exclusive DevFest gear, enjoy great food and drinks, participate in activities, and celebrate with the community at our amazing after-party.',
+      'about.expectedAttendees': 'Expected Attendees',
+      'about.amazingSpeakers': 'Amazing Speakers',
+      'about.hoursOfContent': 'Hours of Content',
+      'about.networkingValue': 'Networking Value',
+      'about.readyTitle': 'Ready to Join Us?',
+      'about.readyText': 'Secure your spot at DevFest Windsor 2026 and be part of the tech community\'s biggest event of the year.',
+      'nav.getTickets': 'Get Tickets',
+    },
+    fr: {
+      'about.title': 'Rejoignez la Conférence Technologique Communautaire',
+      'about.subtitle': 'DevFest Windsor est une conférence technologique dirigée par la communauté accueillie par le Google Developer Group (GDC) Windsor. C\'est un événement local de premier plan conçu pour réunir les développeurs afin qu\'ils apprennent, se connectent et construisent l\'avenir.',
+      'about.description': 'Que vous soyez un développeur expérimenté ou que vous commenciez tout juste votre parcours technologique, DevFest offre quelque chose pour tout le monde. Découvrez des exposés inspirants, des ateliers pratiques, des réseautages significatifs et du matériel exclusif.',
+      'about.experienceTitle': 'Ce que Vous Découvrirez',
+      'about.experienceSubtitle': 'Quatre choses extraordinaires vous attendent à DevFest Windsor 2026',
+      'about.talks': 'Exposés d\'experts',
+      'about.talksDesc': 'Apprenez des leaders du secteur et des experts Google Developer qui partagent leurs idées sur les dernières technologies, les meilleures pratiques et l\'innovation dans le web, le mobile, le cloud et l\'IA.',
+      'about.workshops': 'Ateliers',
+      'about.workshopsDesc': 'Des sessions pratiques couvrant le Web, le Mobile, le Cloud et l\'IA. Acquérez une expérience pratique et apprenez des compétences que vous pouvez appliquer immédiatement.',
+      'about.networking': 'Réseautage',
+      'about.networkingDesc': 'Connectez-vous avec d\'autres développeurs, des fondateurs de startups, des passionnés de technologie et des professionnels du secteur. Établissez des relations significatives dans la communauté technologique.',
+      'about.swag': 'Fournitures et Plaisir',
+      'about.swagDesc': 'Obtenez des équipements exclusifs DevFest, savourez une excellente nourriture et des boissons, participez à des activités et célébrez avec la communauté lors de notre incroyable après-fête.',
+      'about.expectedAttendees': 'Participants Attendus',
+      'about.amazingSpeakers': 'Conférenciers Extraordinaires',
+      'about.hoursOfContent': 'Heures de Contenu',
+      'about.networkingValue': 'Valeur du Réseautage',
+      'about.readyTitle': 'Prêt à nous rejoindre?',
+      'about.readyText': 'Sécurisez votre place à DevFest Windsor 2026 et faites partie du plus grand événement technologique communautaire de l\'année.',
+      'nav.getTickets': 'Obtenez Votre Billet Maintenant',
+    }
+  };
+
+  function updatePageTranslations() {
+    const currentLang = localStorage.getItem('language') || 'en';
+    const elements = document.querySelectorAll('[data-i18n]');
+    
+    elements.forEach((el) => {
+      const key = el.getAttribute('data-i18n');
+      if (translations[currentLang] && translations[currentLang][key]) {
+        el.textContent = translations[currentLang][key];
+      }
+    });
+  }
+
+  // Initialize translations on page load
+  updatePageTranslations();
+
+  // Listen for language changes
+  window.addEventListener('storage', (e) => {
+    if (e.key === 'language') {
+      updatePageTranslations();
+    }
+  });
+
+  // Check for language changes every 300ms
+  let lastLang = localStorage.getItem('language') || 'en';
+  const checkInterval = setInterval(() => {
+    const currentLang = localStorage.getItem('language') || 'en';
+    if (currentLang !== lastLang) {
+      lastLang = currentLang;
+      updatePageTranslations();
+    }
+  }, 300);
+</script>

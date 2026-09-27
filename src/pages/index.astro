@@ -4,6 +4,8 @@ import Header from "@components/Header.astro";
 import Hero from "@components/Hero.astro";
 import Speakers from "@components/Speakers.astro";
 import Schedule from "@components/Schedule.astro";
+import Sponsors from "@components/Sponsors.astro";
+import Application from "@components/Application.astro";
 import CTA from "@components/CTA.astro";
 import { EVENT_2026 } from "@config/event.config";
 import { FEATURED_SPEAKERS } from "@config/speakers.config";
@@ -13,7 +15,7 @@ const description = EVENT_2026.seo.metaDescription;
 ---
 
 <BaseLayout title={title} description={description} ogImage={EVENT_2026.seo.ogImage}>
-  <Header logoSrc="/logo.svg" />
+  <Header logoSrc="/web-app-manifest-512x512.png" />
   <main class="pt-20">
     <Hero event={EVENT_2026} />
     <Speakers speakers={FEATURED_SPEAKERS} viewAllHref="#" />
@@ -21,6 +23,8 @@ const description = EVENT_2026.seo.metaDescription;
       title="Explore the Schedule by Track"
       description="Browse sessions across five tracks designed for every developer and interest. Find talks, hands-on labs, and panels that match your goals."
     />
+    <Sponsors />
+    <Application />
     <CTA 
       title="Ready to join the community?"
       description="Secure your spot at DevFest Windsor 2026. Tickets include full access to all talks, workshops, meals, and the legendary after-party."
