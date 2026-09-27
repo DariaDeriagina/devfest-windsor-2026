@@ -86,5 +86,20 @@
     "swagDesc": "Obtenez des vêtements exclusifs DevFest, profitez d'une excellente nourriture et de boissons, participez à des activités et célébrez avec la communauté à notre incroyable after-party.",
     "readyTitle": "Prêt à Nous Rejoindre?",
     "readyText": "Réservez votre place à DevFest Windsor 2026 et faites partie du plus grand événement technologique de la communauté cette année."
+  },
+  "venue": {
+    "location": "📍 Lieu",
+    "title": "Lieu de l'événement",
+    "description": "Rejoignez-nous au beau campus de l'Université de Windsor, situé au cœur de Windsor, en Ontario.",
+    "mainEventHub": "Centre principal de l'événement",
+    "universityOfWindsor": "Université de Windsor",
+    "address": "401 avenue Sunset, Windsor, ON N9B 3P4",
+    "gettingHere": "Comment s'y rendre",
+    "gettingHereDesc": "L'Université de Windsor est facilement accessible en voiture et en transport en commun. Situé sur l'avenue Sunset, à quelques minutes du centre-ville de Windsor et de la rivière Détroit.",
+    "parkingInfo": "Information de stationnement",
+    "parkingInfoDesc": "Le stationnement pour les visiteurs est disponible au Lot H et au Garage de stationnement Assumption. Les tarifs sont de 10 $/jour. Des cartes du campus sont disponibles aux kiosques d'information.",
+    "publicTransit": "Transport en commun",
+    "publicTransitDesc": "Les itinéraires 1C, 2 et 11 du Transit Windsor s'arrêtent directement au campus. Visitez transit.windsor.ca pour les horaires et les mises à jour en temps réel.",
+    "openInMaps": "Ouvrir dans les Cartes"
   }
 }

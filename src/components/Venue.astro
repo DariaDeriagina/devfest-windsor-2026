@@ -1,4 +1,6 @@
 ---
+import { t } from "@lib/i18n";
+
 interface Props {
   title?: string;
   description?: string;
@@ -8,20 +10,23 @@ const {
   title = "Event Venue",
   description = "Join us at the beautiful University of Windsor campus.",
 } = Astro.props;
+
+// Server-side rendering uses 'en' by default
+const lang = "en";
 ---
 
 <section id="venue" class="py-20 bg-gradient-to-b from-white to-slate-50">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Section Header -->
     <div class="mb-16 text-center">
-      <span class="inline-block text-blue-600 font-semibold text-sm uppercase tracking-wider mb-4">
-        📍 Location
+      <span class="inline-block text-blue-600 font-semibold text-sm uppercase tracking-wider mb-4" data-i18n="venue.location">
+        {t(lang, "venue.location")}
       </span>
       <h2 class="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
-        {title}
+        {title || t(lang, "venue.title")}
       </h2>
-      <p class="text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
-        {description}
+      <p class="text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed" data-i18n="venue.description">
+        {description || t(lang, "venue.description")}
       </p>
     </div>
 
@@ -43,9 +48,9 @@ const {
                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6z"></path>
               </svg>
               <div>
-                <h3 class="font-bold text-slate-900">Main Event Hub</h3>
-                <p class="text-sm text-slate-600 mt-1">University of Windsor</p>
-                <p class="text-sm text-slate-600">401 Sunset Ave, Windsor, ON N9B 3P4</p>
+                <h3 class="font-bold text-slate-900" data-i18n="venue.mainEventHub">{t(lang, "venue.mainEventHub")}</h3>
+                <p class="text-sm text-slate-600 mt-1" data-i18n="venue.universityOfWindsor">{t(lang, "venue.universityOfWindsor")}</p>
+                <p class="text-sm text-slate-600" data-i18n="venue.address">{t(lang, "venue.address")}</p>
               </div>
             </div>
           </div>
@@ -72,11 +77,11 @@ const {
               </svg>
             </div>
             <div>
-              <h3 class="text-xl font-bold text-slate-900">Getting Here</h3>
+              <h3 class="text-xl font-bold text-slate-900" data-i18n="venue.gettingHere">{t(lang, "venue.gettingHere")}</h3>
             </div>
           </div>
-          <p class="text-slate-600 leading-relaxed">
-            The University of Windsor is easily accessible by car and public transit. Located on Sunset Avenue, just minutes from downtown Windsor and the Detroit River.
+          <p class="text-slate-600 leading-relaxed" data-i18n="venue.gettingHereDesc">
+            {t(lang, "venue.gettingHereDesc")}
           </p>
         </div>
 
@@ -89,11 +94,11 @@ const {
               </svg>
             </div>
             <div>
-              <h3 class="text-xl font-bold text-slate-900">Parking Info</h3>
+              <h3 class="text-xl font-bold text-slate-900" data-i18n="venue.parkingInfo">{t(lang, "venue.parkingInfo")}</h3>
             </div>
           </div>
-          <p class="text-slate-600 leading-relaxed">
-            Visitor parking is available in Lot H and the Assumption Parking Garage. Rates are $10/day. Campus maps available at information booths.
+          <p class="text-slate-600 leading-relaxed" data-i18n="venue.parkingInfoDesc">
+            {t(lang, "venue.parkingInfoDesc")}
           </p>
         </div>
 
@@ -106,11 +111,11 @@ const {
               </svg>
             </div>
             <div>
-              <h3 class="text-xl font-bold text-slate-900">Public Transit</h3>
+              <h3 class="text-xl font-bold text-slate-900" data-i18n="venue.publicTransit">{t(lang, "venue.publicTransit")}</h3>
             </div>
           </div>
-          <p class="text-slate-600 leading-relaxed">
-            Transit Windsor routes 1C, 2, and 11 stop directly at the campus. Check transit.windsor.ca for schedules and real-time updates.
+          <p class="text-slate-600 leading-relaxed" data-i18n="venue.publicTransitDesc">
+            {t(lang, "venue.publicTransitDesc")}
           </p>
         </div>
       </div>
@@ -118,15 +123,16 @@ const {
 
     <!-- Address Card (Full Width) -->
     <div class="bg-gradient-to-r from-blue-600 to-blue-700 rounded-2xl p-8 text-white text-center">
-      <h3 class="text-2xl font-bold mb-2">University of Windsor</h3>
-      <p class="text-lg opacity-90 mb-4">401 Sunset Avenue, Windsor, ON N9B 3P4</p>
+      <h3 class="text-2xl font-bold mb-2" data-i18n="venue.universityOfWindsor">{t(lang, "venue.universityOfWindsor")}</h3>
+      <p class="text-lg opacity-90 mb-4" data-i18n="venue.address">{t(lang, "venue.address")}</p>
       <a 
         href="https://goo.gl/maps/windsoruni" 
         target="_blank" 
         rel="noopener noreferrer"
         class="inline-block bg-white text-blue-600 px-6 py-2 rounded-full font-semibold hover:bg-blue-50 transition-colors"
+        data-i18n="venue.openInMaps"
       >
-        Open in Maps
+        {t(lang, "venue.openInMaps")}
       </a>
     </div>
   </div>

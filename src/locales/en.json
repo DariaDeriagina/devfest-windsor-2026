@@ -86,5 +86,20 @@
     "swagDesc": "Get exclusive DevFest gear, enjoy great food and drinks, participate in activities, and celebrate with the community at our amazing after-party.",
     "readyTitle": "Ready to Join Us?",
     "readyText": "Secure your spot at DevFest Windsor 2026 and be part of the tech community's biggest event of the year."
+  },
+  "venue": {
+    "location": "📍 Location",
+    "title": "Event Venue",
+    "description": "Join us at the beautiful University of Windsor campus, conveniently located in the heart of Windsor, Ontario.",
+    "mainEventHub": "Main Event Hub",
+    "universityOfWindsor": "University of Windsor",
+    "address": "401 Sunset Avenue, Windsor, ON N9B 3P4",
+    "gettingHere": "Getting Here",
+    "gettingHereDesc": "The University of Windsor is easily accessible by car and public transit. Located on Sunset Avenue, just minutes from downtown Windsor and the Detroit River.",
+    "parkingInfo": "Parking Info",
+    "parkingInfoDesc": "Visitor parking is available in Lot H and the Assumption Parking Garage. Rates are $10/day. Campus maps available at information booths.",
+    "publicTransit": "Public Transit",
+    "publicTransitDesc": "Transit Windsor routes 1C, 2, and 11 stop directly at the campus. Check transit.windsor.ca for schedules and real-time updates.",
+    "openInMaps": "Open in Maps"
   }
 }
