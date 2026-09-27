@@ -62,8 +62,39 @@
   },
   "faq": {
     "title": "Questions fréquemment posées",
+    "description": "Trouvez les réponses aux questions courantes sur DevFest Windsor 2026.",
     "cantFind": "Vous ne trouvez pas votre réponse?",
-    "contactUs": "Contactez-nous"
+    "contactUs": "Contactez-nous",
+    "items": [
+      {
+        "question": "Qu'est-ce que DevFest Windsor?",
+        "answer": "DevFest Windsor est une conférence pour développeurs animée par la communauté, hébergée par GDG Windsor. Elle rassemble des développeurs, des concepteurs, des étudiants et des passionnés de technologie pour apprendre, partager et construire l'avenir ensemble."
+      },
+      {
+        "question": "Qui peut assister à DevFest Windsor?",
+        "answer": "Tout le monde est bienvenu! Que vous soyez un développeur débutant ou expérimenté, étudiant, concepteur ou passionné de technologie, DevFest Windsor est pour vous. Aucune expérience préalable n'est requise."
+      },
+      {
+        "question": "DevFest Windsor est-il gratuit?",
+        "answer": "DevFest Windsor propose des options de billets gratuits et payants. Les billets standard sont au prix abordable pour assurer l'accessibilité. Consultez notre section Billets pour les tarifs actuels et les options disponibles."
+      },
+      {
+        "question": "Où et quand aura lieu l'événement?",
+        "answer": "DevFest Windsor 2026 aura lieu le 21 novembre 2026 à l'Université de Windsor, en Ontario. Visitez notre page Lieu pour plus de détails sur la localisation, le stationnement et les options de transport en commun."
+      },
+      {
+        "question": "Qu'est-ce que je dois apporter?",
+        "answer": "Apportez une pièce d'identité valide pour l'inscription, des vêtements confortables, un carnet et un esprit ouvert! Nous fournirons le déjeuner, des collations et des rafraîchissements tout au long de la journée."
+      },
+      {
+        "question": "Les sessions seront-elles enregistrées?",
+        "answer": "Oui! La plupart des sessions seront enregistrées et mises à disposition des participants après l'événement. Vous recevrez les liens vers tous les enregistrements dans votre e-mail post-événement."
+      },
+      {
+        "question": "Comment puis-je participer en tant que sponsor ou partenaire?",
+        "answer": "Nous aimerions avoir votre organisation comme sponsor! Veuillez contacter notre équipe à devfest@windsor.com avec votre demande de parrainage."
+      }
+    ]
   },
   "footer": {
     "quickLinks": "Liens rapides",

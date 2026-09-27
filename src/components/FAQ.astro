@@ -6,36 +6,11 @@ interface FAQItem {
   answer: string;
 }
 
-const faqs: FAQItem[] = [
-  {
-    question: "What is DevFest Windsor?",
-    answer: "DevFest Windsor is a community-led developer conference hosted by GDG Windsor. It brings together developers, designers, students, and tech enthusiasts to learn, share, and build the future together.",
-  },
-  {
-    question: "Who can attend DevFest Windsor?",
-    answer: "Everyone is welcome! Whether you're a beginner or experienced developer, student, designer, or tech enthusiast, DevFest Windsor is for you. No prior experience is required.",
-  },
-  {
-    question: "Is DevFest Windsor free to attend?",
-    answer: "DevFest Windsor offers both free and paid ticket options. Standard tickets are priced affordably to ensure accessibility. Check our Tickets section for current pricing and available options.",
-  },
-  {
-    question: "Where and when is it happening?",
-    answer: "DevFest Windsor 2026 is happening on November 21, 2026 at the University of Windsor, Ontario. Visit our Venue page for more details on location, parking, and public transit options.",
-  },
-  {
-    question: "What should I bring?",
-    answer: "Bring a valid ID for registration, comfortable clothing, a notebook, and an open mind! We'll provide lunch, snacks, and refreshments throughout the day.",
-  },
-  {
-    question: "Will the sessions be recorded?",
-    answer: "Yes! Most sessions will be recorded and made available to attendees after the event. You'll receive links to all recordings in your post-event email.",
-  },
-  {
-    question: "How can I get involved as a sponsor or partner?",
-    answer: "We'd love to have your organization as a sponsor! Please reach out to our team at devfest@windsor.com with your sponsorship inquiry.",
-  },
-];
+// Server-side rendering uses 'en' by default
+const lang = "en";
+
+// Import translations
+const faqItems = t(lang, "faq.items") as FAQItem[];
 ---
 
 <section class="relative min-h-screen bg-white pt-32 pb-20 overflow-hidden animate-fade-in">
@@ -61,10 +36,10 @@ const faqs: FAQItem[] = [
         <div class="mb-8">
           <span class="text-blue-600 font-semibold text-sm uppercase tracking-wider">FAQ</span>
           <h2 class="text-5xl font-bold text-slate-900 leading-tight mb-4" data-i18n="faq.title">
-            {t('en', 'faq.title')}
+            {t(lang, 'faq.title')}
           </h2>
-          <p class="text-slate-600 text-lg leading-relaxed mb-8">
-            Find answers to common questions about DevFest Windsor 2026.
+          <p class="text-slate-600 text-lg leading-relaxed mb-8" data-i18n="faq.description">
+            {t(lang, 'faq.description')}
           </p>
         </div>
 
@@ -82,14 +57,14 @@ const faqs: FAQItem[] = [
               <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
             </svg>
             <div>
-              <h4 class="font-bold text-lg mb-1" data-i18n="faq.cantFind">{t('en', 'faq.cantFind')}</h4>
+              <h4 class="font-bold text-lg mb-1" data-i18n="faq.cantFind">{t(lang, 'faq.cantFind')}</h4>
               <p class="text-blue-100 text-sm mb-4">Contact our support team for help</p>
               <button
                 class="bg-white text-blue-600 px-4 py-2 rounded-lg font-semibold hover:bg-blue-50 transition-colors cursor-pointer"
                 onclick={`alert('Contact us at:\\n\\nEmail: devfest@windsor.com\\nPhone: (519) 555-0100')`}
                 data-i18n="faq.contactUs"
               >
-                {t('en', 'faq.contactUs')}
+                {t(lang, 'faq.contactUs')}
               </button>
             </div>
           </div>
@@ -98,7 +73,7 @@ const faqs: FAQItem[] = [
 
       <!-- Right Accordion -->
       <div class="animate-slide-in-right space-y-4">
-        {faqs.map((item, index) => (
+        {faqItems.map((item, index) => (
           <details
             class="group border-2 border-slate-200 rounded-xl overflow-hidden hover:border-blue-400 transition-colors cursor-pointer animate-fade-in-up"
             style={`animation-delay: ${index * 0.1}s;`}
