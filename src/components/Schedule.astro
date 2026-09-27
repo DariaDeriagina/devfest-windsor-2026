@@ -2,6 +2,7 @@
 import { t } from "@lib/i18n";
 import SessionModal from "./SessionModal.astro";
 import { FEATURED_SPEAKERS } from "@config/speakers.config";
+import { SUBMITTED_SESSIONS } from "@config/sessions.config";
 
 interface Props {
   title?: string;
@@ -17,6 +18,9 @@ const finalDescription =
 const DEFAULT_TRACK = "Google Cloud";
 const PLACEHOLDER_IMAGE = "/google-person.png";
 
+const normalizeSpeakerName = (name: string) =>
+  name.trim().toLowerCase();
+
 const getSpeakerData = (speakerName: string) => {
   if (
     !speakerName ||
@@ -25,13 +29,14 @@ const getSpeakerData = (speakerName: string) => {
     return null;
   }
 
-  // For two-speaker sessions, show the first speaker's image.
+  // For joint sessions, use the first speaker's image and bio.
   const primaryName = speakerName.split(" / ")[0].trim();
 
   return (
     FEATURED_SPEAKERS.find(
       (speaker) =>
-        speaker.name.toLowerCase() === primaryName.toLowerCase(),
+        normalizeSpeakerName(speaker.name) ===
+        normalizeSpeakerName(primaryName),
     ) || null
   );
 };
@@ -100,7 +105,7 @@ const tracks = [
   },
 ];
 
-const sessions = [
+const scheduledSessions = [
   {
     time: "8:45 AM",
     duration: "60 min",
@@ -125,8 +130,8 @@ const sessions = [
   {
     time: "10:00 AM",
     duration: "45 min",
-    title: "Session with Diaa Elkott",
-    speaker: "Diaa Elkott",
+    title: "Session with Diaa ElKott",
+    speaker: "Diaa ElKott",
     track: "Build with AI",
     type: "Technical Session",
     location: "112",
@@ -185,8 +190,8 @@ const sessions = [
   {
     time: "11:00 AM",
     duration: "45 min",
-    title: "Session with Andrea Yzeiri",
-    speaker: "Andrea Yzeiri",
+    title: "Session with Andrea Irina Yzeiri",
+    speaker: "Andrea Irina Yzeiri",
     track: "Build with AI",
     type: "Technical Session",
     location: "112",
@@ -236,8 +241,8 @@ const sessions = [
   {
     time: "1:00 PM",
     duration: "45 min",
-    title: "Session with Joseph Youssouf",
-    speaker: "Joseph Youssouf",
+    title: "Session with Joe Youssouf",
+    speaker: "Joe Youssouf",
     track: "Build with AI",
     type: "Technical Session",
     location: "112",
@@ -266,8 +271,8 @@ const sessions = [
   {
     time: "2:00 PM",
     duration: "45 min",
-    title: "Session with Vimal K",
-    speaker: "Vimal K",
+    title: "Session with Vimal K.",
+    speaker: "Vimal K.",
     track: "Google Cloud",
     type: "Technical Session",
     location: "104",
@@ -386,8 +391,8 @@ const sessions = [
   {
     time: "4:00 PM",
     duration: "45 min",
-    title: "Session with Camila Gaitan & Kevin Serrano",
-    speaker: "Camila Gaitan / Kevin Serrano",
+    title: "Session with Camila Gaitan & Kevin Serrano Mojica",
+    speaker: "Camila Gaitan / Kevin Serrano Mojica",
     track: "Full Stack",
     type: "Technical Session",
     location: "B14",
@@ -416,6 +421,30 @@ const sessions = [
   },
 ];
 
+// Load submitted titles and abstracts into the scheduled slots.
+// Times, rooms, tracks, types, and slot durations come from the schedule.
+const abstractsBySpeaker = new Map(
+  SUBMITTED_SESSIONS.map((session) => [
+    normalizeSpeakerName(session.speaker),
+    session,
+  ]),
+);
+
+const sessions = scheduledSessions.map((session) => {
+  const abstract = abstractsBySpeaker.get(
+    normalizeSpeakerName(session.speaker),
+  );
+
+  if (!abstract) return session;
+
+  return {
+    ...session,
+    title: abstract.title,
+    speaker: abstract.speaker,
+    description: abstract.description,
+  };
+});
+
 const icons: Record<string, string> = {
   sparkles:
     '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1l2.1 6.9L19 10l-6.9 2.1L10 19l-2.1-6.9L1 10l6.9-2.1L10 1z"/></svg>',
@@ -441,6 +470,7 @@ const icons: Record<string, string> = {
       >
         {finalTitle}
       </h2>
+
       <p
         class="text-xl text-gray-600 max-w-3xl mx-auto"
         data-i18n="schedule.description"
@@ -451,17 +481,19 @@ const icons: Record<string, string> = {
 
     <!-- Track filters -->
     <div class="flex flex-wrap justify-center gap-3 mb-12">
-      {tracks.map((track) => (
-        <button
-          type="button"
-          class={`track-filter-btn px-6 py-3 rounded-full font-semibold ${track.text} bg-gradient-to-r ${track.gradient} hover:shadow-lg transition-all duration-300 cursor-pointer transform hover:scale-105 flex items-center gap-2 ${track.name === DEFAULT_TRACK ? "active" : ""}`}
-          data-track={track.name}
-          aria-pressed={track.name === DEFAULT_TRACK}
-        >
-          <span set:html={icons[track.icon]} />
-          {track.name}
-        </button>
-      ))}
+      {
+        tracks.map((track) => (
+          <button
+            type="button"
+            class={`track-filter-btn px-6 py-3 rounded-full font-semibold ${track.text} bg-gradient-to-r ${track.gradient} hover:shadow-lg transition-all duration-300 cursor-pointer transform hover:scale-105 flex items-center gap-2 ${track.name === DEFAULT_TRACK ? "active" : ""}`}
+            data-track={track.name}
+            aria-pressed={track.name === DEFAULT_TRACK}
+          >
+            <span set:html={icons[track.icon]} />
+            {track.name}
+          </button>
+        ))
+      }
     </div>
 
     <!-- Schedule table -->
@@ -475,7 +507,9 @@ const icons: Record<string, string> = {
             <th class="text-left py-4 px-4 font-semibold text-gray-900">
               SESSION
             </th>
-            <th class="text-left py-4 px-4 font-semibold text-gray-900 hidden md:table-cell">
+            <th
+              class="text-left py-4 px-4 font-semibold text-gray-900 hidden md:table-cell"
+            >
               LOCATION
             </th>
             <th class="text-center py-4 px-4 font-semibold text-gray-900">
@@ -485,131 +519,134 @@ const icons: Record<string, string> = {
         </thead>
 
         <tbody>
-          {sessions.map((session) => {
-            const speakerData = getSpeakerData(session.speaker);
-            const accent =
-              accentStyles[speakerData?.accentColor || "blue"] ||
-              accentStyles.blue;
-            const track = tracks.find(
-              (item) => item.name === session.track,
-            );
+          {
+            sessions.map((session) => {
+              const speakerData = getSpeakerData(session.speaker);
 
-            // Every named speaker uses their shared config image.
-            // If imageUrl is empty, show the temporary placeholder.
-            const speakerImage =
-              speakerData?.imageUrl || PLACEHOLDER_IMAGE;
+              const accent =
+                accentStyles[speakerData?.accentColor || "blue"] ||
+                accentStyles.blue;
 
-            return (
-              <tr
-                class={`session-row border-b border-gray-100 hover:bg-gray-50 transition-colors cursor-pointer ${session.track === DEFAULT_TRACK ? "" : "hidden"}`}
-                data-track={session.track}
-                data-title={session.title}
-                data-speaker={session.speaker}
-                data-description={session.description}
-                data-duration={session.duration}
-                data-type={session.type}
-                data-time={session.time}
-                data-location={session.location}
-              >
-                <td class="py-6 px-4 font-semibold text-gray-900 whitespace-nowrap">
-                  {session.time}
-                </td>
+              const track = tracks.find(
+                (item) => item.name === session.track,
+              );
 
-                <td class="py-6 px-4">
-                  <div class="flex items-start gap-4">
-                    <div class="flex-shrink-0">
-                      <div class="group relative w-12 h-12">
-                        {speakerData ? (
-                          <>
-                            <div
-                              class={`blob-shape absolute inset-0 scale-105 transition-transform duration-300 group-hover:scale-110 ${accent.blob}`}
-                              aria-hidden="true"
-                            />
+              const speakerImage =
+                speakerData?.imageUrl || PLACEHOLDER_IMAGE;
+
+              return (
+                <tr
+                  class={`session-row border-b border-gray-100 hover:bg-gray-50 transition-colors cursor-pointer ${session.track === DEFAULT_TRACK ? "" : "hidden"}`}
+                  data-track={session.track}
+                  data-title={session.title}
+                  data-speaker={session.speaker}
+                  data-description={session.description}
+                  data-duration={session.duration}
+                  data-type={session.type}
+                  data-time={session.time}
+                  data-location={session.location}
+                >
+                  <td class="py-6 px-4 font-semibold text-gray-900 whitespace-nowrap">
+                    {session.time}
+                  </td>
+
+                  <td class="py-6 px-4">
+                    <div class="flex items-start gap-4">
+                      <div class="flex-shrink-0">
+                        <div class="group relative w-12 h-12">
+                          {speakerData ? (
+                            <>
+                              <div
+                                class={`blob-shape absolute inset-0 scale-105 transition-transform duration-300 group-hover:scale-110 ${accent.blob}`}
+                                aria-hidden="true"
+                              />
+
+                              <img
+                                src={speakerImage}
+                                alt={speakerData.imageAlt || speakerData.name}
+                                class={`speaker-schedule-image relative w-full h-full rounded-full object-cover ring-2 ring-white shadow-md transition-all duration-300 group-hover:scale-110 cursor-pointer ${accent.ring}`}
+                                data-speaker-name={speakerData.name}
+                                data-speaker-role={speakerData.role}
+                                data-speaker-company={speakerData.company}
+                                data-speaker-bio={speakerData.bio || ""}
+                                data-speaker-linkedin={
+                                  speakerData.linkedinUrl || ""
+                                }
+                                data-speaker-image={speakerImage}
+                              />
+                            </>
+                          ) : (
                             <img
-                              src={speakerImage}
-                              alt={speakerData.imageAlt || speakerData.name}
-                              class={`speaker-schedule-image relative w-full h-full rounded-full object-cover ring-2 ring-white shadow-md transition-all duration-300 group-hover:scale-110 cursor-pointer ${accent.ring}`}
+                              src={PLACEHOLDER_IMAGE}
+                              alt=""
+                              class="w-12 h-12 rounded-full object-cover ring-2 ring-white shadow-md"
+                            />
+                          )}
+                        </div>
+                      </div>
+
+                      <div class="flex-grow">
+                        <h4 class="font-semibold text-gray-900 mb-2 hover:text-blue-600 transition-colors">
+                          {session.title}
+                        </h4>
+
+                        <p class="text-sm text-gray-600 mb-2">
+                          {session.speaker}
+                        </p>
+
+                        <div class="flex flex-wrap gap-2">
+                          <span
+                            class={`px-3 py-1.5 rounded-full text-xs font-semibold ${track?.text || "text-white"} bg-gradient-to-r ${track?.gradient || "from-slate-600 to-slate-700"} flex items-center gap-1.5`}
+                          >
+                            <span
+                              set:html={icons[track?.icon || "sparkles"]}
+                            />
+                            {session.track}
+                          </span>
+
+                          <span class="px-3 py-1.5 rounded-full text-xs font-semibold text-gray-700 bg-gray-200">
+                            {session.type}
+                          </span>
+
+                          {speakerData?.bio && (
+                            <button
+                              type="button"
+                              class="speaker-schedule-bio-btn inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold text-white bg-purple-600 hover:bg-purple-700 rounded-full transition-colors"
                               data-speaker-name={speakerData.name}
                               data-speaker-role={speakerData.role}
                               data-speaker-company={speakerData.company}
-                              data-speaker-bio={speakerData.bio || ""}
+                              data-speaker-bio={speakerData.bio}
                               data-speaker-linkedin={
                                 speakerData.linkedinUrl || ""
                               }
                               data-speaker-image={speakerImage}
-                            />
-                          </>
-                        ) : (
-                          <img
-                            src={PLACEHOLDER_IMAGE}
-                            alt=""
-                            class="w-12 h-12 rounded-full object-cover ring-2 ring-white shadow-md"
-                          />
-                        )}
+                            >
+                              BIO
+                            </button>
+                          )}
+                        </div>
                       </div>
                     </div>
+                  </td>
 
-                    <div class="flex-grow">
-                      <h4 class="font-semibold text-gray-900 mb-2 hover:text-blue-600 transition-colors">
-                        {session.title}
-                      </h4>
+                  <td class="py-6 px-4 text-gray-600 hidden md:table-cell">
+                    <span class="text-blue-600 font-semibold">
+                      {session.location}
+                    </span>
+                  </td>
 
-                      <p class="text-sm text-gray-600 mb-2">
-                        {session.speaker}
-                      </p>
-
-                      <div class="flex flex-wrap gap-2">
-                        <span
-                          class={`px-3 py-1.5 rounded-full text-xs font-semibold ${track?.text || "text-white"} bg-gradient-to-r ${track?.gradient || "from-slate-600 to-slate-700"} flex items-center gap-1.5`}
-                        >
-                          <span
-                            set:html={icons[track?.icon || "sparkles"]}
-                          />
-                          {session.track}
-                        </span>
-
-                        <span class="px-3 py-1.5 rounded-full text-xs font-semibold text-gray-700 bg-gray-200">
-                          {session.type}
-                        </span>
-
-                        {speakerData?.bio && (
-                          <button
-                            type="button"
-                            class="speaker-schedule-bio-btn inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold text-white bg-purple-600 hover:bg-purple-700 rounded-full transition-colors"
-                            data-speaker-name={speakerData.name}
-                            data-speaker-role={speakerData.role}
-                            data-speaker-company={speakerData.company}
-                            data-speaker-bio={speakerData.bio}
-                            data-speaker-linkedin={
-                              speakerData.linkedinUrl || ""
-                            }
-                            data-speaker-image={speakerImage}
-                          >
-                            BIO
-                          </button>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </td>
-
-                <td class="py-6 px-4 text-gray-600 hidden md:table-cell">
-                  <span class="text-blue-600 font-semibold">
-                    {session.location}
-                  </span>
-                </td>
-
-                <td class="py-6 px-4 text-center">
-                  <button
-                    type="button"
-                    class="add-to-calendar-btn inline-block px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors"
-                  >
-                    Add
-                  </button>
-                </td>
-              </tr>
-            );
-          })}
+                  <td class="py-6 px-4 text-center">
+                    <button
+                      type="button"
+                      class="add-to-calendar-btn inline-block px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors"
+                    >
+                      Add
+                    </button>
+                  </td>
+                </tr>
+              );
+            })
+          }
         </tbody>
       </table>
     </div>
@@ -630,10 +667,12 @@ const icons: Record<string, string> = {
               id="scheduleModalSpeakerName"
               class="text-2xl font-bold text-slate-900"
             ></h2>
+
             <p
               id="scheduleModalSpeakerRole"
               class="text-sm text-slate-600"
             ></p>
+
             <p
               id="scheduleModalSpeakerCompany"
               class="text-sm text-slate-600"
@@ -656,7 +695,11 @@ const icons: Record<string, string> = {
           alt=""
           class="w-24 h-24 rounded-full mb-4 object-cover"
         />
-        <p id="scheduleModalSpeakerBio" class="text-slate-600 mb-4"></p>
+
+        <p
+          id="scheduleModalSpeakerBio"
+          class="text-slate-600 mb-4"
+        ></p>
 
         <a
           id="scheduleModalLinkedinLink"
@@ -666,7 +709,9 @@ const icons: Record<string, string> = {
           class="inline-flex items-center gap-1 text-blue-600 hover:text-blue-700 font-semibold"
         >
           <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.475-2.236-1.986-2.236-1.081 0-1.722.731-2.004 1.438-.103.249-.129.597-.129.946v5.421h-3.554s.045-8.789 0-9.514h3.554v1.348c.421-.649 1.175-1.573 2.853-1.573 2.08 0 3.641 1.36 3.641 4.28v5.459zM5.337 9.433c-1.144 0-1.915-.759-1.915-1.708 0-.955.77-1.708 1.963-1.708 1.192 0 1.914.753 1.939 1.708 0 .949-.747 1.708-1.987 1.708zm1.582 10.019H3.755V9.938h3.164v9.514zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z" />
+            <path
+              d="M20.447 20.452h-3.554v-5.569c0-1.328-.475-2.236-1.986-2.236-1.081 0-1.722.731-2.004 1.438-.103.249-.129.597-.129.946v5.421h-3.554s.045-8.789 0-9.514h3.554v1.348c.421-.649 1.175-1.573 2.853-1.573 2.08 0 3.641 1.36 3.641 4.28v5.459zM5.337 9.433c-1.144 0-1.915-.759-1.915-1.708 0-.955.77-1.708 1.963-1.708 1.192 0 1.914.753 1.939 1.708 0 .949-.747 1.708-1.987 1.708zm1.582 10.019H3.755V9.938h3.164v9.514zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"
+            />
           </svg>
           LinkedIn
         </a>
@@ -740,6 +785,7 @@ const icons: Record<string, string> = {
         parsedTime.minutes,
       ),
     );
+
     const endDate = new Date(
       startDate.getTime() + durationMinutes * 60_000,
     );
@@ -749,7 +795,8 @@ const icons: Record<string, string> = {
       "fixed inset-0 z-[1000] bg-black/50 flex items-center justify-center p-4";
 
     const panel = document.createElement("div");
-    panel.className = "bg-white rounded-xl p-6 shadow-xl max-w-sm w-full";
+    panel.className =
+      "bg-white rounded-xl p-6 shadow-xl max-w-sm w-full";
 
     const heading = document.createElement("h3");
     heading.className = "text-lg font-semibold text-gray-900 mb-2";
@@ -784,11 +831,13 @@ const icons: Record<string, string> = {
       appleButton,
       cancelButton,
     );
+
     overlay.append(panel);
     document.body.append(overlay);
 
     googleButton.addEventListener("click", () => {
-      const details = `Speaker: ${sessionSpeaker}\n\n${sessionDescription}`;
+      const details =
+        `Speaker: ${sessionSpeaker}\n\n${sessionDescription}`;
 
       const url =
         "https://calendar.google.com/calendar/render?action=TEMPLATE" +
@@ -827,11 +876,13 @@ const icons: Record<string, string> = {
       const blob = new Blob([icsContent], {
         type: "text/calendar;charset=utf-8",
       });
+
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
 
       link.href = url;
-      link.download = `${sessionTitle.replace(/[^a-z0-9]+/gi, "-")}.ics`;
+      link.download =
+        `${sessionTitle.replace(/[^a-z0-9]+/gi, "-")}.ics`;
 
       document.body.append(link);
       link.click();
@@ -865,18 +916,23 @@ const icons: Record<string, string> = {
     const nameElement = document.getElementById(
       "scheduleModalSpeakerName",
     );
+
     const roleElement = document.getElementById(
       "scheduleModalSpeakerRole",
     );
+
     const companyElement = document.getElementById(
       "scheduleModalSpeakerCompany",
     );
+
     const bioElement = document.getElementById(
       "scheduleModalSpeakerBio",
     );
+
     const imageElement = document.getElementById(
       "scheduleModalSpeakerImage",
     ) as HTMLImageElement | null;
+
     const linkedinElement = document.getElementById(
       "scheduleModalLinkedinLink",
     ) as HTMLAnchorElement | null;
@@ -924,10 +980,9 @@ const icons: Record<string, string> = {
     }
   });
 
-  const sessionRows =
-    document.querySelectorAll<SessionRow>(
-      "#schedule .session-row",
-    );
+  const sessionRows = document.querySelectorAll<SessionRow>(
+    "#schedule .session-row",
+  );
 
   sessionRows.forEach((row) => {
     row.addEventListener("click", (event) => {
@@ -963,10 +1018,9 @@ const icons: Record<string, string> = {
       });
   });
 
-  const filterButtons =
-    document.querySelectorAll<HTMLButtonElement>(
-      "#schedule .track-filter-btn",
-    );
+  const filterButtons = document.querySelectorAll<HTMLButtonElement>(
+    "#schedule .track-filter-btn",
+  );
 
   // Matches the initially visible rows and highlighted button.
   let selectedTrack: string | null = "Google Cloud";
@@ -1031,12 +1085,15 @@ const icons: Record<string, string> = {
     100% {
       border-radius: 30% 70% 70% 30%;
     }
+
     25% {
       border-radius: 40% 60% 60% 40%;
     }
+
     50% {
       border-radius: 50%;
     }
+
     75% {
       border-radius: 60% 40% 40% 60%;
     }
