@@ -91,11 +91,7 @@ const faqItems = en.faq.items as FAQItem[];
             <div class="px-6 pb-6 bg-slate-50 border-t-2 border-slate-200 animate-fade-in-up">
               {item.question.includes('sponsor') || item.question.includes('partner') || item.question.includes('parrain') || item.question.includes('partenaire') ? (
                 <div class="space-y-4">
-                  <p class="text-slate-600 leading-relaxed">
-                    {item.answer.split('devfest@windsor.com')[0]}
-                    <span class="font-semibold">devfest@windsor.com</span>
-                    {item.answer.split('devfest@windsor.com')[1]}
-                  </p>
+                  <p class="text-slate-600 leading-relaxed">{item.answer}</p>
                   <a
                     href="mailto:devfest@windsor.com"
                     class="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
