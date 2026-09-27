@@ -69,5 +69,22 @@
     "quickLinks": "Liens rapides",
     "connect": "Connecter",
     "copyright": "© 2026 GDG Windsor. Tous les droits sont réservés."
+  },
+  "about": {
+    "title": "Rejoignez la Conférence Technologique Animée par la Communauté",
+    "subtitle": "DevFest Windsor est une conférence technologique animée par la communauté, organisée par le Google Developer Group (GDC) Windsor. C'est un événement local majeur conçu pour réunir les développeurs afin d'apprendre, de se connecter et de construire l'avenir.",
+    "description": "Que vous soyez un développeur expérimenté ou que vous commenciez tout juste votre parcours technologique, DevFest offre quelque chose pour tout le monde. Découvrez des présentations inspirantes, des ateliers pratiques, du réseautage significatif et des goodies exclusifs.",
+    "experienceTitle": "Ce que Vous Expérimenterez",
+    "experienceSubtitle": "Quatre choses incroyables vous attendent à DevFest Windsor 2026",
+    "talks": "Présentations d'Experts",
+    "talksDesc": "Apprenez des leaders de l'industrie et des Google Developer Experts sur les dernières technologies, les meilleures pratiques et l'innovation dans le web, le mobile, le cloud et l'IA.",
+    "workshops": "Ateliers",
+    "workshopsDesc": "Sessions pratiques couvrant le Web, le Mobile, le Cloud et l'IA. Obtenez une expérience pratique et apprenez des compétences que vous pouvez appliquer immédiatement.",
+    "networking": "Réseautage",
+    "networkingDesc": "Connectez-vous avec d'autres développeurs, fondateurs de startups, passionnés de technologie et professionnels de l'industrie. Construisez des relations significatives dans la communauté technologique.",
+    "swag": "Goodies & Amusement",
+    "swagDesc": "Obtenez des vêtements exclusifs DevFest, profitez d'une excellente nourriture et de boissons, participez à des activités et célébrez avec la communauté à notre incroyable after-party.",
+    "readyTitle": "Prêt à Nous Rejoindre?",
+    "readyText": "Réservez votre place à DevFest Windsor 2026 et faites partie du plus grand événement technologique de la communauté cette année."
   }
 }

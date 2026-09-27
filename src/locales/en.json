@@ -69,5 +69,22 @@
     "quickLinks": "Quick Links",
     "connect": "Connect",
     "copyright": "© 2026 GDG Windsor. All rights reserved."
+  },
+  "about": {
+    "title": "Join the Community-Led Tech Conference",
+    "subtitle": "DevFest Windsor is a community-led technical conference hosted by the Google Developer Group (GDC) Windsor. It's a premier local event designed to bring developers together to learn, connect, and build the future.",
+    "description": "Whether you're a seasoned developer or just starting your tech journey, DevFest offers something for everyone. Experience inspiring talks, hands-on workshops, meaningful networking, and exclusive swag.",
+    "experienceTitle": "What You'll Experience",
+    "experienceSubtitle": "Four amazing things await you at DevFest Windsor 2026",
+    "talks": "Expert Talks",
+    "talksDesc": "Learn from industry leaders and Google Developer Experts about the latest technologies, best practices, and innovation in web, mobile, cloud, and AI.",
+    "workshops": "Workshops",
+    "workshopsDesc": "Hands-on sessions covering Web, Mobile, Cloud, and AI. Get hands-on experience and learn skills you can apply immediately.",
+    "networking": "Networking",
+    "networkingDesc": "Connect with fellow developers, startup founders, tech enthusiasts, and industry professionals. Build meaningful relationships in the tech community.",
+    "swag": "Swag & Fun",
+    "swagDesc": "Get exclusive DevFest gear, enjoy great food and drinks, participate in activities, and celebrate with the community at our amazing after-party.",
+    "readyTitle": "Ready to Join Us?",
+    "readyText": "Secure your spot at DevFest Windsor 2026 and be part of the tech community's biggest event of the year."
   }
 }
