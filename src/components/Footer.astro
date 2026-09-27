@@ -9,6 +9,24 @@ const formattedDate = date.toLocaleDateString("en-US", {
   month: "long",
   day: "numeric",
 });
+
+const developers = [
+  {
+    name: "Daria",
+    icon: "/icons/dashaIcon.png",
+    linkedin: "https://www.linkedin.com/in/daria-web-design/",
+  },
+  {
+    name: "Arunesh",
+    icon: "/icons/aruneshIcon.png",
+    linkedin: "https://www.linkedin.com/in/aruneshchoudhary",
+  },
+  {
+    name: "Camila",
+    icon: "/icons/camilaIcon.png",
+    linkedin: "https://www.linkedin.com/in/lizeth-camila-gaitan-baron",
+  },
+];
 ---
 
 <footer
@@ -145,6 +163,37 @@ const formattedDate = date.toLocaleDateString("en-US", {
         Code of Conduct
       </a>.
     </p>
+
+    <!-- Divider -->
+    <div class="border-t border-gray-300 my-8"></div>
+
+    <!-- Developer Credits Section -->
+    <div class="flex flex-col items-center justify-center gap-6 mb-12">
+      <p class="text-center text-gray-700 font-semibold">
+        Developed by amazing GDG Windsor team
+      </p>
+      
+      <div class="flex gap-6 justify-center flex-wrap">
+        {developers.map((dev) => (
+          <a
+            href={dev.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            title={dev.name}
+            class="transform transition-transform hover:scale-110 duration-200"
+          >
+            <img
+              src={dev.icon}
+              alt={dev.name}
+              class="h-16 w-16 rounded-full object-cover shadow-md hover:shadow-lg"
+            />
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="border-t border-gray-300 my-8"></div>
 
     <!-- Bottom footer -->
     <div
