@@ -1,6 +1,6 @@
 ---
 import { t } from "@lib/i18n";
-import SessionModal from "./SessionModal.astro";
+import SessionModal from "@components/SessionModal.astro";
 import { FEATURED_SPEAKERS } from "@config/speakers.config";
 import { SUBMITTED_SESSIONS } from "@config/sessions.config";
 
@@ -218,9 +218,9 @@ const scheduledSessions = [
     description: "Entrepreneurship track session in Room B02.",
   },
   {
-    time: "12:00 PM",
+    time: "12:00 PM - 1:00 PM",
     duration: "60 min",
-    title: "Lunch Break - Fireside Chat",
+    title: "Lunch & Fireside Chat",
     speaker: "Community",
     track: "ALL",
     type: "Break",
@@ -480,7 +480,6 @@ const icons: Record<string, string> = {
     </div>
 
     <!-- Track filters -->
-    
     <div class="flex flex-wrap justify-center gap-3 mb-12">
       {
         tracks.map((track) => (
@@ -535,9 +534,13 @@ const icons: Record<string, string> = {
               const speakerImage =
                 speakerData?.imageUrl || PLACEHOLDER_IMAGE;
 
+              // Rows for the default track and the shared "ALL" rows are visible on load.
+              const isVisibleOnLoad =
+                session.track === DEFAULT_TRACK || session.track === "ALL";
+
               return (
                 <tr
-                  class={`session-row border-b border-gray-100 hover:bg-gray-50 transition-colors cursor-pointer ${session.track === DEFAULT_TRACK ? "" : "hidden"}`}
+                  class={`session-row border-b border-gray-100 hover:bg-gray-50 transition-colors cursor-pointer ${isVisibleOnLoad ? "" : "hidden"}`}
                   data-track={session.track}
                   data-title={session.title}
                   data-speaker={session.speaker}
@@ -1049,9 +1052,11 @@ const icons: Record<string, string> = {
       });
 
       sessionRows.forEach((row) => {
+        // "ALL" rows (Keynote, Lunch, Closing) stay visible for every track.
         const visible =
           selectedTrack === null ||
-          row.dataset.track === selectedTrack;
+          row.dataset.track === selectedTrack ||
+          row.dataset.track === "ALL";
 
         row.classList.toggle("hidden", !visible);
       });
@@ -1105,115 +1110,116 @@ const icons: Record<string, string> = {
       animation: none;
     }
   }
+
   @media (max-width: 767px) {
-  /* Compact, horizontally scrollable track filters */
-  #schedule .flex.flex-wrap.justify-center {
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    overflow-x: auto;
-    gap: 0.75rem;
-    padding: 0.5rem;
-    margin-bottom: 1.5rem;
-    scrollbar-width: thin;
-  }
+    /* Compact, horizontally scrollable track filters */
+    #schedule .flex.flex-wrap.justify-center {
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      overflow-x: auto;
+      gap: 0.75rem;
+      padding: 0.5rem;
+      margin-bottom: 1.5rem;
+      scrollbar-width: thin;
+    }
 
-  #schedule .track-filter-btn {
-    flex-shrink: 0;
-    white-space: nowrap;
-    padding: 0.65rem 1rem;
-    font-size: 0.8rem;
-  }
+    #schedule .track-filter-btn {
+      flex-shrink: 0;
+      white-space: nowrap;
+      padding: 0.65rem 1rem;
+      font-size: 0.8rem;
+    }
 
-  /* Turn each table row into a mobile card */
-  #schedule .overflow-x-auto {
-    overflow: visible;
-  }
+    /* Turn each table row into a mobile card */
+    #schedule .overflow-x-auto {
+      overflow: visible;
+    }
 
-  #schedule table,
-  #schedule tbody {
-    display: block;
-    width: 100%;
-  }
+    #schedule table,
+    #schedule tbody {
+      display: block;
+      width: 100%;
+    }
 
-  #schedule thead {
-    display: none;
-  }
+    #schedule thead {
+      display: none;
+    }
 
-  #schedule .session-row {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 1rem;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    border: 1px solid #e2e8f0;
-    border-radius: 1rem;
-    background: white;
-    box-shadow: 0 4px 16px rgb(15 23 42 / 4%);
-  }
+    #schedule .session-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 1rem;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border: 1px solid #e2e8f0;
+      border-radius: 1rem;
+      background: white;
+      box-shadow: 0 4px 16px rgb(15 23 42 / 4%);
+    }
 
-  #schedule .session-row.hidden {
-    display: none;
-  }
+    #schedule .session-row.hidden {
+      display: none;
+    }
 
-  #schedule .session-row > td {
-    padding: 0;
-    min-width: 0;
-  }
+    #schedule .session-row > td {
+      padding: 0;
+      min-width: 0;
+    }
 
-  /* Time at the top left */
-  #schedule .session-row > td:nth-child(1) {
-    grid-column: 1;
-    grid-row: 1;
-    align-self: center;
-    font-size: 0.875rem;
-    color: #2563eb;
-  }
+    /* Time at the top left */
+    #schedule .session-row > td:nth-child(1) {
+      grid-column: 1;
+      grid-row: 1;
+      align-self: center;
+      font-size: 0.875rem;
+      color: #2563eb;
+    }
 
-  /* Session details use the full card width */
-  #schedule .session-row > td:nth-child(2) {
-    grid-column: 1 / -1;
-    grid-row: 2;
-  }
+    /* Session details use the full card width */
+    #schedule .session-row > td:nth-child(2) {
+      grid-column: 1 / -1;
+      grid-row: 2;
+    }
 
-  #schedule .session-row > td:nth-child(2) > div {
-    gap: 0.75rem;
-  }
+    #schedule .session-row > td:nth-child(2) > div {
+      gap: 0.75rem;
+    }
 
-  #schedule .session-row .flex-grow {
-    min-width: 0;
-  }
+    #schedule .session-row .flex-grow {
+      min-width: 0;
+    }
 
-  #schedule .session-row h4 {
-    font-size: 1rem;
-    line-height: 1.5;
-    overflow-wrap: anywhere;
-  }
+    #schedule .session-row h4 {
+      font-size: 1rem;
+      line-height: 1.5;
+      overflow-wrap: anywhere;
+    }
 
-  /* Restore the room information on mobile */
-  #schedule .session-row > td:nth-child(3) {
-    display: block;
-    grid-column: 1;
-    grid-row: 3;
-    align-self: center;
-    font-size: 0.8rem;
-  }
+    /* Restore the room information on mobile */
+    #schedule .session-row > td:nth-child(3) {
+      display: block;
+      grid-column: 1;
+      grid-row: 3;
+      align-self: center;
+      font-size: 0.8rem;
+    }
 
-  #schedule .session-row > td:nth-child(3)::before {
-    content: "Location: ";
-    color: #64748b;
-  }
+    #schedule .session-row > td:nth-child(3)::before {
+      content: "Location: ";
+      color: #64748b;
+    }
 
-  /* Calendar button at the bottom right */
-  #schedule .session-row > td:nth-child(4) {
-    grid-column: 2;
-    grid-row: 3;
-    text-align: right;
-  }
+    /* Calendar button at the bottom right */
+    #schedule .session-row > td:nth-child(4) {
+      grid-column: 2;
+      grid-row: 3;
+      text-align: right;
+    }
 
-  #schedule .add-to-calendar-btn {
-    padding: 0.5rem 0.875rem;
-    font-size: 0.8rem;
-    border-radius: 0.625rem;
+    #schedule .add-to-calendar-btn {
+      padding: 0.5rem 0.875rem;
+      font-size: 0.8rem;
+      border-radius: 0.625rem;
+    }
   }
-}
 </style>
