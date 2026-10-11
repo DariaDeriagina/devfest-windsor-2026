@@ -1,34 +1,16 @@
 ---
-import { t } from "@lib/i18n";
-
-interface Props {
-  title?: string;
-  description?: string;
-}
-
-const {
-  title,
-  description,
-} = Astro.props;
-
-const defaultTitle = t('en', 'sponsors.title');
-const defaultDescription = t('en', 'sponsors.description');
-
-const finalTitle = title || defaultTitle;
-const finalDescription = description || defaultDescription;
-
 const sponsors = [
-  { 
-    name: "Google", 
+  {
+    name: "Google",
     logo: "/googleLogo.png",
     url: "https://google.com",
-    color: "blue"
+    color: "blue",
   },
-  { 
-    name: "School of Business", 
+  {
+    name: "School of Business",
     logo: "/schoolOfBusiness.png",
     url: "https://www.uwindsor.ca/business/",
-    color: "amber"
+    color: "amber",
   },
 ];
 
@@ -46,29 +28,20 @@ const colorStyles: Record<string, { ring: string; blob: string }> = {
 
 <section id="sponsors" class="py-20 sm:py-24 bg-white">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <!-- Section Header -->
+    <!-- Section label -->
     <div class="mb-8">
       <span class="text-sm font-bold tracking-widest text-blue-600 uppercase" data-i18n="sponsors.label">Sponsors & Partners</span>
     </div>
 
-    <!-- Title and Description -->
-    <div class="mb-16">
-      <h2 class="text-4xl sm:text-5xl font-bold mb-6" data-i18n="sponsors.title">{finalTitle}</h2>
-
-      <!-- Colored underline -->
-      <div class="flex gap-1 mb-8 h-1 w-48">
-        <div class="flex-1 bg-blue-600 rounded"></div>
-        <div class="flex-1 bg-red-600 rounded"></div>
-        <div class="flex-1 bg-yellow-500 rounded"></div>
-        <div class="flex-1 bg-green-600 rounded"></div>
-      </div>
-
-      <p class="text-lg text-slate-600 leading-relaxed max-w-3xl" data-i18n="sponsors.description">
-        {finalDescription}
-      </p>
+    <!-- Colored underline -->
+    <div class="flex gap-1 mb-16 h-1 w-48">
+      <div class="flex-1 bg-blue-600 rounded"></div>
+      <div class="flex-1 bg-red-600 rounded"></div>
+      <div class="flex-1 bg-yellow-500 rounded"></div>
+      <div class="flex-1 bg-green-600 rounded"></div>
     </div>
 
-    <!-- Sponsors Grid -->
+    <!-- Sponsors grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-2xl">
       {sponsors.map((sponsor) => {
         const style = colorStyles[sponsor.color];
@@ -89,8 +62,8 @@ const colorStyles: Record<string, { ring: string; blob: string }> = {
               style="opacity: 0.08;"
               aria-hidden="true"
             />
-            
-            <!-- Logo Only -->
+
+            <!-- Logo only -->
             <div
               class:list={[
                 "relative z-10 ring-4 ring-transparent transition-all duration-300 rounded-lg overflow-hidden",
