@@ -23,17 +23,6 @@
     "description": "Browse sessions across five tracks designed for every developer and interest. Find talks, hands-on labs, and panels that match your goals.",
     "filterBy": "Filter by"
   },
-  "sponsors": {
-    "title": "Thank you to our sponsors and partners",
-    "description": "DevFest Windsor 2026 is made possible by the support of organizations and community partners who believe in empowering developers and building a stronger tech future.",
-    "ourSponsors": "Our Sponsors",
-    "communityPartners": "Community Partners",
-    "comingSoon": "Coming soon",
-    "partnersComing": "Community partners coming soon",
-    "ctaText": "Interested in sponsoring or partnering with DevFest Windsor 2026?",
-    "contactBtn": "Contact us",
-    "label": "Sponsors & Partners"
-  },
   "application": {
     "label": "Our Application",
     "title": "Download Our DevFest App",
