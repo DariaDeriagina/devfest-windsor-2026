@@ -10,16 +10,17 @@ const { logoSrc = "/web-app-manifest-512x512.png" } = Astro.props;
 
 const currentPath = Astro.url.pathname.replace(/\/+$/, "") || "/";
 
-const isActivePage = (href: string) => currentPath === href;
+const isActivePage = (href: string) =>
+  currentPath === (href.replace(/\/+$/, "") || "/");
 
 const ticketsUrl =
   "https://gdg.community.dev/events/details/google-gdg-windsor-presents-gdg-windsor-essex-devfest-2026/cohost-gdg-windsor/";
 
 const navItems = [
-  { label: t("en", "nav.home"), key: "nav.home", href: "/" },
-  { label: t("en", "nav.about"), key: "nav.about", href: "/about" },
-  { label: t("en", "nav.venue"), key: "nav.venue", href: "/venue" },
-  { label: t("en", "nav.faq"), key: "nav.faq", href: "/faq" },
+  { label: t('en', 'nav.home'), key: 'nav.home', href: "/" },
+  { label: t('en', 'nav.about'), key: 'nav.about', href: "/about/" },
+  { label: t('en', 'nav.venue'), key: 'nav.venue', href: "/venue/" },
+  { label: t('en', 'nav.faq'), key: 'nav.faq', href: "/faq/" },
 ];
 ---
 
@@ -34,11 +35,7 @@ const navItems = [
         class="flex items-center gap-2 hover:opacity-80 transition-opacity"
       >
         <div class="flex items-center gap-3">
-          <img
-            src={logoSrc}
-            alt="DevFest Windsor 2026"
-            class="h-12 w-auto"
-          />
+          <img src={logoSrc} alt="DevFest Windsor 2026" class="h-16 w-auto flex-shrink-0" />
 
           <div class="flex flex-col -space-y-2">
             <span class="text-lg font-bold" style="color: #000000;">
