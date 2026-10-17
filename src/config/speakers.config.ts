@@ -9,6 +9,7 @@ export const FEATURED_SPEAKERS: Speaker[] = [
     imageAlt: "Serg Masís",
     linkedinUrl: "https://www.linkedin.com/in/smasis/",
     accentColor: "blue",
+    isKeynote: true,
     bio: `Serg Masís has been at the confluence of the internet, application development, and analytics for the last two decades. Currently, he's a Climate and Agronomic Data Scientist at Syngenta, a leading agribusiness company with a mission to improve global food security. Before that role, he co-founded a search engine startup, incubated by Harvard Innovation Labs, that combined the power of cloud computing and machine learning with principles in decision-making science to expose users to new places and events efficiently. Whether it pertains to leisure activities, plant diseases, or customer lifetime value, Serg is passionate about providing the often-missing link between data and decision-making — and machine learning interpretation helps bridge this gap more robustly. His book titled "Interpretable Machine Learning with Python" was released in April 2021 by UK-based publisher Packt (https://www.amazon.com/gp/product/B08PDFXXRL/ref=dbs_a_def_rwt_hsch_vapi_taft_p1_i0)`,
   },
   {
@@ -45,11 +46,11 @@ export const FEATURED_SPEAKERS: Speaker[] = [
     name: "Bryan Kelly",
     role: "Staff Software Engineer, Applied AI | Staff Forward Deployed Engineer",
     company: "Google",
-    imageUrl: "/google-person.png",
+    imageUrl: "/speakers/bryan-kelly.webp",
     imageAlt: "Bryan Kelly",
     linkedinUrl: "https://www.linkedin.com/in/bryan-kelly-a4632323/",
     accentColor: "gold",
-    bio: "",
+    bio: `Bryan Kelly is a Staff Software Engineer at Google, specializing in Applied AI and forward-deployed engineering.`,
   },
   {
     name: "Atif Khan",
@@ -59,7 +60,7 @@ export const FEATURED_SPEAKERS: Speaker[] = [
     imageAlt: "Atif Khan",
     linkedinUrl: "https://www.linkedin.com/in/atifikhan/",
     accentColor: "red",
-    bio: "Atif Khan is Chief Technology Officer at DataBraid.",
+    bio: `Atif Khan is Chief Technology Officer at DataBraid.`,
   },
   {
     name: "Godfrey Nolan",
@@ -67,9 +68,9 @@ export const FEATURED_SPEAKERS: Speaker[] = [
     company: "RIIS",
     imageUrl: "/speakers/godfrey-nolan.webp",
     imageAlt: "Godfrey Nolan",
-    linkedinUrl: "",
+    linkedinUrl: "https://www.linkedin.com/in/godfreynolan/",
     accentColor: "blue",
-    bio: `Godfrey Nolan is the President of RIIS LLC, a mobile development company based in Troy, Michigan, and Windsor specializing in mobile apps for drones. With over 26 years of experience, he has built a team of experts capable of defining, developing, testing, and deploying mobile and web applications for our clients. Godfrey is also a prolific author, having written six books on mobile development and security, including "Decompiling Java" and "Bulletproof Android." In addition to his role at RIIS LLC, he serves as an Adjunct Professor at multiple universities, teaching various subjects related to programming and development, including Java, LLMs, Blockchain technologies, and Android programming. His extensive experience in both the industry and academia highlights his expertise in mobile technology, requirements analysis, architecture, and continuous integration. Godfrey Nolan's contributions span the worlds of education, mobile app development, and published authorship in the field of technology.`,
+    bio: `Godfrey Nolan is the President of RIIS LLC, a mobile development company based in Troy, Michigan, and Windsor specializing in mobile apps for drones. With over 26 years of experience, he has built a team of experts capable of defining, developing, testing, and deploying mobile and web applications for our clients. Godfrey is also a prolific author, having written six books on mobile development and security, including "Decompiling Java" and "Bulletproof Android." In addition to his role at RIIS LLC, he serves as an Adjunct Professor at multiple universities, teaching various subjects related to programming and development, including Java, LLMs, Blockchain technologies, and Android programming. His extensive experience in both the industry and academia highlights his expertise in mobile technology, requirements analysis, architecture, and continuous integration.`,
   },
   {
     name: "Mina Girges",
@@ -79,7 +80,7 @@ export const FEATURED_SPEAKERS: Speaker[] = [
     imageAlt: "Mina Girges",
     linkedinUrl: "https://www.linkedin.com/in/minagirges/",
     accentColor: "green",
-    bio: "Mina Girges is Vice President and Chief Information Officer at TransForm Shared Service Organization.",
+    bio: `Mina Girges is Vice President and Chief Information Officer at TransForm Shared Service Organization.`,
   },
   {
     name: "Frank Abbruzzese",
@@ -89,7 +90,7 @@ export const FEATURED_SPEAKERS: Speaker[] = [
     imageAlt: "Frank Abbruzzese",
     linkedinUrl: "https://www.linkedin.com/in/frankabbruzzese/",
     accentColor: "gold",
-    bio: "Frank Abbruzzese is CEO and President of AlphaKOR.",
+    bio: `Frank Abbruzzese is CEO and President of AlphaKOR.`,
   },
   {
     name: "Chukwuka (Eddie) Asamaka",
@@ -109,7 +110,7 @@ export const FEATURED_SPEAKERS: Speaker[] = [
     imageAlt: "Elvis Akhalu",
     linkedinUrl: "https://www.linkedin.com/in/elvisakhalu/",
     accentColor: "red",
-    bio: "Elvis Akhalu is a Data Engineer at TD, building robust data pipelines and analytics infrastructure for financial services.",
+    bio: `Elvis Akhalu is a Data Engineer at TD, building robust data pipelines and analytics infrastructure for financial services.`,
   },
   {
     name: "Keval Patel",
@@ -119,7 +120,7 @@ export const FEATURED_SPEAKERS: Speaker[] = [
     imageAlt: "Keval Patel",
     linkedinUrl: "https://www.linkedin.com/in/kmpatel100/",
     accentColor: "green",
-    bio: "Keval Patel is a Founder & AI Educator at Architecttura Inc., designing enterprise IT solutions and fostering the next generation of tech professionals.",
+    bio: `Keval Patel is a Founder & AI Educator at Architecttura Inc., designing enterprise IT solutions and fostering the next generation of tech professionals.`,
   },
   {
     name: "Joe Youssouf",
@@ -129,7 +130,7 @@ export const FEATURED_SPEAKERS: Speaker[] = [
     imageAlt: "Joe Youssouf",
     linkedinUrl: "https://www.linkedin.com/in/joeyoussouf/",
     accentColor: "gold",
-    bio: "Joe Youssouf is a Lead Customer Data Scientist at Oden Technologies, leveraging AI and machine learning to solve complex business challenges.",
+    bio: `Joe Youssouf is a Lead Customer Data Scientist at Oden Technologies, leveraging AI and machine learning to solve complex business challenges.`,
   },
   {
     name: "Arunesh Choudhary",
@@ -159,7 +160,7 @@ export const FEATURED_SPEAKERS: Speaker[] = [
     imageAlt: "Steven Rice",
     linkedinUrl: "https://www.linkedin.com/in/stevenrice99/",
     accentColor: "gold",
-    bio: "Steven Rice is an Automation Specialist at DataRealm.",
+    bio: `Steven Rice is an Automation Specialist at DataRealm.`,
   },
   {
     name: "Florid Maclean",
@@ -169,7 +170,7 @@ export const FEATURED_SPEAKERS: Speaker[] = [
     imageAlt: "Florid Maclean",
     linkedinUrl: "https://www.linkedin.com/in/florid-maclean/",
     accentColor: "blue",
-    bio: "Florid Maclean is CEO of Catch The Event and a professor at Fanshawe College.",
+    bio: `Florid Maclean is CEO of Catch The Event and a professor at Fanshawe College.`,
   },
   {
     name: "Sandra Lopez-Zamora",
@@ -179,7 +180,7 @@ export const FEATURED_SPEAKERS: Speaker[] = [
     imageAlt: "Sandra Lopez-Zamora",
     linkedinUrl: "https://www.linkedin.com/in/slopezza/",
     accentColor: "green",
-    bio: "Sandra Lopez-Zamora is a Senior Manager in Data Strategy and Analytics at Scotiabank.",
+    bio: `Sandra Lopez-Zamora is a Senior Manager in Data Strategy and Analytics at Scotiabank.`,
   },
   {
     name: "Diaa ElKott",
@@ -189,7 +190,7 @@ export const FEATURED_SPEAKERS: Speaker[] = [
     imageAlt: "Diaa ElKott",
     linkedinUrl: "https://www.linkedin.com/in/elkott/",
     accentColor: "red",
-    bio: "Diaa ElKott is a Senior Software Engineer at ISRA VISION, part of Atlas Copco.",
+    bio: `Diaa ElKott is a Senior Software Engineer at ISRA VISION, part of Atlas Copco.`,
   },
   {
     name: "Kylie Kiser",
@@ -199,7 +200,7 @@ export const FEATURED_SPEAKERS: Speaker[] = [
     imageAlt: "Kylie Kiser",
     linkedinUrl: "https://www.linkedin.com/in/kylie-kiser/",
     accentColor: "gold",
-    bio: "Kylie Kiser is the owner of Kylie K Consulting.",
+    bio: `Kylie Kiser is the owner of Kylie K Consulting.`,
   },
   {
     name: "Andrea Irina Yzeiri",
@@ -209,7 +210,7 @@ export const FEATURED_SPEAKERS: Speaker[] = [
     imageAlt: "Andrea Irina Yzeiri",
     linkedinUrl: "https://www.linkedin.com/in/andrea-yzeiri/",
     accentColor: "blue",
-    bio: "Andrea Irina Yzeiri is Chief Data & Analytics Officer and Lead AI Engineer at Picsume.",
+    bio: `Andrea Irina Yzeiri is Chief Data & Analytics Officer and Lead AI Engineer at Picsume.`,
   },
   {
     name: "Veronica Reingold",
@@ -219,7 +220,7 @@ export const FEATURED_SPEAKERS: Speaker[] = [
     imageAlt: "Veronica Reingold",
     linkedinUrl: "https://www.linkedin.com/in/veronicareingold/",
     accentColor: "blue",
-    bio: "Veronica Reingold is a Computer Science student at the University of Windsor.",
+    bio: `Veronica Reingold is a Computer Science student at the University of Windsor.`,
   },
   {
     name: "Wen Teoh",
@@ -229,7 +230,7 @@ export const FEATURED_SPEAKERS: Speaker[] = [
     imageAlt: "Wen Teoh",
     linkedinUrl: "https://www.linkedin.com/in/wen-teoh/",
     accentColor: "green",
-    bio: "Wen Teoh is a President and Principal Consultant.",
+    bio: `Wen Teoh is a President and Principal Consultant.`,
   },
   {
     name: "Sean Bridgeman",
@@ -239,7 +240,7 @@ export const FEATURED_SPEAKERS: Speaker[] = [
     imageAlt: "Sean Bridgeman",
     linkedinUrl: "https://www.linkedin.com/in/sean-bridgeman-b2a30a178/",
     accentColor: "red",
-    bio: "Sean Bridgeman is Director of Product Management at HALIGHT Inc.",
+    bio: `Sean Bridgeman is Director of Product Management at HALIGHT Inc.`,
   },
   {
     name: "Camila Gaitan",
@@ -249,7 +250,7 @@ export const FEATURED_SPEAKERS: Speaker[] = [
     imageAlt: "Camila Gaitan",
     linkedinUrl: "https://www.linkedin.com/in/lizeth-camila-gaitan-baron/",
     accentColor: "gold",
-    bio: "Camila Gaitan is a Systems Engineer and Business Data Analyst at Softgic.",
+    bio: `Camila Gaitan is a Systems Engineer and Business Data Analyst at Softgic.`,
   },
   {
     name: "Kevin Serrano Mojica",
@@ -259,7 +260,7 @@ export const FEATURED_SPEAKERS: Speaker[] = [
     imageAlt: "Kevin Serrano Mojica",
     linkedinUrl: "https://www.linkedin.com/in/kevinserranomojica/",
     accentColor: "blue",
-    bio: "Kevin Serrano Mojica is a Software Engineer and Android Developer at Mercado Libre.",
+    bio: `Kevin Serrano Mojica is a Software Engineer and Android Developer at Mercado Libre.`,
   },
   {
     name: "Vimal K.",
@@ -269,7 +270,7 @@ export const FEATURED_SPEAKERS: Speaker[] = [
     imageAlt: "Vimal K.",
     linkedinUrl: "https://www.linkedin.com/in/vimalonline/",
     accentColor: "green",
-    bio: "Vimal K. is a Co-Founder of GDG Cloud Toronto.",
+    bio: `Vimal K. is a Co-Founder of GDG Cloud Toronto.`,
   },
   {
     name: "Nav Singh",
@@ -289,7 +290,7 @@ export const FEATURED_SPEAKERS: Speaker[] = [
     imageAlt: "James Lannigan",
     linkedinUrl: "https://www.linkedin.com/in/james-lannigan-phd/",
     accentColor: "blue",
-    bio: "James Lannigan is a Senior Research Associate in Innovation and Technology at Signal49 Research.",
+    bio: `James Lannigan is a Senior Research Associate in Innovation and Technology at Signal49 Research.`,
   },
   {
     name: "Mahnoz Akhtari",
