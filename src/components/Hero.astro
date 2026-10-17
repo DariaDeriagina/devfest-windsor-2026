@@ -1,7 +1,6 @@
 ---
 import type { EventConfig } from "@types/event";
 import { t } from "@lib/i18n";
-import Button from "@components/Button.astro";
 
 interface Props {
   event: EventConfig;
@@ -18,35 +17,48 @@ const formattedDate = date.toLocaleDateString("en-US", {
 ---
 
 <section
-  class="relative min-h-screen flex items-center justify-center overflow-hidden bg-white pt-20 pb-20"
-  style="background-image: url('/group_0f_lines_bg.svg'); background-size: cover; background-position: center; background-attachment: fixed;"
-  aria-label="Hero section"
+  class="hero-section relative min-h-screen flex items-center justify-center overflow-hidden bg-white pt-28 pb-20"
+  aria-labelledby="hero-title"
 >
-  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-      <!-- Left Column -->
-      <div class="space-y-8 animate-fade-in">
-        <!-- Date Badge -->
+      <!-- Left column -->
+      <div class="min-w-0 space-y-8 hero-fade-in">
+        <!-- Date badge -->
         <div class="inline-flex items-center gap-2 px-4 py-2 bg-yellow-300 rounded-full">
-          <span class="relative flex w-2 h-2">
-            <span class="absolute inline-flex w-full h-full rounded-full bg-yellow-500 opacity-75 animate-ping"></span>
+          <span class="relative flex w-2 h-2 flex-shrink-0" aria-hidden="true">
+            <span class="hero-ping absolute inline-flex w-full h-full rounded-full bg-yellow-500 opacity-75"></span>
             <span class="relative inline-flex w-2 h-2 rounded-full bg-yellow-500"></span>
           </span>
-          <span class="text-sm font-semibold text-slate-800" data-i18n="hero.date"
-            >{formattedDate} • {location.city}, {location.province}</span
+
+          <span
+            class="text-sm font-semibold text-slate-800"
+            data-i18n="hero.date"
           >
+            {formattedDate} • {location.city}, {location.province}
+          </span>
         </div>
 
-        <!-- Title with gradient colors -->
-       <h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight">
-  <span class="text-black">GDG Windsor</span>
-  <br />
-  <span class="text-black">DevFest </span>
-  <span style="color: #4285F4;">2026</span>
-</h1>
+        <!-- GDG logo + event title -->
+        <div class="hero-brand">
+          <img
+            src="/web-app-manifest-512x512.png"
+            alt="GDG Windsor"
+            width="512"
+            height="512"
+            class="hero-brand-logo"
+            loading="eager"
+          />
+
+          <h1 id="hero-title" class="hero-brand-title">
+            <span class="sr-only">GDG Windsor </span>
+            <span class="hero-brand-name">DevFest</span>
+            <span class="hero-brand-year">2026</span>
+          </h1>
+        </div>
 
         <!-- Decorative accent lines -->
-        <div class="flex gap-2 h-1">
+        <div class="flex gap-2 h-1" aria-hidden="true">
           <div class="w-12 bg-blue-600"></div>
           <div class="w-12 bg-red-600"></div>
           <div class="w-12 bg-yellow-400"></div>
@@ -54,40 +66,60 @@ const formattedDate = date.toLocaleDateString("en-US", {
         </div>
 
         <!-- Description -->
-        <p class="text-lg text-slate-700 leading-relaxed max-w-md animate-fade-in-up" data-i18n="hero.subtitle">
-          {t('en', 'hero.subtitle')}
+        <p
+          class="hero-description hero-fade-up text-lg text-slate-700 leading-relaxed max-w-md"
+          data-i18n="hero.subtitle"
+        >
+          {t("en", "hero.subtitle")}
         </p>
 
-        <!-- CTA Button -->
-        <div class="animate-fade-in-up">
+        <!-- Ticket button -->
+        <div class="hero-cta hero-fade-up">
           <a
             href={hero.cta.href}
-target="_blank"
-rel="noopener noreferrer"
-            class="w-full sm:w-auto sm:min-w-80 sm:max-w-96 h-14 sm:h-16 relative bg-blue-500 rounded-[24px] sm:rounded-[32px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] overflow-hidden flex items-center justify-center px-4 sm:px-6 hover:shadow-lg transition-all duration-300 group inline-flex"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="ticket-button relative inline-flex w-full sm:w-auto sm:min-w-80 sm:max-w-96 min-h-14 sm:min-h-16 items-center justify-center overflow-hidden rounded-[24px] sm:rounded-[32px] bg-blue-500 px-4 py-3 sm:px-6 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] hover:shadow-lg transition-shadow duration-300 group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-600"
           >
             <!-- Decorative circles -->
-            <div class="w-12 h-12 left-[-7.78px] top-[32px] absolute bg-green-600 rounded-full"></div>
-            <div class="w-14 h-14 right-[-10px] top-[-18.50px] absolute opacity-80 bg-yellow-500 rounded-full"></div>
-            <div class="w-14 h-14 right-[-20px] top-[36.50px] absolute bg-red-500 rounded-full"></div>
+            <div
+              class="pointer-events-none absolute w-12 h-12 left-[-8px] top-8 bg-green-600 rounded-full"
+              aria-hidden="true"
+            ></div>
+            <div
+              class="pointer-events-none absolute w-14 h-14 right-[-10px] top-[-19px] opacity-80 bg-yellow-500 rounded-full"
+              aria-hidden="true"
+            ></div>
+            <div
+              class="pointer-events-none absolute w-14 h-14 right-[-20px] top-9 bg-red-500 rounded-full"
+              aria-hidden="true"
+            ></div>
 
-            <!-- Icon -->
             <img
               src="/icon-ticket.svg"
-              alt="Ticket icon"
-              class="w-9 h-9 sm:w-11 sm:h-11 flex-shrink-0"
+              alt=""
+              aria-hidden="true"
+              class="relative z-10 w-9 h-9 sm:w-11 sm:h-11 flex-shrink-0"
             />
 
-            <!-- Text -->
-            <span class="text-white text-sm sm:text-base font-semibold font-inter ml-2 sm:ml-3 leading-tight break-words" data-i18n="hero.cta">{t('en', 'hero.cta')}</span>
+            <span
+              class="relative z-10 text-white text-sm sm:text-base font-semibold font-inter ml-2 sm:ml-3 leading-tight"
+              data-i18n="hero.cta"
+            >
+              {t("en", "hero.cta")}
+            </span>
 
-            <!-- Arrow -->
-            <span class="text-white text-base font-semibold ml-3 group-hover:translate-x-1 transition-transform">→</span>
+            <span
+              class="ticket-arrow relative z-10 text-white text-base font-semibold ml-3 group-hover:translate-x-1 transition-transform"
+              aria-hidden="true"
+            >
+              →
+            </span>
           </a>
         </div>
 
         <!-- Code of Conduct -->
-        <p class="text-sm text-slate-600 leading-relaxed max-w-md animate-fade-in-up">
+        <p class="hero-conduct hero-fade-up text-sm text-slate-600 leading-relaxed max-w-md">
           DevFest attendees agree to follow the
           <a
             href="https://www.google.com/events/policy/anti-harassmentpolicy.html"
@@ -100,12 +132,10 @@ rel="noopener noreferrer"
         </p>
       </div>
 
-      <!-- Right Column - Hero Image -->
-      <div class="hidden md:block animate-slide-in-right">
-        <div class="float-slow">
-          <div
-            class="relative rounded-3xl overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-300"
-          >
+      <!-- Right column -->
+      <div class="hidden md:block min-w-0 hero-slide-in">
+        <div class="hero-float">
+          <div class="hero-image-frame relative rounded-3xl overflow-hidden shadow-2xl">
             <img
               src={hero.imageUrl}
               alt={hero.imageAlt}
@@ -119,7 +149,112 @@ rel="noopener noreferrer"
 </section>
 
 <style>
-  @keyframes fadeIn {
+  .hero-section {
+    background-image: url("/group_0f_lines_bg.svg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+  }
+
+  /* Scale the logo and heading together within the left column. */
+  .hero-brand {
+    display: flex;
+    align-items: center;
+    gap: 4%;
+    width: 100%;
+    max-width: 560px;
+    container-type: inline-size;
+  }
+
+  .hero-brand-logo {
+    display: block;
+    flex: 0 0 39%;
+    width: 39%;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .hero-brand-title {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    font-family: inherit;
+    font-size: clamp(2rem, 4.8vw, 4.5rem);
+    font-size: 14cqi;
+    font-weight: 800;
+    line-height: 0.98;
+    letter-spacing: -0.045em;
+  }
+
+  .hero-brand-name {
+    display: block;
+    color: #000;
+    white-space: nowrap;
+  }
+
+  .hero-brand-year {
+    display: block;
+    margin-top: 0.06em;
+    color: #4285f4;
+    font-size: 1.08em;
+    letter-spacing: -0.035em;
+  }
+
+  .hero-fade-in {
+    animation: heroFadeIn 0.8s ease-in-out both;
+  }
+
+  .hero-fade-up {
+    animation: heroFadeUp 0.8s ease-in-out both;
+  }
+
+  .hero-description {
+    animation-delay: 0.15s;
+  }
+
+  .hero-cta {
+    animation-delay: 0.3s;
+  }
+
+  .hero-conduct {
+    animation-delay: 0.45s;
+  }
+
+  .hero-slide-in {
+    animation: heroSlideIn 0.8s ease-in-out 0.2s both;
+  }
+
+  .hero-float {
+    animation: heroFloat 5s ease-in-out infinite;
+  }
+
+  .hero-ping {
+    animation: heroPing 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+
+  .hero-image-frame {
+    transition: transform 0.3s ease;
+  }
+
+  @media (hover: hover) {
+    .hero-image-frame:hover {
+      transform: scale(1.05);
+    }
+  }
+
+  @media (max-width: 767px) {
+    .hero-section {
+      background-attachment: scroll;
+    }
+
+    .hero-brand-title {
+      font-size: clamp(2rem, 8.5vw, 4.5rem);
+      font-size: 14cqi;
+    }
+  }
+
+  @keyframes heroFadeIn {
     from {
       opacity: 0;
     }
@@ -128,7 +263,7 @@ rel="noopener noreferrer"
     }
   }
 
-  @keyframes fadeInUp {
+  @keyframes heroFadeUp {
     from {
       opacity: 0;
       transform: translateY(20px);
@@ -139,7 +274,7 @@ rel="noopener noreferrer"
     }
   }
 
-  @keyframes slideInRight {
+  @keyframes heroSlideIn {
     from {
       opacity: 0;
       transform: translateX(20px);
@@ -150,47 +285,7 @@ rel="noopener noreferrer"
     }
   }
 
-  :global(.animate-fade-in) {
-    animation: fadeIn 0.8s ease-in-out forwards;
-  }
-
-  :global(.animate-fade-in-up) {
-    opacity: 0;
-    animation: fadeInUp 0.8s ease-in-out forwards;
-  }
-
-  :global(.animate-fade-in-up:nth-child(1)) {
-    animation-delay: 0.2s;
-  }
-
-  :global(.animate-fade-in-up:nth-child(2)) {
-    animation-delay: 0.4s;
-  }
-
-  :global(.animate-fade-in-up:nth-child(3)) {
-    animation-delay: 0.6s;
-  }
-
-  :global(.animate-slide-in-right) {
-    animation: slideInRight 0.8s ease-in-out 0.2s both;
-  }
-
-  @keyframes gradientShift {
-    0%,
-    100% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-  }
-
-  :global(.gradient-shimmer) {
-    background-size: 200% auto;
-    animation: gradientShift 6s ease-in-out infinite;
-  }
-
-  @keyframes floatSlow {
+  @keyframes heroFloat {
     0%,
     100% {
       transform: translateY(0);
@@ -200,21 +295,34 @@ rel="noopener noreferrer"
     }
   }
 
-  :global(.float-slow) {
-    animation: floatSlow 5s ease-in-out infinite;
+  @keyframes heroPing {
+    75%,
+    100% {
+      transform: scale(2);
+      opacity: 0;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    :global(.animate-fade-in),
-    :global(.animate-fade-in-up),
-    :global(.animate-slide-in-right),
-    :global(.gradient-shimmer),
-    :global(.float-slow),
-    :global(.animate-bounce-slow),
-    :global(.animate-ping) {
-      animation: none !important;
-      opacity: 1 !important;
-      transform: none !important;
+    .hero-fade-in,
+    .hero-fade-up,
+    .hero-slide-in,
+    .hero-float,
+    .hero-ping {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+
+    .hero-image-frame,
+    .ticket-arrow,
+    .ticket-button {
+      transition: none;
+    }
+
+    .hero-image-frame:hover,
+    .ticket-button:hover .ticket-arrow {
+      transform: none;
     }
   }
 </style>

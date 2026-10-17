@@ -9,7 +9,7 @@ export const FEATURED_SPEAKERS: Speaker[] = [
     imageAlt: "Serg Masís",
     linkedinUrl: "https://www.linkedin.com/in/smasis/",
     accentColor: "blue",
-    bio: "Serg Masís has been at the confluence of the internet, application development, and analytics for the last two decades. Currently, he's a Climate and Agronomic Data Scientist at Syngenta, a leading agribusiness company with a mission to improve global food security. Before that role, he co-founded a search engine startup, incubated by Harvard Innovation Labs, that combined the power of cloud computing and machine learning with principles in decision-making science to expose users to new places and events efficiently. Whether it pertains to leisure activities, plant diseases, or customer lifetime value, Serg is passionate about providing the often-missing link between data and decision-making — and machine learning interpretation helps bridge this gap more robustly. His book titled \"Interpretable Machine Learning with Python\" was released in April 2021 by UK-based publisher Packt (https://www.amazon.com/gp/product/B08PDFXXRL/ref=dbs_a_def_rwt_hsch_vapi_taft_p1_i0)",
+    bio: `Serg Masís has been at the confluence of the internet, application development, and analytics for the last two decades. Currently, he's a Climate and Agronomic Data Scientist at Syngenta, a leading agribusiness company with a mission to improve global food security. Before that role, he co-founded a search engine startup, incubated by Harvard Innovation Labs, that combined the power of cloud computing and machine learning with principles in decision-making science to expose users to new places and events efficiently. Whether it pertains to leisure activities, plant diseases, or customer lifetime value, Serg is passionate about providing the often-missing link between data and decision-making — and machine learning interpretation helps bridge this gap more robustly. His book titled "Interpretable Machine Learning with Python" was released in April 2021 by UK-based publisher Packt (https://www.amazon.com/gp/product/B08PDFXXRL/ref=dbs_a_def_rwt_hsch_vapi_taft_p1_i0)`,
   },
   {
     name: "Naresh Jasotani",
@@ -19,7 +19,7 @@ export const FEATURED_SPEAKERS: Speaker[] = [
     imageAlt: "Naresh Jasotani",
     linkedinUrl: "https://www.linkedin.com/in/naresh-r-jasotani/",
     accentColor: "green",
-    bio: "Naresh has over 17 years of experience in helping customers to get benefits of data, analytics and artificial intelligence advancements. With Machine Learning picking up in the last few years, he believes that it has brought endless possibilities for businesses to make data-based decisions, and be more predictive in their thought process. Naresh currently works at Google in the AI & ML domain and in the past, he gained consulting experience working for companies like Infosys, TCS, Accenture and Miracle Software Systems. He is passionate about building solutions with customers, published author (Book: Adopting TensorFlow for real-world AI), and avid YouTuber. He enjoys taking up new challenges, analysing customers' business problems and coming up with innovative solutions that can be solved by collecting, understanding, designing data, analytics and Machine learning solutions. He loves flying planes and has a Pilot's License as well.",
+    bio: `Naresh has over 17 years of experience in helping customers to get benefits of data, analytics and artificial intelligence advancements. With Machine Learning picking up in the last few years, he believes that it has brought endless possibilities for businesses to make data-based decisions, and be more predictive in their thought process. Naresh currently works at Google in the AI & ML domain and in the past, he gained consulting experience working for companies like Infosys, TCS, Accenture and Miracle Software Systems. He is passionate about building solutions with customers, published author (Book: Adopting TensorFlow for real-world AI), and avid YouTuber. He enjoys taking up new challenges, analysing customers' business problems and coming up with innovative solutions that can be solved by collecting, understanding, designing data, analytics and Machine learning solutions. He loves flying planes and has a Pilot's License as well.`,
   },
   {
     name: "Don Ward",
@@ -29,7 +29,7 @@ export const FEATURED_SPEAKERS: Speaker[] = [
     imageAlt: "Don Ward",
     linkedinUrl: "https://www.linkedin.com/in/donwardpeng/",
     accentColor: "blue",
-    bio: "Don Ward is a cloud enthusiast and Customer Engineer at Google Cloud, bringing deep practical experience to the table. In the last 5 years alone, he's earned an impressive 17 cloud certifications across Google and AWS, fueled by a passion for continuous learning and a drive to master the Google Cloud ecosystem. Don's commitment extends to the local tech scene, where he's spent 12 years fostering growth by leading Google Developer Groups in Windsor and Detroit. While transitioning leadership, he remains a dedicated volunteer, empowering others to lead.",
+    bio: `Don Ward is a cloud enthusiast and Customer Engineer at Google Cloud, bringing deep practical experience to the table. In the last 5 years alone, he's earned an impressive 17 cloud certifications across Google and AWS, fueled by a passion for continuous learning and a drive to master the Google Cloud ecosystem. Don's commitment extends to the local tech scene, where he's spent 12 years fostering growth by leading Google Developer Groups in Windsor and Detroit. While transitioning leadership, he remains a dedicated volunteer, empowering others to lead.`,
   },
   {
     name: "Nilesh Patel",
@@ -39,13 +39,13 @@ export const FEATURED_SPEAKERS: Speaker[] = [
     imageAlt: "Nilesh Patel",
     linkedinUrl: "https://www.linkedin.com/in/nilesh-patel/",
     accentColor: "red",
-    bio: "Nilesh Patel is a Generative AI Specialist at Google, building conversational AI experiences and helping customers transform their businesses with AI technologies. With 24+ years in tech, he empowers businesses to achieve their goals through innovative solutions. He's passionate about solving challenges with cutting-edge technology and sharing his knowledge with fellow developers.",
+    bio: `Nilesh Patel is a Generative AI Specialist at Google, building conversational AI experiences and helping customers transform their businesses with AI technologies. With 24+ years in tech, he empowers businesses to achieve their goals through innovative solutions. He's passionate about solving challenges with cutting-edge technology and sharing his knowledge with fellow developers.`,
   },
   {
     name: "Bryan Kelly",
     role: "Staff Software Engineer, Applied AI | Staff Forward Deployed Engineer",
     company: "Google",
-    imageUrl: "/speakers/google-person.png",
+    imageUrl: "/google-person.png",
     imageAlt: "Bryan Kelly",
     linkedinUrl: "https://www.linkedin.com/in/bryan-kelly-a4632323/",
     accentColor: "gold",
@@ -69,7 +69,7 @@ export const FEATURED_SPEAKERS: Speaker[] = [
     imageAlt: "Godfrey Nolan",
     linkedinUrl: "",
     accentColor: "blue",
-    bio: "Godfrey Nolan is the President of RIIS LLC, a mobile development company based in Troy, Michigan, and Windsor specializing in mobile apps for drones. With over 26 years of experience, he has built a team of experts capable of defining, developing, testing, and deploying mobile and web applications for our clients. Godfrey is also a prolific author, having written six books on mobile development and security, including \"Decompiling Java\" and \"Bulletproof Android.\" In addition to his role at RIIS LLC, he serves as an Adjunct Professor at multiple universities, teaching various subjects related to programming and development, including Java, LLMs, Blockchain technologies, and Android programming. His extensive experience in both the industry and academia highlights his expertise in mobile technology, requirements analysis, architecture, and continuous integration. Godfrey Nolan's contributions span the worlds of education, mobile app development, and published authorship in the field of technology.",
+    bio: `Godfrey Nolan is the President of RIIS LLC, a mobile development company based in Troy, Michigan, and Windsor specializing in mobile apps for drones. With over 26 years of experience, he has built a team of experts capable of defining, developing, testing, and deploying mobile and web applications for our clients. Godfrey is also a prolific author, having written six books on mobile development and security, including "Decompiling Java" and "Bulletproof Android." In addition to his role at RIIS LLC, he serves as an Adjunct Professor at multiple universities, teaching various subjects related to programming and development, including Java, LLMs, Blockchain technologies, and Android programming. His extensive experience in both the industry and academia highlights his expertise in mobile technology, requirements analysis, architecture, and continuous integration. Godfrey Nolan's contributions span the worlds of education, mobile app development, and published authorship in the field of technology.`,
   },
   {
     name: "Mina Girges",
@@ -99,7 +99,7 @@ export const FEATURED_SPEAKERS: Speaker[] = [
     imageAlt: "Chukwuka (Eddie) Asamaka",
     linkedinUrl: "https://www.linkedin.com/in/asamakachukwuka/",
     accentColor: "green",
-    bio: "Eddie Asamaka, M.Eng., P.Eng., PMP®, CMSE®, is the Founder and CEO of Asamaka Industries Ltd., an engineering and technology company specializing in industrial automation, robotics, machine vision, controls engineering, IIoT, and digital twin technologies. A Professional Engineer in Ontario, Eddie has extensive experience designing, programming, integrating, and commissioning advanced automation systems for manufacturing environments. His work spans PLC/HMI systems, industrial robotics, machine vision, functional safety, digital twins, and the integration of software and operational technologies. He is passionate about bridging the gap between software development and the physical world, developing the next generation of engineering talent, and helping manufacturers adopt intelligent technologies that improve productivity, flexibility, and competitiveness.",
+    bio: `Eddie Asamaka, M.Eng., P.Eng., PMP®, CMSE®, is the Founder and CEO of Asamaka Industries Ltd., an engineering and technology company specializing in industrial automation, robotics, machine vision, controls engineering, IIoT, and digital twin technologies. A Professional Engineer in Ontario, Eddie has extensive experience designing, programming, integrating, and commissioning advanced automation systems for manufacturing environments. His work spans PLC/HMI systems, industrial robotics, machine vision, functional safety, digital twins, and the integration of software and operational technologies. He is passionate about bridging the gap between software development and the physical world, developing the next generation of engineering talent, and helping manufacturers adopt intelligent technologies that improve productivity, flexibility, and competitiveness.`,
   },
   {
     name: "Elvis Akhalu",
@@ -139,7 +139,7 @@ export const FEATURED_SPEAKERS: Speaker[] = [
     imageAlt: "Arunesh Choudhary",
     linkedinUrl: "https://www.linkedin.com/in/aruneshchoudhary/",
     accentColor: "blue",
-    bio: "As a Conversational AI Engineer at Dialabot.ai, I design, develop, and deploy scalable conversational AI agents tailored to business needs. I architect conversation flows, configure agent behaviors, and integrate agents with CRMs, APIs, calendars, and enterprise systems to automate workflows and improve user interactions. I also build and maintain data pipelines to support agent training, performance monitoring, and continuous optimization, ensuring reliable and production-ready AI solutions.",
+    bio: `As a Conversational AI Engineer at Dialabot.ai, I design, develop, and deploy scalable conversational AI agents tailored to business needs. I architect conversation flows, configure agent behaviors, and integrate agents with CRMs, APIs, calendars, and enterprise systems to automate workflows and improve user interactions. I also build and maintain data pipelines to support agent training, performance monitoring, and continuous optimization, ensuring reliable and production-ready AI solutions.`,
   },
   {
     name: "Umair Durrani",
@@ -149,7 +149,7 @@ export const FEATURED_SPEAKERS: Speaker[] = [
     imageAlt: "Umair Durrani",
     linkedinUrl: "https://www.linkedin.com/in/durraniu/",
     accentColor: "green",
-    bio: "Umair Durrani is a Data Scientist at Presage Group Inc., where he conducts scientific studies in the field of human factors and decision-making. Umair also develops web applications and data tools for optimizing data collection and reporting. With a PhD in Civil Engineering, he is passionate about modeling and mitigating human error in transportation systems. Umair also teaches data analysis workshops and frequently gives talks on topics such as R programming, Shiny apps, and open-source tools for transportation research.",
+    bio: `Umair Durrani is a Data Scientist at Presage Group Inc., where he conducts scientific studies in the field of human factors and decision-making. Umair also develops web applications and data tools for optimizing data collection and reporting. With a PhD in Civil Engineering, he is passionate about modeling and mitigating human error in transportation systems. Umair also teaches data analysis workshops and frequently gives talks on topics such as R programming, Shiny apps, and open-source tools for transportation research.`,
   },
   {
     name: "Steven Rice",
@@ -279,7 +279,7 @@ export const FEATURED_SPEAKERS: Speaker[] = [
     imageAlt: "Nav Singh",
     linkedinUrl: "https://www.linkedin.com/in/navczydev/",
     accentColor: "red",
-    bio: "Google Developer Expert for Android, an organizer at GDG-Montreal, and an author of articles on Android and Kotlin. Outside of his day-to-day job, he spends his time learning new technologies/frameworks. In his free time, he loves to read books.",
+    bio: `Google Developer Expert for Android, an organizer at GDG-Montreal, and an author of articles on Android and Kotlin. Outside of his day-to-day job, he spends his time learning new technologies/frameworks. In his free time, he loves to read books.`,
   },
   {
     name: "James Lannigan",
@@ -299,6 +299,6 @@ export const FEATURED_SPEAKERS: Speaker[] = [
     imageAlt: "Mahnoz Akhtari",
     linkedinUrl: "https://www.linkedin.com/in/mahnoz-akhtari-65125a267/",
     accentColor: "gold",
-    bio: "Mahnoz Akhtari is a fourth-year Computer Science and Software Engineering student at the University of Windsor. She runs Grayfel Technologies and is lead developer at Sterling Cybersecurity & Advisory Group. As Campus Director for the Hult Prize at UWindsor, she works with partners across Windsor-Essex to get student ideas to the point where the region's accelerators and funders can actually take them.",
+    bio: `Mahnoz Akhtari is a fourth-year Computer Science and Software Engineering student at the University of Windsor. She runs Grayfel Technologies and is lead developer at Sterling Cybersecurity & Advisory Group. As Campus Director for the Hult Prize at UWindsor, she works with partners across Windsor-Essex to get student ideas to the point where the region's accelerators and funders can actually take them.`,
   },
 ];

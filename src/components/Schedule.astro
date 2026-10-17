@@ -12,14 +12,19 @@ interface Props {
 const { title, description } = Astro.props;
 
 const finalTitle = title || t("en", "schedule.title");
-const finalDescription =
-  description || t("en", "schedule.description");
+const finalDescription = description || t("en", "schedule.description");
 
 const DEFAULT_TRACK = "Google Cloud";
 const PLACEHOLDER_IMAGE = "/google-person.png";
+const LEADERSHIP_TRACK = "Leadership and Entrepreneurship";
 
 const normalizeSpeakerName = (name: string) =>
-  name.trim().toLowerCase();
+  name
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, " ");
 
 const getSpeakerData = (speakerName: string) => {
   if (
@@ -29,7 +34,6 @@ const getSpeakerData = (speakerName: string) => {
     return null;
   }
 
-  // For joint sessions, use the first speaker's image and bio.
   const primaryName = speakerName.split(" / ")[0].trim();
 
   return (
@@ -86,137 +90,65 @@ const tracks = [
     text: "text-white",
   },
   {
-    name: "Entrepreneurship",
+    name: LEADERSHIP_TRACK,
     icon: "rocket",
     gradient: "from-yellow-400 to-amber-500",
     text: "text-slate-900",
   },
-  {
-    name: "Cybersecurity",
-    icon: "lock",
-    gradient: "from-purple-500 to-purple-700",
-    text: "text-white",
-  },
-  {
-    name: "High School Track",
-    icon: "book",
-    gradient: "from-orange-500 to-orange-700",
-    text: "text-white",
-  },
 ];
+
+const trackRooms: Record<string, string> = {
+  "Google Cloud": "104",
+  "Build with AI": "112",
+  "Full Stack": "B14",
+  [LEADERSHIP_TRACK]: "B02",
+};
+
+function createScheduledSession(
+  time: string,
+  speaker: string,
+  track: string,
+) {
+  const room = trackRooms[track];
+
+  return {
+    time,
+    duration: "45 min",
+    title: `Session with ${speaker.replace(/ \/ /g, " & ")}`,
+    speaker,
+    track,
+    type: "Technical Session",
+    location: room,
+    description: `${track} track session in Room ${room}.`,
+  };
+}
 
 const scheduledSessions = [
   {
     time: "8:45 AM",
     duration: "60 min",
-    title: "Welcoming and Keynote - TBD",
-    speaker: "Google DevFest Team",
+    title: "Welcoming and Keynote",
+    speaker: "Serg Masís",
     track: "ALL",
     type: "Keynote",
     location: "Main Hall",
     description:
-      "Welcome to Google DevFest Windsor 2026! Join us for opening remarks and an inspiring keynote address setting the tone for the day.",
+      "Welcome to Google DevFest Windsor 2026! Join Serg Masís for the welcoming and keynote session.",
   },
-  {
-    time: "10:00 AM",
-    duration: "45 min",
-    title: "TBD",
-    speaker: "TBD",
-    track: "Google Cloud",
-    type: "Technical Session",
-    location: "104",
-    description: "Google Cloud track session in Room 104.",
-  },
-  {
-    time: "10:00 AM",
-    duration: "45 min",
-    title: "Session with Diaa ElKott",
-    speaker: "Diaa ElKott",
-    track: "Build with AI",
-    type: "Technical Session",
-    location: "112",
-    description: "Build with AI track session in Room 112.",
-  },
-  {
-    time: "10:00 AM",
-    duration: "45 min",
-    title: "TBD",
-    speaker: "TBD",
-    track: "Full Stack",
-    type: "Technical Session",
-    location: "B14",
-    description: "Full Stack track session in Room B14.",
-  },
-  {
-    time: "10:00 AM",
-    duration: "45 min",
-    title: "Session with Amrit Mehta",
-    speaker: "Amrit Mehta",
-    track: "Entrepreneurship",
-    type: "Technical Session",
-    location: "B02",
-    description: "Entrepreneurship track session in Room B02.",
-  },
-  {
-    time: "10:00 AM",
-    duration: "45 min",
-    title: "Cybersecurity Track",
-    speaker: "TBD",
-    track: "Cybersecurity",
-    type: "Workshop",
-    location: "110",
-    description: "Cybersecurity track session in Room 110.",
-  },
-  {
-    time: "10:00 AM",
-    duration: "45 min",
-    title: "High School Track",
-    speaker: "TBD",
-    track: "High School Track",
-    type: "Workshop",
-    location: "108",
-    description: "High School track session in Room 108.",
-  },
-  {
-    time: "11:00 AM",
-    duration: "45 min",
-    title: "TBD",
-    speaker: "TBD",
-    track: "Google Cloud",
-    type: "Technical Session",
-    location: "104",
-    description: "Google Cloud track session in Room 104.",
-  },
-  {
-    time: "11:00 AM",
-    duration: "45 min",
-    title: "Session with Andrea Irina Yzeiri",
-    speaker: "Andrea Irina Yzeiri",
-    track: "Build with AI",
-    type: "Technical Session",
-    location: "112",
-    description: "Build with AI track session in Room 112.",
-  },
-  {
-    time: "11:00 AM",
-    duration: "45 min",
-    title: "Session with Keval Patel",
-    speaker: "Keval Patel",
-    track: "Full Stack",
-    type: "Technical Session",
-    location: "B14",
-    description: "Full Stack track session in Room B14.",
-  },
-  {
-    time: "11:00 AM",
-    duration: "45 min",
-    title: "Session with Frank Abbruzzese",
-    speaker: "Frank Abbruzzese",
-    track: "Entrepreneurship",
-    type: "Technical Session",
-    location: "B02",
-    description: "Entrepreneurship track session in Room B02.",
-  },
+
+  // 10:00–10:45 AM
+  createScheduledSession("10:00 AM", "Nilesh Patel", "Google Cloud"),
+  createScheduledSession("10:00 AM", "Andrea Irina Yzeiri", "Build with AI"),
+  createScheduledSession("10:00 AM", "Arunesh Choudhary", "Full Stack"),
+  createScheduledSession("10:00 AM", "Mahnoz Akhtari", LEADERSHIP_TRACK),
+
+  // 11:00–11:45 AM
+  createScheduledSession("11:00 AM", "Bryan Kelly", "Google Cloud"),
+  createScheduledSession("11:00 AM", "Diaa ElKott", "Build with AI"),
+  createScheduledSession("11:00 AM", "Keval Patel", "Full Stack"),
+  createScheduledSession("11:00 AM", "Frank Abbruzzese", LEADERSHIP_TRACK),
+
+  // Shared lunch block. Participants can be added later.
   {
     time: "12:00 PM - 1:00 PM",
     duration: "60 min",
@@ -228,186 +160,39 @@ const scheduledSessions = [
     description:
       "Enjoy lunch and network with fellow developers and industry professionals.",
   },
-  {
-    time: "1:00 PM",
-    duration: "45 min",
-    title: "Session with Don Ward",
-    speaker: "Don Ward",
-    track: "Google Cloud",
-    type: "Technical Session",
-    location: "104",
-    description: "Google Cloud track session in Room 104.",
-  },
-  {
-    time: "1:00 PM",
-    duration: "45 min",
-    title: "Session with Joe Youssouf",
-    speaker: "Joe Youssouf",
-    track: "Build with AI",
-    type: "Technical Session",
-    location: "112",
-    description: "Build with AI track session in Room 112.",
-  },
-  {
-    time: "1:00 PM",
-    duration: "45 min",
-    title: "Session with Elvis Akhalu",
-    speaker: "Elvis Akhalu",
-    track: "Full Stack",
-    type: "Technical Session",
-    location: "B14",
-    description: "Full Stack track session in Room B14.",
-  },
-  {
-    time: "1:00 PM",
-    duration: "45 min",
-    title: "Session with Sean Bridgeman",
-    speaker: "Sean Bridgeman",
-    track: "Entrepreneurship",
-    type: "Technical Session",
-    location: "B02",
-    description: "Entrepreneurship track session in Room B02.",
-  },
-  {
-    time: "2:00 PM",
-    duration: "45 min",
-    title: "Session with Vimal K.",
-    speaker: "Vimal K.",
-    track: "Google Cloud",
-    type: "Technical Session",
-    location: "104",
-    description: "Google Cloud track session in Room 104.",
-  },
-  {
-    time: "2:00 PM",
-    duration: "45 min",
-    title: "Session with Atif Khan",
-    speaker: "Atif Khan",
-    track: "Build with AI",
-    type: "Technical Session",
-    location: "112",
-    description: "Build with AI track session in Room 112.",
-  },
-  {
-    time: "2:00 PM",
-    duration: "45 min",
-    title: "Session with Troy Hector",
-    speaker: "Troy Hector",
-    track: "Full Stack",
-    type: "Technical Session",
-    location: "B14",
-    description: "Full Stack track session in Room B14.",
-  },
-  {
-    time: "2:00 PM",
-    duration: "45 min",
-    title: "Session with Mina Girges",
-    speaker: "Mina Girges",
-    track: "Entrepreneurship",
-    type: "Technical Session",
-    location: "B02",
-    description: "Entrepreneurship track session in Room B02.",
-  },
-  {
-    time: "3:00 PM",
-    duration: "45 min",
-    title: "Session with Arunesh Choudhary",
-    speaker: "Arunesh Choudhary",
-    track: "Google Cloud",
-    type: "Technical Session",
-    location: "104",
-    description: "Google Cloud track session in Room 104.",
-  },
-  {
-    time: "3:00 PM",
-    duration: "45 min",
-    title: "Session with Veronica Reingold",
-    speaker: "Veronica Reingold",
-    track: "Build with AI",
-    type: "Technical Session",
-    location: "112",
-    description: "Build with AI track session in Room 112.",
-  },
-  {
-    time: "3:00 PM",
-    duration: "45 min",
-    title: "Session with Kylie Kiser",
-    speaker: "Kylie Kiser",
-    track: "Full Stack",
-    type: "Technical Session",
-    location: "B14",
-    description: "Full Stack track session in Room B14.",
-  },
-  {
-    time: "3:00 PM",
-    duration: "45 min",
-    title: "Session with Yvonne Pilon and James Lannigan",
-    speaker: "Yvonne Pilon / James Lannigan",
-    track: "Entrepreneurship",
-    type: "Technical Session",
-    location: "B02",
-    description: "Entrepreneurship track session in Room B02.",
-  },
-  {
-    time: "3:00 PM",
-    duration: "45 min",
-    title: "Cybersecurity Track",
-    speaker: "TBD",
-    track: "Cybersecurity",
-    type: "Workshop",
-    location: "110",
-    description: "Cybersecurity track session in Room 110.",
-  },
-  {
-    time: "3:00 PM",
-    duration: "45 min",
-    title: "High School Track",
-    speaker: "TBD",
-    track: "High School Track",
-    type: "Workshop",
-    location: "108",
-    description: "High School track session in Room 108.",
-  },
-  {
-    time: "4:00 PM",
-    duration: "45 min",
-    title: "Session with Florid Maclean",
-    speaker: "Florid Maclean",
-    track: "Google Cloud",
-    type: "Technical Session",
-    location: "104",
-    description: "Google Cloud track session in Room 104.",
-  },
-  {
-    time: "4:00 PM",
-    duration: "45 min",
-    title: "Session with Steven Rice",
-    speaker: "Steven Rice",
-    track: "Build with AI",
-    type: "Technical Session",
-    location: "112",
-    description: "Build with AI track session in Room 112.",
-  },
-  {
-    time: "4:00 PM",
-    duration: "45 min",
-    title: "Session with Camila Gaitan & Kevin Serrano Mojica",
-    speaker: "Camila Gaitan / Kevin Serrano Mojica",
-    track: "Full Stack",
-    type: "Technical Session",
-    location: "B14",
-    description: "Full Stack track session in Room B14.",
-  },
-  {
-    time: "4:00 PM",
-    duration: "45 min",
-    title: "Session with Wen Teoh",
-    speaker: "Wen Teoh",
-    track: "Entrepreneurship",
-    type: "Technical Session",
-    location: "B02",
-    description: "Entrepreneurship track session in Room B02.",
-  },
+
+  // 1:00–1:45 PM
+  // No Google Cloud session is listed for this slot.
+  createScheduledSession("1:00 PM", "Joe Youssouf", "Build with AI"),
+  createScheduledSession("1:00 PM", "Elvis Akhalu", "Full Stack"),
+  createScheduledSession("1:00 PM", "Sean Bridgeman", LEADERSHIP_TRACK),
+
+  // 2:00–2:45 PM
+  createScheduledSession("2:00 PM", "Don Ward", "Google Cloud"),
+  createScheduledSession("2:00 PM", "Atif Khan", "Build with AI"),
+  createScheduledSession("2:00 PM", "Kylie Kiser", "Full Stack"),
+  createScheduledSession("2:00 PM", "Mina Girges", LEADERSHIP_TRACK),
+
+  // 3:00–3:45 PM
+  createScheduledSession("3:00 PM", "Vimal K.", "Google Cloud"),
+  createScheduledSession("3:00 PM", "Veronica Reingold", "Build with AI"),
+  createScheduledSession("3:00 PM", "Nav Singh", "Full Stack"),
+  createScheduledSession(
+    "3:00 PM",
+    "Chukwuka (Eddie) Asamaka",
+    LEADERSHIP_TRACK,
+  ),
+
+  // 4:00–4:45 PM
+  createScheduledSession("4:00 PM", "Florid Maclean", "Google Cloud"),
+  createScheduledSession("4:00 PM", "Steven Rice", "Build with AI"),
+  createScheduledSession(
+    "4:00 PM",
+    "Camila Gaitan / Kevin Serrano Mojica",
+    "Full Stack",
+  ),
+  createScheduledSession("4:00 PM", "Wen Teoh", LEADERSHIP_TRACK),
+
   {
     time: "5:00 PM",
     duration: "30 min",
@@ -421,8 +206,8 @@ const scheduledSessions = [
   },
 ];
 
-// Load submitted titles and abstracts into the scheduled slots.
-// Times, rooms, tracks, types, and slot durations come from the schedule.
+// Submitted titles and abstracts enrich the scheduled slots.
+// Times, rooms, tracks, types, and durations come from this schedule.
 const abstractsBySpeaker = new Map(
   SUBMITTED_SESSIONS.map((session) => [
     normalizeSpeakerName(session.speaker),
@@ -431,6 +216,9 @@ const abstractsBySpeaker = new Map(
 );
 
 const sessions = scheduledSessions.map((session) => {
+  // Preserve shared opening, lunch, and closing blocks.
+  if (session.track === "ALL") return session;
+
   const abstract = abstractsBySpeaker.get(
     normalizeSpeakerName(session.speaker),
   );
@@ -440,7 +228,6 @@ const sessions = scheduledSessions.map((session) => {
   return {
     ...session,
     title: abstract.title,
-    speaker: abstract.speaker,
     description: abstract.description,
   };
 });
@@ -454,65 +241,77 @@ const icons: Record<string, string> = {
     '<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 20 20" aria-hidden="true"><path d="M7 5L2 10l5 5M13 5l5 5-5 5"/></svg>',
   rocket:
     '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M17 2c-5 0-8 2-10 6L4 9l-2 3 4 1 1 4 3-2 1-3c4-2 6-5 6-10zM5 15l-2 2 2-1 1-2z"/></svg>',
-  lock:
-    '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M6 8V6a4 4 0 0 1 8 0v2h1a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h1zm2 0h4V6a2 2 0 0 0-4 0v2z"/></svg>',
-  book:
-    '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9 4a8 8 0 0 0-7 0v11a8 8 0 0 1 7 0V4zm2 0a8 8 0 0 1 7 0v11a8 8 0 0 0-7 0V4z"/></svg>',
 };
 ---
 
-<section id="schedule" class="py-20 bg-white animate-fade-in-up">
+<section
+  id="schedule"
+  class="py-20 bg-white"
+  data-default-track={DEFAULT_TRACK}
+>
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-16 animate-fade-in-up">
+    <div class="text-center mb-12">
       <h2
         class="text-4xl font-bold text-gray-900 mb-4"
-        data-i18n="schedule.title"
+        data-i18n={title ? undefined : "schedule.title"}
       >
         {finalTitle}
       </h2>
 
       <p
         class="text-xl text-gray-600 max-w-3xl mx-auto"
-        data-i18n="schedule.description"
+        data-i18n={description ? undefined : "schedule.description"}
       >
         {finalDescription}
       </p>
     </div>
 
+    <!-- Mobile scroll hint -->
+    <p class="md:hidden text-center text-sm text-slate-500 mb-3">
+      Swipe to explore all tracks
+      <span aria-hidden="true"> →</span>
+    </p>
+
     <!-- Track filters -->
-    <div class="flex flex-wrap justify-center gap-3 mb-12">
+    <div
+      class="track-filters flex flex-wrap justify-center gap-3 mb-10"
+      role="group"
+      aria-label="Filter sessions by track"
+    >
       {
         tracks.map((track) => (
           <button
             type="button"
-            class={`track-filter-btn px-6 py-3 rounded-full font-semibold ${track.text} bg-gradient-to-r ${track.gradient} hover:shadow-lg transition-all duration-300 cursor-pointer transform hover:scale-105 flex items-center gap-2 ${track.name === DEFAULT_TRACK ? "active" : ""}`}
+            class={`track-filter-btn px-6 py-3 rounded-full font-semibold ${track.text} bg-gradient-to-r ${track.gradient} hover:shadow-lg transition-all duration-300 flex items-center gap-2 ${
+              track.name === DEFAULT_TRACK ? "active" : ""
+            }`}
             data-track={track.name}
             aria-pressed={track.name === DEFAULT_TRACK}
           >
-            <span set:html={icons[track.icon]} />
+            <span class="flex-shrink-0" set:html={icons[track.icon]} />
             {track.name}
           </button>
         ))
       }
     </div>
 
-    <!-- Schedule table -->
-    <div class="overflow-x-auto">
+    <div class="schedule-table-wrapper overflow-x-auto">
       <table class="w-full">
         <thead>
           <tr class="border-b-2 border-gray-200">
-            <th class="text-left py-4 px-4 font-semibold text-gray-900">
+            <th scope="col" class="text-left py-4 px-4 font-semibold text-gray-900">
               TIME
             </th>
-            <th class="text-left py-4 px-4 font-semibold text-gray-900">
+            <th scope="col" class="text-left py-4 px-4 font-semibold text-gray-900">
               SESSION
             </th>
             <th
+              scope="col"
               class="text-left py-4 px-4 font-semibold text-gray-900 hidden md:table-cell"
             >
               LOCATION
             </th>
-            <th class="text-center py-4 px-4 font-semibold text-gray-900">
+            <th scope="col" class="text-center py-4 px-4 font-semibold text-gray-900">
               ADD
             </th>
           </tr>
@@ -522,25 +321,20 @@ const icons: Record<string, string> = {
           {
             sessions.map((session) => {
               const speakerData = getSpeakerData(session.speaker);
-
               const accent =
                 accentStyles[speakerData?.accentColor || "blue"] ||
                 accentStyles.blue;
-
-              const track = tracks.find(
-                (item) => item.name === session.track,
-              );
-
+              const track = tracks.find((item) => item.name === session.track);
               const speakerImage =
                 speakerData?.imageUrl || PLACEHOLDER_IMAGE;
-
-              // Rows for the default track and the shared "ALL" rows are visible on load.
               const isVisibleOnLoad =
                 session.track === DEFAULT_TRACK || session.track === "ALL";
 
               return (
                 <tr
-                  class={`session-row border-b border-gray-100 hover:bg-gray-50 transition-colors cursor-pointer ${isVisibleOnLoad ? "" : "hidden"}`}
+                  class={`session-row border-b border-gray-100 hover:bg-gray-50 transition-colors cursor-pointer ${
+                    isVisibleOnLoad ? "" : "hidden"
+                  }`}
                   data-track={session.track}
                   data-title={session.title}
                   data-speaker={session.speaker}
@@ -557,41 +351,51 @@ const icons: Record<string, string> = {
                   <td class="py-6 px-4">
                     <div class="flex items-start gap-4">
                       <div class="flex-shrink-0">
-                        <div class="group relative w-12 h-12">
-                          {speakerData ? (
-                            <>
-                              <div
-                                class={`blob-shape absolute inset-0 scale-105 transition-transform duration-300 group-hover:scale-110 ${accent.blob}`}
-                                aria-hidden="true"
-                              />
-
-                              <img
-                                src={speakerImage}
-                                alt={speakerData.imageAlt || speakerData.name}
-                                class={`speaker-schedule-image relative w-full h-full rounded-full object-cover ring-2 ring-white shadow-md transition-all duration-300 group-hover:scale-110 cursor-pointer ${accent.ring}`}
-                                data-speaker-name={speakerData.name}
-                                data-speaker-role={speakerData.role}
-                                data-speaker-company={speakerData.company}
-                                data-speaker-bio={speakerData.bio || ""}
-                                data-speaker-linkedin={
-                                  speakerData.linkedinUrl || ""
-                                }
-                                data-speaker-image={speakerImage}
-                              />
-                            </>
-                          ) : (
-                            <img
-                              src={PLACEHOLDER_IMAGE}
-                              alt=""
-                              class="w-12 h-12 rounded-full object-cover ring-2 ring-white shadow-md"
+                        {speakerData ? (
+                          <button
+                            type="button"
+                            class="speaker-schedule-trigger group relative block w-12 h-12 rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-600"
+                            aria-label={`About ${speakerData.name}`}
+                            data-speaker-name={speakerData.name}
+                            data-speaker-role={speakerData.role}
+                            data-speaker-company={speakerData.company}
+                            data-speaker-bio={speakerData.bio || ""}
+                            data-speaker-linkedin={speakerData.linkedinUrl || ""}
+                            data-speaker-image={speakerImage}
+                          >
+                            <span
+                              class={`blob-shape absolute inset-0 scale-105 ${accent.blob}`}
+                              aria-hidden="true"
                             />
-                          )}
-                        </div>
+                            <img
+                              src={speakerImage}
+                              alt={speakerData.imageAlt || speakerData.name}
+                              width="48"
+                              height="48"
+                              loading="lazy"
+                              class={`relative w-full h-full rounded-full object-cover ring-2 ring-white shadow-md ${accent.ring}`}
+                            />
+                          </button>
+                        ) : (
+                          <img
+                            src={PLACEHOLDER_IMAGE}
+                            alt=""
+                            width="48"
+                            height="48"
+                            loading="lazy"
+                            class="w-12 h-12 rounded-full object-cover ring-2 ring-white shadow-md"
+                          />
+                        )}
                       </div>
 
-                      <div class="flex-grow">
-                        <h4 class="font-semibold text-gray-900 mb-2 hover:text-blue-600 transition-colors">
-                          {session.title}
+                      <div class="session-content flex-grow min-w-0">
+                        <h4 class="font-semibold text-gray-900 mb-2">
+                          <button
+                            type="button"
+                            class="session-title-btn text-left hover:text-blue-600 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-600"
+                          >
+                            {session.title}
+                          </button>
                         </h4>
 
                         <p class="text-sm text-gray-600 mb-2">
@@ -600,9 +404,14 @@ const icons: Record<string, string> = {
 
                         <div class="flex flex-wrap gap-2">
                           <span
-                            class={`px-3 py-1.5 rounded-full text-xs font-semibold ${track?.text || "text-white"} bg-gradient-to-r ${track?.gradient || "from-slate-600 to-slate-700"} flex items-center gap-1.5`}
+                            class={`px-3 py-1.5 rounded-full text-xs font-semibold ${
+                              track?.text || "text-white"
+                            } bg-gradient-to-r ${
+                              track?.gradient || "from-slate-600 to-slate-700"
+                            } inline-flex items-center gap-1.5`}
                           >
                             <span
+                              class="flex-shrink-0"
                               set:html={icons[track?.icon || "sparkles"]}
                             />
                             {session.track}
@@ -615,14 +424,13 @@ const icons: Record<string, string> = {
                           {speakerData?.bio && (
                             <button
                               type="button"
-                              class="speaker-schedule-bio-btn inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold text-white bg-purple-600 hover:bg-purple-700 rounded-full transition-colors"
+                              class="speaker-schedule-trigger inline-flex items-center px-3 py-1.5 text-xs font-semibold text-white bg-purple-600 hover:bg-purple-700 rounded-full transition-colors"
+                              aria-label={`Read biography of ${speakerData.name}`}
                               data-speaker-name={speakerData.name}
                               data-speaker-role={speakerData.role}
                               data-speaker-company={speakerData.company}
                               data-speaker-bio={speakerData.bio}
-                              data-speaker-linkedin={
-                                speakerData.linkedinUrl || ""
-                              }
+                              data-speaker-linkedin={speakerData.linkedinUrl || ""}
                               data-speaker-image={speakerImage}
                             >
                               BIO
@@ -643,6 +451,7 @@ const icons: Record<string, string> = {
                     <button
                       type="button"
                       class="add-to-calendar-btn inline-block px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors"
+                      aria-label={`Add ${session.title} to calendar`}
                     >
                       Add
                     </button>
@@ -658,75 +467,61 @@ const icons: Record<string, string> = {
 
   <SessionModal sessions={sessions} />
 
-  <!-- Speaker bio modal -->
-  <div
+  <!-- Speaker biography -->
+  <dialog
     id="schedulespeakerModal"
-    class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
+    class="schedule-bio-dialog rounded-2xl bg-white p-0 text-slate-900"
+    aria-labelledby="scheduleModalSpeakerName"
   >
-    <div class="bg-white rounded-lg max-w-2xl w-full max-h-96 overflow-y-auto">
-      <div class="p-6">
-        <div class="flex justify-between items-start mb-4">
-          <div>
-            <h2
-              id="scheduleModalSpeakerName"
-              class="text-2xl font-bold text-slate-900"
-            ></h2>
-
-            <p
-              id="scheduleModalSpeakerRole"
-              class="text-sm text-slate-600"
-            ></p>
-
-            <p
-              id="scheduleModalSpeakerCompany"
-              class="text-sm text-slate-600"
-            ></p>
-          </div>
-
-          <button
-            type="button"
-            id="scheduleCloseModalBtn"
-            class="text-slate-500 hover:text-slate-700 text-2xl leading-none"
-            aria-label="Close speaker bio"
-          >
-            ×
-          </button>
+    <div class="p-6">
+      <div class="flex justify-between items-start gap-4 mb-4">
+        <div>
+          <h2
+            id="scheduleModalSpeakerName"
+            class="text-2xl font-bold"
+          ></h2>
+          <p id="scheduleModalSpeakerRole" class="text-sm text-slate-600 mt-1"></p>
+          <p id="scheduleModalSpeakerCompany" class="text-sm text-slate-600"></p>
         </div>
 
-        <img
-          id="scheduleModalSpeakerImage"
-          src=""
-          alt=""
-          class="w-24 h-24 rounded-full mb-4 object-cover"
-        />
-
-        <p
-          id="scheduleModalSpeakerBio"
-          class="text-slate-600 mb-4"
-        ></p>
-
-        <a
-          id="scheduleModalLinkedinLink"
-          href=""
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center gap-1 text-blue-600 hover:text-blue-700 font-semibold"
+        <button
+          type="button"
+          id="scheduleCloseModalBtn"
+          class="flex-shrink-0 text-slate-500 hover:text-slate-900 text-3xl leading-none p-1"
+          aria-label="Close speaker bio"
         >
-          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-            <path
-              d="M20.447 20.452h-3.554v-5.569c0-1.328-.475-2.236-1.986-2.236-1.081 0-1.722.731-2.004 1.438-.103.249-.129.597-.129.946v5.421h-3.554s.045-8.789 0-9.514h3.554v1.348c.421-.649 1.175-1.573 2.853-1.573 2.08 0 3.641 1.36 3.641 4.28v5.459zM5.337 9.433c-1.144 0-1.915-.759-1.915-1.708 0-.955.77-1.708 1.963-1.708 1.192 0 1.914.753 1.939 1.708 0 .949-.747 1.708-1.987 1.708zm1.582 10.019H3.755V9.938h3.164v9.514zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"
-            />
-          </svg>
-          LinkedIn
-        </a>
+          ×
+        </button>
       </div>
+
+      <img
+        id="scheduleModalSpeakerImage"
+        src={PLACEHOLDER_IMAGE}
+        alt=""
+        width="96"
+        height="96"
+        class="w-24 h-24 rounded-full mb-4 object-cover"
+      />
+
+      <p
+        id="scheduleModalSpeakerBio"
+        class="text-slate-600 mb-4 whitespace-pre-line leading-relaxed"
+      ></p>
+
+      <a
+        id="scheduleModalLinkedinLink"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-blue-600 hover:text-blue-800 font-semibold underline underline-offset-4"
+        hidden
+      >
+        LinkedIn ↗
+      </a>
     </div>
-  </div>
+  </dialog>
 </section>
 
 <script>
-  type SessionRow = HTMLTableRowElement;
-
   type SessionDetails = {
     title: string;
     speaker: string;
@@ -736,16 +531,16 @@ const icons: Record<string, string> = {
     type: string;
   };
 
-  function parseTime(timeStr: string) {
-    const match = timeStr.match(/(\d+):(\d+)\s(AM|PM)/);
-
+  function parseTime(time: string) {
+    const match = time.match(/(\d+):(\d+)\s*(AM|PM)/i);
     if (!match) return null;
 
     let hours = Number(match[1]);
     const minutes = Number(match[2]);
+    const period = match[3].toUpperCase();
 
-    if (match[3] === "PM" && hours !== 12) hours += 12;
-    if (match[3] === "AM" && hours === 12) hours = 0;
+    if (period === "PM" && hours !== 12) hours += 12;
+    if (period === "AM" && hours === 12) hours = 0;
 
     return { hours, minutes };
   }
@@ -762,45 +557,41 @@ const icons: Record<string, string> = {
       .replace(/;/g, "\\;");
   }
 
-  function addToCalendar(row: SessionRow) {
-    const { title, speaker, time, duration, location, description } =
-      row.dataset;
+  function addToCalendar(row: HTMLTableRowElement) {
+    const {
+      title = "",
+      speaker = "",
+      time = "",
+      duration = "60",
+      location = "",
+      description = "",
+    } = row.dataset;
 
-    const parsedTime = parseTime(time || "");
+    const parsedTime = parseTime(time);
 
     if (!parsedTime) {
-      alert("Unable to parse session time");
+      alert("Unable to parse session time.");
       return;
     }
 
-    const sessionTitle = title || "";
-    const sessionSpeaker = speaker || "";
-    const sessionLocation = location || "";
-    const sessionDescription = description || "";
-    const durationMinutes = Number.parseInt(duration || "60", 10) || 60;
+    const durationMinutes = Number.parseInt(duration, 10) || 60;
 
-    // November 21, 2026 in Windsor: EST, UTC−5.
+    // Preserves the existing event date:
+    // November 21, 2026, Windsor (EST, UTC−5).
     const startDate = new Date(
-      Date.UTC(
-        2026,
-        10,
-        21,
-        parsedTime.hours + 5,
-        parsedTime.minutes,
-      ),
+      Date.UTC(2026, 10, 21, parsedTime.hours + 5, parsedTime.minutes),
     );
 
     const endDate = new Date(
       startDate.getTime() + durationMinutes * 60_000,
     );
 
-    const overlay = document.createElement("div");
-    overlay.className =
-      "fixed inset-0 z-[1000] bg-black/50 flex items-center justify-center p-4";
+    const details = `Speaker: ${speaker}\n\n${description}`;
+    const previousFocus = document.activeElement as HTMLElement | null;
 
-    const panel = document.createElement("div");
-    panel.className =
-      "bg-white rounded-xl p-6 shadow-xl max-w-sm w-full";
+    const dialog = document.createElement("dialog");
+    dialog.className = "schedule-calendar-dialog";
+    dialog.setAttribute("aria-label", "Add to Calendar");
 
     const heading = document.createElement("h3");
     heading.className = "text-lg font-semibold text-gray-900 mb-2";
@@ -808,7 +599,7 @@ const icons: Record<string, string> = {
 
     const titleText = document.createElement("p");
     titleText.className = "text-sm text-gray-600 mb-5";
-    titleText.textContent = sessionTitle;
+    titleText.textContent = title;
 
     const googleButton = document.createElement("button");
     googleButton.type = "button";
@@ -828,7 +619,7 @@ const icons: Record<string, string> = {
       "w-full px-4 py-3 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-md font-medium";
     cancelButton.textContent = "Cancel";
 
-    panel.append(
+    dialog.append(
       heading,
       titleText,
       googleButton,
@@ -836,22 +627,23 @@ const icons: Record<string, string> = {
       cancelButton,
     );
 
-    overlay.append(panel);
-    document.body.append(overlay);
+    document.body.append(dialog);
+
+    dialog.addEventListener("close", () => {
+      dialog.remove();
+      previousFocus?.focus();
+    });
 
     googleButton.addEventListener("click", () => {
-      const details =
-        `Speaker: ${sessionSpeaker}\n\n${sessionDescription}`;
-
       const url =
         "https://calendar.google.com/calendar/render?action=TEMPLATE" +
-        `&text=${encodeURIComponent(sessionTitle)}` +
+        `&text=${encodeURIComponent(title)}` +
         `&dates=${formatUtcDate(startDate)}/${formatUtcDate(endDate)}` +
-        `&location=${encodeURIComponent(sessionLocation)}` +
+        `&location=${encodeURIComponent(location)}` +
         `&details=${encodeURIComponent(details)}`;
 
       window.open(url, "_blank", "noopener,noreferrer");
-      overlay.remove();
+      dialog.close();
     });
 
     appleButton.addEventListener("click", () => {
@@ -866,11 +658,9 @@ const icons: Record<string, string> = {
         `DTSTAMP:${formatUtcDate(new Date())}`,
         `DTSTART:${formatUtcDate(startDate)}`,
         `DTEND:${formatUtcDate(endDate)}`,
-        `SUMMARY:${escapeIcsText(sessionTitle)}`,
-        `DESCRIPTION:${escapeIcsText(
-          `Speaker: ${sessionSpeaker}\n\n${sessionDescription}`,
-        )}`,
-        `LOCATION:${escapeIcsText(sessionLocation)}`,
+        `SUMMARY:${escapeIcsText(title)}`,
+        `DESCRIPTION:${escapeIcsText(details)}`,
+        `LOCATION:${escapeIcsText(location)}`,
         "STATUS:CONFIRMED",
         "END:VEVENT",
         "END:VCALENDAR",
@@ -883,198 +673,206 @@ const icons: Record<string, string> = {
 
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
-
       link.href = url;
-      link.download =
-        `${sessionTitle.replace(/[^a-z0-9]+/gi, "-")}.ics`;
+      link.download = `${title.replace(/[^a-z0-9]+/gi, "-")}.ics`;
 
       document.body.append(link);
       link.click();
       link.remove();
 
       setTimeout(() => URL.revokeObjectURL(url), 1000);
-      overlay.remove();
+      dialog.close();
     });
 
-    cancelButton.addEventListener("click", () => overlay.remove());
+    cancelButton.addEventListener("click", () => dialog.close());
 
-    overlay.addEventListener("click", (event) => {
-      if (event.target === overlay) overlay.remove();
-    });
-  }
+    dialog.addEventListener("click", (event) => {
+      if (event.target !== dialog) return;
 
-  const speakerModal = document.getElementById(
-    "schedulespeakerModal",
-  );
-
-  function openSpeakerModal(element: HTMLElement) {
-    const {
-      speakerName = "",
-      speakerRole = "",
-      speakerCompany = "",
-      speakerBio = "",
-      speakerLinkedin = "",
-      speakerImage = "",
-    } = element.dataset;
-
-    const nameElement = document.getElementById(
-      "scheduleModalSpeakerName",
-    );
-
-    const roleElement = document.getElementById(
-      "scheduleModalSpeakerRole",
-    );
-
-    const companyElement = document.getElementById(
-      "scheduleModalSpeakerCompany",
-    );
-
-    const bioElement = document.getElementById(
-      "scheduleModalSpeakerBio",
-    );
-
-    const imageElement = document.getElementById(
-      "scheduleModalSpeakerImage",
-    ) as HTMLImageElement | null;
-
-    const linkedinElement = document.getElementById(
-      "scheduleModalLinkedinLink",
-    ) as HTMLAnchorElement | null;
-
-    if (nameElement) nameElement.textContent = speakerName;
-    if (roleElement) roleElement.textContent = speakerRole;
-    if (companyElement) companyElement.textContent = speakerCompany;
-    if (bioElement) bioElement.textContent = speakerBio;
-
-    if (imageElement) {
-      imageElement.src = speakerImage;
-      imageElement.alt = speakerName;
-    }
-
-    if (linkedinElement) {
-      linkedinElement.href = speakerLinkedin;
-      linkedinElement.style.display = speakerLinkedin
-        ? "inline-flex"
-        : "none";
-    }
-
-    speakerModal?.classList.remove("hidden");
-  }
-
-  document
-    .querySelectorAll<HTMLElement>(
-      ".speaker-schedule-image, .speaker-schedule-bio-btn",
-    )
-    .forEach((element) => {
-      element.addEventListener("click", (event) => {
-        event.stopPropagation();
-        openSpeakerModal(element);
-      });
-    });
-
-  document
-    .getElementById("scheduleCloseModalBtn")
-    ?.addEventListener("click", () => {
-      speakerModal?.classList.add("hidden");
-    });
-
-  speakerModal?.addEventListener("click", (event) => {
-    if (event.target === speakerModal) {
-      speakerModal.classList.add("hidden");
-    }
-  });
-
-  const sessionRows = document.querySelectorAll<SessionRow>(
-    "#schedule .session-row",
-  );
-
-  sessionRows.forEach((row) => {
-    row.addEventListener("click", (event) => {
+      const rect = dialog.getBoundingClientRect();
       if (
-        (event.target as HTMLElement).closest(
-          ".add-to-calendar-btn, .speaker-schedule-image, .speaker-schedule-bio-btn",
-        )
+        event.clientX < rect.left ||
+        event.clientX > rect.right ||
+        event.clientY < rect.top ||
+        event.clientY > rect.bottom
       ) {
-        return;
+        dialog.close();
+      }
+    });
+
+    dialog.showModal();
+  }
+
+  function initializeSchedule() {
+    const root = document.querySelector<HTMLElement>("#schedule");
+
+    if (!root || root.dataset.initialized === "true") return;
+    root.dataset.initialized = "true";
+
+    const speakerModal =
+      root.querySelector<HTMLDialogElement>("#schedulespeakerModal");
+
+    function openSpeakerModal(element: HTMLElement) {
+      if (!speakerModal) return;
+
+      const {
+        speakerName = "",
+        speakerRole = "",
+        speakerCompany = "",
+        speakerBio = "",
+        speakerLinkedin = "",
+        speakerImage = "/google-person.png",
+      } = element.dataset;
+
+      const setText = (selector: string, value: string) => {
+        const target = speakerModal.querySelector<HTMLElement>(selector);
+        if (target) target.textContent = value;
+      };
+
+      setText("#scheduleModalSpeakerName", speakerName);
+      setText("#scheduleModalSpeakerRole", speakerRole);
+      setText("#scheduleModalSpeakerCompany", speakerCompany);
+      setText("#scheduleModalSpeakerBio", speakerBio);
+
+      const image = speakerModal.querySelector<HTMLImageElement>(
+        "#scheduleModalSpeakerImage",
+      );
+
+      if (image) {
+        image.src = speakerImage;
+        image.alt = speakerName;
       }
 
-      const openSessionModal = (
-        window as Window & {
-          openSessionModal?: (details: SessionDetails) => void;
-        }
-      ).openSessionModal;
+      const linkedin = speakerModal.querySelector<HTMLAnchorElement>(
+        "#scheduleModalLinkedinLink",
+      );
 
-      openSessionModal?.({
-        title: row.dataset.title || "",
-        speaker: row.dataset.speaker || "",
-        description: row.dataset.description || "",
-        duration: row.dataset.duration || "",
-        track: row.dataset.track || "",
-        type: row.dataset.type || "",
+      if (linkedin) {
+        linkedin.hidden = !speakerLinkedin;
+        if (speakerLinkedin) {
+          linkedin.href = speakerLinkedin;
+        } else {
+          linkedin.removeAttribute("href");
+        }
+      }
+
+      if (!speakerModal.open) speakerModal.showModal();
+    }
+
+    root
+      .querySelectorAll<HTMLElement>(".speaker-schedule-trigger")
+      .forEach((element) => {
+        element.addEventListener("click", (event) => {
+          event.stopPropagation();
+          openSpeakerModal(element);
+        });
       });
+
+    root
+      .querySelector("#scheduleCloseModalBtn")
+      ?.addEventListener("click", () => speakerModal?.close());
+
+    speakerModal?.addEventListener("click", (event) => {
+      if (event.target !== speakerModal) return;
+
+      const rect = speakerModal.getBoundingClientRect();
+
+      if (
+        event.clientX < rect.left ||
+        event.clientX > rect.right ||
+        event.clientY < rect.top ||
+        event.clientY > rect.bottom
+      ) {
+        speakerModal.close();
+      }
     });
 
-    row
-      .querySelector<HTMLButtonElement>(".add-to-calendar-btn")
-      ?.addEventListener("click", (event) => {
-        event.stopPropagation();
-        addToCalendar(row);
+    const sessionRows =
+      root.querySelectorAll<HTMLTableRowElement>(".session-row");
+
+    sessionRows.forEach((row) => {
+      row.addEventListener("click", (event) => {
+        const target = event.target;
+        if (!(target instanceof Element)) return;
+
+        if (
+          target.closest(
+            ".add-to-calendar-btn, .speaker-schedule-trigger",
+          )
+        ) {
+          return;
+        }
+
+        const openSessionModal = (
+          window as Window & {
+            openSessionModal?: (details: SessionDetails) => void;
+          }
+        ).openSessionModal;
+
+        openSessionModal?.({
+          title: row.dataset.title || "",
+          speaker: row.dataset.speaker || "",
+          description: row.dataset.description || "",
+          duration: row.dataset.duration || "",
+          track: row.dataset.track || "",
+          type: row.dataset.type || "",
+        });
       });
-  });
 
-  const filterButtons = document.querySelectorAll<HTMLButtonElement>(
-    "#schedule .track-filter-btn",
-  );
+      row
+        .querySelector<HTMLButtonElement>(".add-to-calendar-btn")
+        ?.addEventListener("click", (event) => {
+          event.stopPropagation();
+          addToCalendar(row);
+        });
+    });
 
-  // Matches the initially visible rows and highlighted button.
-  let selectedTrack: string | null = "Google Cloud";
+    const filterButtons =
+      root.querySelectorAll<HTMLButtonElement>(".track-filter-btn");
 
-  filterButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const clickedTrack = button.dataset.track;
-
-      if (!clickedTrack) return;
-
-      selectedTrack =
-        clickedTrack === "ALL" || selectedTrack === clickedTrack
-          ? null
-          : clickedTrack;
-
-      filterButtons.forEach((filterButton) => {
-        const isActive =
-          filterButton.dataset.track === selectedTrack;
-
-        filterButton.classList.toggle("active", isActive);
-        filterButton.setAttribute(
-          "aria-pressed",
-          String(isActive),
-        );
+    function applyFilter(selectedTrack: string) {
+      filterButtons.forEach((button) => {
+        const active = button.dataset.track === selectedTrack;
+        button.classList.toggle("active", active);
+        button.setAttribute("aria-pressed", String(active));
       });
 
       sessionRows.forEach((row) => {
-        // "ALL" rows (Keynote, Lunch, Closing) stay visible for every track.
         const visible =
-          selectedTrack === null ||
+          selectedTrack === "ALL" ||
           row.dataset.track === selectedTrack ||
           row.dataset.track === "ALL";
 
         row.classList.toggle("hidden", !visible);
       });
+    }
 
-      document
-        .querySelector("#schedule table")
-        ?.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const selectedTrack = button.dataset.track;
+        if (selectedTrack) applyFilter(selectedTrack);
+      });
     });
-  });
+
+    applyFilter(root.dataset.defaultTrack || "Google Cloud");
+  }
+
+  initializeSchedule();
+  document.addEventListener("astro:page-load", initializeSchedule);
 </script>
 
 <style>
+  #schedule {
+    scroll-margin-top: 6rem;
+  }
+
   .track-filter-btn.active {
     box-shadow: 0 0 0 3px white, 0 0 0 6px #4285f4;
-    transform: scale(1.05);
+  }
+
+  .track-filter-btn:focus-visible {
+    outline: 2px solid #0f172a;
+    outline-offset: 7px;
   }
 
   .session-row.hidden {
@@ -1083,23 +881,49 @@ const icons: Record<string, string> = {
 
   .blob-shape {
     border-radius: 30% 70% 70% 30%;
-    animation: blob 8s ease-in-out infinite;
+    animation: scheduleBlob 8s ease-in-out infinite;
   }
 
-  @keyframes blob {
+  .schedule-bio-dialog {
+    width: min(42rem, calc(100% - 2rem));
+    max-height: 85vh;
+    margin: auto;
+    border: 0;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgb(0 0 0 / 20%);
+  }
+
+  .schedule-bio-dialog::backdrop {
+    background: rgb(0 0 0 / 50%);
+  }
+
+  :global(.schedule-calendar-dialog) {
+    width: min(24rem, calc(100% - 2rem));
+    max-height: 85vh;
+    margin: auto;
+    padding: 1.5rem;
+    border: 0;
+    border-radius: 1rem;
+    background: white;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgb(0 0 0 / 20%);
+  }
+
+  :global(.schedule-calendar-dialog::backdrop) {
+    background: rgb(0 0 0 / 50%);
+  }
+
+  @keyframes scheduleBlob {
     0%,
     100% {
       border-radius: 30% 70% 70% 30%;
     }
-
     25% {
       border-radius: 40% 60% 60% 40%;
     }
-
     50% {
       border-radius: 50%;
     }
-
     75% {
       border-radius: 60% 40% 40% 60%;
     }
@@ -1109,11 +933,15 @@ const icons: Record<string, string> = {
     .blob-shape {
       animation: none;
     }
+
+    .track-filter-btn,
+    .session-row {
+      transition: none;
+    }
   }
 
   @media (max-width: 767px) {
-    /* Compact, horizontally scrollable track filters */
-    #schedule .flex.flex-wrap.justify-center {
+    .track-filters {
       flex-wrap: nowrap;
       justify-content: flex-start;
       overflow-x: auto;
@@ -1121,31 +949,31 @@ const icons: Record<string, string> = {
       padding: 0.5rem;
       margin-bottom: 1.5rem;
       scrollbar-width: thin;
+      scrollbar-color: #94a3b8 #f1f5f9;
     }
 
-    #schedule .track-filter-btn {
+    .track-filter-btn {
       flex-shrink: 0;
       white-space: nowrap;
       padding: 0.65rem 1rem;
       font-size: 0.8rem;
     }
 
-    /* Turn each table row into a mobile card */
-    #schedule .overflow-x-auto {
+    .schedule-table-wrapper {
       overflow: visible;
     }
 
-    #schedule table,
-    #schedule tbody {
+    table,
+    tbody {
       display: block;
       width: 100%;
     }
 
-    #schedule thead {
+    thead {
       display: none;
     }
 
-    #schedule .session-row {
+    .session-row {
       display: grid;
       grid-template-columns: minmax(0, 1fr) auto;
       gap: 1rem;
@@ -1157,46 +985,44 @@ const icons: Record<string, string> = {
       box-shadow: 0 4px 16px rgb(15 23 42 / 4%);
     }
 
-    #schedule .session-row.hidden {
+    .session-row.hidden {
       display: none;
     }
 
-    #schedule .session-row > td {
+    .session-row > td {
       padding: 0;
       min-width: 0;
     }
 
-    /* Time at the top left */
-    #schedule .session-row > td:nth-child(1) {
-      grid-column: 1;
+    .session-row > td:nth-child(1) {
+      grid-column: 1 / -1;
       grid-row: 1;
       align-self: center;
       font-size: 0.875rem;
       color: #2563eb;
+      white-space: normal;
     }
 
-    /* Session details use the full card width */
-    #schedule .session-row > td:nth-child(2) {
+    .session-row > td:nth-child(2) {
       grid-column: 1 / -1;
       grid-row: 2;
     }
 
-    #schedule .session-row > td:nth-child(2) > div {
+    .session-row > td:nth-child(2) > div {
       gap: 0.75rem;
     }
 
-    #schedule .session-row .flex-grow {
+    .session-content {
       min-width: 0;
     }
 
-    #schedule .session-row h4 {
+    .session-row h4 {
       font-size: 1rem;
       line-height: 1.5;
       overflow-wrap: anywhere;
     }
 
-    /* Restore the room information on mobile */
-    #schedule .session-row > td:nth-child(3) {
+    .session-row > td:nth-child(3) {
       display: block;
       grid-column: 1;
       grid-row: 3;
@@ -1204,19 +1030,18 @@ const icons: Record<string, string> = {
       font-size: 0.8rem;
     }
 
-    #schedule .session-row > td:nth-child(3)::before {
+    .session-row > td:nth-child(3)::before {
       content: "Location: ";
       color: #64748b;
     }
 
-    /* Calendar button at the bottom right */
-    #schedule .session-row > td:nth-child(4) {
+    .session-row > td:nth-child(4) {
       grid-column: 2;
       grid-row: 3;
       text-align: right;
     }
 
-    #schedule .add-to-calendar-btn {
+    .add-to-calendar-btn {
       padding: 0.5rem 0.875rem;
       font-size: 0.8rem;
       border-radius: 0.625rem;
