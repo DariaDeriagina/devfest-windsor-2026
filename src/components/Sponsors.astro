@@ -12,6 +12,12 @@ const sponsors = [
     url: "https://www.uwindsor.ca/business/",
     color: "amber",
   },
+  {
+    name: "wetech",
+    logo: "/sponsors/WEtech-logo-main.webp",
+    url: "https://www.wetech-alliance.com/",
+    color: "green",
+  },
 ];
 
 const colorStyles: Record<string, { ring: string; blob: string }> = {
@@ -23,6 +29,10 @@ const colorStyles: Record<string, { ring: string; blob: string }> = {
     ring: "group-hover:ring-amber-500/40",
     blob: "bg-amber-500",
   },
+  green: {
+    ring: "group-hover:ring-green-600/40",
+    blob: "bg-green-600",
+  },
 };
 ---
 
@@ -30,7 +40,10 @@ const colorStyles: Record<string, { ring: string; blob: string }> = {
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Section label -->
     <div class="mb-8">
-      <span class="text-sm font-bold tracking-widest text-blue-600 uppercase" data-i18n="sponsors.label">Sponsors & Partners</span>
+      <span
+        class="text-sm font-bold tracking-widest text-blue-600 uppercase"
+        data-i18n="sponsors.label">Sponsors & Partners</span
+      >
     </div>
 
     <!-- Colored underline -->
@@ -42,43 +55,46 @@ const colorStyles: Record<string, { ring: string; blob: string }> = {
     </div>
 
     <!-- Sponsors grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-2xl">
-      {sponsors.map((sponsor) => {
-        const style = colorStyles[sponsor.color];
-        return (
-          <a
-            href={sponsor.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="group relative p-8 rounded-lg bg-gray-50 border border-gray-200 transition-all duration-300 hover:shadow-lg hover:border-gray-300 cursor-pointer"
-            title={sponsor.name}
-          >
-            <!-- Decorative blob background -->
-            <div
-              class:list={[
-                "blob-shape absolute inset-0 scale-0 transition-transform duration-300 group-hover:scale-100 rounded-lg",
-                style.blob,
-              ]}
-              style="opacity: 0.08;"
-              aria-hidden="true"
-            />
 
-            <!-- Logo only -->
-            <div
-              class:list={[
-                "relative z-10 ring-4 ring-transparent transition-all duration-300 rounded-lg overflow-hidden",
-                style.ring,
-              ]}
+<div class="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-4xl">
+      {
+        sponsors.map((sponsor) => {
+          const style = colorStyles[sponsor.color];
+          return (
+            <a
+              href={sponsor.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="group relative p-8 rounded-lg bg-gray-50 border border-gray-200 transition-all duration-300 hover:shadow-lg hover:border-gray-300 cursor-pointer"
+              title={sponsor.name}
             >
-              <img
-                src={sponsor.logo}
-                alt={sponsor.name}
-                class="h-24 w-full object-contain group-hover:scale-110 transition-transform duration-300"
+              <!-- Decorative blob background -->
+              <div
+                class:list={[
+                  "blob-shape absolute inset-0 scale-0 transition-transform duration-300 group-hover:scale-100 rounded-lg",
+                  style.blob,
+                ]}
+                style="opacity: 0.08;"
+                aria-hidden="true"
               />
-            </div>
-          </a>
-        );
-      })}
+
+              <!-- Logo -->
+              <div
+                class:list={[
+                  "relative z-10 ring-4 ring-transparent transition-all duration-300 rounded-lg overflow-hidden",
+                  style.ring,
+                ]}
+              >
+                <img
+                  src={sponsor.logo}
+                  alt={sponsor.name}
+                  class="h-24 w-full object-contain group-hover:scale-110 transition-transform duration-300"
+                />
+              </div>
+            </a>
+          );
+        })
+      }
     </div>
   </div>
 </section>
@@ -89,7 +105,8 @@ const colorStyles: Record<string, { ring: string; blob: string }> = {
   }
 
   @keyframes blob {
-    0%, 100% {
+    0%,
+    100% {
       border-radius: 30% 70% 70% 30%;
     }
     25% {
