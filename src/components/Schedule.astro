@@ -17,6 +17,7 @@ const finalDescription = description || t("en", "schedule.description");
 const DEFAULT_TRACK = "Google Cloud";
 const PLACEHOLDER_IMAGE = "/google-person.png";
 const LEADERSHIP_TRACK = "Leadership and Entrepreneurship";
+const FIRESIDE_TITLE = "Lunch & Fireside Chat";
 
 const normalizeSpeakerName = (name: string) =>
   name
@@ -104,6 +105,37 @@ const trackRooms: Record<string, string> = {
   [LEADERSHIP_TRACK]: "B02",
 };
 
+const roomLinks: Record<string, string> = {
+  "104": "https://ctl2.uwindsor.ca/classrooms/OB/104/",
+  "112": "https://ctl2.uwindsor.ca/classrooms/OB/112/",
+  "B14": "https://ctl2.uwindsor.ca/classrooms/OB/B14/",
+  "110": "https://ctl2.uwindsor.ca/classrooms/OB/110/",
+  "B02": "https://ctl2.uwindsor.ca/classrooms/OB/B02/",
+};
+
+const firesideParticipants = [
+  { name: "Don Ward"},
+  { name: "Naresh Jasotani" },
+  { name: "Mina Girges"},
+  { name: "James Lannigan"},
+  { name: "Yvonne Pilon"},
+].map((participant) => {
+  const profile = getSpeakerData(participant.name);
+
+  return {
+    name: participant.name,
+    panelRole: participant.panelRole,
+    imageUrl:
+      participant.name === "Yvonne Pilon"
+        ? "/speakers/yvonne_pilon.webp"
+        : profile?.imageUrl || PLACEHOLDER_IMAGE,
+    role: profile?.role || participant.panelRole,
+    company: profile?.company || "",
+    bio: profile?.bio || "",
+    linkedinUrl: profile?.linkedinUrl || "",
+  };
+});
+
 function createScheduledSession(
   time: string,
   speaker: string,
@@ -148,17 +180,26 @@ const scheduledSessions = [
   createScheduledSession("11:00 AM", "Keval Patel", "Full Stack"),
   createScheduledSession("11:00 AM", "Frank Abbruzzese", LEADERSHIP_TRACK),
 
-  // Shared lunch block. Participants can be added later.
+  // Shared lunch and fireside chat.
   {
     time: "12:00 PM - 1:00 PM",
     duration: "60 min",
-    title: "Lunch & Fireside Chat",
-    speaker: "Community",
+    title: FIRESIDE_TITLE,
+    speaker:
+      "Don Ward / Naresh Jasotani / Mina Girges / James Lannigan / Yvonne Pilon",
     track: "ALL",
     type: "Break",
-    location: "Main Hall",
-    description:
-      "Enjoy lunch and network with fellow developers and industry professionals.",
+    location: "104",
+    description: `The State of AI and Where the Industry is Going
+
+Panelists:
+• Don Ward
+• Naresh Jasotani
+• Mina Girges
+• James Lannigan
+
+Moderator:
+• Yvonne Pilon`,
   },
 
   // 1:00–1:45 PM
@@ -207,7 +248,7 @@ const scheduledSessions = [
 ];
 
 // Submitted titles and abstracts enrich the scheduled slots.
-// Times, rooms, tracks, types, and durations come from this schedule.
+// Times, durations, tracks, and locations remain defined by this schedule.
 const abstractsBySpeaker = new Map(
   SUBMITTED_SESSIONS.map((session) => [
     normalizeSpeakerName(session.speaker),
@@ -216,7 +257,6 @@ const abstractsBySpeaker = new Map(
 );
 
 const sessions = scheduledSessions.map((session) => {
-  // Preserve shared opening, lunch, and closing blocks.
   if (session.track === "ALL") return session;
 
   const abstract = abstractsBySpeaker.get(
@@ -266,7 +306,6 @@ const icons: Record<string, string> = {
       </p>
     </div>
 
-    <!-- Mobile scroll hint -->
     <p class="md:hidden text-center text-sm text-slate-500 mb-3">
       Swipe to explore all tracks
       <span aria-hidden="true"> →</span>
@@ -295,14 +334,21 @@ const icons: Record<string, string> = {
       }
     </div>
 
+    <!-- Schedule -->
     <div class="schedule-table-wrapper overflow-x-auto">
       <table class="w-full">
         <thead>
           <tr class="border-b-2 border-gray-200">
-            <th scope="col" class="text-left py-4 px-4 font-semibold text-gray-900">
+            <th
+              scope="col"
+              class="text-left py-4 px-4 font-semibold text-gray-900"
+            >
               TIME
             </th>
-            <th scope="col" class="text-left py-4 px-4 font-semibold text-gray-900">
+            <th
+              scope="col"
+              class="text-left py-4 px-4 font-semibold text-gray-900"
+            >
               SESSION
             </th>
             <th
@@ -311,7 +357,10 @@ const icons: Record<string, string> = {
             >
               LOCATION
             </th>
-            <th scope="col" class="text-center py-4 px-4 font-semibold text-gray-900">
+            <th
+              scope="col"
+              class="text-center py-4 px-4 font-semibold text-gray-900"
+            >
               ADD
             </th>
           </tr>
@@ -320,15 +369,28 @@ const icons: Record<string, string> = {
         <tbody>
           {
             sessions.map((session) => {
-              const speakerData = getSpeakerData(session.speaker);
+              const isFiresideChat = session.title === FIRESIDE_TITLE;
+
+              const speakerData = isFiresideChat
+                ? null
+                : getSpeakerData(session.speaker);
+
               const accent =
                 accentStyles[speakerData?.accentColor || "blue"] ||
                 accentStyles.blue;
-              const track = tracks.find((item) => item.name === session.track);
+
+              const track = tracks.find(
+                (item) => item.name === session.track,
+              );
+
               const speakerImage =
                 speakerData?.imageUrl || PLACEHOLDER_IMAGE;
+
+              const roomLink = roomLinks[session.location];
+
               const isVisibleOnLoad =
-                session.track === DEFAULT_TRACK || session.track === "ALL";
+                session.track === DEFAULT_TRACK ||
+                session.track === "ALL";
 
               return (
                 <tr
@@ -350,57 +412,112 @@ const icons: Record<string, string> = {
 
                   <td class="py-6 px-4">
                     <div class="flex items-start gap-4">
-                      <div class="flex-shrink-0">
-                        {speakerData ? (
-                          <button
-                            type="button"
-                            class="speaker-schedule-trigger group relative block w-12 h-12 rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-600"
-                            aria-label={`About ${speakerData.name}`}
-                            data-speaker-name={speakerData.name}
-                            data-speaker-role={speakerData.role}
-                            data-speaker-company={speakerData.company}
-                            data-speaker-bio={speakerData.bio || ""}
-                            data-speaker-linkedin={speakerData.linkedinUrl || ""}
-                            data-speaker-image={speakerImage}
-                          >
-                            <span
-                              class={`blob-shape absolute inset-0 scale-105 ${accent.blob}`}
-                              aria-hidden="true"
-                            />
+                      {/* Single-speaker portrait */}
+                      {!isFiresideChat && (
+                        <div class="flex-shrink-0">
+                          {speakerData ? (
+                            <button
+                              type="button"
+                              class="speaker-schedule-trigger group relative block w-12 h-12 rounded-full"
+                              aria-label={`About ${speakerData.name}`}
+                              data-speaker-name={speakerData.name}
+                              data-speaker-role={speakerData.role}
+                              data-speaker-company={speakerData.company}
+                              data-speaker-bio={speakerData.bio || ""}
+                              data-speaker-linkedin={
+                                speakerData.linkedinUrl || ""
+                              }
+                              data-speaker-image={speakerImage}
+                            >
+                              <span
+                                class={`blob-shape absolute inset-0 scale-105 ${accent.blob}`}
+                                aria-hidden="true"
+                              />
+
+                              <img
+                                src={speakerImage}
+                                alt={speakerData.imageAlt || speakerData.name}
+                                width="48"
+                                height="48"
+                                loading="lazy"
+                                class={`relative w-full h-full rounded-full object-cover ring-2 ring-white shadow-md ${accent.ring}`}
+                              />
+                            </button>
+                          ) : (
                             <img
-                              src={speakerImage}
-                              alt={speakerData.imageAlt || speakerData.name}
+                              src={PLACEHOLDER_IMAGE}
+                              alt=""
                               width="48"
                               height="48"
                               loading="lazy"
-                              class={`relative w-full h-full rounded-full object-cover ring-2 ring-white shadow-md ${accent.ring}`}
+                              class="w-12 h-12 rounded-full object-cover ring-2 ring-white shadow-md"
                             />
-                          </button>
-                        ) : (
-                          <img
-                            src={PLACEHOLDER_IMAGE}
-                            alt=""
-                            width="48"
-                            height="48"
-                            loading="lazy"
-                            class="w-12 h-12 rounded-full object-cover ring-2 ring-white shadow-md"
-                          />
-                        )}
-                      </div>
+                          )}
+                        </div>
+                      )}
 
                       <div class="session-content flex-grow min-w-0">
                         <h4 class="font-semibold text-gray-900 mb-2">
                           <button
                             type="button"
-                            class="session-title-btn text-left hover:text-blue-600 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-600"
+                            class="session-title-btn text-left hover:text-blue-600 transition-colors"
                           >
                             {session.title}
                           </button>
                         </h4>
 
-                        <p class="text-sm text-gray-600 mb-2">
-                          {session.speaker}
-                        </p>
+                        {isFiresideChat ? (
+                          <>
+                            <p class="text-sm text-gray-600 leading-relaxed">
+                              The State of AI and Where the Industry is Going
+                            </p>
+
+                            <div class="fireside-people">
+                              {firesideParticipants.map((participant) => (
+                                <button
+                                  type="button"
+                                  class="speaker-schedule-trigger fireside-person"
+                                  aria-label={`About ${participant.name}, ${participant.panelRole}`}
+                                  data-speaker-name={participant.name}
+                                  data-speaker-role={participant.role}
+                                  data-speaker-company={participant.company}
+                                  data-speaker-bio={participant.bio}
+                                  data-speaker-linkedin={
+                                    participant.linkedinUrl
+                                  }
+                                  data-speaker-image={participant.imageUrl}
+                                >
+                                  <img
+                                    src={participant.imageUrl}
+                                    alt={participant.name}
+                                    width="64"
+                                    height="64"
+                                    loading="lazy"
+                                    class="fireside-person-photo"
+                                  />
+
+                                  <span class="fireside-person-name">
+                                    {participant.name}
+                                  </span>
+
+                                  <span
+                                    class={`fireside-person-role ${
+                                      participant.panelRole === "Moderator"
+                                        ? "fireside-moderator"
+                                        : ""
+                                    }`}
+                                  >
+                                    {participant.panelRole}
+                                  </span>
+                                </button>
+                              ))}
+                            </div>
+                          </>
+                        ) : (
+                          <p class="text-sm text-gray-600 mb-2">
+                            {session.speaker}
+                          </p>
+                        )}
 
                         <div class="flex flex-wrap gap-2">
                           <span
@@ -417,9 +534,12 @@ const icons: Record<string, string> = {
                             {session.track}
                           </span>
 
-                          <span class="px-3 py-1.5 rounded-full text-xs font-semibold text-gray-700 bg-gray-200">
-                            {session.type}
-                          </span>
+                          {/* Hide the Technical Session label */}
+                          {session.type !== "Technical Session" && (
+                            <span class="px-3 py-1.5 rounded-full text-xs font-semibold text-gray-700 bg-gray-200">
+                              {session.type}
+                            </span>
+                          )}
 
                           {speakerData?.bio && (
                             <button
@@ -430,7 +550,9 @@ const icons: Record<string, string> = {
                               data-speaker-role={speakerData.role}
                               data-speaker-company={speakerData.company}
                               data-speaker-bio={speakerData.bio}
-                              data-speaker-linkedin={speakerData.linkedinUrl || ""}
+                              data-speaker-linkedin={
+                                speakerData.linkedinUrl || ""
+                              }
                               data-speaker-image={speakerImage}
                             >
                               BIO
@@ -441,10 +563,24 @@ const icons: Record<string, string> = {
                     </div>
                   </td>
 
+                  <!-- Room link -->
                   <td class="py-6 px-4 text-gray-600 hidden md:table-cell">
-                    <span class="text-blue-600 font-semibold">
-                      {session.location}
-                    </span>
+                    {roomLink ? (
+                      <a
+                        href={roomLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="room-link inline-flex items-center gap-1 text-blue-600 font-semibold underline underline-offset-4 hover:text-blue-800"
+                        aria-label={`View Room ${session.location} — opens in a new tab`}
+                      >
+                        {session.location}
+                        <span aria-hidden="true">↗</span>
+                      </a>
+                    ) : (
+                      <span class="text-blue-600 font-semibold">
+                        {session.location}
+                      </span>
+                    )}
                   </td>
 
                   <td class="py-6 px-4 text-center">
@@ -467,7 +603,7 @@ const icons: Record<string, string> = {
 
   <SessionModal sessions={sessions} />
 
-  <!-- Speaker biography -->
+  <!-- Speaker biography modal -->
   <dialog
     id="schedulespeakerModal"
     class="schedule-bio-dialog rounded-2xl bg-white p-0 text-slate-900"
@@ -480,8 +616,16 @@ const icons: Record<string, string> = {
             id="scheduleModalSpeakerName"
             class="text-2xl font-bold"
           ></h2>
-          <p id="scheduleModalSpeakerRole" class="text-sm text-slate-600 mt-1"></p>
-          <p id="scheduleModalSpeakerCompany" class="text-sm text-slate-600"></p>
+
+          <p
+            id="scheduleModalSpeakerRole"
+            class="text-sm text-slate-600 mt-1"
+          ></p>
+
+          <p
+            id="scheduleModalSpeakerCompany"
+            class="text-sm text-slate-600"
+          ></p>
         </div>
 
         <button
@@ -576,10 +720,15 @@ const icons: Record<string, string> = {
 
     const durationMinutes = Number.parseInt(duration, 10) || 60;
 
-    // Preserves the existing event date:
     // November 21, 2026, Windsor (EST, UTC−5).
     const startDate = new Date(
-      Date.UTC(2026, 10, 21, parsedTime.hours + 5, parsedTime.minutes),
+      Date.UTC(
+        2026,
+        10,
+        21,
+        parsedTime.hours + 5,
+        parsedTime.minutes,
+      ),
     );
 
     const endDate = new Date(
@@ -587,7 +736,8 @@ const icons: Record<string, string> = {
     );
 
     const details = `Speaker: ${speaker}\n\n${description}`;
-    const previousFocus = document.activeElement as HTMLElement | null;
+    const previousFocus =
+      document.activeElement as HTMLElement | null;
 
     const dialog = document.createElement("dialog");
     dialog.className = "schedule-calendar-dialog";
@@ -673,6 +823,7 @@ const icons: Record<string, string> = {
 
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
+
       link.href = url;
       link.download = `${title.replace(/[^a-z0-9]+/gi, "-")}.ics`;
 
@@ -690,6 +841,7 @@ const icons: Record<string, string> = {
       if (event.target !== dialog) return;
 
       const rect = dialog.getBoundingClientRect();
+
       if (
         event.clientX < rect.left ||
         event.clientX > rect.right ||
@@ -725,7 +877,9 @@ const icons: Record<string, string> = {
       } = element.dataset;
 
       const setText = (selector: string, value: string) => {
-        const target = speakerModal.querySelector<HTMLElement>(selector);
+        const target =
+          speakerModal.querySelector<HTMLElement>(selector);
+
         if (target) target.textContent = value;
       };
 
@@ -743,12 +897,14 @@ const icons: Record<string, string> = {
         image.alt = speakerName;
       }
 
-      const linkedin = speakerModal.querySelector<HTMLAnchorElement>(
-        "#scheduleModalLinkedinLink",
-      );
+      const linkedin =
+        speakerModal.querySelector<HTMLAnchorElement>(
+          "#scheduleModalLinkedinLink",
+        );
 
       if (linkedin) {
         linkedin.hidden = !speakerLinkedin;
+
         if (speakerLinkedin) {
           linkedin.href = speakerLinkedin;
         } else {
@@ -797,7 +953,7 @@ const icons: Record<string, string> = {
 
         if (
           target.closest(
-            ".add-to-calendar-btn, .speaker-schedule-trigger",
+            ".add-to-calendar-btn, .speaker-schedule-trigger, .room-link",
           )
         ) {
           return;
@@ -850,7 +1006,10 @@ const icons: Record<string, string> = {
     filterButtons.forEach((button) => {
       button.addEventListener("click", () => {
         const selectedTrack = button.dataset.track;
-        if (selectedTrack) applyFilter(selectedTrack);
+
+        if (selectedTrack) {
+          applyFilter(selectedTrack);
+        }
       });
     });
 
@@ -875,6 +1034,14 @@ const icons: Record<string, string> = {
     outline-offset: 7px;
   }
 
+  .speaker-schedule-trigger:focus-visible,
+  .session-title-btn:focus-visible,
+  .room-link:focus-visible,
+  .add-to-calendar-btn:focus-visible {
+    outline: 2px solid #4285f4;
+    outline-offset: 4px;
+  }
+
   .session-row.hidden {
     display: none;
   }
@@ -882,6 +1049,64 @@ const icons: Record<string, string> = {
   .blob-shape {
     border-radius: 30% 70% 70% 30%;
     animation: scheduleBlob 8s ease-in-out infinite;
+  }
+
+  .room-link {
+    white-space: nowrap;
+  }
+
+  /* Five fireside participants displayed side by side */
+  .fireside-people {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0.5rem;
+    width: 100%;
+    max-width: 30rem;
+    margin: 1rem 0;
+  }
+
+  .fireside-person {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    min-width: 0;
+    padding: 0.25rem 0;
+    border-radius: 0.75rem;
+    text-align: center;
+  }
+
+  .fireside-person-photo {
+    display: block;
+    width: 64px;
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid white;
+    box-shadow: 0 3px 12px rgb(15 23 42 / 12%);
+    transition: transform 0.2s ease;
+  }
+
+  .fireside-person-name {
+    color: #0f172a;
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+  }
+
+  .fireside-person-role {
+    margin-top: auto;
+    color: #64748b;
+    font-size: 0.65rem;
+    line-height: 1.3;
+  }
+
+  .fireside-moderator {
+    color: #2563eb;
+    font-weight: 700;
   }
 
   .schedule-bio-dialog {
@@ -918,25 +1143,23 @@ const icons: Record<string, string> = {
     100% {
       border-radius: 30% 70% 70% 30%;
     }
+
     25% {
       border-radius: 40% 60% 60% 40%;
     }
+
     50% {
       border-radius: 50%;
     }
+
     75% {
       border-radius: 60% 40% 40% 60%;
     }
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .blob-shape {
-      animation: none;
-    }
-
-    .track-filter-btn,
-    .session-row {
-      transition: none;
+  @media (hover: hover) {
+    .fireside-person:hover .fireside-person-photo {
+      transform: translateY(-3px);
     }
   }
 
@@ -1045,6 +1268,39 @@ const icons: Record<string, string> = {
       padding: 0.5rem 0.875rem;
       font-size: 0.8rem;
       border-radius: 0.625rem;
+    }
+
+    .fireside-people {
+      gap: 0.35rem;
+    }
+
+    .fireside-person-photo {
+      width: 52px;
+      border-width: 2px;
+    }
+
+    .fireside-person-name {
+      font-size: 0.65rem;
+    }
+
+    .fireside-person-role {
+      font-size: 0.6rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .blob-shape {
+      animation: none;
+    }
+
+    .track-filter-btn,
+    .session-row,
+    .fireside-person-photo {
+      transition: none;
+    }
+
+    .fireside-person:hover .fireside-person-photo {
+      transform: none;
     }
   }
 </style>
