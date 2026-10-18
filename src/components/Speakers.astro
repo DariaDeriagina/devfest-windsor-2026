@@ -63,7 +63,7 @@ const linkedinPath =
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Section Header -->
-    <div class="speakers-header animate-fade-in-up mb-12 sm:mb-16">
+    <div class="text-left mb-12 sm:mb-16">
       <span
         class="text-sm font-bold tracking-widest text-blue-600 uppercase"
       >
@@ -80,7 +80,7 @@ const linkedinPath =
 
       <div class="speakers-heading-row">
         <h2
-          class="speakers-heading font-bold text-slate-900"
+          class="text-3xl sm:text-4xl font-bold text-slate-900 leading-tight"
           data-i18n="speakers.title"
         >
           {t("en", "speakers.title")}
@@ -379,10 +379,6 @@ const linkedinPath =
 </section>
 
 <style>
-  .speakers-header {
-    width: 100%;
-  }
-
   .speakers-color-lines {
     display: flex;
     gap: 0.5rem;
@@ -406,14 +402,6 @@ const linkedinPath =
     margin-top: 0.5rem;
   }
 
-  .speakers-heading {
-    margin: 0;
-    max-width: 100%;
-    font-size: clamp(1.75rem, 6vw, 3rem);
-    line-height: 1.15;
-    overflow-wrap: break-word;
-  }
-
   .speakers-animation {
     width: 4rem;
     height: 4rem;
@@ -423,11 +411,6 @@ const linkedinPath =
   @media (min-width: 640px) {
     .speakers-heading-row {
       gap: 2rem;
-    }
-
-    .speakers-heading {
-      font-size: 3rem;
-      white-space: nowrap;
     }
 
     .speakers-animation {
@@ -705,7 +688,7 @@ const linkedinPath =
 
       player.setAttribute(
         "src",
-        "https://lottie.host/f66e8fc4-b620-437a-b679-76681e6d4556/fsgOx80vt3.json"
+        "/animations/Marketing.json"
       );
       player.setAttribute("background", "transparent");
       player.setAttribute("speed", "1");
