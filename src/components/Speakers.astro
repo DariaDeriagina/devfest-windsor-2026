@@ -7,402 +7,446 @@ interface Props {
   viewAllHref?: string;
 }
 
-const { speakers: featuredSpeakers, viewAllHref = "#" } = Astro.props;
+const { speakers: featuredSpeakers } = Astro.props;
 
-// Separate keynote speaker from others
-const keynoteSpeaker = featuredSpeakers.find((s) => s.isKeynote);
-const regularSpeakers = featuredSpeakers.filter((s) => !s.isKeynote);
+const keynoteSpeaker = featuredSpeakers.find((speaker) => speaker.isKeynote);
+const regularSpeakers = featuredSpeakers.filter((speaker) => !speaker.isKeynote);
 
-const accentStyles: Record<string, { blob: string; badge: string; ring: string }> = {
+const accentStyles: Record<string, { blob: string; ring: string }> = {
   blue: {
     blob: "bg-blue-600",
-    badge: "bg-blue-600",
     ring: "group-hover:ring-blue-600/40",
   },
   green: {
     blob: "bg-green-600",
-    badge: "bg-green-600",
     ring: "group-hover:ring-green-600/40",
   },
   red: {
     blob: "bg-red-600",
-    badge: "bg-red-600",
     ring: "group-hover:ring-red-600/40",
   },
   gold: {
     blob: "bg-amber-500",
-    badge: "bg-amber-500",
     ring: "group-hover:ring-amber-500/40",
   },
 };
+
+const speakerGroups = [
+  {
+    id: "keynoteSpeakersGrid",
+    isKeynote: true,
+    isAdditional: false,
+    speakers: keynoteSpeaker ? [keynoteSpeaker] : [],
+  },
+  {
+    id: "speakersGrid",
+    isKeynote: false,
+    isAdditional: false,
+    speakers: regularSpeakers.slice(0, 4),
+  },
+  {
+    id: "additionalSpeakersGrid",
+    isKeynote: false,
+    isAdditional: true,
+    speakers: regularSpeakers.slice(4),
+  },
+];
+
+const linkedinPath =
+  "M20.447 20.452h-3.554v-5.569c0-1.328-.475-2.236-1.986-2.236-1.081 0-1.722.731-2.004 1.438-.103.249-.129.597-.129.946v5.421h-3.554s.045-8.789 0-9.514h3.554v1.348c.421-.649 1.175-1.573 2.853-1.573 2.08 0 3.641 1.36 3.641 4.28v5.459zM5.337 9.433c-1.144 0-1.915-.759-1.915-1.708 0-.955.77-1.708 1.963-1.708 1.192 0 1.914.753 1.939 1.708 0 .949-.747 1.708-1.987 1.708zm1.582 10.019H3.755V9.938h3.164v9.514zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z";
 ---
 
-<section id="speakers" class="relative py-20 sm:py-24 bg-white overflow-hidden" aria-label="Featured speakers">
+<section
+  id="speakers"
+  class="relative py-20 sm:py-24 bg-white overflow-hidden"
+  aria-label="Featured speakers"
+>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Section Header -->
-    <div class="animate-fade-in-up flex flex-col gap-6 mb-16">
-      <div class="max-w-xl">
-        <span class="text-sm font-bold tracking-widest text-blue-600 uppercase">
-          SPEAKERS
-        </span>
-        <div class="flex items-center gap-6 flex-wrap sm:flex-nowrap">
-          <h2 class="mt-2 text-4xl sm:text-5xl font-bold text-slate-900 whitespace-nowrap" data-i18n="speakers.title">
-            {t('en', 'speakers.title')}
-          </h2>
-          <div id="speakersAnimation" class="w-24 h-24 sm:w-40 sm:h-40 flex-shrink-0"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Keynote Speaker Section -->
-    {keynoteSpeaker && (
-      <div class="mb-20">
-        <h3 class="text-2xl font-bold text-slate-900 mb-12 text-center">Keynote Speaker</h3>
-        <div class="flex justify-center">
-          {
-            (() => {
-              const speaker = keynoteSpeaker;
-              const accent = accentStyles[speaker.accentColor];
-              return (
-                <div
-                  class="group flex flex-col items-center text-center max-w-xs"
-                  data-speaker-name={speaker.name}
-                  data-speaker-role={speaker.role}
-                  data-speaker-company={speaker.company}
-                  data-speaker-bio={speaker.bio || ''}
-                  data-speaker-linkedin={speaker.linkedinUrl || ''}
-                  data-speaker-image={speaker.imageUrl}
-                  data-speaker-alt={speaker.imageAlt}
-                >
-                  <!-- Avatar -->
-                  <div class="relative w-40 h-40 sm:w-48 sm:h-48 mb-5">
-                    <div
-                      class:list={[
-                        "blob-shape absolute inset-0 scale-105 transition-transform duration-300 group-hover:scale-110",
-                        accent.blob,
-                      ]}
-                      aria-hidden="true"
-                    />
-                    <img
-                      src={speaker.imageUrl}
-                      alt={speaker.imageAlt}
-                      class:list={[
-                        "speaker-image relative w-full h-full rounded-full object-cover ring-4 ring-white shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-110 cursor-pointer",
-                        accent.ring,
-                      ]}
-                      loading="lazy"
-                      data-speaker-name={speaker.name}
-                      data-speaker-role={speaker.role}
-                      data-speaker-company={speaker.company}
-                      data-speaker-bio={speaker.bio || ''}
-                      data-speaker-linkedin={speaker.linkedinUrl || ''}
-                      data-speaker-image={speaker.imageUrl}
-                      data-speaker-alt={speaker.imageAlt}
-                    />
-                  </div>
-
-                  <!-- Info -->
-                  <h3 class="text-xl sm:text-2xl font-semibold text-slate-900">
-                    {speaker.name}
-                  </h3>
-                  <p class="text-base text-slate-600 mt-2">
-                    {speaker.company}
-                  </p>
-                  <p class="text-sm text-slate-500 mt-1">
-                    {speaker.role}
-                  </p>
-
-                  <!-- Actions -->
-                  <div class="flex items-center justify-center gap-3 mt-6">
-                    <button
-                      class="speaker-bio-btn px-7 py-2 text-sm text-blue-600 bg-white border border-slate-300 rounded-md hover:border-blue-600 hover:bg-blue-50 transition-colors"
-                      data-speaker-name={speaker.name}
-                      data-speaker-role={speaker.role}
-                      data-speaker-company={speaker.company}
-                      data-speaker-bio={speaker.bio || ''}
-                      data-speaker-linkedin={speaker.linkedinUrl || ''}
-                      data-speaker-image={speaker.imageUrl}
-                      data-speaker-alt={speaker.imageAlt}
-                    >
-                      See bio
-                    </button>
-                    {speaker.linkedinUrl && (
-                      <a
-                        href={speaker.linkedinUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="inline-flex items-center justify-center w-10 h-10 text-blue-600 bg-white border border-slate-300 rounded-md hover:border-blue-600 hover:bg-blue-50 transition-colors"
-                        title="LinkedIn"
-                        aria-label={`${speaker.name} on LinkedIn`}
-                      >
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.475-2.236-1.986-2.236-1.081 0-1.722.731-2.004 1.438-.103.249-.129.597-.129.946v5.421h-3.554s.045-8.789 0-9.514h3.554v1.348c.421-.649 1.175-1.573 2.853-1.573 2.08 0 3.641 1.36 3.641 4.28v5.459zM5.337 9.433c-1.144 0-1.915-.759-1.915-1.708 0-.955.77-1.708 1.963-1.708 1.192 0 1.914.753 1.939 1.708 0 .949-.747 1.708-1.987 1.708zm1.582 10.019H3.755V9.938h3.164v9.514zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/>
-                        </svg>
-                      </a>
-                    )}
-                  </div>
-                </div>
-              );
-            })()
-          }
-        </div>
-      </div>
-    )}
-
-    <!-- Featured Speakers Header -->
-    <h3 class="text-2xl font-bold text-slate-900 mb-12">Featured Speakers</h3>
-
-    <!-- Featured Speakers Grid (First 4) -->
-    <div id="speakersGrid" class="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-14 animate-stagger">
-      {
-        regularSpeakers.slice(0, 4).map((speaker, index) => {
-          const accent = accentStyles[speaker.accentColor];
-          return (
-            <div
-              class="group flex flex-col items-center text-center animate-fade-in-up"
-              style={`animation-delay: ${index * 0.1}s;`}
-              data-speaker-name={speaker.name}
-              data-speaker-role={speaker.role}
-              data-speaker-company={speaker.company}
-              data-speaker-bio={speaker.bio || ''}
-              data-speaker-linkedin={speaker.linkedinUrl || ''}
-              data-speaker-image={speaker.imageUrl}
-              data-speaker-alt={speaker.imageAlt}
-            >
-              <!-- Avatar -->
-              <div class="relative w-32 h-32 sm:w-40 sm:h-40 mb-5">
-                <div
-                  class:list={[
-                    "blob-shape absolute inset-0 scale-105 transition-transform duration-300 group-hover:scale-110",
-                    accent.blob,
-                  ]}
-                  style={`animation-delay: ${index * 700}ms;`}
-                  aria-hidden="true"
-                />
-                <img
-                  src={speaker.imageUrl}
-                  alt={speaker.imageAlt}
-                  class:list={[
-                    "speaker-image relative w-full h-full rounded-full object-cover ring-4 ring-white shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-110 cursor-pointer",
-                    accent.ring,
-                  ]}
-                  loading="lazy"
-                  data-speaker-name={speaker.name}
-                  data-speaker-role={speaker.role}
-                  data-speaker-company={speaker.company}
-                  data-speaker-bio={speaker.bio || ''}
-                  data-speaker-linkedin={speaker.linkedinUrl || ''}
-                  data-speaker-image={speaker.imageUrl}
-                  data-speaker-alt={speaker.imageAlt}
-                />
-              </div>
-
-              <!-- Info -->
-              <h3 class="text-base sm:text-lg font-semibold text-slate-900">
-                {speaker.name}
-              </h3>
-              <p class="text-sm text-slate-600 mt-1">
-                {speaker.company}
-              </p>
-              <p class="text-xs text-slate-500 mt-1 line-clamp-1">
-                {speaker.role}
-              </p>
-
-              <!-- Actions -->
-              <div class="flex items-center justify-center gap-3 mt-4">
-                <button
-                  class="speaker-bio-btn px-7 py-2 text-sm text-blue-600 bg-white border border-slate-300 rounded-md hover:border-blue-600 hover:bg-blue-50 transition-colors"
-                  data-speaker-name={speaker.name}
-                  data-speaker-role={speaker.role}
-                  data-speaker-company={speaker.company}
-                  data-speaker-bio={speaker.bio || ''}
-                  data-speaker-linkedin={speaker.linkedinUrl || ''}
-                  data-speaker-image={speaker.imageUrl}
-                  data-speaker-alt={speaker.imageAlt}
-                >
-                  See bio
-                </button>
-                {speaker.linkedinUrl && (
-                  <a
-                    href={speaker.linkedinUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="inline-flex items-center justify-center w-10 h-10 text-blue-600 bg-white border border-slate-300 rounded-md hover:border-blue-600 hover:bg-blue-50 transition-colors"
-                    title="LinkedIn"
-                    aria-label={`${speaker.name} on LinkedIn`}
-                  >
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.475-2.236-1.986-2.236-1.081 0-1.722.731-2.004 1.438-.103.249-.129.597-.129.946v5.421h-3.554s.045-8.789 0-9.514h3.554v1.348c.421-.649 1.175-1.573 2.853-1.573 2.08 0 3.641 1.36 3.641 4.28v5.459zM5.337 9.433c-1.144 0-1.915-.759-1.915-1.708 0-.955.77-1.708 1.963-1.708 1.192 0 1.914.753 1.939 1.708 0 .949-.747 1.708-1.987 1.708zm1.582 10.019H3.755V9.938h3.164v9.514zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/>
-                    </svg>
-                  </a>
-                )}
-              </div>
-            </div>
-          );
-        })
-      }
-    </div>
-
-    <!-- View All Button -->
-    <div class="flex justify-center mt-12 mb-12">
-      <button
-        id="viewAllSpeakersBtn"
-        class="group/link inline-flex items-center gap-2 text-blue-600 font-semibold hover:text-blue-700 transition-colors whitespace-nowrap"
-        data-i18n="speakers.viewAll"
+    <div class="speakers-header animate-fade-in-up mb-12 sm:mb-16">
+      <span
+        class="text-sm font-bold tracking-widest text-blue-600 uppercase"
       >
-        {t('en', 'speakers.viewAll')}
-        <span aria-hidden="true" class="inline-block transition-transform duration-300 group-hover/link:translate-x-1.5">→</span>
-      </button>
+        SPEAKERS
+      </span>
+
+      <!-- Decorative Color Lines -->
+      <div class="speakers-color-lines" aria-hidden="true">
+        <span class="bg-blue-600"></span>
+        <span class="bg-red-600"></span>
+        <span class="bg-yellow-400"></span>
+        <span class="bg-green-600"></span>
+      </div>
+
+      <div class="speakers-heading-row">
+        <h2
+          class="speakers-heading font-bold text-slate-900"
+          data-i18n="speakers.title"
+        >
+          {t("en", "speakers.title")}
+        </h2>
+
+        <div
+          id="speakersAnimation"
+          class="speakers-animation"
+          aria-hidden="true"
+        ></div>
+      </div>
     </div>
 
-    <!-- Additional Speakers (Hidden) -->
-    <div id="additionalSpeakersContainer" class="hidden">
-      <div id="additionalSpeakersGrid" class="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-14 animate-stagger mb-12">
-        {
-          regularSpeakers.slice(4).map((speaker, index) => {
-            const accent = accentStyles[speaker.accentColor];
-            return (
-              <div
-                class="group flex flex-col items-center text-center animate-fade-in-up"
-                style={`animation-delay: ${index * 0.1}s;`}
-                data-speaker-name={speaker.name}
-                data-speaker-role={speaker.role}
-                data-speaker-company={speaker.company}
-                data-speaker-bio={speaker.bio || ''}
-                data-speaker-linkedin={speaker.linkedinUrl || ''}
-                data-speaker-image={speaker.imageUrl}
-                data-speaker-alt={speaker.imageAlt}
-              >
-                <!-- Avatar -->
-                <div class="relative w-32 h-32 sm:w-40 sm:h-40 mb-5">
+    {
+      speakerGroups.map((group) => (
+        <>
+          {!group.isKeynote && !group.isAdditional && (
+            <h3 class="text-2xl font-bold text-slate-900 mb-12">
+              Featured Speakers
+            </h3>
+          )}
+
+          <div
+            id={group.isAdditional ? "additionalSpeakersContainer" : undefined}
+            class:list={[
+              group.isAdditional && "hidden",
+              group.isKeynote && group.speakers.length > 0 && "mb-20",
+            ]}
+          >
+            <div
+              id={group.id}
+              class:list={[
+                group.isKeynote
+                  ? "flex justify-center"
+                  : "grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-14",
+                group.isAdditional && "mb-12",
+              ]}
+            >
+              {group.speakers.map((speaker, index) => {
+                const accent =
+                  accentStyles[speaker.accentColor] || accentStyles.blue;
+
+                return (
                   <div
                     class:list={[
-                      "blob-shape absolute inset-0 scale-105 transition-transform duration-300 group-hover:scale-110",
-                      accent.blob,
+                      "speaker-card group flex flex-col items-center text-center min-w-0 animate-fade-in-up",
+                      group.isKeynote && "max-w-xs",
                     ]}
-                    style={`animation-delay: ${index * 700}ms;`}
-                    aria-hidden="true"
-                  />
-                  <img
-                    src={speaker.imageUrl}
-                    alt={speaker.imageAlt}
-                    class:list={[
-                      "speaker-image relative w-full h-full rounded-full object-cover ring-4 ring-white shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-110 cursor-pointer",
-                      accent.ring,
-                    ]}
-                    loading="eager"
+                    style={`animation-delay: ${index * 0.1}s;`}
                     data-speaker-name={speaker.name}
                     data-speaker-role={speaker.role}
                     data-speaker-company={speaker.company}
-                    data-speaker-bio={speaker.bio || ''}
-                    data-speaker-linkedin={speaker.linkedinUrl || ''}
-                    data-speaker-image={speaker.imageUrl}
-                    data-speaker-alt={speaker.imageAlt}
-                  />
-                </div>
-
-                <!-- Info -->
-                <h3 class="text-base sm:text-lg font-semibold text-slate-900">
-                  {speaker.name}
-                </h3>
-                <p class="text-sm text-slate-600 mt-1">
-                  {speaker.company}
-                </p>
-                <p class="text-xs text-slate-500 mt-1 line-clamp-1">
-                  {speaker.role}
-                </p>
-
-                <!-- Actions -->
-                <div class="flex items-center justify-center gap-3 mt-4">
-                  <button
-                    class="speaker-bio-btn px-7 py-2 text-sm text-blue-600 bg-white border border-slate-300 rounded-md hover:border-blue-600 hover:bg-blue-50 transition-colors"
-                    data-speaker-name={speaker.name}
-                    data-speaker-role={speaker.role}
-                    data-speaker-company={speaker.company}
-                    data-speaker-bio={speaker.bio || ''}
-                    data-speaker-linkedin={speaker.linkedinUrl || ''}
+                    data-speaker-bio={speaker.bio || ""}
                     data-speaker-image={speaker.imageUrl}
                     data-speaker-alt={speaker.imageAlt}
                   >
-                    See bio
-                  </button>
-                  {speaker.linkedinUrl && (
-                    <a
-                      href={speaker.linkedinUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="inline-flex items-center justify-center w-10 h-10 text-blue-600 bg-white border border-slate-300 rounded-md hover:border-blue-600 hover:bg-blue-50 transition-colors"
-                      title="LinkedIn"
-                      aria-label={`${speaker.name} on LinkedIn`}
+                    <!-- Avatar -->
+                    <button
+                      type="button"
+                      class:list={[
+                        "speaker-image relative block flex-shrink-0 mb-5 rounded-full",
+                        group.isKeynote
+                          ? "w-40 h-40 sm:w-48 sm:h-48"
+                          : "w-32 h-32 sm:w-40 sm:h-40",
+                      ]}
+                      aria-label={`Read biography of ${speaker.name}`}
+                      aria-haspopup="dialog"
+                      aria-controls="speakerModal"
                     >
-                      <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.475-2.236-1.986-2.236-1.081 0-1.722.731-2.004 1.438-.103.249-.129.597-.129.946v5.421h-3.554s.045-8.789 0-9.514h3.554v1.348c.421-.649 1.175-1.573 2.853-1.573 2.08 0 3.641 1.36 3.641 4.28v5.459zM5.337 9.433c-1.144 0-1.915-.759-1.915-1.708 0-.955.77-1.708 1.963-1.708 1.192 0 1.914.753 1.939 1.708 0 .949-.747 1.708-1.987 1.708zm1.582 10.019H3.755V9.938h3.164v9.514zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/>
-                      </svg>
-                    </a>
-                  )}
-                </div>
+                      <span
+                        class:list={[
+                          "blob-shape absolute inset-0 scale-105 transition-transform duration-300 group-hover:scale-110",
+                          accent.blob,
+                        ]}
+                        style={`animation-delay: ${index * 700}ms;`}
+                        aria-hidden="true"
+                      ></span>
+
+                      <img
+                        src={speaker.imageUrl}
+                        alt={speaker.imageAlt}
+                        class:list={[
+                          "relative w-full h-full rounded-full object-cover ring-4 ring-white shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-110",
+                          accent.ring,
+                        ]}
+                        loading="lazy"
+                      />
+                    </button>
+
+                    <!-- Speaker Info -->
+                    <h3
+                      class:list={[
+                        "font-semibold text-slate-900",
+                        group.isKeynote
+                          ? "text-xl sm:text-2xl"
+                          : "text-base sm:text-lg",
+                      ]}
+                    >
+                      {speaker.name}
+                    </h3>
+
+                    <p
+                      class:list={[
+                        "text-slate-600",
+                        group.isKeynote
+                          ? "text-base mt-2"
+                          : "text-sm mt-1",
+                      ]}
+                    >
+                      {speaker.company}
+                    </p>
+
+                    <p
+                      class:list={[
+                        "text-slate-500 mt-1 max-w-full",
+                        group.isKeynote
+                          ? "text-sm"
+                          : "text-xs line-clamp-1",
+                      ]}
+                      title={speaker.role}
+                    >
+                      {speaker.role}
+                    </p>
+
+                    <!-- Actions -->
+                    <div
+                      class:list={[
+                        "flex items-center justify-center gap-3",
+                        group.isKeynote ? "mt-6" : "mt-4",
+                      ]}
+                    >
+                      <button
+                        type="button"
+                        class="speaker-bio-btn px-7 py-2 text-sm text-blue-600 bg-white border border-slate-300 rounded-md hover:border-blue-600 hover:bg-blue-50 transition-colors"
+                        aria-haspopup="dialog"
+                        aria-controls="speakerModal"
+                      >
+                        See bio
+                      </button>
+
+                      {speaker.linkedinUrl && (
+                        <a
+                          href={speaker.linkedinUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="inline-flex items-center justify-center w-10 h-10 flex-shrink-0 text-blue-600 bg-white border border-slate-300 rounded-md hover:border-blue-600 hover:bg-blue-50 transition-colors"
+                          title="LinkedIn"
+                          aria-label={`${speaker.name} on LinkedIn`}
+                        >
+                          <svg
+                            class="w-5 h-5"
+                            fill="currentColor"
+                            viewBox="0 0 24 24"
+                            aria-hidden="true"
+                          >
+                            <path d={linkedinPath} />
+                          </svg>
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            <!-- Show Less Button -->
+            {group.isAdditional && group.speakers.length > 0 && (
+              <div class="flex justify-center mt-12">
+                <button
+                  id="collapseBtn"
+                  type="button"
+                  class="speakers-toggle inline-flex items-center gap-2 text-blue-600 font-semibold hover:text-blue-700 transition-colors whitespace-nowrap"
+                  aria-controls="additionalSpeakersContainer"
+                  aria-expanded="true"
+                >
+                  <span>Show Less</span>
+
+                  <svg
+                    class="speakers-arrow speakers-arrow-back"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M19 12H5M12 19l-7-7 7-7" />
+                  </svg>
+                </button>
               </div>
-            );
-          })
-        }
-      </div>
+            )}
+          </div>
 
-      <!-- Show Less Button -->
-      <div class="flex justify-center mt-12">
-        <button
-          id="collapseBtn"
-          class="group/link inline-flex items-center gap-2 text-blue-600 font-semibold hover:text-blue-700 transition-colors whitespace-nowrap"
-        >
-          Show Less
-          <span aria-hidden="true" class="inline-block transition-transform duration-300 group-hover/link:-translate-x-1.5">←</span>
-        </button>
-      </div>
-    </div>
+          <!-- View All Button -->
+          {!group.isKeynote &&
+            !group.isAdditional &&
+            regularSpeakers.length > 4 && (
+              <div
+                id="viewAllSpeakersWrapper"
+                class="flex justify-center mt-12 mb-12"
+              >
+                <button
+                  id="viewAllSpeakersBtn"
+                  type="button"
+                  class="speakers-toggle inline-flex items-center gap-2 text-blue-600 font-semibold hover:text-blue-700 transition-colors whitespace-nowrap"
+                  aria-controls="additionalSpeakersContainer"
+                  aria-expanded="false"
+                >
+                  <span data-i18n="speakers.viewAll">
+                    {t("en", "speakers.viewAll")}
+                  </span>
+
+                  <svg
+                    class="speakers-arrow speakers-arrow-forward"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </button>
+              </div>
+            )}
+        </>
+      ))
+    }
   </div>
-</section>
 
-<!-- Speaker Bio Modal -->
-<div id="speakerModal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-  <div class="bg-white rounded-lg max-w-2xl w-full max-h-96 overflow-y-auto">
+  <!-- Speaker Bio Modal -->
+  <dialog
+    id="speakerModal"
+    class="speaker-modal bg-white rounded-lg text-slate-900"
+    aria-labelledby="modalSpeakerName"
+  >
     <div class="p-6">
-      <div class="flex justify-between items-start mb-4">
+      <div class="flex justify-between items-start gap-4 mb-4">
         <div>
-          <h2 id="modalSpeakerName" class="text-2xl font-bold text-slate-900"></h2>
-          <p id="modalSpeakerRole" class="text-sm text-slate-600"></p>
-          <p id="modalSpeakerCompany" class="text-sm text-slate-600"></p>
+          <h2
+            id="modalSpeakerName"
+            class="text-2xl font-bold text-slate-900"
+          ></h2>
+
+          <p
+            id="modalSpeakerRole"
+            class="text-sm text-slate-600"
+          ></p>
+
+          <p
+            id="modalSpeakerCompany"
+            class="text-sm text-slate-600"
+          ></p>
         </div>
-        <button id="closeModalBtn" class="text-slate-500 hover:text-slate-700 text-2xl leading-none">
+
+        <button
+          id="closeModalBtn"
+          type="button"
+          class="text-slate-500 hover:text-slate-700 text-2xl leading-none p-1"
+          aria-label="Close biography"
+        >
           ×
         </button>
       </div>
-      <img id="modalSpeakerImage" src="" alt="" class="w-24 h-24 rounded-full mb-4 object-cover" />
-      <p id="modalSpeakerBio" class="text-slate-600 mb-4"></p>
+
+      <img
+        id="modalSpeakerImage"
+        alt=""
+        class="w-24 h-24 rounded-full mb-4 object-cover"
+      />
+
+      <p
+        id="modalSpeakerBio"
+        class="text-slate-600 mb-4 whitespace-pre-line"
+      ></p>
     </div>
-  </div>
-</div>
+  </dialog>
+</section>
 
 <style>
+  .speakers-header {
+    width: 100%;
+  }
+
+  .speakers-color-lines {
+    display: flex;
+    gap: 0.5rem;
+    width: min(100%, 24rem);
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .speakers-color-lines span {
+    display: block;
+    flex: 1;
+    height: 0.375rem;
+    border-radius: 9999px;
+  }
+
+  .speakers-heading-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+  }
+
+  .speakers-heading {
+    margin: 0;
+    max-width: 100%;
+    font-size: clamp(1.75rem, 6vw, 3rem);
+    line-height: 1.15;
+    overflow-wrap: break-word;
+  }
+
+  .speakers-animation {
+    width: 4rem;
+    height: 4rem;
+    flex-shrink: 0;
+  }
+
+  @media (min-width: 640px) {
+    .speakers-heading-row {
+      gap: 2rem;
+    }
+
+    .speakers-heading {
+      font-size: 3rem;
+      white-space: nowrap;
+    }
+
+    .speakers-animation {
+      width: 8rem;
+      height: 8rem;
+    }
+  }
+
   .blob-shape {
     border-radius: 30% 70% 70% 30%;
+    animation: blob 8s ease-in-out infinite;
   }
 
   @keyframes blob {
-    0%, 100% {
+    0%,
+    100% {
       border-radius: 30% 70% 70% 30%;
     }
+
     25% {
       border-radius: 40% 60% 60% 40%;
     }
+
     50% {
       border-radius: 50% 50% 50% 50%;
     }
+
     75% {
       border-radius: 60% 40% 40% 60%;
     }
-  }
-
-  .blob-shape {
-    animation: blob 8s ease-in-out infinite;
   }
 
   @keyframes fade-in-up {
@@ -410,107 +454,248 @@ const accentStyles: Record<string, { blob: string; badge: string; ring: string }
       opacity: 0;
       transform: translateY(20px);
     }
+
     to {
       opacity: 1;
       transform: translateY(0);
     }
   }
 
-  @keyframes stagger {
-    0% {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
   .animate-fade-in-up {
-    animation: fade-in-up 0.6s ease-out forwards;
+    animation: fade-in-up 0.6s ease-out both;
   }
 
-  .animate-stagger > * {
-    animation: stagger 0.6s ease-out forwards;
+  .speakers-arrow {
+    display: block;
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+  }
+
+  .speakers-toggle:hover .speakers-arrow-forward {
+    transform: translateX(6px);
+  }
+
+  .speakers-toggle:hover .speakers-arrow-back {
+    transform: translateX(-6px);
+  }
+
+  button:focus-visible,
+  a:focus-visible {
+    outline: 3px solid #2563eb;
+    outline-offset: 5px;
+  }
+
+  .speaker-modal {
+    width: min(42rem, calc(100% - 2rem));
+    max-height: 85vh;
+    margin: auto;
+    padding: 0;
+    border: 0;
+    overflow-y: auto;
+    box-shadow: 0 24px 64px rgb(0 0 0 / 20%);
+  }
+
+  .speaker-modal::backdrop {
+    background: rgb(0 0 0 / 50%);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .blob-shape,
+    .animate-fade-in-up {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+
+    .speakers-arrow,
+    .speaker-image img {
+      transition: none;
+    }
+
+    .speakers-toggle:hover .speakers-arrow {
+      transform: none;
+    }
   }
 </style>
 
 <script>
-  const modal = document.getElementById("speakerModal");
-  const closeModalBtn = document.getElementById("closeModalBtn");
-  const speakerImages = document.querySelectorAll(".speaker-image");
-  const bioBtns = document.querySelectorAll(".speaker-bio-btn");
-  const viewAllBtn = document.getElementById("viewAllSpeakersBtn");
-  const collapseBtn = document.getElementById("collapseBtn");
-  const additionalSpeakersContainer = document.getElementById("additionalSpeakersContainer");
+  function initializeSpeakers() {
+    const section = document.getElementById("speakers");
 
-  const fillModal = (source: HTMLElement) => {
-    document.getElementById("modalSpeakerName")!.textContent = source.getAttribute("data-speaker-name");
-    document.getElementById("modalSpeakerRole")!.textContent = source.getAttribute("data-speaker-role");
-    document.getElementById("modalSpeakerCompany")!.textContent = source.getAttribute("data-speaker-company");
-    document.getElementById("modalSpeakerBio")!.textContent = source.getAttribute("data-speaker-bio");
-    (document.getElementById("modalSpeakerImage") as HTMLImageElement).src = source.getAttribute("data-speaker-image") || "";
-    modal!.classList.remove("hidden");
-  };
-
-  // Open modal on image click
-  speakerImages.forEach((img) => {
-    img.addEventListener("click", () => fillModal(img as HTMLElement));
-  });
-
-  // Open modal on bio button click
-  bioBtns.forEach((btn) => {
-    btn.addEventListener("click", () => fillModal(btn as HTMLElement));
-  });
-
-  // Close modal
-  closeModalBtn?.addEventListener("click", () => {
-    modal!.classList.add("hidden");
-  });
-
-  modal?.addEventListener("click", (e) => {
-    if (e.target === modal) {
-      modal.classList.add("hidden");
+    if (!section || section.dataset.initialized === "true") {
+      return;
     }
-  });
 
-  // View all speakers
-  viewAllBtn?.addEventListener("click", () => {
-    additionalSpeakersContainer?.classList.remove("hidden");
-    viewAllBtn.classList.add("hidden");
+    section.dataset.initialized = "true";
 
-    // Re-attach listeners to new speakers
-    const newSpeakerImages = additionalSpeakersContainer?.querySelectorAll(".speaker-image");
-    newSpeakerImages?.forEach((img) => {
-      img.addEventListener("click", () => fillModal(img as HTMLElement));
+    const modal =
+      section.querySelector<HTMLDialogElement>("#speakerModal");
+
+    const closeModalBtn =
+      section.querySelector<HTMLButtonElement>("#closeModalBtn");
+
+    const viewAllBtn =
+      section.querySelector<HTMLButtonElement>("#viewAllSpeakersBtn");
+
+    const viewAllWrapper =
+      section.querySelector<HTMLElement>("#viewAllSpeakersWrapper");
+
+    const collapseBtn =
+      section.querySelector<HTMLButtonElement>("#collapseBtn");
+
+    const additionalContainer =
+      section.querySelector<HTMLElement>("#additionalSpeakersContainer");
+
+    const nameElement =
+      section.querySelector<HTMLElement>("#modalSpeakerName");
+
+    const roleElement =
+      section.querySelector<HTMLElement>("#modalSpeakerRole");
+
+    const companyElement =
+      section.querySelector<HTMLElement>("#modalSpeakerCompany");
+
+    const bioElement =
+      section.querySelector<HTMLElement>("#modalSpeakerBio");
+
+    const imageElement =
+      section.querySelector<HTMLImageElement>("#modalSpeakerImage");
+
+    function openBiography(card: HTMLElement) {
+      if (
+        !modal ||
+        !nameElement ||
+        !roleElement ||
+        !companyElement ||
+        !bioElement ||
+        !imageElement
+      ) {
+        return;
+      }
+
+      nameElement.textContent = card.dataset.speakerName || "";
+      roleElement.textContent = card.dataset.speakerRole || "";
+      companyElement.textContent = card.dataset.speakerCompany || "";
+      bioElement.textContent = card.dataset.speakerBio || "";
+
+      imageElement.src =
+        card.dataset.speakerImage || "/google-person.png";
+
+      imageElement.alt =
+        card.dataset.speakerAlt || card.dataset.speakerName || "";
+
+      if (!modal.open) {
+        modal.showModal();
+      }
+    }
+
+    // Handles both visible and additional speakers.
+    section.addEventListener("click", (event) => {
+      const target = event.target;
+
+      if (!(target instanceof Element)) {
+        return;
+      }
+
+      const trigger = target.closest(
+        ".speaker-image, .speaker-bio-btn"
+      );
+
+      if (!trigger) {
+        return;
+      }
+
+      const card = trigger.closest<HTMLElement>(".speaker-card");
+
+      if (card) {
+        openBiography(card);
+      }
     });
 
-    const newBioBtns = additionalSpeakersContainer?.querySelectorAll(".speaker-bio-btn");
-    newBioBtns?.forEach((btn) => {
-      btn.addEventListener("click", () => fillModal(btn as HTMLElement));
+    closeModalBtn?.addEventListener("click", () => {
+      modal?.close();
     });
-  });
 
-  // Show less speakers
-  collapseBtn?.addEventListener("click", () => {
-    additionalSpeakersContainer?.classList.add("hidden");
-    viewAllBtn?.classList.remove("hidden");
-  });
-</script>
+    modal?.addEventListener("click", (event) => {
+      if (event.target !== modal) {
+        return;
+      }
 
-<script src="https://unpkg.com/@lottiefiles/lottie-player@latest"></script>
-<script>
-  const animationContainer = document.getElementById('speakersAnimation');
-  if (animationContainer) {
-    const lottiePlayer = document.createElement('lottie-player');
-    lottiePlayer.setAttribute('src', 'https://lottie.host/f66e8fc4-b620-437a-b679-76681e6d4556/fsgOx80vt3.json');
-    lottiePlayer.setAttribute('background', 'transparent');
-    lottiePlayer.setAttribute('speed', '1');
-    lottiePlayer.setAttribute('loop', 'true');
-    lottiePlayer.setAttribute('autoplay', 'true');
-    lottiePlayer.style.width = '100%';
-    lottiePlayer.style.height = '100%';
-    animationContainer.appendChild(lottiePlayer);
+      const bounds = modal.getBoundingClientRect();
+
+      const clickedOutside =
+        event.clientX < bounds.left ||
+        event.clientX > bounds.right ||
+        event.clientY < bounds.top ||
+        event.clientY > bounds.bottom;
+
+      if (clickedOutside) {
+        modal.close();
+      }
+    });
+
+    viewAllBtn?.addEventListener("click", () => {
+      if (!additionalContainer) {
+        return;
+      }
+
+      additionalContainer.classList.remove("hidden");
+      viewAllBtn.setAttribute("aria-expanded", "true");
+      viewAllWrapper?.classList.add("hidden");
+
+      const firstSpeaker =
+        additionalContainer.querySelector<HTMLButtonElement>(
+          ".speaker-image"
+        );
+
+      firstSpeaker?.focus({ preventScroll: true });
+    });
+
+    collapseBtn?.addEventListener("click", () => {
+      additionalContainer?.classList.add("hidden");
+      viewAllWrapper?.classList.remove("hidden");
+      viewAllBtn?.setAttribute("aria-expanded", "false");
+      viewAllBtn?.focus({ preventScroll: true });
+    });
+
+    // Existing Lottie animation.
+    const animationContainer =
+      section.querySelector<HTMLElement>("#speakersAnimation");
+
+    if (
+      animationContainer &&
+      !animationContainer.querySelector("lottie-player")
+    ) {
+      const player = document.createElement("lottie-player");
+
+      player.setAttribute(
+        "src",
+        "https://lottie.host/f66e8fc4-b620-437a-b679-76681e6d4556/fsgOx80vt3.json"
+      );
+      player.setAttribute("background", "transparent");
+      player.setAttribute("speed", "1");
+      player.setAttribute("loop", "");
+
+      if (
+        !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      ) {
+        player.setAttribute("autoplay", "");
+      }
+
+      player.style.width = "100%";
+      player.style.height = "100%";
+
+      animationContainer.appendChild(player);
+    }
   }
+
+  initializeSpeakers();
+  document.addEventListener("astro:page-load", initializeSpeakers);
 </script>
+
+<script
+  is:inline
+  src="https://unpkg.com/@lottiefiles/lottie-player@latest"
+></script>
