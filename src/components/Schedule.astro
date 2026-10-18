@@ -20,7 +20,7 @@ const FIRESIDE_TITLE = "Lunch & Fireside Chat";
 const normalizeSpeakerName = (name: string) =>
   name
     .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[̀-ͯ]/g, "")
     .trim()
     .toLowerCase()
     .replace(/\s+/g, " ");
@@ -308,11 +308,6 @@ const icons: Record<string, string> = {
         {finalTitle}
       </h2>
     </div>
-
-    <p class="md:hidden text-center text-sm text-slate-500 mb-3">
-      Swipe to explore all tracks
-      <span aria-hidden="true"> →</span>
-    </p>
 
     <!-- Track Filters -->
     <div
@@ -1003,7 +998,7 @@ const icons: Record<string, string> = {
     display: flex;
     gap: 0.5rem;
     width: min(100%, 24rem);
-    margin: 1.5rem 0;    
+    margin: 1.5rem 0;
   }
 
   .schedule-color-lines span {
@@ -1140,21 +1135,18 @@ const icons: Record<string, string> = {
 
   @media (max-width: 767px) {
     .track-filters {
-      flex-wrap: nowrap;
-      justify-content: flex-start;
-      overflow-x: auto;
+      flex-wrap: wrap;
+      justify-content: center;
       gap: 0.75rem;
       padding: 0.5rem;
       margin-bottom: 1.5rem;
-      scrollbar-width: thin;
-      scrollbar-color: #94a3b8 #f1f5f9;
     }
 
     .track-filter-btn {
-      flex-shrink: 0;
-      white-space: nowrap;
-      padding: 0.65rem 1rem;
-      font-size: 0.8rem;
+      flex-shrink: 1;
+      white-space: normal;
+      padding: 0.5rem 0.875rem;
+      font-size: 0.75rem;
     }
 
     .schedule-table-wrapper {
