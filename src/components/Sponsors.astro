@@ -30,6 +30,36 @@ const sponsors = [
     url: "http://hultprizeuwindsor.ca/",
     color: "purple",
   },
+  {
+    name: "Black Code Boys",
+    logo: "/sponsors/blackCodeBoys.webp",
+    url: "https://blackboyscode.ca/locations/windsor/",
+    color: "green",
+  },
+    {
+    name: "Black Code Girls",
+    logo: "/sponsors/blackCodeGirls.webp",
+    url: "https://blackkidscode.com/locations/windsor/",
+    color: "pink",
+  },
+  {
+    name: "Southwestern Ontario Cybersecurity Hub",
+    logo: "/sponsors/swocts.webp",
+    url: "https://www.swocts.com/",
+    color: "cyan",
+  },
+  {
+    name: "Computer Science Society",
+    logo: "/sponsors/css.webp",
+    url: "https://css.uwindsor.ca/",
+    color: "amber",
+  },
+  {
+    name: "IEEE Windsor Section",
+    logo: "/sponsors/ieee.webp",
+    url: "https://windsor.ieee.ca/",
+    color: "blue",
+  },
 ];
 
 const colorStyles: Record<string, { ring: string; blob: string }> = {
@@ -53,61 +83,75 @@ const colorStyles: Record<string, { ring: string; blob: string }> = {
     ring: "group-hover:ring-purple-600/40",
     blob: "bg-purple-600",
   },
+  pink: {
+    ring: "group-hover:ring-pink-500/40",
+    blob: "bg-pink-500",
+  },
 };
 ---
 
-<section id="sponsors" class="py-12 sm:py-20 bg-white">
+<section
+  id="sponsors"
+  class="py-12 sm:py-20 bg-white"
+  aria-labelledby="sponsors-title"
+>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Section Header -->
-       <div class="mb-12 sm:mb-16">
-      <div class="pl-4 sm:pl-8">
-        <span class="text-sm font-bold tracking-widest text-blue-600 uppercase"
-          data-i18n="sponsors.label">Sponsors & Partners</span>
-      </div>
+    <div class="mb-12 sm:mb-16 pl-4 sm:pl-8 text-left">
+      <h2
+        id="sponsors-title"
+        class="text-sm font-bold tracking-widest text-blue-600 uppercase"
+        data-i18n="sponsors.label"
+      >
+        Sponsors & Partners
+      </h2>
 
-      <!-- Colored underline -->
-      <div class="flex gap-1 mt-3 h-1 w-24 sm:w-32 pl-4 sm:pl-8">
-        <div class="flex-1 bg-blue-600 rounded"></div>
-        <div class="flex-1 bg-red-600 rounded"></div>
-        <div class="flex-1 bg-yellow-500 rounded"></div>
-        <div class="flex-1 bg-green-600 rounded"></div>
+      <div
+        class="flex gap-1 mt-3 h-1 w-24 sm:w-32"
+        aria-hidden="true"
+      >
+        <span class="flex-1 bg-blue-600 rounded"></span>
+        <span class="flex-1 bg-red-600 rounded"></span>
+        <span class="flex-1 bg-yellow-500 rounded"></span>
+        <span class="flex-1 bg-green-600 rounded"></span>
       </div>
     </div>
 
-    <!-- Sponsors grid - all in one line -->
+    <!-- Sponsor Cards -->
     <div class="flex flex-wrap justify-center gap-8 lg:gap-12 px-4 sm:px-8">
       {
         sponsors.map((sponsor) => {
-          const style = colorStyles[sponsor.color];
+          const style = colorStyles[sponsor.color] ?? colorStyles.blue;
+
           return (
             <a
               href={sponsor.url}
               target="_blank"
               rel="noopener noreferrer"
-              class="group relative w-full sm:w-48 p-6 rounded-lg bg-gray-50 border border-gray-200 transition-all duration-300 hover:shadow-lg hover:border-gray-300 cursor-pointer"
+              class="sponsor-card group relative w-full sm:w-48 p-6 rounded-lg bg-gray-50 border border-gray-200 transition-all duration-300 hover:shadow-lg hover:border-gray-300"
               title={sponsor.name}
+              aria-label={`${sponsor.name} (opens in a new tab)`}
             >
-              <!-- Decorative blob background -->
               <div
                 class:list={[
-                  "blob-shape absolute inset-0 scale-0 transition-transform duration-300 group-hover:scale-100 rounded-lg",
+                  "blob-shape absolute inset-0 scale-0 transition-transform duration-300 group-hover:scale-100",
                   style.blob,
                 ]}
-                style="opacity: 0.08;"
                 aria-hidden="true"
               />
 
-              <!-- Logo -->
               <div
                 class:list={[
-                  "relative z-10 ring-4 ring-transparent transition-all duration-300 rounded-lg overflow-hidden",
+                  "logo-container relative z-10 ring-4 ring-transparent transition-all duration-300 rounded-lg overflow-hidden",
                   style.ring,
                 ]}
               >
                 <img
                   src={sponsor.logo}
                   alt={sponsor.name}
-                  class="h-20 w-full object-contain group-hover:scale-110 transition-transform duration-300"
+                  loading="lazy"
+                  decoding="async"
+                  class="sponsor-logo h-20 w-full object-contain group-hover:scale-110 transition-transform duration-300"
                 />
               </div>
             </a>
@@ -119,23 +163,30 @@ const colorStyles: Record<string, { ring: string; blob: string }> = {
 </section>
 
 <style>
-  .blob-shape {
-    border-radius: 30% 70% 70% 30%;
+  #sponsors {
+    scroll-margin-top: 6rem;
   }
 
-  @keyframes blob {
-    0%,
-    100% {
-      border-radius: 30% 70% 70% 30%;
+  .sponsor-card:focus-visible {
+    outline: 3px solid #2563eb;
+    outline-offset: 5px;
+  }
+
+  .blob-shape {
+    border-radius: 30% 70% 70% 30%;
+    opacity: 0.08;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sponsor-card,
+    .logo-container,
+    .sponsor-logo,
+    .blob-shape {
+      transition: none !important;
     }
-    25% {
-      border-radius: 40% 60% 60% 40%;
-    }
-    50% {
-      border-radius: 50% 50% 50% 50%;
-    }
-    75% {
-      border-radius: 60% 40% 40% 60%;
+
+    .sponsor-logo {
+      transform: none !important;
     }
   }
 </style>
