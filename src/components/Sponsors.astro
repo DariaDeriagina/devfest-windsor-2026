@@ -1,38 +1,92 @@
+
 ---
-import { t } from "@lib/i18n";
-
-interface Props {
-  title?: string;
-  description?: string;
-}
-
-const {
-  title,
-  description,
-} = Astro.props;
-
-const defaultTitle = t('en', 'sponsors.title');
-const defaultDescription = t('en', 'sponsors.description');
-
-const finalTitle = title || defaultTitle;
-const finalDescription = description || defaultDescription;
-
 const sponsors = [
-  { 
-    name: "Google", 
+  {
+    name: "Google",
     logo: "/googleLogo.png",
     url: "https://google.com",
-    color: "blue"
+    color: "blue",
   },
-  { 
-    name: "School of Business", 
+
+  /*
+   * DASHDEV STUDIO — TEMPORARILY HIDDEN
+   * Uncomment this object when ready to publish.
+   *
+  {
+    name: "DashDev Studio",
+    logo: "",
+    url: "https://dashdevstudio.com/",
+    color: "purple",
+    custom: "dashdev",
+  },
+  */
+
+  {
+    name: "School of Business",
     logo: "/schoolOfBusiness.png",
     url: "https://www.uwindsor.ca/business/",
-    color: "amber"
+    color: "amber",
+  },
+  {
+    name: "WEtech Alliance",
+    logo: "/sponsors/WEtech-logo-main.webp",
+    url: "https://www.wetech-alliance.com/",
+    color: "green",
+  },
+  {
+    name: "DataRealm",
+    logo: "/sponsors/datarealm.webp",
+    url: "https://www.datarealminc.com/",
+    color: "cyan",
+  },
+  {
+    name: "EF Hult Prize",
+    logo: "/sponsors/HultPrizelogo2.png",
+    url: "http://hultprizeuwindsor.ca/",
+    color: "purple",
+  },
+  {
+    name: "Black Boys Code",
+    logo: "/sponsors/blackCodeBoys.webp",
+    url: "https://blackboyscode.ca/locations/windsor/",
+    color: "green",
+  },
+  {
+    name: "Black Girls Code",
+    logo: "/sponsors/blackCodeGirls.webp",
+    url: "https://blackkidscode.com/locations/windsor/",
+    color: "pink",
+  },
+  {
+    name: "Southwestern Ontario Cybersecurity Hub",
+    logo: "/sponsors/swocts.webp",
+    url: "https://www.swocts.com/",
+    color: "cyan",
+  },
+  {
+    name: "Computer Science Society",
+    logo: "/sponsors/css.webp",
+    url: "https://css.uwindsor.ca/",
+    color: "amber",
+  },
+  {
+    name: "IEEE Windsor Section",
+    logo: "/sponsors/ieee.webp",
+    url: "https://windsor.ieee.ca/",
+    color: "blue",
+  },
+  {
+    name: "Good Point Consulting",
+    logo: "/sponsors/goodPointConsulting.webp",
+    url: "https://www.goodpointconsulting.com/home",
+    color: "pink",
   },
 ];
 
-const colorStyles: Record<string, { ring: string; blob: string }> = {
+const colorStyles: Record<
+  string,
+  { ring: string; blob: string }
+> = {
   blue: {
     ring: "group-hover:ring-blue-600/40",
     blob: "bg-blue-600",
@@ -41,92 +95,654 @@ const colorStyles: Record<string, { ring: string; blob: string }> = {
     ring: "group-hover:ring-amber-500/40",
     blob: "bg-amber-500",
   },
+  green: {
+    ring: "group-hover:ring-green-600/40",
+    blob: "bg-green-600",
+  },
+  cyan: {
+    ring: "group-hover:ring-cyan-500/40",
+    blob: "bg-cyan-500",
+  },
+  purple: {
+    ring: "group-hover:ring-purple-600/40",
+    blob: "bg-purple-600",
+  },
+  pink: {
+    ring: "group-hover:ring-pink-500/40",
+    blob: "bg-pink-500",
+  },
 };
 ---
 
-<section id="sponsors" class="py-20 sm:py-24 bg-white">
+<section
+  id="sponsors"
+  class="py-12 sm:py-20 bg-white"
+  aria-labelledby="sponsors-title"
+>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <!-- Section Header -->
-    <div class="mb-8">
-      <span class="text-sm font-bold tracking-widest text-blue-600 uppercase" data-i18n="sponsors.label">Sponsors & Partners</span>
-    </div>
 
-    <!-- Title and Description -->
-    <div class="mb-16">
-      <h2 class="text-4xl sm:text-5xl font-bold mb-6" data-i18n="sponsors.title">{finalTitle}</h2>
+    <!-- SECTION HEADER -->
+    <div class="mb-12 sm:mb-16 pl-4 sm:pl-8 text-left">
+      <h2
+        id="sponsors-title"
+        class="text-sm font-bold tracking-widest text-blue-600 uppercase"
+        data-i18n="sponsors.label"
+      >
+        Sponsors & Partners
+      </h2>
 
-      <!-- Colored underline -->
-      <div class="flex gap-1 mb-8 h-1 w-48">
-        <div class="flex-1 bg-blue-600 rounded"></div>
-        <div class="flex-1 bg-red-600 rounded"></div>
-        <div class="flex-1 bg-yellow-500 rounded"></div>
-        <div class="flex-1 bg-green-600 rounded"></div>
+      <!-- GOOGLE COLOR LINES -->
+      <div
+        class="flex gap-1 mt-3 h-1 w-24 sm:w-32"
+        aria-hidden="true"
+      >
+        <span class="flex-1 bg-blue-600 rounded"></span>
+        <span class="flex-1 bg-red-600 rounded"></span>
+        <span class="flex-1 bg-yellow-500 rounded"></span>
+        <span class="flex-1 bg-green-600 rounded"></span>
       </div>
-
-      <p class="text-lg text-slate-600 leading-relaxed max-w-3xl" data-i18n="sponsors.description">
-        {finalDescription}
-      </p>
     </div>
 
-    <!-- Sponsors Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-2xl">
-      {sponsors.map((sponsor) => {
-        const style = colorStyles[sponsor.color];
-        return (
-          <a
-            href={sponsor.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="group relative p-8 rounded-lg bg-gray-50 border border-gray-200 transition-all duration-300 hover:shadow-lg hover:border-gray-300 cursor-pointer"
-            title={sponsor.name}
-          >
-            <!-- Decorative blob background -->
-            <div
+    <!-- SPONSORS GRID -->
+    <div class="sponsors-grid">
+      {
+        sponsors.map((sponsor) => {
+          const style =
+            colorStyles[sponsor.color] ??
+            colorStyles.blue;
+
+          return (
+            <a
+              href={sponsor.url}
+              target="_blank"
+              rel="noopener noreferrer"
               class:list={[
-                "blob-shape absolute inset-0 scale-0 transition-transform duration-300 group-hover:scale-100 rounded-lg",
-                style.blob,
+                "sponsor-card group",
+                "custom" in sponsor &&
+                  sponsor.custom === "dashdev" &&
+                  "sponsor-card-dashdev",
               ]}
-              style="opacity: 0.08;"
-              aria-hidden="true"
-            />
-            
-            <!-- Logo Only -->
-            <div
-              class:list={[
-                "relative z-10 ring-4 ring-transparent transition-all duration-300 rounded-lg overflow-hidden",
-                style.ring,
-              ]}
+              title={sponsor.name}
+              aria-label={`${sponsor.name} (opens in a new tab)`}
             >
-              <img
-                src={sponsor.logo}
-                alt={sponsor.name}
-                class="h-24 w-full object-contain group-hover:scale-110 transition-transform duration-300"
-              />
-            </div>
-          </a>
-        );
-      })}
+              {"custom" in sponsor &&
+              sponsor.custom === "dashdev" ? (
+                <!-- DASHDEV ANIMATED LOGO — PRESERVED -->
+                <div
+                  class="dashdev-logo"
+                  aria-hidden="true"
+                >
+                  <!-- SINGLE YELLOW ORBITING BALL -->
+                  <span class="dashdev-orbit">
+                    <span class="dashdev-ball"></span>
+                  </span>
+
+                  <!-- BRAND WORDMARK -->
+                  <div class="dashdev-wordmark">
+                    <span class="dashdev-name">
+                      <span class="dashdev-dash">
+                        DASH
+                      </span>
+                      <span class="dashdev-dev">
+                        DEV
+                      </span>
+                    </span>
+
+                    <span class="dashdev-studio">
+                      STUDIO
+                    </span>
+                  </div>
+
+                  <!-- HOVER GLOW -->
+                  <span class="dashdev-trail"></span>
+
+                  <!-- PURPLE SPARKLES -->
+                  <span
+                    class="dashdev-spark dashdev-spark-1"
+                  ></span>
+                  <span
+                    class="dashdev-spark dashdev-spark-2"
+                  ></span>
+                  <span
+                    class="dashdev-spark dashdev-spark-3"
+                  ></span>
+                </div>
+              ) : (
+                <!-- STANDARD SPONSOR LOGOS -->
+                <>
+                  <div
+                    class:list={[
+                      "blob-shape absolute inset-0 scale-0 transition-transform duration-300 group-hover:scale-100",
+                      style.blob,
+                    ]}
+                    aria-hidden="true"
+                  ></div>
+
+                  <div
+                    class:list={[
+                      "logo-container relative z-10 ring-4 ring-transparent transition-all duration-300 rounded-lg",
+                      style.ring,
+                    ]}
+                  >
+                    <img
+                      src={sponsor.logo}
+                      alt={sponsor.name}
+                      loading="lazy"
+                      decoding="async"
+                      class="sponsor-logo"
+                    />
+                  </div>
+                </>
+              )}
+            </a>
+          );
+        })
+      }
     </div>
   </div>
 </section>
 
 <style>
-  .blob-shape {
-    border-radius: 30% 70% 70% 30%;
+  /* SECTION */
+
+  #sponsors {
+    scroll-margin-top: 6rem;
   }
 
-  @keyframes blob {
-    0%, 100% {
-      border-radius: 30% 70% 70% 30%;
+  /* RESPONSIVE GRID */
+
+  .sponsors-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.875rem;
+    padding: 0 0.25rem;
+    align-items: stretch;
+  }
+
+  @media (min-width: 640px) {
+    .sponsors-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.5rem;
+      padding: 0 1rem;
     }
-    25% {
-      border-radius: 40% 60% 60% 40%;
+  }
+
+  @media (min-width: 1024px) {
+    .sponsors-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 2rem;
+      padding: 0 2rem;
     }
+  }
+
+  /* STANDARD SPONSOR CARDS */
+
+  .sponsor-card {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    min-width: 0;
+    min-height: 145px;
+    padding: 1rem;
+
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 1rem;
+
+    overflow: hidden;
+    text-decoration: none;
+
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease,
+      border-color 0.3s ease,
+      background 0.4s ease;
+  }
+
+  .sponsor-card:hover {
+    transform: translateY(-5px);
+    border-color: #cbd5e1;
+    box-shadow: 0 14px 30px rgb(0 0 0 / 9%);
+  }
+
+  /* STANDARD LOGOS */
+
+  .logo-container {
+    position: relative;
+    z-index: 2;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    min-width: 0;
+    min-height: 95px;
+    padding: 0.5rem;
+
+    overflow: visible;
+  }
+
+  .sponsor-logo {
+    display: block;
+    width: 100%;
+    height: 80px;
+
+    object-fit: contain;
+    object-position: center;
+
+    transition: transform 0.3s ease;
+  }
+
+  .sponsor-card:hover .sponsor-logo {
+    transform: scale(1.06);
+  }
+
+  .blob-shape {
+    border-radius: 30% 70% 70% 30%;
+    opacity: 0.08;
+  }
+
+  /* =====================================
+     DASHDEV CARD
+     PRESERVED FOR FUTURE ACTIVATION
+  ===================================== */
+
+  .sponsor-card-dashdev {
+    background: transparent;
+    border-color: #e5e7eb;
+    isolation: isolate;
+  }
+
+  /* PINK / PURPLE BRAND HOVER */
+
+  .sponsor-card-dashdev:hover,
+  .sponsor-card-dashdev:focus-visible {
+    background: linear-gradient(
+      135deg,
+      #fff0f7 0%,
+      #fce7f3 32%,
+      #f3e8ff 68%,
+      #e9d5ff 100%
+    );
+
+    border-color: #c084fc;
+
+    box-shadow:
+      0 12px 30px rgba(168, 85, 247, 0.12),
+      0 0 26px rgba(217, 70, 239, 0.16);
+  }
+
+  /* DASHDEV LOGO CONTAINER */
+
+  .dashdev-logo {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    min-width: 0;
+    height: 110px;
+
+    isolation: isolate;
+  }
+
+  /* DASHDEV WORDMARK */
+
+  .dashdev-wordmark {
+    position: relative;
+    z-index: 3;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 0;
+    transform: translateX(4%);
+  }
+
+  .dashdev-name {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: clamp(1.1rem, 2vw, 1.7rem);
+    font-weight: 800;
+    letter-spacing: -0.055em;
+    line-height: 1.1;
+    white-space: nowrap;
+  }
+
+  .dashdev-dash {
+    color: #171717;
+  }
+
+  .dashdev-dev {
+    background: linear-gradient(
+      110deg,
+      #ffb76d 0%,
+      #ef8d9b 45%,
+      #d35dba 100%
+    );
+
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .dashdev-studio {
+    display: block;
+    width: 100%;
+
+    margin-top: 0.3rem;
+    padding-left: 0.5em;
+
+    color: #777;
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: clamp(0.4rem, 0.8vw, 0.6rem);
+    font-weight: 700;
+    letter-spacing: 0.55em;
+    text-align: center;
+  }
+
+  /* YELLOW BALL ORBIT */
+
+  .dashdev-orbit {
+    position: absolute;
+    z-index: 2;
+
+    width: 94px;
+    height: 94px;
+
+    left: 5%;
+    top: 50%;
+    margin-top: -47px;
+
+    border: 1px dashed rgba(234, 179, 8, 0.2);
+    border-radius: 50%;
+
+    animation: dashdev-rotate 8s linear infinite;
+
+    transition:
+      border-color 0.3s ease,
+      filter 0.3s ease;
+  }
+
+  .dashdev-ball {
+    position: absolute;
+
+    width: 15px;
+    height: 15px;
+
+    top: 50%;
+    left: 100%;
+
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+
+    background: radial-gradient(
+      circle at 30% 30%,
+      #fff8b0 0%,
+      #facc15 50%,
+      #eab308 100%
+    );
+
+    box-shadow:
+      0 0 12px rgba(250, 204, 21, 0.65),
+      0 0 24px rgba(250, 204, 21, 0.25);
+
+    transition:
+      width 0.3s ease,
+      height 0.3s ease,
+      box-shadow 0.3s ease;
+  }
+
+  @keyframes dashdev-rotate {
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* HOVER — FASTER ORBIT */
+
+  .sponsor-card-dashdev:hover .dashdev-orbit,
+  .sponsor-card-dashdev:focus-visible .dashdev-orbit {
+    animation-duration: 1.8s;
+    border-color: rgba(168, 85, 247, 0.65);
+    filter: drop-shadow(
+      0 0 8px rgba(192, 132, 252, 0.45)
+    );
+  }
+
+  .sponsor-card-dashdev:hover .dashdev-ball,
+  .sponsor-card-dashdev:focus-visible .dashdev-ball {
+    width: 19px;
+    height: 19px;
+
+    box-shadow:
+      0 0 15px rgba(250, 204, 21, 0.95),
+      0 0 32px rgba(250, 204, 21, 0.5);
+  }
+
+  /* PURPLE GLOW */
+
+  .dashdev-trail {
+    position: absolute;
+    z-index: 1;
+
+    width: 125px;
+    height: 125px;
+
+    left: 0;
+    top: 50%;
+
+    transform: translateY(-50%) scale(0.8);
+    border-radius: 50%;
+
+    background: radial-gradient(
+      circle,
+      rgba(217, 70, 239, 0.18) 0%,
+      rgba(168, 85, 247, 0.08) 48%,
+      transparent 72%
+    );
+
+    opacity: 0;
+
+    transition:
+      opacity 0.4s ease,
+      transform 0.4s ease;
+  }
+
+  .sponsor-card-dashdev:hover .dashdev-trail,
+  .sponsor-card-dashdev:focus-visible .dashdev-trail {
+    opacity: 1;
+    transform: translateY(-50%) scale(1.2);
+  }
+
+  /* PURPLE SPARKLES */
+
+  .dashdev-spark {
+    position: absolute;
+    z-index: 2;
+
+    width: 5px;
+    height: 5px;
+
+    border-radius: 50%;
+    background: #d946ef;
+
+    box-shadow:
+      0 0 8px rgba(217, 70, 239, 0.5);
+
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .dashdev-spark-1 {
+    top: 25%;
+    left: 18%;
+  }
+
+  .dashdev-spark-2 {
+    top: 70%;
+    left: 35%;
+  }
+
+  .dashdev-spark-3 {
+    top: 32%;
+    right: 12%;
+  }
+
+  .sponsor-card-dashdev:hover .dashdev-spark,
+  .sponsor-card-dashdev:focus-visible .dashdev-spark {
+    animation: dashdev-sparkle 1.2s ease-in-out infinite;
+  }
+
+  .sponsor-card-dashdev:hover .dashdev-spark-2,
+  .sponsor-card-dashdev:focus-visible .dashdev-spark-2 {
+    animation-delay: 0.3s;
+  }
+
+  .sponsor-card-dashdev:hover .dashdev-spark-3,
+  .sponsor-card-dashdev:focus-visible .dashdev-spark-3 {
+    animation-delay: 0.6s;
+  }
+
+  @keyframes dashdev-sparkle {
+    0%,
+    100% {
+      opacity: 0;
+      transform: scale(0.4);
+    }
+
     50% {
-      border-radius: 50% 50% 50% 50%;
+      opacity: 1;
+      transform: scale(1.5);
     }
-    75% {
-      border-radius: 60% 40% 40% 60%;
+  }
+
+  /* MOBILE — 2 COLUMNS */
+
+  @media (max-width: 639px) {
+    .sponsors-grid {
+      gap: 0.75rem;
+    }
+
+    .sponsor-card {
+      min-height: 120px;
+      padding: 0.625rem;
+      border-radius: 0.75rem;
+    }
+
+    .logo-container {
+      min-height: 80px;
+      padding: 0.25rem;
+    }
+
+    .sponsor-logo {
+      height: 70px;
+    }
+
+    .dashdev-logo {
+      height: 95px;
+    }
+
+    .dashdev-wordmark {
+      transform: translateX(7%);
+    }
+
+    .dashdev-name {
+      font-size: clamp(0.9rem, 3.9vw, 1.25rem);
+    }
+
+    .dashdev-studio {
+      font-size: 0.4rem;
+      letter-spacing: 0.38em;
+    }
+
+    .dashdev-orbit {
+      width: 62px;
+      height: 62px;
+      left: 0;
+      margin-top: -31px;
+      animation-duration: 7s;
+    }
+
+    .dashdev-ball {
+      width: 11px;
+      height: 11px;
+    }
+
+    .dashdev-trail {
+      width: 90px;
+      height: 90px;
+    }
+  }
+
+  /* EXTRA SMALL MOBILE */
+
+  @media (max-width: 359px) {
+    .sponsors-grid {
+      gap: 0.5rem;
+    }
+
+    .sponsor-card {
+      padding: 0.4rem;
+    }
+
+    .dashdev-name {
+      font-size: 0.83rem;
+    }
+
+    .dashdev-studio {
+      font-size: 0.35rem;
+      letter-spacing: 0.3em;
+    }
+
+    .dashdev-orbit {
+      width: 52px;
+      height: 52px;
+      margin-top: -26px;
+    }
+  }
+
+  /* ACCESSIBILITY */
+
+  .sponsor-card:focus-visible {
+    outline: 3px solid #2563eb;
+    outline-offset: 5px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sponsor-card,
+    .logo-container,
+    .sponsor-logo,
+    .dashdev-orbit,
+    .dashdev-ball,
+    .dashdev-trail {
+      transition: none !important;
+    }
+
+    .dashdev-orbit,
+    .dashdev-spark {
+      animation: none !important;
+    }
+
+    .sponsor-card:hover,
+    .sponsor-card:hover .sponsor-logo {
+      transform: none !important;
     }
   }
 </style>
