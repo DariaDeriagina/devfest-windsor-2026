@@ -1,3 +1,4 @@
+
 ---
 import { t } from "@lib/i18n";
 import SessionModal from "@components/SessionModal.astro";
@@ -20,7 +21,7 @@ const FIRESIDE_TITLE = "Lunch & Fireside Chat";
 const normalizeSpeakerName = (name: string) =>
   name
     .normalize("NFD")
-    .replace(/[̀-ͯ]/g, "")
+    .replace(/[\u0300-\u036f]/g, "")
     .trim()
     .toLowerCase()
     .replace(/\s+/g, " ");
@@ -111,21 +112,54 @@ const roomLinks: Record<string, string> = {
   "B02": "https://ctl2.uwindsor.ca/classrooms/OB/B02/",
 };
 
+/*
+ * FIRESIDE CHAT
+ *
+ * Panelists:
+ * Don Ward
+ * Naresh Jasotani
+ * Mina Girges
+ * James Lannigan
+ * Godfrey Nolan
+ *
+ * Moderator:
+ * Yvonne Pilon
+ */
+
 const firesideParticipants = [
   { name: "Don Ward" },
   { name: "Naresh Jasotani" },
   { name: "Mina Girges" },
   { name: "James Lannigan" },
+  { name: "Godfrey Nolan" },
   { name: "Yvonne Pilon" },
 ].map((participant) => {
   const profile = getSpeakerData(participant.name);
 
+  // Yvonne Pilon — Fireside Chat Moderator
+  if (participant.name === "Yvonne Pilon") {
+    return {
+      name: "Yvonne Pilon",
+      imageUrl: "https://wedevfest.com/moderator/YvonnePilon.webp",
+      role: "President & CEO",
+      company: "WEtech Alliance",
+      bio: `Yvonne Pilon is the President and CEO of WEtech Alliance, one of Ontario’s Regional Innovation Centres. With 15+ years of leadership at the intersection of technology, innovation, entrepreneurship, and economic development, she is widely recognized for championing Canadian Tech and cross-border collaboration and strengthening entrepreneurial ecosystems that drive innovation and prosperity across Canada and the U.S.
+
+Yvonne serves on the Board of Directors for the Technology Councils of North America (TECNA) and on the Advisory Board for Canada’s Tech Network, amplifying the voice of innovators nationally and internationally.
+
+She has represented Canada as a G20 Youth Entrepreneurship delegate and has been recognized as an Emerging Leader in Startups & Tech by The Peak.`,
+      linkedinUrl: profile?.linkedinUrl || "",
+    };
+  }
+
+  const imageUrl =
+    participant.name === "Godfrey Nolan"
+      ? profile?.imageUrl || "/speakers/GodfreyNolan.webp"
+      : profile?.imageUrl || PLACEHOLDER_IMAGE;
+
   return {
     name: participant.name,
-    imageUrl:
-      participant.name === "Yvonne Pilon"
-        ? "/speakers/yvonne_pilon.webp"
-        : profile?.imageUrl || PLACEHOLDER_IMAGE,
+    imageUrl,
     role: profile?.role || "",
     company: profile?.company || "",
     bio: profile?.bio || "",
@@ -177,13 +211,13 @@ const scheduledSessions = [
   createScheduledSession("11:00 AM", "Keval Patel", "Full Stack"),
   createScheduledSession("11:00 AM", "Frank Abbruzzese", LEADERSHIP_TRACK),
 
-  // Shared lunch and fireside chat
+  // 12:00–1:00 PM — Lunch and Fireside Chat
   {
     time: "12:00 PM - 1:00 PM",
     duration: "60 min",
     title: FIRESIDE_TITLE,
     speaker:
-      "Don Ward / Naresh Jasotani / Mina Girges / James Lannigan / Yvonne Pilon",
+      "Don Ward / Naresh Jasotani / Mina Girges / James Lannigan / Godfrey Nolan / Yvonne Pilon",
     track: "ALL",
     type: "Break",
     location: "104",
@@ -194,6 +228,7 @@ Panelists:
 • Naresh Jasotani
 • Mina Girges
 • James Lannigan
+• Godfrey Nolan
 
 Moderator:
 • Yvonne Pilon`,
@@ -231,6 +266,7 @@ Moderator:
   ),
   createScheduledSession("4:00 PM", "Wen Teoh", LEADERSHIP_TRACK),
 
+  // Closing session
   {
     time: "5:00 PM",
     duration: "30 min",
@@ -244,7 +280,7 @@ Moderator:
   },
 ];
 
-// Apply submitted titles and abstracts to the scheduled sessions.
+// Apply submitted titles and abstracts to scheduled sessions.
 const abstractsBySpeaker = new Map(
   SUBMITTED_SESSIONS.map((session) => [
     normalizeSpeakerName(session.speaker),
@@ -286,8 +322,9 @@ const icons: Record<string, string> = {
   data-default-track={DEFAULT_TRACK}
 >
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-    <!-- Section Header -->
-   <div class="text-left mb-12">
+
+    <!-- SECTION HEADER -->
+    <div class="text-left mb-12">
       <span
         class="text-sm font-bold tracking-widest text-blue-600 uppercase"
       >
@@ -309,7 +346,7 @@ const icons: Record<string, string> = {
       </h2>
     </div>
 
-    <!-- Track Filters -->
+    <!-- TRACK FILTERS -->
     <div
       class="track-filters flex flex-wrap justify-center gap-3 mb-10"
       role="group"
@@ -325,14 +362,17 @@ const icons: Record<string, string> = {
             data-track={track.name}
             aria-pressed={track.name === DEFAULT_TRACK}
           >
-            <span class="flex-shrink-0" set:html={icons[track.icon]} />
+            <span
+              class="flex-shrink-0"
+              set:html={icons[track.icon]}
+            />
             {track.name}
           </button>
         ))
       }
     </div>
 
-    <!-- Schedule -->
+    <!-- SCHEDULE TABLE -->
     <div class="schedule-table-wrapper overflow-x-auto">
       <table class="w-full">
         <thead>
@@ -370,7 +410,8 @@ const icons: Record<string, string> = {
         <tbody>
           {
             sessions.map((session) => {
-              const isFiresideChat = session.title === FIRESIDE_TITLE;
+              const isFiresideChat =
+                session.title === FIRESIDE_TITLE;
 
               const speakerData = isFiresideChat
                 ? null
@@ -407,12 +448,15 @@ const icons: Record<string, string> = {
                   data-time={session.time}
                   data-location={session.location}
                 >
+                  <!-- TIME -->
                   <td class="py-6 px-4 font-semibold text-gray-900 whitespace-nowrap">
                     {session.time}
                   </td>
 
+                  <!-- SESSION -->
                   <td class="py-6 px-4">
                     <div class="flex items-start gap-4">
+
                       {!isFiresideChat && (
                         <div class="flex-shrink-0">
                           {speakerData ? (
@@ -455,6 +499,8 @@ const icons: Record<string, string> = {
                       )}
 
                       <div class="session-content flex-grow min-w-0">
+
+                        <!-- SESSION TITLE -->
                         <h4 class="font-semibold text-gray-900 mb-2">
                           <button
                             type="button"
@@ -464,6 +510,7 @@ const icons: Record<string, string> = {
                           </button>
                         </h4>
 
+                        <!-- FIRESIDE CHAT PARTICIPANTS -->
                         {isFiresideChat ? (
                           <>
                             <p class="text-sm text-gray-600 leading-relaxed">
@@ -505,12 +552,14 @@ const icons: Record<string, string> = {
                           </p>
                         )}
 
+                        <!-- TRACK BADGES -->
                         <div class="flex flex-wrap gap-2">
                           <span
                             class={`px-3 py-1.5 rounded-full text-xs font-semibold ${
                               track?.text || "text-white"
                             } bg-gradient-to-r ${
-                              track?.gradient || "from-slate-600 to-slate-700"
+                              track?.gradient ||
+                              "from-slate-600 to-slate-700"
                             } inline-flex items-center gap-1.5`}
                           >
                             <span
@@ -546,6 +595,7 @@ const icons: Record<string, string> = {
                     </div>
                   </td>
 
+                  <!-- LOCATION -->
                   <td class="py-6 px-4 text-gray-600 hidden md:table-cell">
                     {roomLink ? (
                       <a
@@ -565,6 +615,7 @@ const icons: Record<string, string> = {
                     )}
                   </td>
 
+                  <!-- ADD TO CALENDAR -->
                   <td class="py-6 px-4 text-center">
                     <button
                       type="button"
@@ -585,7 +636,7 @@ const icons: Record<string, string> = {
 
   <SessionModal sessions={sessions} />
 
-  <!-- Speaker Biography Modal -->
+  <!-- SPEAKER BIOGRAPHY MODAL -->
   <dialog
     id="schedulespeakerModal"
     class="schedule-bio-dialog rounded-2xl bg-white p-0 text-slate-900"
@@ -672,7 +723,9 @@ const icons: Record<string, string> = {
   }
 
   function formatUtcDate(date: Date) {
-    return date.toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
+    return (
+      date.toISOString().replace(/[-:]/g, "").split(".")[0] + "Z"
+    );
   }
 
   function escapeIcsText(value: string) {
@@ -700,11 +753,18 @@ const icons: Record<string, string> = {
       return;
     }
 
-    const durationMinutes = Number.parseInt(duration, 10) || 60;
+    const durationMinutes =
+      Number.parseInt(duration, 10) || 60;
 
     // November 21, 2026, Windsor (EST, UTC−5).
     const startDate = new Date(
-      Date.UTC(2026, 10, 21, parsedTime.hours + 5, parsedTime.minutes),
+      Date.UTC(
+        2026,
+        10,
+        21,
+        parsedTime.hours + 5,
+        parsedTime.minutes,
+      ),
     );
 
     const endDate = new Date(
@@ -712,18 +772,21 @@ const icons: Record<string, string> = {
     );
 
     const details = `Speaker: ${speaker}\n\n${description}`;
-    const previousFocus = document.activeElement as HTMLElement | null;
+    const previousFocus =
+      document.activeElement as HTMLElement | null;
 
     const dialog = document.createElement("dialog");
     dialog.className = "schedule-calendar-dialog";
     dialog.setAttribute("aria-label", "Add to Calendar");
 
     const heading = document.createElement("h3");
-    heading.className = "text-lg font-semibold text-gray-900 mb-2";
+    heading.className =
+      "text-lg font-semibold text-gray-900 mb-2";
     heading.textContent = "Add to Calendar";
 
     const titleText = document.createElement("p");
-    titleText.className = "text-sm text-gray-600 mb-5";
+    titleText.className =
+      "text-sm text-gray-600 mb-5";
     titleText.textContent = title;
 
     const googleButton = document.createElement("button");
@@ -800,7 +863,8 @@ const icons: Record<string, string> = {
       const link = document.createElement("a");
 
       link.href = url;
-      link.download = `${title.replace(/[^a-z0-9]+/gi, "-")}.ics`;
+      link.download =
+        `${title.replace(/[^a-z0-9]+/gi, "-")}.ics`;
 
       document.body.append(link);
       link.click();
@@ -810,7 +874,10 @@ const icons: Record<string, string> = {
       dialog.close();
     });
 
-    cancelButton.addEventListener("click", () => dialog.close());
+    cancelButton.addEventListener(
+      "click",
+      () => dialog.close(),
+    );
 
     dialog.addEventListener("click", (event) => {
       if (event.target !== dialog) return;
@@ -831,13 +898,19 @@ const icons: Record<string, string> = {
   }
 
   function initializeSchedule() {
-    const root = document.querySelector<HTMLElement>("#schedule");
+    const root =
+      document.querySelector<HTMLElement>("#schedule");
 
-    if (!root || root.dataset.initialized === "true") return;
+    if (!root || root.dataset.initialized === "true") {
+      return;
+    }
+
     root.dataset.initialized = "true";
 
     const speakerModal =
-      root.querySelector<HTMLDialogElement>("#schedulespeakerModal");
+      root.querySelector<HTMLDialogElement>(
+        "#schedulespeakerModal",
+      );
 
     function openSpeakerModal(element: HTMLElement) {
       if (!speakerModal) return;
@@ -851,8 +924,13 @@ const icons: Record<string, string> = {
         speakerImage = "/google-person.png",
       } = element.dataset;
 
-      const setText = (selector: string, value: string) => {
-        const target = speakerModal.querySelector<HTMLElement>(selector);
+      const setText = (
+        selector: string,
+        value: string,
+      ) => {
+        const target =
+          speakerModal.querySelector<HTMLElement>(selector);
+
         if (target) target.textContent = value;
       };
 
@@ -861,18 +939,20 @@ const icons: Record<string, string> = {
       setText("#scheduleModalSpeakerCompany", speakerCompany);
       setText("#scheduleModalSpeakerBio", speakerBio);
 
-      const image = speakerModal.querySelector<HTMLImageElement>(
-        "#scheduleModalSpeakerImage",
-      );
+      const image =
+        speakerModal.querySelector<HTMLImageElement>(
+          "#scheduleModalSpeakerImage",
+        );
 
       if (image) {
         image.src = speakerImage;
         image.alt = speakerName;
       }
 
-      const linkedin = speakerModal.querySelector<HTMLAnchorElement>(
-        "#scheduleModalLinkedinLink",
-      );
+      const linkedin =
+        speakerModal.querySelector<HTMLAnchorElement>(
+          "#scheduleModalLinkedinLink",
+        );
 
       if (linkedin) {
         linkedin.hidden = !speakerLinkedin;
@@ -884,11 +964,15 @@ const icons: Record<string, string> = {
         }
       }
 
-      if (!speakerModal.open) speakerModal.showModal();
+      if (!speakerModal.open) {
+        speakerModal.showModal();
+      }
     }
 
     root
-      .querySelectorAll<HTMLElement>(".speaker-schedule-trigger")
+      .querySelectorAll<HTMLElement>(
+        ".speaker-schedule-trigger",
+      )
       .forEach((element) => {
         element.addEventListener("click", (event) => {
           event.stopPropagation();
@@ -898,12 +982,16 @@ const icons: Record<string, string> = {
 
     root
       .querySelector("#scheduleCloseModalBtn")
-      ?.addEventListener("click", () => speakerModal?.close());
+      ?.addEventListener(
+        "click",
+        () => speakerModal?.close(),
+      );
 
     speakerModal?.addEventListener("click", (event) => {
       if (event.target !== speakerModal) return;
 
-      const rect = speakerModal.getBoundingClientRect();
+      const rect =
+        speakerModal.getBoundingClientRect();
 
       if (
         event.clientX < rect.left ||
@@ -916,12 +1004,17 @@ const icons: Record<string, string> = {
     });
 
     const sessionRows =
-      root.querySelectorAll<HTMLTableRowElement>(".session-row");
+      root.querySelectorAll<HTMLTableRowElement>(
+        ".session-row",
+      );
 
     sessionRows.forEach((row) => {
       row.addEventListener("click", (event) => {
         const target = event.target;
-        if (!(target instanceof Element)) return;
+
+        if (!(target instanceof Element)) {
+          return;
+        }
 
         if (
           target.closest(
@@ -933,7 +1026,9 @@ const icons: Record<string, string> = {
 
         const openSessionModal = (
           window as Window & {
-            openSessionModal?: (details: SessionDetails) => void;
+            openSessionModal?: (
+              details: SessionDetails,
+            ) => void;
           }
         ).openSessionModal;
 
@@ -948,7 +1043,9 @@ const icons: Record<string, string> = {
       });
 
       row
-        .querySelector<HTMLButtonElement>(".add-to-calendar-btn")
+        .querySelector<HTMLButtonElement>(
+          ".add-to-calendar-btn",
+        )
         ?.addEventListener("click", (event) => {
           event.stopPropagation();
           addToCalendar(row);
@@ -956,13 +1053,20 @@ const icons: Record<string, string> = {
     });
 
     const filterButtons =
-      root.querySelectorAll<HTMLButtonElement>(".track-filter-btn");
+      root.querySelectorAll<HTMLButtonElement>(
+        ".track-filter-btn",
+      );
 
     function applyFilter(selectedTrack: string) {
       filterButtons.forEach((button) => {
-        const active = button.dataset.track === selectedTrack;
+        const active =
+          button.dataset.track === selectedTrack;
+
         button.classList.toggle("active", active);
-        button.setAttribute("aria-pressed", String(active));
+        button.setAttribute(
+          "aria-pressed",
+          String(active),
+        );
       });
 
       sessionRows.forEach((row) => {
@@ -978,21 +1082,34 @@ const icons: Record<string, string> = {
     filterButtons.forEach((button) => {
       button.addEventListener("click", () => {
         const selectedTrack = button.dataset.track;
-        if (selectedTrack) applyFilter(selectedTrack);
+
+        if (selectedTrack) {
+          applyFilter(selectedTrack);
+        }
       });
     });
 
-    applyFilter(root.dataset.defaultTrack || "Google Cloud");
+    applyFilter(
+      root.dataset.defaultTrack || "Google Cloud",
+    );
   }
 
   initializeSchedule();
-  document.addEventListener("astro:page-load", initializeSchedule);
+
+  document.addEventListener(
+    "astro:page-load",
+    initializeSchedule,
+  );
 </script>
 
 <style>
+  /* SECTION */
+
   #schedule {
     scroll-margin-top: 6rem;
   }
+
+  /* GOOGLE COLOR LINES */
 
   .schedule-color-lines {
     display: flex;
@@ -1008,14 +1125,20 @@ const icons: Record<string, string> = {
     border-radius: 9999px;
   }
 
+  /* TRACK FILTERS */
+
   .track-filter-btn.active {
-    box-shadow: 0 0 0 3px white, 0 0 0 6px #4285f4;
+    box-shadow:
+      0 0 0 3px white,
+      0 0 0 6px #4285f4;
   }
 
   .track-filter-btn:focus-visible {
     outline: 2px solid #0f172a;
     outline-offset: 7px;
   }
+
+  /* ACCESSIBILITY */
 
   .speaker-schedule-trigger:focus-visible,
   .session-title-btn:focus-visible,
@@ -1029,6 +1152,8 @@ const icons: Record<string, string> = {
     display: none;
   }
 
+  /* SPEAKER IMAGE BLOB */
+
   .blob-shape {
     border-radius: 30% 70% 70% 30%;
     animation: scheduleBlob 8s ease-in-out infinite;
@@ -1038,12 +1163,20 @@ const icons: Record<string, string> = {
     white-space: nowrap;
   }
 
+  /* =====================================
+     FIRESIDE CHAT — SIX PARTICIPANTS
+  ===================================== */
+
   .fireside-people {
     display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(
+      6,
+      minmax(0, 1fr)
+    );
+
     gap: 0.5rem;
     width: 100%;
-    max-width: 30rem;
+    max-width: 36rem;
     margin: 1rem 0;
   }
 
@@ -1051,23 +1184,30 @@ const icons: Record<string, string> = {
     display: flex;
     flex-direction: column;
     align-items: center;
+
     gap: 0.4rem;
     min-width: 0;
     padding: 0.25rem 0;
+
     border-radius: 0.75rem;
     text-align: center;
   }
 
   .fireside-person-photo {
     display: block;
+
     width: 64px;
     max-width: 100%;
     height: auto;
     aspect-ratio: 1;
+
     object-fit: cover;
     border-radius: 50%;
     border: 3px solid white;
-    box-shadow: 0 3px 12px rgb(15 23 42 / 12%);
+
+    box-shadow:
+      0 3px 12px rgb(15 23 42 / 12%);
+
     transition: transform 0.2s ease;
   }
 
@@ -1079,34 +1219,47 @@ const icons: Record<string, string> = {
     overflow-wrap: anywhere;
   }
 
+  /* BIO MODAL */
+
   .schedule-bio-dialog {
     width: min(42rem, calc(100% - 2rem));
     max-height: 85vh;
     margin: auto;
+
     border: 0;
     overflow-y: auto;
-    box-shadow: 0 20px 60px rgb(0 0 0 / 20%);
+
+    box-shadow:
+      0 20px 60px rgb(0 0 0 / 20%);
   }
 
   .schedule-bio-dialog::backdrop {
     background: rgb(0 0 0 / 50%);
   }
 
+  /* CALENDAR MODAL */
+
   :global(.schedule-calendar-dialog) {
     width: min(24rem, calc(100% - 2rem));
     max-height: 85vh;
     margin: auto;
     padding: 1.5rem;
+
     border: 0;
     border-radius: 1rem;
     background: white;
+
     overflow-y: auto;
-    box-shadow: 0 20px 60px rgb(0 0 0 / 20%);
+
+    box-shadow:
+      0 20px 60px rgb(0 0 0 / 20%);
   }
 
   :global(.schedule-calendar-dialog::backdrop) {
     background: rgb(0 0 0 / 50%);
   }
+
+  /* ANIMATIONS */
 
   @keyframes scheduleBlob {
     0%,
@@ -1132,6 +1285,22 @@ const icons: Record<string, string> = {
       transform: translateY(-3px);
     }
   }
+
+  /* TABLET */
+
+  @media (min-width: 640px) and (max-width: 900px) {
+    .fireside-people {
+      grid-template-columns: repeat(
+        3,
+        minmax(0, 1fr)
+      );
+
+      max-width: 24rem;
+      gap: 0.75rem;
+    }
+  }
+
+  /* MOBILE */
 
   @media (max-width: 767px) {
     .track-filters {
@@ -1165,14 +1334,19 @@ const icons: Record<string, string> = {
 
     .session-row {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
+      grid-template-columns:
+        minmax(0, 1fr) auto;
+
       gap: 1rem;
       padding: 1rem;
       margin-bottom: 1rem;
+
       border: 1px solid #e2e8f0;
       border-radius: 1rem;
       background: white;
-      box-shadow: 0 4px 16px rgb(15 23 42 / 4%);
+
+      box-shadow:
+        0 4px 16px rgb(15 23 42 / 4%);
     }
 
     .session-row.hidden {
@@ -1188,6 +1362,7 @@ const icons: Record<string, string> = {
       grid-column: 1 / -1;
       grid-row: 1;
       align-self: center;
+
       font-size: 0.875rem;
       color: #2563eb;
       white-space: normal;
@@ -1237,8 +1412,16 @@ const icons: Record<string, string> = {
       border-radius: 0.625rem;
     }
 
+    /* SIX PARTICIPANTS — 3 PER ROW */
+
     .fireside-people {
-      gap: 0.35rem;
+      grid-template-columns: repeat(
+        3,
+        minmax(0, 1fr)
+      );
+
+      gap: 0.75rem;
+      max-width: 100%;
     }
 
     .fireside-person-photo {
@@ -1250,6 +1433,24 @@ const icons: Record<string, string> = {
       font-size: 0.65rem;
     }
   }
+
+  /* EXTRA SMALL MOBILE */
+
+  @media (max-width: 359px) {
+    .fireside-people {
+      gap: 0.4rem;
+    }
+
+    .fireside-person-photo {
+      width: 44px;
+    }
+
+    .fireside-person-name {
+      font-size: 0.6rem;
+    }
+  }
+
+  /* REDUCED MOTION */
 
   @media (prefers-reduced-motion: reduce) {
     .blob-shape {
