@@ -1,170 +1,891 @@
+
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
 import Header from "@components/Header.astro";
 import { EVENT_2026 } from "@config/event.config";
 
 const title = `About | ${EVENT_2026.name}`;
-const description = "Learn more about Google DevFest Windsor 2026 - a community-led technical conference.";
+const description =
+  "Learn more about Google DevFest Windsor 2026 and the people behind the event.";
+
+type Person = {
+  name: string;
+  company: string;
+  role: string;
+  image: string;
+  color: "blue" | "red" | "yellow" | "green";
+  bio: string;
+  profile?: string;
+  website?: string;
+};
+
+const organizers: Person[] = [
+  {
+    name: "Ali El-Sharif",
+    company: "St. Clair College",
+    role: "Professor",
+    image: "/organizers/AliElSharif.webp",
+    color: "blue",
+    bio: `Ali El-Sharif works as a professor at St. Clair College in Windsor, where he teaches Data Analytics and Cybersecurity. Ali is currently co-authoring a book with Serg Masís and Nick Schmidt. The book title is “Building Responsible AI with Python - Identify, explain, and mitigate bias with hands-on code examples.” Ali enjoys volunteering for GDG Windsor and encourages everyone to stay connected with this amazing community of developers.`,
+    profile: "https://gdg.community.dev/u/m2wven/#/about",
+  },
+  {
+    name: "Vivian Tang",
+    company: "BDO",
+    role: "Data Consultant",
+    image: "/organizers/VivianTang.webp",
+    color: "red",
+    bio: `MBA with a BSc in Computer Science from the University of Windsor, with international experience studying abroad in Seoul, South Korea. Experienced with proven success in technical leadership, project management, community building, and delivering large-scale initiatives (WinHacks, Google DevFest). Passionate about inclusive innovation, mentorship, and leading cross-functional teams from concept to execution in business and technology.`,
+    profile: "https://gdg.community.dev/u/mv5k92/#/about",
+  },
+  {
+    name: "Daria Deriagina",
+    company: "DashDev Studio",
+    role: "Web Content Developer | UX/UI & Web Designer",
+    image: "/organizers/dariaDeriagina.webp",
+    color: "yellow",
+    bio: `I'm a web developer and UX/UI designer based in Calgary, where I work at a web design studio creating websites for businesses. I also run my own project, DashDev Studio, where I explore new technologies and build custom web experiences.
+
+I enjoy combining creativity with coding, learning new things, and connecting with the developer community through GDG Windsor and DevFest.`,
+    profile: "https://gdg.community.dev/u/m9dwxn/#/about",
+    website: "https://dashdevstudio.com/",
+  },
+  {
+    name: "Esraa Abdelhalim",
+    company: "University of Windsor",
+    role: "Assistant Professor",
+    image: "/organizers/esraaAbdelhalim.webp",
+    color: "green",
+    bio: `Esraa is an Assistant Professor at the Odette School of Business, University of Windsor, specializing in Human-AI Interaction, Privacy and Cybersecurity, Responsible Algorithms, and Data Analytics. Her research is published in top-tier journals and conferences, and she has received multiple awards, including Professor of the Year (2024, 2025), Ontario Trillium Award, and TechWomen award. Esraa has worked with 100+ women in leading Silicon Valley tech companies and co-founded initiatives like “Women Techmakers-Alexandria”, “GDG-Alexandria”, and “Heya is Back.” She also organizes the annual International Women’s Day event and AI workshops at Odette.`,
+    profile: "https://gdg.community.dev/u/mgaxv3/#/about",
+    website: "https://www.esraaabdelhalim.com/",
+  },
+  {
+    name: "Joe Youssouf",
+    company: "Oden Technologies",
+    role: "Data Scientist",
+    image: "/organizers/JoeYoussouf.webp",
+    color: "blue",
+    bio: "",
+  },
+  {
+    name: "Ashlynn Ward",
+    company: "University of Windsor",
+    role: "Computer Science Student",
+    image: "/organizers/AshlynnWard.webp",
+    color: "red",
+    bio: `Ashlynn Ward recently started a Computer Science degree at the University of Windsor. She is a Women Techmaker Member and a big fan of Google Developer Groups.`,
+    profile: "https://gdg.community.dev/u/m4a7kz/#/about",
+  },
+  {
+    name: "Keval Patel",
+    company: "",
+    role: "Data Scientist",
+    image: "/organizers/KevalPatel.webp",
+    color: "yellow",
+    bio: "",
+  },
+  {
+    name: "Arunesh Choudhary",
+    company: "Dialabot.ai",
+    role: "Conversational AI Engineer",
+    image: "/organizers/AruneshChoudhary.webp",
+    color: "green",
+    bio: `As a Conversational AI Engineer at Dialabot.ai, I design, develop, and deploy scalable conversational AI agents tailored to business needs. I architect conversation flows, configure agent behaviors, and integrate agents with CRMs, APIs, calendars, and enterprise systems to automate workflows and improve user interactions. I also build and maintain data pipelines to support agent training, performance monitoring, and continuous optimization, ensuring reliable and production-ready AI solutions.`,
+    profile: "https://gdg.community.dev/u/mra5bg/#/about",
+  },
+  {
+    name: "Sam Ghasan",
+    company: "",
+    role: "Enterprise Architect",
+    image: "/organizers/SamGhasan.webp",
+    color: "blue",
+    bio: "",
+  },
+  {
+    name: "Kiran Puthan",
+    company: "Ordway Labs",
+    role: "Solutions Engineer",
+    image: "/organizers/KiranPuthan.webp",
+    color: "red",
+    bio: `Kiran blends a background in engineering with sales leadership, helping organizations evaluate and implement solutions that align with both technical needs and strategic objectives. He is also a leadership expert who delivers high-energy talks and presentations on Technology, Design, and Sales.`,
+    profile: "https://gdg.community.dev/u/m6kfs5/#/about",
+  },
+];
+
+const moderator: Person = {
+  name: "Yvonne Pilon",
+  company: "WEtech Alliance",
+  role: "President & CEO",
+  image: "/moderator/YvonnePilon.webp",
+  color: "blue",
+  bio: `Yvonne Pilon is the President and CEO of WEtech Alliance, one of Ontario’s Regional Innovation Centres. With 15+ years of leadership at the intersection of technology, innovation, entrepreneurship, and economic development, she is widely recognized for championing Canadian Tech and cross-border collaboration and strengthening entrepreneurial ecosystems that drive innovation and prosperity across Canada and the U.S. Yvonne serves on the Board of Directors for the Technology Councils of North America (TECNA) and on the Advisory Board for Canada’s Tech Network, amplifying the voice of innovators nationally and internationally. She has represented Canada as a G20 Youth Entrepreneurship delegate and has been recognized as an Emerging Leader in Startups & Tech by The Peak.`,
+};
+
+const panelists: Person[] = [
+  {
+    name: "Don Ward",
+    company: "Google",
+    role: "Customer Engineer",
+    image: "/panelists/don-ward.webp",
+    color: "blue",
+    bio: `Don Ward is a cloud enthusiast and Customer Engineer at Google Cloud, bringing deep practical experience to the table. In the last 5 years alone, he's earned an impressive 17 cloud certifications across Google and AWS, fueled by a passion for continuous learning and a drive to master the Google Cloud ecosystem. Don's commitment extends to the local tech scene, where he's spent 12 years fostering growth by leading Google Developer Groups in Windsor and Detroit. While transitioning leadership, he remains a dedicated volunteer, empowering others to lead.`,
+  },
+  {
+    name: "Naresh Jasotani",
+    company: "Google",
+    role: "Technology Leader / AI & ML",
+    image: "/panelists/NareshJasotani.webp",
+    color: "red",
+    bio: `Naresh has over 17 years of experience in helping customers to get benefits of data, analytics and artificial intelligence advancements. With Machine Learning picking up in the last few years, he believes that it has brought endless possibilities for businesses to make data-based decisions, and be more predictive in their thought process. Naresh currently works at Google in the AI & ML domain and in the past, he gained consulting experience working for companies like Infosys, TCS, Accenture and Miracle Software Systems.
+
+He is passionate about building solutions with customers, published author (Book: Adopting TensorFlow for real-world AI), and avid YouTuber. He enjoys taking up new challenges, analysing customers’ business problems and coming up with innovative solutions that can be solved by collecting, understanding, designing data, analytics and Machine learning solutions. He loves flying planes and has a Pilot’s License as well.`,
+  },
+  {
+    name: "James Lannigan",
+    company: "Signal49 Research",
+    role: "Senior Research Associate (Innovation and Technology)",
+    image: "/panelists/JamesLannigan.webp",
+    color: "yellow",
+    bio: `Dr. James Lannigan brings a unique mixed-methods approach that combines in-depth qualitative research, statistical rigour, and social network analysis to produce actionable insights for informed decision-making. At Signal49 Research, his work focuses on emerging technology adoption in Canada, including C-suite perspectives on artificial intelligence, recent AI developments, and projects examining AI adoption among Canadian firms and innovation trends in the mining and oil and gas sectors. His role spans the full research lifecycle, including project design, stakeholder engagement, qualitative and quantitative data collection, advanced analysis, and knowledge mobilization.
+
+In addition to his core responsibilities, Dr. Lannigan contributes to several internal initiatives at Signal49 Research, including the AI Table, Research Community of Practice, Joint Health and Safety Committee, and the Wellness Committee. Dr. Lannigan’s academic research centres on communication and social networks, with topics spanning social media engagement by public institutions, political polarization in digital and print media, and consumer–brand interactions. His doctoral research examined specialty coffee ecosystems in Hamilton and Toronto, focusing on interorganizational networks, market niches, and organizational responses to the COVID-19 pandemic. He has held research roles at the University of Toronto and Toronto Metropolitan University.`,
+  },
+  {
+    name: "Mina Girges",
+    company: "TransForm Shared Service Organization",
+    role: "Vice President & Chief Information Officer",
+    image: "/panelists/MinaGirges.webp",
+    color: "green",
+    bio: `Mina Girges is an award-winning Information Systems leader and IT strategist, recognized for his expertise in secure, efficient, and scalable technology solutions. Currently Vice President & Chief Information Officer at TransForm Shared Service Organization, he is focused on Zero Trust, digital transformation, and building secure, scalable infrastructure that drives business outcomes.`,
+  },
+  {
+    name: "Godfrey Nolan",
+    company: "RIIS LLC",
+    role: "President",
+    image: "/panelists/GodfreyNolan.webp",
+    color: "blue",
+    bio: `Godfrey Nolan is the President of RIIS LLC, a mobile development company based in Troy, Michigan, and Windsor specializing in mobile apps for drones. With over 26 years of experience, he has built a team of experts capable of defining, developing, testing, and deploying mobile and web applications for our clients. Godfrey is also a prolific author, having written six books on mobile development and security, including "Decompiling Java" and "Bulletproof Android."
+
+In addition to his role at RIIS LLC, he serves as an Adjunct Professor at multiple universities, teaching various subjects related to programming and development, including Java, LLMs, Blockchain technologies, and Android programming. His extensive experience in both the industry and academia highlights his expertise in mobile technology, requirements analysis, architecture, and continuous integration. Godfrey Nolan's contributions span the worlds of education, mobile app development, and published authorship in the field of technology.`,
+  },
+];
+
+const sections = [
+  {
+    id: "organizers",
+    eyebrow: "MEET THE TEAM",
+    title: "Meet Our Organizers",
+    people: organizers,
+    background: "bg-gradient-to-b from-slate-50 to-white",
+  },
+  {
+    id: "moderator",
+    eyebrow: "FIRESIDE CHAT",
+    title: "Meet Our Moderator",
+    people: [moderator],
+    background: "bg-white",
+  },
+  {
+    id: "panelists",
+    eyebrow: "FIRESIDE CHAT",
+    title: "Meet Our Panelists",
+    people: panelists,
+    background: "bg-gradient-to-b from-slate-50 to-white",
+  },
+];
+
+const colors: Record<Person["color"], string> = {
+  blue: "bg-blue-600",
+  red: "bg-red-600",
+  yellow: "bg-amber-500",
+  green: "bg-green-600",
+};
 ---
 
-<BaseLayout title={title} description={description} ogImage={EVENT_2026.seo.ogImage}>
+<BaseLayout
+  title={title}
+  description={description}
+  ogImage={EVENT_2026.seo.ogImage}
+>
   <Header logoSrc="/web-app-manifest-512x512.png" />
-  
+
   <main class="pt-20">
-    <!-- Hero Section with Image -->
-    <section class="py-12 md:py-20 bg-white">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid md:grid-cols-2 gap-12 items-center">
-          <!-- Left: Image -->
+
+    <!-- ABOUT HERO -->
+    <section class="bg-white py-12 md:py-20">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div class="grid items-center gap-10 md:grid-cols-2 md:gap-12">
+
           <div class="animate-fadeInLeft">
-            <div class="rounded-3xl overflow-hidden border-8 border-yellow-400 shadow-2xl">
-              <img 
-                src="/AboutSectionImage.png" 
+            <div class="overflow-hidden rounded-3xl border-8 border-yellow-400 shadow-2xl">
+              <img
+                src="/AboutSectionImage.png"
                 alt="DevFest Windsor Conference"
-                class="w-full h-auto object-cover"
+                class="h-auto w-full object-cover"
               />
             </div>
           </div>
 
-          <!-- Right: Content -->
           <div class="animate-fadeInRight">
-            <span class="inline-block text-red-600 font-semibold text-sm uppercase tracking-wider mb-4">
+            <span
+              class="mb-4 inline-block text-sm font-semibold uppercase tracking-wider text-red-600"
+              data-about-i18n="heroEyebrow"
+            >
               🔥 What is DevFest?
             </span>
-            <h1 class="text-4xl md:text-5xl font-bold text-slate-900 mb-6 leading-tight" data-i18n="about.title">
+
+            <h1
+              class="mb-6 text-4xl font-bold leading-tight text-slate-900 md:text-5xl"
+              data-about-i18n="heroTitle"
+            >
               Join the Community-Led Tech Conference
             </h1>
-            <p class="text-lg text-slate-600 mb-6 leading-relaxed" data-i18n="about.subtitle">
-              DevFest Windsor is a community-led technical conference hosted by the Google Developer Group (GDC) Windsor. It's a premier local event designed to bring developers together to learn, connect, and build the future.
+
+            <p
+              class="mb-6 text-lg leading-relaxed text-slate-600"
+              data-about-i18n="heroSubtitle"
+            >
+              DevFest Windsor is a community-led technical conference hosted by Google Developer Group Windsor. It's a premier local event designed to bring developers together to learn, connect, and build the future.
             </p>
-            <p class="text-lg text-slate-600 leading-relaxed" data-i18n="about.description">
+
+            <p
+              class="text-lg leading-relaxed text-slate-600"
+              data-about-i18n="heroDescription"
+            >
               Whether you're a seasoned developer or just starting your tech journey, DevFest offers something for everyone. Experience inspiring talks, hands-on workshops, meaningful networking, and exclusive swag.
             </p>
           </div>
+
         </div>
       </div>
     </section>
 
-    <!-- Features Grid -->
-    <section class="py-16 md:py-24 bg-gradient-to-b from-slate-50 to-white">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16">
-          <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4" data-i18n="about.experienceTitle">
-            What You'll Experience
-          </h2>
-          <p class="text-lg text-slate-600" data-i18n="about.experienceSubtitle">
-            Four amazing things await you at DevFest Windsor 2026
-          </p>
-        </div>
+    <!-- PEOPLE SECTIONS -->
+    {
+      sections.map((section) => (
+        <section
+          id={section.id}
+          class={`py-16 md:py-24 ${section.background}`}
+          aria-labelledby={`${section.id}-heading`}
+        >
+          <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
-        <div class="grid md:grid-cols-2 gap-8">
-          <!-- Card 1: Expert Talks -->
-          <div class="group p-8 bg-white rounded-xl border-2 border-blue-200 hover:shadow-lg transition-all duration-300">
-            <div class="w-14 h-14 bg-blue-100 rounded-lg flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
-              <svg class="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C6.5 6.253 2 10.998 2 17.25c0 5.25 3.75 9.15 10 9.15s10-3.9 10-9.15c0-6.252-4.5-11-9-11z"></path>
-              </svg>
+            <!-- HEADING -->
+            <div class="mb-12 sm:mb-16">
+              <span
+                class="text-sm font-bold uppercase tracking-widest text-blue-600"
+                data-about-i18n={`${section.id}Eyebrow`}
+              >
+                {section.eyebrow}
+              </span>
+
+              <div
+                class="mb-6 mt-6 flex w-full max-w-sm gap-2"
+                aria-hidden="true"
+              >
+                <span class="h-1.5 flex-1 rounded-full bg-blue-600"></span>
+                <span class="h-1.5 flex-1 rounded-full bg-red-600"></span>
+                <span class="h-1.5 flex-1 rounded-full bg-yellow-400"></span>
+                <span class="h-1.5 flex-1 rounded-full bg-green-600"></span>
+              </div>
+
+              <h2
+                id={`${section.id}-heading`}
+                class="text-3xl font-bold text-slate-900 sm:text-4xl"
+                data-about-i18n={`${section.id}Title`}
+              >
+                {section.title}
+              </h2>
             </div>
-            <h3 class="text-2xl font-bold text-slate-900 mb-3" data-i18n="about.talks">Expert Talks</h3>
-            <p class="text-slate-600 leading-relaxed" data-i18n="about.talksDesc">
-              Learn from industry leaders and Google Developer Experts about the latest technologies, best practices, and innovation in web, mobile, cloud, and AI.
+
+            <!-- RESPONSIVE PEOPLE GRID -->
+            <div
+              class:list={[
+                "people-grid",
+                section.id === "moderator" && "people-grid--moderator",
+              ]}
+            >
+              {section.people.map((person, index) => (
+                <article
+                  class="person-card group animate-fade-in-up"
+                  style={`animation-delay: ${(index % 4) * 0.1}s;`}
+                  data-name={person.name}
+                  data-company={person.company}
+                  data-role={person.role}
+                  data-image={person.image}
+                  data-bio={person.bio}
+                  data-profile={person.profile || ""}
+                  data-website={person.website || ""}
+                >
+
+                  <!-- CLICKABLE PHOTO -->
+                  <button
+                    type="button"
+                    class="person-trigger person-avatar-button"
+                    aria-label={`View biography of ${person.name}`}
+                    aria-haspopup="dialog"
+                    aria-controls="personBioModal"
+                  >
+                    <span
+                      class={`blob-shape person-avatar-blob ${colors[person.color]}`}
+                      aria-hidden="true"
+                    ></span>
+
+                    <img
+                      src={person.image}
+                      alt={person.name}
+                      class="person-avatar-image"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </button>
+
+                  <!-- CONTENT -->
+                  <div class="person-content">
+
+                    <h3 class="person-name">
+                      {person.name}
+                    </h3>
+
+                    <p class="person-company">
+                      {person.company || "\u00A0"}
+                    </p>
+
+                    <p class="person-role">
+                      {person.role}
+                    </p>
+
+                  </div>
+
+                  <!-- ALWAYS SHOW BIO BUTTON -->
+                  <button
+                    type="button"
+                    class="person-trigger person-bio-button"
+                    aria-haspopup="dialog"
+                    aria-controls="personBioModal"
+                    aria-label={`View biography of ${person.name}`}
+                  >
+                    <span data-about-i18n="bio">Bio</span>
+                  </button>
+
+                </article>
+              ))}
+            </div>
+
+          </div>
+        </section>
+      ))
+    }
+
+    <!-- STATS -->
+    <section class="bg-gradient-to-r from-blue-600 via-green-500 to-yellow-400 py-16 md:py-24">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-2 gap-8 text-center text-white md:grid-cols-4">
+
+          <div>
+            <div class="mb-2 text-4xl font-bold sm:text-5xl md:text-6xl">
+              500+
+            </div>
+            <p
+              class="text-sm opacity-90 sm:text-lg"
+              data-about-i18n="attendees"
+            >
+              Expected Attendees
             </p>
           </div>
 
-          <!-- Card 2: Workshops -->
-          <div class="group p-8 bg-white rounded-xl border-2 border-green-200 hover:shadow-lg transition-all duration-300">
-            <div class="w-14 h-14 bg-green-100 rounded-lg flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
-              <svg class="w-7 h-7 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-              </svg>
+          <div>
+            <div class="mb-2 text-4xl font-bold sm:text-5xl md:text-6xl">
+              20+
             </div>
-            <h3 class="text-2xl font-bold text-slate-900 mb-3" data-i18n="about.workshops">Workshops</h3>
-            <p class="text-slate-600 leading-relaxed" data-i18n="about.workshopsDesc">
-              Hands-on sessions covering Web, Mobile, Cloud, and AI. Get hands-on experience and learn skills you can apply immediately.
+            <p
+              class="text-sm opacity-90 sm:text-lg"
+              data-about-i18n="speakers"
+            >
+              Amazing Speakers
             </p>
           </div>
 
-                                                         <!-- Card 3: Networking -->
-          <div class="group p-8 bg-white rounded-xl border-2 border-yellow-200 hover:shadow-lg transition-all duration-300">
-            <div class="w-14 h-14 bg-yellow-100 rounded-lg flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
-              <svg class="w-7 h-7 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-              </svg>
+          <div>
+            <div class="mb-2 text-4xl font-bold sm:text-5xl md:text-6xl">
+              8
             </div>
-            <h3 class="text-2xl font-bold text-slate-900 mb-3" data-i18n="about.networking">Networking</h3>
-            <p class="text-slate-600 leading-relaxed" data-i18n="about.networkingDesc">
-              Connect with fellow developers, startup founders, tech enthusiasts, and industry professionals. Build meaningful relationships in the tech community.
+            <p
+              class="text-sm opacity-90 sm:text-lg"
+              data-about-i18n="hours"
+            >
+              Hours of Content
             </p>
           </div>
 
-          <!-- Card 4: Swag & Fun -->
-          <div class="group p-8 bg-white rounded-xl border-2 border-red-200 hover:shadow-lg transition-all duration-300">
-            <div class="w-14 h-14 bg-red-100 rounded-lg flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
-              <svg class="w-7 h-7 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-              </svg>
+          <div>
+            <div class="mb-2 text-4xl font-bold sm:text-5xl md:text-6xl">
+              ∞
             </div>
-            <h3 class="text-2xl font-bold text-slate-900 mb-3" data-i18n="about.swag">Swag & Fun</h3>
-            <p class="text-slate-600 leading-relaxed" data-i18n="about.swagDesc">
-              Get exclusive DevFest gear, enjoy great food and drinks, participate in activities, and celebrate with the community at our amazing after-party.
+            <p
+              class="text-sm opacity-90 sm:text-lg"
+              data-about-i18n="networking"
+            >
+              Networking Value
             </p>
           </div>
+
         </div>
       </div>
     </section>
 
-    <!-- Stats Section -->
-    <section class="py-16 md:py-24 bg-gradient-to-r from-blue-600 via-green-500 to-yellow-400">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid md:grid-cols-4 gap-8 text-center text-white">
-          <div>
-            <div class="text-5xl md:text-6xl font-bold mb-2">500+</div>
-            <p class="text-lg opacity-90" data-i18n="about.expectedAttendees">Expected Attendees</p>
-          </div>
-          <div>
-            <div class="text-5xl md:text-6xl font-bold mb-2">20+</div>
-            <p class="text-lg opacity-90" data-i18n="about.amazingSpeakers">Amazing Speakers</p>
-          </div>
-          <div>
-            <div class="text-5xl md:text-6xl font-bold mb-2">8</div>
-            <p class="text-lg opacity-90" data-i18n="about.hoursOfContent">Hours of Content</p>
-          </div>
-          <div>
-            <div class="text-5xl md:text-6xl font-bold mb-2">∞</div>
-            <p class="text-lg opacity-90" data-i18n="about.networkingValue">Networking Value</p>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- CTA -->
+    <section class="bg-white py-16 md:py-24">
+      <div class="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
 
-    <!-- CTA Section -->
-    <section class="py-16 md:py-24 bg-white">
-      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-6" data-i18n="about.readyTitle">
+        <h2
+          class="mb-6 text-3xl font-bold text-slate-900 md:text-4xl"
+          data-about-i18n="readyTitle"
+        >
           Ready to Join Us?
         </h2>
-        <p class="text-lg text-slate-600 mb-8" data-i18n="about.readyText">
+
+        <p
+          class="mb-8 text-lg text-slate-600"
+          data-about-i18n="readyDescription"
+        >
           Secure your spot at DevFest Windsor 2026 and be part of the tech community's biggest event of the year.
         </p>
-        <a 
-          href="https://gdg.community.dev/events/details/google-gdg-windsor-presents-gdg-windsor-essex-devfest-2026/cohost-gdg-windsor/" target="_blank" rel="noopener noreferrer"
-          class="inline-block bg-gradient-to-r from-blue-600 to-green-500 text-white px-8 py-3 rounded-full font-semibold hover:shadow-lg transition-all duration-300 text-lg"
-          data-i18n="nav.getTickets"
+
+        <a
+          href="https://gdg.community.dev/events/details/google-gdg-windsor-presents-gdg-windsor-essex-devfest-2026/cohost-gdg-windsor/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-block rounded-full bg-gradient-to-r from-blue-600 to-green-500 px-8 py-3 text-lg font-semibold text-white transition-all duration-300 hover:shadow-lg"
+          data-about-i18n="tickets"
         >
           Get Tickets
         </a>
+
       </div>
     </section>
+
   </main>
+
+  <!-- SHARED BIO MODAL -->
+  <dialog
+    id="personBioModal"
+    class="person-modal rounded-2xl bg-white text-slate-900"
+    aria-labelledby="personModalName"
+  >
+    <div class="person-modal-inner">
+
+      <div class="mb-5 flex items-start justify-between gap-4">
+
+        <div class="min-w-0">
+          <h2
+            id="personModalName"
+            class="break-words text-xl font-bold text-slate-900 sm:text-2xl"
+          ></h2>
+
+          <p
+            id="personModalRole"
+            class="mt-2 break-words text-sm text-slate-600"
+          ></p>
+
+          <p
+            id="personModalCompany"
+            class="mt-1 break-words text-sm text-slate-500"
+          ></p>
+        </div>
+
+        <button
+          id="closePersonModal"
+          type="button"
+          class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full text-2xl leading-none text-slate-500 transition-colors hover:bg-slate-100 hover:text-slate-900"
+          aria-label="Close biography"
+        >
+          ×
+        </button>
+
+      </div>
+
+      <img
+        id="personModalImage"
+        alt=""
+        class="mb-5 h-24 w-24 rounded-full object-cover"
+      />
+
+      <p
+        id="personModalBio"
+        class="whitespace-pre-line break-words text-sm leading-relaxed text-slate-600 sm:text-base"
+      ></p>
+
+      <div class="mt-6 flex flex-wrap gap-4">
+
+        <a
+          id="personModalProfile"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hidden text-sm font-semibold text-blue-600 hover:underline"
+          data-about-i18n="gdgProfile"
+        >
+          GDG Profile ↗
+        </a>
+
+        <a
+          id="personModalWebsite"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hidden text-sm font-semibold text-blue-600 hover:underline"
+          data-about-i18n="website"
+        >
+          Website ↗
+        </a>
+
+      </div>
+
+    </div>
+  </dialog>
+
 </BaseLayout>
 
 <style>
+  /* --------------------------------
+     PEOPLE GRID
+  -------------------------------- */
+
+  .people-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 16px;
+    row-gap: 40px;
+    align-items: stretch;
+  }
+
+  .people-grid--moderator {
+    display: flex;
+    justify-content: center;
+  }
+
+  .people-grid--moderator .person-card {
+    width: 100%;
+    max-width: 280px;
+  }
+
+  /* --------------------------------
+     PERSON CARD
+  -------------------------------- */
+
+  .person-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    padding: 0 2px;
+  }
+
+  /* --------------------------------
+     PROFILE PHOTO
+  -------------------------------- */
+
+  .person-avatar-button {
+    position: relative;
+    display: block;
+    width: clamp(96px, 28vw, 160px);
+    height: clamp(96px, 28vw, 160px);
+    flex-shrink: 0;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    cursor: pointer;
+    border: 0;
+    padding: 0;
+    background: transparent;
+  }
+
+  .person-avatar-blob {
+    position: absolute;
+    inset: 0;
+    transform: scale(1.05);
+    transition: transform 300ms ease;
+  }
+
+  .person-avatar-image {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid white;
+    box-shadow: 0 6px 20px rgb(0 0 0 / 12%);
+    transition: transform 300ms ease;
+  }
+
+  .person-card:hover .person-avatar-blob {
+    transform: scale(1.1);
+  }
+
+  .person-card:hover .person-avatar-image {
+    transform: scale(1.05);
+  }
+
+  .blob-shape {
+    border-radius: 30% 70% 70% 30%;
+    animation: morphBlob 8s ease-in-out infinite;
+  }
+
+  @keyframes morphBlob {
+    0%, 100% {
+      border-radius: 30% 70% 70% 30%;
+    }
+
+    25% {
+      border-radius: 40% 60% 60% 40%;
+    }
+
+    50% {
+      border-radius: 50%;
+    }
+
+    75% {
+      border-radius: 60% 40% 40% 60%;
+    }
+  }
+
+  /* --------------------------------
+     CONTENT AREA
+     Keeps all buttons aligned
+  -------------------------------- */
+
+  .person-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+
+  .person-name {
+    width: 100%;
+    margin: 0;
+    color: #0f172a;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+  }
+
+  .person-company {
+    width: 100%;
+    margin-top: 8px;
+    color: #475569;
+    font-size: 13px;
+    line-height: 1.45;
+    overflow-wrap: anywhere;
+  }
+
+  .person-role {
+    width: 100%;
+    margin-top: 6px;
+    color: #64748b;
+    font-size: 12px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+    hyphens: auto;
+  }
+
+  /* --------------------------------
+     BIO BUTTON
+     Always at bottom of card
+  -------------------------------- */
+
+  .person-bio-button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    min-width: 88px;
+    min-height: 40px;
+    margin-top: 18px;
+    padding: 8px 20px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background: white;
+    color: #2563eb;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+      background 200ms ease,
+      border-color 200ms ease,
+      transform 200ms ease;
+  }
+
+  .person-bio-button:hover {
+    border-color: #2563eb;
+    background: #eff6ff;
+    transform: translateY(-2px);
+  }
+
+  /* --------------------------------
+     TABLET AND DESKTOP
+  -------------------------------- */
+
+  @media (min-width: 640px) {
+    .people-grid {
+      column-gap: 24px;
+      row-gap: 56px;
+    }
+
+    .person-name {
+      font-size: 18px;
+    }
+
+    .person-company {
+      font-size: 14px;
+    }
+
+    .person-role {
+      font-size: 13px;
+    }
+
+    .person-card {
+      padding: 0 8px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .people-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .person-avatar-button {
+      width: 160px;
+      height: 160px;
+    }
+
+    .person-card {
+      padding: 0 12px;
+    }
+  }
+
+  /* --------------------------------
+     MOBILE
+  -------------------------------- */
+
+  @media (max-width: 639px) {
+    .people-grid {
+      column-gap: 14px;
+      row-gap: 38px;
+    }
+
+    .person-card {
+      padding: 0 2px;
+    }
+
+    .person-avatar-button {
+      width: clamp(96px, 28vw, 136px);
+      height: clamp(96px, 28vw, 136px);
+      margin-bottom: 16px;
+    }
+
+    .person-name {
+      font-size: 15px;
+      line-height: 1.4;
+    }
+
+    .person-company {
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .person-role {
+      font-size: 11px;
+      line-height: 1.5;
+    }
+
+    .person-bio-button {
+      min-width: 82px;
+      min-height: 38px;
+      margin-top: 16px;
+      font-size: 13px;
+    }
+  }
+
+  /* Very narrow screens */
+  @media (max-width: 319px) {
+    .people-grid {
+      grid-template-columns: minmax(0, 1fr);
+      justify-items: center;
+    }
+
+    .person-card {
+      max-width: 250px;
+    }
+
+    .person-avatar-button {
+      width: 132px;
+      height: 132px;
+    }
+
+    .person-name {
+      font-size: 17px;
+    }
+
+    .person-role {
+      font-size: 13px;
+    }
+  }
+
+  /* --------------------------------
+     MODAL
+  -------------------------------- */
+
+  .person-modal {
+    width: min(42rem, calc(100% - 24px));
+    max-width: 42rem;
+    max-height: min(85dvh, 850px);
+    margin: auto;
+    padding: 0;
+    border: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    box-shadow: 0 24px 64px rgb(0 0 0 / 20%);
+  }
+
+  .person-modal-inner {
+    padding: 24px;
+  }
+
+  .person-modal::backdrop {
+    background: rgb(0 0 0 / 55%);
+  }
+
+  @media (max-width: 639px) {
+    .person-modal {
+      width: calc(100% - 24px);
+      max-height: 88dvh;
+      border-radius: 16px;
+    }
+
+    .person-modal-inner {
+      padding: 20px 16px;
+    }
+  }
+
+  /* --------------------------------
+     ANIMATIONS
+  -------------------------------- */
+
   @keyframes fadeInLeft {
     from {
       opacity: 0;
       transform: translateX(-20px);
     }
+
     to {
       opacity: 1;
       transform: translateX(0);
@@ -176,9 +897,22 @@ const description = "Learn more about Google DevFest Windsor 2026 - a community-
       opacity: 0;
       transform: translateX(20px);
     }
+
     to {
       opacity: 1;
       transform: translateX(0);
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
   }
 
@@ -190,92 +924,352 @@ const description = "Learn more about Google DevFest Windsor 2026 - a community-
     animation: fadeInRight 0.6s ease-out;
   }
 
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out both;
+  }
+
+  /* --------------------------------
+     ACCESSIBILITY
+  -------------------------------- */
+
+  .person-trigger:focus-visible,
+  .person-modal button:focus-visible,
+  .person-modal a:focus-visible {
+    outline: 3px solid #2563eb;
+    outline-offset: 4px;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .animate-fadeInLeft,
-    .animate-fadeInRight {
+    .animate-fadeInRight,
+    .animate-fade-in-up,
+    .blob-shape {
       animation: none;
+      opacity: 1;
+      transform: none;
+    }
+
+    .person-avatar-image,
+    .person-avatar-blob,
+    .person-bio-button {
+      transition: none;
     }
   }
 </style>
 
 <script>
-  // Translation handler for About page
-  const translations = {
+  const translations: Record<string, Record<string, string>> = {
     en: {
-      'about.title': 'Join the Community-Led Tech Conference',
-      'about.subtitle': 'DevFest Windsor is a community-led technical conference hosted by the Google Developer Group (GDC) Windsor. It\'s a premier local event designed to bring developers together to learn, connect, and build the future.',
-      'about.description': 'Whether you\'re a seasoned developer or just starting your tech journey, DevFest offers something for everyone. Experience inspiring talks, hands-on workshops, meaningful networking, and exclusive swag.',
-      'about.experienceTitle': 'What You\'ll Experience',
-      'about.experienceSubtitle': 'Four amazing things await you at DevFest Windsor 2026',
-      'about.talks': 'Expert Talks',
-      'about.talksDesc': 'Learn from industry leaders and Google Developer Experts about the latest technologies, best practices, and innovation in web, mobile, cloud, and AI.',
-      'about.workshops': 'Workshops',
-      'about.workshopsDesc': 'Hands-on sessions covering Web, Mobile, Cloud, and AI. Get hands-on experience and learn skills you can apply immediately.',
-      'about.networking': 'Networking',
-      'about.networkingDesc': 'Connect with fellow developers, startup founders, tech enthusiasts, and industry professionals. Build meaningful relationships in the tech community.',
-      'about.swag': 'Swag & Fun',
-      'about.swagDesc': 'Get exclusive DevFest gear, enjoy great food and drinks, participate in activities, and celebrate with the community at our amazing after-party.',
-      'about.expectedAttendees': 'Expected Attendees',
-      'about.amazingSpeakers': 'Amazing Speakers',
-      'about.hoursOfContent': 'Hours of Content',
-      'about.networkingValue': 'Networking Value',
-      'about.readyTitle': 'Ready to Join Us?',
-      'about.readyText': 'Secure your spot at DevFest Windsor 2026 and be part of the tech community\'s biggest event of the year.',
-      'nav.getTickets': 'Get Tickets',
+      heroEyebrow: "🔥 What is DevFest?",
+      heroTitle: "Join the Community-Led Tech Conference",
+      heroSubtitle:
+        "DevFest Windsor is a community-led technical conference hosted by Google Developer Group Windsor. It's a premier local event designed to bring developers together to learn, connect, and build the future.",
+      heroDescription:
+        "Whether you're a seasoned developer or just starting your tech journey, DevFest offers something for everyone. Experience inspiring talks, hands-on workshops, meaningful networking, and exclusive swag.",
+
+      organizersEyebrow: "MEET THE TEAM",
+      organizersTitle: "Meet Our Organizers",
+
+      moderatorEyebrow: "FIRESIDE CHAT",
+      moderatorTitle: "Meet Our Moderator",
+
+      panelistsEyebrow: "FIRESIDE CHAT",
+      panelistsTitle: "Meet Our Panelists",
+
+      bio: "Bio",
+      bioComingSoon:
+        "Biography coming soon. More information about this team member will be added shortly.",
+
+      gdgProfile: "GDG Profile ↗",
+      website: "Website ↗",
+
+      attendees: "Expected Attendees",
+      speakers: "Amazing Speakers",
+      hours: "Hours of Content",
+      networking: "Networking Value",
+
+      readyTitle: "Ready to Join Us?",
+      readyDescription:
+        "Secure your spot at DevFest Windsor 2026 and be part of the tech community's biggest event of the year.",
+      tickets: "Get Tickets",
     },
+
     fr: {
-      'about.title': 'Rejoignez la Conférence Technologique Communautaire',
-      'about.subtitle': 'DevFest Windsor est une conférence technologique dirigée par la communauté accueillie par le Google Developer Group (GDC) Windsor. C\'est un événement local de premier plan conçu pour réunir les développeurs afin qu\'ils apprennent, se connectent et construisent l\'avenir.',
-      'about.description': 'Que vous soyez un développeur expérimenté ou que vous commenciez tout juste votre parcours technologique, DevFest offre quelque chose pour tout le monde. Découvrez des exposés inspirants, des ateliers pratiques, des réseautages significatifs et du matériel exclusif.',
-      'about.experienceTitle': 'Ce que Vous Découvrirez',
-      'about.experienceSubtitle': 'Quatre choses extraordinaires vous attendent à DevFest Windsor 2026',
-      'about.talks': 'Exposés d\'experts',
-      'about.talksDesc': 'Apprenez des leaders du secteur et des experts Google Developer qui partagent leurs idées sur les dernières technologies, les meilleures pratiques et l\'innovation dans le web, le mobile, le cloud et l\'IA.',
-      'about.workshops': 'Ateliers',
-      'about.workshopsDesc': 'Des sessions pratiques couvrant le Web, le Mobile, le Cloud et l\'IA. Acquérez une expérience pratique et apprenez des compétences que vous pouvez appliquer immédiatement.',
-      'about.networking': 'Réseautage',
-      'about.networkingDesc': 'Connectez-vous avec d\'autres développeurs, des fondateurs de startups, des passionnés de technologie et des professionnels du secteur. Établissez des relations significatives dans la communauté technologique.',
-      'about.swag': 'Fournitures et Plaisir',
-      'about.swagDesc': 'Obtenez des équipements exclusifs DevFest, savourez une excellente nourriture et des boissons, participez à des activités et célébrez avec la communauté lors de notre incroyable après-fête.',
-      'about.expectedAttendees': 'Participants Attendus',
-      'about.amazingSpeakers': 'Conférenciers Extraordinaires',
-      'about.hoursOfContent': 'Heures de Contenu',
-      'about.networkingValue': 'Valeur du Réseautage',
-      'about.readyTitle': 'Prêt à nous rejoindre?',
-      'about.readyText': 'Sécurisez votre place à DevFest Windsor 2026 et faites partie du plus grand événement technologique communautaire de l\'année.',
-      'nav.getTickets': 'Obtenez Votre Billet Maintenant',
-    }
+      heroEyebrow: "🔥 Qu'est-ce que DevFest?",
+      heroTitle: "Rejoignez la conférence technologique communautaire",
+      heroSubtitle:
+        "DevFest Windsor est une conférence technologique communautaire organisée par Google Developer Group Windsor. Cet événement local rassemble les développeurs pour apprendre, échanger et construire l'avenir.",
+      heroDescription:
+        "Que vous soyez un développeur expérimenté ou que vous commenciez votre parcours technologique, DevFest offre quelque chose pour tout le monde. Découvrez des conférences inspirantes, des ateliers pratiques, des occasions de réseautage et des cadeaux exclusifs.",
+
+      organizersEyebrow: "RENCONTREZ L'ÉQUIPE",
+      organizersTitle: "Rencontrez nos organisateurs",
+
+      moderatorEyebrow: "DISCUSSION INFORMELLE",
+      moderatorTitle: "Rencontrez notre modératrice",
+
+      panelistsEyebrow: "DISCUSSION INFORMELLE",
+      panelistsTitle: "Rencontrez nos panélistes",
+
+      bio: "Bio",
+      bioComingSoon:
+        "Biographie à venir. Plus d'informations sur ce membre de l'équipe seront ajoutées prochainement.",
+
+      gdgProfile: "Profil GDG ↗",
+      website: "Site web ↗",
+
+      attendees: "Participants attendus",
+      speakers: "Conférenciers extraordinaires",
+      hours: "Heures de contenu",
+      networking: "Valeur du réseautage",
+
+      readyTitle: "Prêt à nous rejoindre?",
+      readyDescription:
+        "Réservez votre place à DevFest Windsor 2026 et participez à l'un des plus grands événements technologiques de notre communauté.",
+      tickets: "Obtenez votre billet",
+    },
   };
 
-  function updatePageTranslations() {
-    const currentLang = localStorage.getItem('language') || 'en';
-    const elements = document.querySelectorAll('[data-i18n]');
-    
-    elements.forEach((el) => {
-      const key = el.getAttribute('data-i18n');
-      if (translations[currentLang] && translations[currentLang][key]) {
-        el.textContent = translations[currentLang][key];
-      }
-    });
+  function getLanguage(): "en" | "fr" {
+    try {
+      return localStorage.getItem("language") === "fr"
+        ? "fr"
+        : "en";
+    } catch {
+      return "en";
+    }
   }
 
-  // Initialize translations on page load
-  updatePageTranslations();
+  function updateTranslations() {
+    const dictionary = translations[getLanguage()];
 
-  // Listen for language changes
-  window.addEventListener('storage', (e) => {
-    if (e.key === 'language') {
-      updatePageTranslations();
-    }
-  });
+    document
+      .querySelectorAll<HTMLElement>("[data-about-i18n]")
+      .forEach((element) => {
+        const key = element.dataset.aboutI18n;
 
-  // Check for language changes every 300ms
-  let lastLang = localStorage.getItem('language') || 'en';
-  const checkInterval = setInterval(() => {
-    const currentLang = localStorage.getItem('language') || 'en';
-    if (currentLang !== lastLang) {
-      lastLang = currentLang;
-      updatePageTranslations();
+        if (key && dictionary[key]) {
+          element.textContent = dictionary[key];
+        }
+      });
+
+    const modal =
+      document.querySelector<HTMLDialogElement>(
+        "#personBioModal"
+      );
+
+    const bioElement =
+      document.querySelector<HTMLElement>(
+        "#personModalBio"
+      );
+
+    if (
+      modal?.open &&
+      bioElement &&
+      modal.dataset.bioMissing === "true"
+    ) {
+      bioElement.textContent =
+        dictionary.bioComingSoon;
     }
-  }, 300);
+  }
+
+  function initializeAboutPage() {
+    const modal =
+      document.querySelector<HTMLDialogElement>(
+        "#personBioModal"
+      );
+
+    if (!modal) return;
+
+    if (modal.dataset.initialized === "true") {
+      updateTranslations();
+      return;
+    }
+
+    modal.dataset.initialized = "true";
+
+    const nameElement =
+      modal.querySelector<HTMLElement>(
+        "#personModalName"
+      );
+
+    const roleElement =
+      modal.querySelector<HTMLElement>(
+        "#personModalRole"
+      );
+
+    const companyElement =
+      modal.querySelector<HTMLElement>(
+        "#personModalCompany"
+      );
+
+    const bioElement =
+      modal.querySelector<HTMLElement>(
+        "#personModalBio"
+      );
+
+    const imageElement =
+      modal.querySelector<HTMLImageElement>(
+        "#personModalImage"
+      );
+
+    const profileLink =
+      modal.querySelector<HTMLAnchorElement>(
+        "#personModalProfile"
+      );
+
+    const websiteLink =
+      modal.querySelector<HTMLAnchorElement>(
+        "#personModalWebsite"
+      );
+
+    const closeButton =
+      modal.querySelector<HTMLButtonElement>(
+        "#closePersonModal"
+      );
+
+    function openBio(card: HTMLElement) {
+      if (
+        !nameElement ||
+        !roleElement ||
+        !companyElement ||
+        !bioElement ||
+        !imageElement
+      ) {
+        return;
+      }
+
+      const name = card.dataset.name || "";
+      const company = card.dataset.company || "";
+      const role = card.dataset.role || "";
+      const bio = card.dataset.bio?.trim() || "";
+      const image = card.dataset.image || "";
+      const profile = card.dataset.profile || "";
+      const website = card.dataset.website || "";
+
+      nameElement.textContent = name;
+      companyElement.textContent = company;
+      roleElement.textContent = role;
+
+      modal.dataset.bioMissing = bio
+        ? "false"
+        : "true";
+
+      bioElement.textContent =
+        bio ||
+        translations[getLanguage()].bioComingSoon;
+
+      imageElement.src = image;
+      imageElement.alt = name;
+
+      if (profileLink) {
+        profileLink.href = profile || "#";
+        profileLink.classList.toggle(
+          "hidden",
+          !profile
+        );
+      }
+
+      if (websiteLink) {
+        websiteLink.href = website || "#";
+        websiteLink.classList.toggle(
+          "hidden",
+          !website
+        );
+      }
+
+      updateTranslations();
+
+      if (!modal.open) {
+        modal.showModal();
+      }
+    }
+
+    document.addEventListener("click", (event) => {
+      const target = event.target;
+
+      if (!(target instanceof Element)) {
+        return;
+      }
+
+      const trigger = target.closest(
+        ".person-trigger"
+      );
+
+      if (!trigger) {
+        return;
+      }
+
+      const card = trigger.closest<HTMLElement>(
+        ".person-card"
+      );
+
+      if (card) {
+        openBio(card);
+      }
+    });
+
+    closeButton?.addEventListener("click", () => {
+      modal.close();
+    });
+
+    modal.addEventListener("click", (event) => {
+      if (event.target !== modal) {
+        return;
+      }
+
+      const rect = modal.getBoundingClientRect();
+
+      const outside =
+        event.clientX < rect.left ||
+        event.clientX > rect.right ||
+        event.clientY < rect.top ||
+        event.clientY > rect.bottom;
+
+      if (outside) {
+        modal.close();
+      }
+    });
+
+    updateTranslations();
+
+    const observer = new MutationObserver(
+      updateTranslations
+    );
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["lang"],
+    });
+
+    window.addEventListener("storage", (event) => {
+      if (event.key === "language") {
+        updateTranslations();
+      }
+    });
+
+    let lastLanguage = getLanguage();
+
+    const interval = window.setInterval(() => {
+      if (!modal.isConnected) {
+        window.clearInterval(interval);
+        observer.disconnect();
+        return;
+      }
+
+      const language = getLanguage();
+
+      if (language !== lastLanguage) {
+        lastLanguage = language;
+        updateTranslations();
+      }
+    }, 300);
+  }
+
+  initializeAboutPage();
+
+  document.addEventListener(
+    "astro:page-load",
+    initializeAboutPage
+  );
 </script>
