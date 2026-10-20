@@ -19,6 +19,14 @@ type Person = {
   website?: string;
 };
 
+type PeopleSection = {
+  id: string;
+  eyebrow: string;
+  title: string;
+  people: Person[];
+  background: string;
+};
+
 const organizers: Person[] = [
   {
     name: "Ali El-Sharif",
@@ -171,7 +179,34 @@ In addition to his role at RIIS LLC, he serves as an Adjunct Professor at multip
   },
 ];
 
-const sections = [
+const facilitators: Person[] = [
+  {
+    name: "Ron McKenzie",
+    company: "Greater Essex County District School Board",
+    role: "Teacher",
+    image: "/facilitators/RonMckenzie.webp",
+    color: "blue",
+    bio: `Ron McKenzie has been teaching Computer Science for 30 years, the last 22 of which have been at Vincent Massey High School. Ron has been recognized by The Mathematical Association of America, Newegg, WEST of Windsor, The Riverside Optimist Club, and WEtech Alliance for excellence in teaching and contributions to the community.
+
+Ron enjoys creating and supporting groups and communities, including Toastmasters, Debate, Computer Club, CodeReach, and MasseyHacks. This is his fourth year volunteering for the Windsor-Essex GDG's High School track.`,
+  },
+  {
+    name: "Rob Chaykoski",
+    company: "Ontario Health",
+    role: "Lead Security Engineer",
+    image: "/facilitators/RobChaykoski.webp",
+    color: "green",
+    bio: `Who am I?
+
+An Information Security professional that is currently employed at Ontario Health as a Lead Security Engineer in the Platform Engineering team, leading Zero-Trust initiatives, compliance, and governance.
+
+With 25 years of experience in Health Care, Oil and Gas, Insurance, Finance, and other verticals, helping with Information Security programs, operations, and industrial security controls, data, and architecture.
+
+Love of everything tech, UFOs, and Summer.`,
+  },
+];
+
+const sections: PeopleSection[] = [
   {
     id: "organizers",
     eyebrow: "MEET THE TEAM",
@@ -181,17 +216,24 @@ const sections = [
   },
   {
     id: "moderator",
-    eyebrow: "FIRESIDE CHAT",
+    eyebrow: "MEET THE PEOPLE",
     title: "Meet Our Moderator",
     people: [moderator],
     background: "bg-white",
   },
   {
     id: "panelists",
-    eyebrow: "FIRESIDE CHAT",
+    eyebrow: "MEET THE PEOPLE",
     title: "Meet Our Panelists",
     people: panelists,
     background: "bg-gradient-to-b from-slate-50 to-white",
+  },
+  {
+    id: "facilitators",
+    eyebrow: "MEET THE PEOPLE",
+    title: "Meet Our Facilitators",
+    people: facilitators,
+    background: "bg-white",
   },
 ];
 
@@ -211,14 +253,14 @@ const colors: Record<Person["color"], string> = {
   <Header logoSrc="/web-app-manifest-512x512.png" />
 
   <main class="pt-20">
-
     <!-- ABOUT HERO -->
     <section class="bg-white py-12 md:py-20">
       <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div class="grid items-center gap-10 md:grid-cols-2 md:gap-12">
-
           <div class="animate-fadeInLeft">
-            <div class="overflow-hidden rounded-3xl border-8 border-yellow-400 shadow-2xl">
+            <div
+              class="overflow-hidden rounded-3xl border-8 border-yellow-400 shadow-2xl"
+            >
               <img
                 src="/AboutSectionImage.png"
                 alt="DevFest Windsor Conference"
@@ -246,17 +288,21 @@ const colors: Record<Person["color"], string> = {
               class="mb-6 text-lg leading-relaxed text-slate-600"
               data-about-i18n="heroSubtitle"
             >
-              DevFest Windsor is a community-led technical conference hosted by Google Developer Group Windsor. It's a premier local event designed to bring developers together to learn, connect, and build the future.
+              DevFest Windsor is a community-led technical conference hosted by
+              Google Developer Group Windsor. It's a premier local event designed
+              to bring developers together to learn, connect, and build the future.
             </p>
 
             <p
               class="text-lg leading-relaxed text-slate-600"
               data-about-i18n="heroDescription"
             >
-              Whether you're a seasoned developer or just starting your tech journey, DevFest offers something for everyone. Experience inspiring talks, hands-on workshops, meaningful networking, and exclusive swag.
+              Whether you're a seasoned developer or just starting your tech
+              journey, DevFest offers something for everyone. Experience
+              inspiring talks, hands-on workshops, meaningful networking,
+              and exclusive swag.
             </p>
           </div>
-
         </div>
       </div>
     </section>
@@ -270,8 +316,7 @@ const colors: Record<Person["color"], string> = {
           aria-labelledby={`${section.id}-heading`}
         >
           <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-
-            <!-- HEADING -->
+            <!-- SECTION HEADING -->
             <div class="mb-12 sm:mb-16">
               <span
                 class="text-sm font-bold uppercase tracking-widest text-blue-600"
@@ -284,10 +329,10 @@ const colors: Record<Person["color"], string> = {
                 class="mb-6 mt-6 flex w-full max-w-sm gap-2"
                 aria-hidden="true"
               >
-                <span class="h-1.5 flex-1 rounded-full bg-blue-600"></span>
-                <span class="h-1.5 flex-1 rounded-full bg-red-600"></span>
-                <span class="h-1.5 flex-1 rounded-full bg-yellow-400"></span>
-                <span class="h-1.5 flex-1 rounded-full bg-green-600"></span>
+                <span class="h-1.5 flex-1 rounded-full bg-blue-600" />
+                <span class="h-1.5 flex-1 rounded-full bg-red-600" />
+                <span class="h-1.5 flex-1 rounded-full bg-yellow-400" />
+                <span class="h-1.5 flex-1 rounded-full bg-green-600" />
               </div>
 
               <h2
@@ -304,6 +349,7 @@ const colors: Record<Person["color"], string> = {
               class:list={[
                 "people-grid",
                 section.id === "moderator" && "people-grid--moderator",
+                section.id === "facilitators" && "people-grid--facilitators",
               ]}
             >
               {section.people.map((person, index) => (
@@ -318,7 +364,6 @@ const colors: Record<Person["color"], string> = {
                   data-profile={person.profile || ""}
                   data-website={person.website || ""}
                 >
-
                   <!-- CLICKABLE PHOTO -->
                   <button
                     type="button"
@@ -330,7 +375,7 @@ const colors: Record<Person["color"], string> = {
                     <span
                       class={`blob-shape person-avatar-blob ${colors[person.color]}`}
                       aria-hidden="true"
-                    ></span>
+                    />
 
                     <img
                       src={person.image}
@@ -338,12 +383,13 @@ const colors: Record<Person["color"], string> = {
                       class="person-avatar-image"
                       loading="lazy"
                       decoding="async"
+                      width="160"
+                      height="160"
                     />
                   </button>
 
                   <!-- CONTENT -->
                   <div class="person-content">
-
                     <h3 class="person-name">
                       {person.name}
                     </h3>
@@ -355,10 +401,9 @@ const colors: Record<Person["color"], string> = {
                     <p class="person-role">
                       {person.role}
                     </p>
-
                   </div>
 
-                  <!-- ALWAYS SHOW BIO BUTTON -->
+                  <!-- BIO BUTTON -->
                   <button
                     type="button"
                     class="person-trigger person-bio-button"
@@ -368,21 +413,20 @@ const colors: Record<Person["color"], string> = {
                   >
                     <span data-about-i18n="bio">Bio</span>
                   </button>
-
                 </article>
               ))}
             </div>
-
           </div>
         </section>
       ))
     }
 
     <!-- STATS -->
-    <section class="bg-gradient-to-r from-blue-600 via-green-500 to-yellow-400 py-16 md:py-24">
+    <section
+      class="bg-gradient-to-r from-blue-600 via-green-500 to-yellow-400 py-16 md:py-24"
+    >
       <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-2 gap-8 text-center text-white md:grid-cols-4">
-
           <div>
             <div class="mb-2 text-4xl font-bold sm:text-5xl md:text-6xl">
               500+
@@ -430,7 +474,6 @@ const colors: Record<Person["color"], string> = {
               Networking Value
             </p>
           </div>
-
         </div>
       </div>
     </section>
@@ -438,7 +481,6 @@ const colors: Record<Person["color"], string> = {
     <!-- CTA -->
     <section class="bg-white py-16 md:py-24">
       <div class="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
-
         <h2
           class="mb-6 text-3xl font-bold text-slate-900 md:text-4xl"
           data-about-i18n="readyTitle"
@@ -450,7 +492,8 @@ const colors: Record<Person["color"], string> = {
           class="mb-8 text-lg text-slate-600"
           data-about-i18n="readyDescription"
         >
-          Secure your spot at DevFest Windsor 2026 and be part of the tech community's biggest event of the year.
+          Secure your spot at DevFest Windsor 2026 and be part of the tech
+          community's biggest event of the year.
         </p>
 
         <a
@@ -462,10 +505,8 @@ const colors: Record<Person["color"], string> = {
         >
           Get Tickets
         </a>
-
       </div>
     </section>
-
   </main>
 
   <!-- SHARED BIO MODAL -->
@@ -475,9 +516,7 @@ const colors: Record<Person["color"], string> = {
     aria-labelledby="personModalName"
   >
     <div class="person-modal-inner">
-
       <div class="mb-5 flex items-start justify-between gap-4">
-
         <div class="min-w-0">
           <h2
             id="personModalName"
@@ -503,13 +542,14 @@ const colors: Record<Person["color"], string> = {
         >
           ×
         </button>
-
       </div>
 
       <img
         id="personModalImage"
         alt=""
         class="mb-5 h-24 w-24 rounded-full object-cover"
+        width="96"
+        height="96"
       />
 
       <p
@@ -518,7 +558,6 @@ const colors: Record<Person["color"], string> = {
       ></p>
 
       <div class="mt-6 flex flex-wrap gap-4">
-
         <a
           id="personModalProfile"
           href="#"
@@ -540,18 +579,13 @@ const colors: Record<Person["color"], string> = {
         >
           Website ↗
         </a>
-
       </div>
-
     </div>
   </dialog>
-
 </BaseLayout>
 
 <style>
-  /* --------------------------------
-     PEOPLE GRID
-  -------------------------------- */
+  /* PEOPLE GRID */
 
   .people-grid {
     display: grid;
@@ -571,9 +605,12 @@ const colors: Record<Person["color"], string> = {
     max-width: 280px;
   }
 
-  /* --------------------------------
-     PERSON CARD
-  -------------------------------- */
+  .people-grid--facilitators {
+    max-width: 640px;
+    margin-inline: auto;
+  }
+
+  /* PERSON CARD */
 
   .person-card {
     display: flex;
@@ -586,9 +623,7 @@ const colors: Record<Person["color"], string> = {
     padding: 0 2px;
   }
 
-  /* --------------------------------
-     PROFILE PHOTO
-  -------------------------------- */
+  /* PROFILE PHOTO */
 
   .person-avatar-button {
     position: relative;
@@ -654,10 +689,7 @@ const colors: Record<Person["color"], string> = {
     }
   }
 
-  /* --------------------------------
-     CONTENT AREA
-     Keeps all buttons aligned
-  -------------------------------- */
+  /* CONTENT */
 
   .person-content {
     display: flex;
@@ -697,10 +729,7 @@ const colors: Record<Person["color"], string> = {
     hyphens: auto;
   }
 
-  /* --------------------------------
-     BIO BUTTON
-     Always at bottom of card
-  -------------------------------- */
+  /* BIO BUTTON */
 
   .person-bio-button {
     display: inline-flex;
@@ -730,9 +759,7 @@ const colors: Record<Person["color"], string> = {
     transform: translateY(-2px);
   }
 
-  /* --------------------------------
-     TABLET AND DESKTOP
-  -------------------------------- */
+  /* TABLET AND DESKTOP */
 
   @media (min-width: 640px) {
     .people-grid {
@@ -762,6 +789,10 @@ const colors: Record<Person["color"], string> = {
       grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 
+    .people-grid--facilitators {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
     .person-avatar-button {
       width: 160px;
       height: 160px;
@@ -772,9 +803,7 @@ const colors: Record<Person["color"], string> = {
     }
   }
 
-  /* --------------------------------
-     MOBILE
-  -------------------------------- */
+  /* MOBILE */
 
   @media (max-width: 639px) {
     .people-grid {
@@ -815,7 +844,6 @@ const colors: Record<Person["color"], string> = {
     }
   }
 
-  /* Very narrow screens */
   @media (max-width: 319px) {
     .people-grid {
       grid-template-columns: minmax(0, 1fr);
@@ -840,9 +868,7 @@ const colors: Record<Person["color"], string> = {
     }
   }
 
-  /* --------------------------------
-     MODAL
-  -------------------------------- */
+  /* MODAL */
 
   .person-modal {
     width: min(42rem, calc(100% - 24px));
@@ -876,9 +902,7 @@ const colors: Record<Person["color"], string> = {
     }
   }
 
-  /* --------------------------------
-     ANIMATIONS
-  -------------------------------- */
+  /* ANIMATIONS */
 
   @keyframes fadeInLeft {
     from {
@@ -928,9 +952,7 @@ const colors: Record<Person["color"], string> = {
     animation: fadeInUp 0.6s ease-out both;
   }
 
-  /* --------------------------------
-     ACCESSIBILITY
-  -------------------------------- */
+  /* ACCESSIBILITY */
 
   .person-trigger:focus-visible,
   .person-modal button:focus-visible,
@@ -970,11 +992,14 @@ const colors: Record<Person["color"], string> = {
       organizersEyebrow: "MEET THE TEAM",
       organizersTitle: "Meet Our Organizers",
 
-      moderatorEyebrow: "FIRESIDE CHAT",
+      moderatorEyebrow: "MEET THE PEOPLE",
       moderatorTitle: "Meet Our Moderator",
 
-      panelistsEyebrow: "FIRESIDE CHAT",
+      panelistsEyebrow: "MEET THE PEOPLE",
       panelistsTitle: "Meet Our Panelists",
+
+      facilitatorsEyebrow: "MEET THE PEOPLE",
+      facilitatorsTitle: "Meet Our Facilitators",
 
       bio: "Bio",
       bioComingSoon:
@@ -1005,11 +1030,14 @@ const colors: Record<Person["color"], string> = {
       organizersEyebrow: "RENCONTREZ L'ÉQUIPE",
       organizersTitle: "Rencontrez nos organisateurs",
 
-      moderatorEyebrow: "DISCUSSION INFORMELLE",
+      moderatorEyebrow: "RENCONTREZ LES INTERVENANTS",
       moderatorTitle: "Rencontrez notre modératrice",
 
-      panelistsEyebrow: "DISCUSSION INFORMELLE",
+      panelistsEyebrow: "RENCONTREZ LES INTERVENANTS",
       panelistsTitle: "Rencontrez nos panélistes",
+
+      facilitatorsEyebrow: "RENCONTREZ LES INTERVENANTS",
+      facilitatorsTitle: "Rencontrez nos facilitateurs",
 
       bio: "Bio",
       bioComingSoon:
@@ -1068,8 +1096,7 @@ const colors: Record<Person["color"], string> = {
       bioElement &&
       modal.dataset.bioMissing === "true"
     ) {
-      bioElement.textContent =
-        dictionary.bioComingSoon;
+      bioElement.textContent = dictionary.bioComingSoon;
     }
   }
 
@@ -1128,6 +1155,8 @@ const colors: Record<Person["color"], string> = {
         "#closePersonModal"
       );
 
+    let previousFocus: HTMLElement | null = null;
+
     function openBio(card: HTMLElement) {
       if (
         !nameElement ||
@@ -1147,6 +1176,8 @@ const colors: Record<Person["color"], string> = {
       const profile = card.dataset.profile || "";
       const website = card.dataset.website || "";
 
+      previousFocus = document.activeElement as HTMLElement | null;
+
       nameElement.textContent = name;
       companyElement.textContent = company;
       roleElement.textContent = role;
@@ -1156,26 +1187,19 @@ const colors: Record<Person["color"], string> = {
         : "true";
 
       bioElement.textContent =
-        bio ||
-        translations[getLanguage()].bioComingSoon;
+        bio || translations[getLanguage()].bioComingSoon;
 
       imageElement.src = image;
       imageElement.alt = name;
 
       if (profileLink) {
         profileLink.href = profile || "#";
-        profileLink.classList.toggle(
-          "hidden",
-          !profile
-        );
+        profileLink.classList.toggle("hidden", !profile);
       }
 
       if (websiteLink) {
         websiteLink.href = website || "#";
-        websiteLink.classList.toggle(
-          "hidden",
-          !website
-        );
+        websiteLink.classList.toggle("hidden", !website);
       }
 
       updateTranslations();
@@ -1192,17 +1216,13 @@ const colors: Record<Person["color"], string> = {
         return;
       }
 
-      const trigger = target.closest(
-        ".person-trigger"
-      );
+      const trigger = target.closest(".person-trigger");
 
       if (!trigger) {
         return;
       }
 
-      const card = trigger.closest<HTMLElement>(
-        ".person-card"
-      );
+      const card = trigger.closest<HTMLElement>(".person-card");
 
       if (card) {
         openBio(card);
@@ -1211,6 +1231,10 @@ const colors: Record<Person["color"], string> = {
 
     closeButton?.addEventListener("click", () => {
       modal.close();
+    });
+
+    modal.addEventListener("close", () => {
+      previousFocus?.focus();
     });
 
     modal.addEventListener("click", (event) => {
@@ -1233,9 +1257,7 @@ const colors: Record<Person["color"], string> = {
 
     updateTranslations();
 
-    const observer = new MutationObserver(
-      updateTranslations
-    );
+    const observer = new MutationObserver(updateTranslations);
 
     observer.observe(document.documentElement, {
       attributes: true,
@@ -1247,6 +1269,9 @@ const colors: Record<Person["color"], string> = {
         updateTranslations();
       }
     });
+
+    document.addEventListener("languageChanged", updateTranslations);
+    document.addEventListener("languagechange", updateTranslations);
 
     let lastLanguage = getLanguage();
 
