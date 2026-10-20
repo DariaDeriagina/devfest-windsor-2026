@@ -24,6 +24,17 @@
     "description": "Browse sessions across five tracks designed for every developer and interest. Find talks, hands-on labs, and panels that match your goals.",
     "filterBy": "Filter by"
   },
+  "sponsors": {
+    "title": "Thank You to Our Sponsors and Partners",
+    "description": "DevFest Windsor 2026 is made possible through the support of organizations and community partners who believe in empowering developers and building a stronger technology future.",
+    "ourSponsors": "Our Sponsors",
+    "communityPartners": "Community Partners",
+    "comingSoon": "Coming Soon",
+    "partnersComing": "Community partners coming soon",
+    "ctaText": "Interested in sponsoring or partnering with DevFest Windsor 2026?",
+    "contactBtn": "Contact Us",
+    "label": "Sponsors & Partners"
+  },
   "application": {
     "label": "Our Application",
     "title": "Download Our DevFest App",
@@ -40,7 +51,7 @@
   },
   "cta": {
     "title": "Ready to join the community?",
-    "description": "Secure your spot at DevFest Windsor 2026. Tickets include full access to all talks, workshops, meals, and the legendary after-party.",
+    "description": "Secure your spot at DevFest Windsor 2026. Connect with the developer community and explore inspiring talks, workshops, and networking opportunities.",
     "button": "Get Your Ticket Now"
   },
   "tickets": {
@@ -89,7 +100,7 @@
   },
   "about": {
     "title": "Join the Community-Led Tech Conference",
-    "subtitle": "DevFest Windsor is a community-led technical conference hosted by the Google Developer Group (GDC) Windsor. It's a premier local event designed to bring developers together to learn, connect, and build the future.",
+    "subtitle": "DevFest Windsor is a community-led technical conference hosted by the Google Developer Group (GDG) Windsor. It's a premier local event designed to bring developers together to learn, connect, and build the future.",
     "description": "Whether you're a seasoned developer or just starting your tech journey, DevFest offers something for everyone. Experience inspiring talks, hands-on workshops, meaningful networking, and exclusive swag.",
     "experienceTitle": "What You'll Experience",
     "experienceSubtitle": "Four amazing things await you at DevFest Windsor 2026",
@@ -100,7 +111,7 @@
     "networking": "Networking",
     "networkingDesc": "Connect with fellow developers, startup founders, tech enthusiasts, and industry professionals. Build meaningful relationships in the tech community.",
     "swag": "Swag & Fun",
-    "swagDesc": "Get exclusive DevFest gear, enjoy great food and drinks, participate in activities, and celebrate with the community at our amazing after-party.",
+    "swagDesc": "Connect with the community, discover new ideas, and enjoy the energy of DevFest Windsor 2026.",
     "readyTitle": "Ready to Join Us?",
     "readyText": "Secure your spot at DevFest Windsor 2026 and be part of the tech community's biggest event of the year."
   },
