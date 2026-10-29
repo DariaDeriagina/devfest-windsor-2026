@@ -86,7 +86,7 @@ export const FEATURED_SPEAKERS: Speaker[] = [
   name: "Frank Abbruzzese",
   role: "Principal | The Networking Alchemist™",
   company: "AlphaKOR",
-  imageUrl: "/speakers/frank-abbruzzese-v2.webp",
+  imageUrl: "/speakers/frank-abbruzzese2.webp",
   imageAlt: "Frank Abbruzzese",
   linkedinUrl: "https://www.linkedin.com/in/frankabbruzzese/",
   accentColor: "gold",
