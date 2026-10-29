@@ -13,17 +13,17 @@ const formattedDate = date.toLocaleDateString("en-US", {
 const developers = [
   {
     name: "Daria",
-    icon: "/icons/dashaIcon.png",
+    icon: "/icons/dashaIcon.jpg",
     linkedin: "https://www.linkedin.com/in/daria-web-design/",
   },
   {
     name: "Arunesh",
-    icon: "/icons/aruneshIcon.png",
+    icon: "/icons/aruneshIcon.jpg",
     linkedin: "https://www.linkedin.com/in/aruneshchoudhary",
   },
   {
     name: "Camila",
-    icon: "/icons/camilaIcon.png",
+    icon: "/icons/camilaIcon.jpg",
     linkedin: "https://www.linkedin.com/in/lizeth-camila-gaitan-baron",
   },
 ];
@@ -43,11 +43,15 @@ const developers = [
         <div
           class="flex items-start justify-center md:justify-start gap-6 mb-6"
         >
-          <img
-            src="/web-app-manifest-512x512.png"
-            alt="GDG Windsor Logo"
-            class="h-32 w-32 flex-shrink-0"
-          />
+         <img
+  src="/web-app-manifest-512x512.webp"
+  alt="GDG Windsor Logo"
+  width="128"
+  height="128"
+  loading="lazy"
+  decoding="async"
+  class="h-32 w-32 flex-shrink-0"
+/>
 
           <div class="flex flex-col -space-y-2 pt-8">
             <span

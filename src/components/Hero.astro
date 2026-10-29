@@ -42,13 +42,15 @@ const formattedDate = date.toLocaleDateString("en-US", {
         <!-- GDG logo + event title -->
         <div class="hero-brand">
           <img
-            src="/web-app-manifest-512x512.png"
-            alt="GDG Windsor"
-            width="512"
-            height="512"
-            class="hero-brand-logo"
-            loading="eager"
-          />
+  src="/web-app-manifest-512x512.webp"
+  alt="GDG Windsor"
+  width="512"
+  height="512"
+  class="hero-brand-logo"
+  loading="eager"
+  decoding="async"
+  fetchpriority="high"
+/>
 
           <h1 id="hero-title" class="hero-brand-title">
             <span class="sr-only">GDG Windsor </span>
