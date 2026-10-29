@@ -136,11 +136,15 @@ const formattedDate = date.toLocaleDateString("en-US", {
       <div class="hidden md:block min-w-0 hero-slide-in">
         <div class="hero-float">
           <div class="hero-image-frame relative rounded-3xl overflow-hidden shadow-2xl">
-            <img
-              src={hero.imageUrl}
-              alt={hero.imageAlt}
-              class="w-full h-auto object-cover"
-            />
+           <img
+  src={hero.imageUrl}
+  alt={hero.imageAlt}
+  width="800"
+  height="600"
+  loading="lazy"
+  decoding="async"
+  class="w-full h-auto object-cover"
+/>
           </div>
         </div>
       </div>

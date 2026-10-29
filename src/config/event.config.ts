@@ -26,7 +26,7 @@ export const EVENT_2026: EventConfig = {
       text: "View Schedule",
       href: "#schedule",
     },
-    imageUrl: "/hero-image.jpg",
+    imageUrl: "/hero-image.webp",
     imageAlt: "Developers at Windsor campus",
   },
   seo: {
