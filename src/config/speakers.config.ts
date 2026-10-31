@@ -5,7 +5,7 @@ export const FEATURED_SPEAKERS: Speaker[] = [
     name: "Serg Masís",
     role: "Climate and Agronomic Data Scientist",
     company: "Syngenta",
-    imageUrl: "/speakers/serg-masis.webp",
+    imageUrl: "/speakers/serg-masis-v2.webp",
     imageAlt: "Serg Masís",
     linkedinUrl: "https://www.linkedin.com/in/smasis/",
     accentColor: "blue",
