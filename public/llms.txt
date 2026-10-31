@@ -1,0 +1,20 @@
+# GDG Windsor DevFest 2026
+
+> Official website for GDG Windsor DevFest 2026, a developer conference in Windsor, Ontario, Canada.
+
+## Event Information
+
+- Event: GDG Windsor DevFest 2026
+- Date: November 21, 2026
+- Location: Windsor, Ontario, Canada
+- Website: https://wedevfest.com/
+
+## Important Pages
+
+- [Home](https://wedevfest.com/): Event overview, speakers, schedule, and registration.
+- [About](https://wedevfest.com/about): Information about the event.
+- [Venue](https://wedevfest.com/venue): Venue information.
+
+## About the Event
+
+GDG Windsor DevFest 2026 brings together developers, technology enthusiasts, and industry professionals to learn, connect, and share knowledge.
