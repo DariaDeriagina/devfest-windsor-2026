@@ -423,6 +423,11 @@ const linkedinPath =
      SPEAKER GRID
   ===================================== */
 
+  /* Separate the first four speakers from the expanded rows. */
+  #additionalSpeakersContainer:not(.hidden) {
+    margin-top: 4rem;
+  }
+
   .speaker-grid {
     width: 100%;
   }
@@ -735,6 +740,10 @@ const linkedinPath =
   ===================================== */
 
   @media (max-width: 767px) {
+    #additionalSpeakersContainer:not(.hidden) {
+      margin-top: 2.75rem;
+    }
+
     .speaker-grid-regular {
       grid-template-columns: repeat(2, minmax(0, 1fr));
       column-gap: 0.875rem;
